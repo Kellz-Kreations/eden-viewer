@@ -89,6 +89,11 @@ if ($dockerCmd) {
 
 if ($dockerExe) {
   try {
+    $dockerBin = Split-Path -Parent $dockerExe
+    if ($dockerBin -and ($env:PATH -notlike "*$dockerBin*")) {
+      $env:PATH = "$dockerBin;$env:PATH"
+    }
+
     Write-Info "Running: docker compose --env-file .env.example config"
     Push-Location $ProjectRoot
     & $dockerExe compose --env-file .env.example config | Out-Null

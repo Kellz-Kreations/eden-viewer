@@ -1,0 +1,11 @@
+name: synology-media-stack-setup
+
+services:
+  setup-ui:
+    build:
+      context: ./setup-ui
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/repo:ro
+    restart: unless-stopped

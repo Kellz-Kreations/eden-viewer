@@ -76,13 +76,24 @@ pwsh -NoProfile -File .\scripts\setup.ps1
 If you prefer a browser-based setup, start the setup UI and download a generated `.env`:
 
 ```powershell
-docker compose --env-file .env.example up -d --build setup-ui
+docker compose -f compose.setup.yaml up -d --build
 ```
 
 Then open:
-- `http://<NAS-IP>:8080/`
+- `https://<NAS-IP>:8080/`
+
+Note: the setup UI uses a self-signed certificate by default, so your browser will show a security warning the first time.
+
+This setup-only compose file is intended for first run and does not require a `.env` to exist yet.
 
 Download the `.env` file and place it next to `compose.yaml`, then redeploy your project.
+
+If you used the setup-only compose file, stop it before starting the full stack (avoids port 8080 conflicts):
+
+```powershell
+docker compose -f compose.setup.yaml down
+docker compose up -d
+```
 
 Notes:
 - `PLEX_CLAIM` is only needed for the initial Plex server claim; after Plex is claimed you can blank it out.

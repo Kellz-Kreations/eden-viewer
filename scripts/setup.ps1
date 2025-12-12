@@ -96,6 +96,10 @@ if ($dockerCmd) {
 if ($dockerExe) {
   try {
     Push-Location $ProjectRoot
+    $dockerBin = Split-Path -Parent $dockerExe
+    if ($dockerBin -and ($env:PATH -notlike "*$dockerBin*")) {
+      $env:PATH = "$dockerBin;$env:PATH"
+    }
     & $dockerExe compose config | Out-Null
     Pop-Location
     Write-Host "Validated: docker compose config OK"
