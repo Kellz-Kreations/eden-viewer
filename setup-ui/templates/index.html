@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Synology Media Stack Setup</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 24px; max-width: 720px; }
+    h1 { margin: 0 0 8px 0; }
+    p { margin: 8px 0; }
+    label { display:block; margin-top: 14px; font-weight: 600; }
+    input { width: 100%; padding: 10px; box-sizing: border-box; }
+    .hint { font-size: 12px; color: #444; }
+    .row { display:flex; gap: 12px; }
+    .row > div { flex: 1; }
+    button { margin-top: 18px; padding: 10px 14px; font-weight: 600; }
+    code { background: #f4f4f4; padding: 2px 6px; }
+  </style>
+</head>
+<body>
+  <h1>First run setup</h1>
+  <p>Fill in values and click <strong>Download .env</strong>. Then place the downloaded <code>.env</code> next to <code>compose.yaml</code> and redeploy.</p>
+
+  <form method="post" action="/download" autocomplete="off">
+    <label for="APPDATA_ROOT">APPDATA_ROOT</label>
+    <input id="APPDATA_ROOT" name="APPDATA_ROOT" value="{{ defaults.APPDATA_ROOT }}" />
+    <div class="hint">Synology example: <code>/volume1/docker/appdata</code></div>
+
+    <label for="DATA_ROOT">DATA_ROOT</label>
+    <input id="DATA_ROOT" name="DATA_ROOT" value="{{ defaults.DATA_ROOT }}" />
+    <div class="hint">Synology example: <code>/volume1/data</code></div>
+
+    <label for="TRANSCODE_ROOT">TRANSCODE_ROOT</label>
+    <input id="TRANSCODE_ROOT" name="TRANSCODE_ROOT" value="{{ defaults.TRANSCODE_ROOT }}" />
+    <div class="hint">Synology example: <code>/volume1/docker/transcode</code></div>
+
+    <div class="row">
+      <div>
+        <label for="PUID">PUID</label>
+        <input id="PUID" name="PUID" value="{{ defaults.PUID }}" inputmode="numeric" />
+      </div>
+      <div>
+        <label for="PGID">PGID</label>
+        <input id="PGID" name="PGID" value="{{ defaults.PGID }}" inputmode="numeric" />
+      </div>
+    </div>
+
+    <label for="TZ">TZ</label>
+    <input id="TZ" name="TZ" value="{{ defaults.TZ }}" />
+    <div class="hint">Example: <code>America/Chicago</code></div>
+
+    <label for="PLEX_CLAIM">PLEX_CLAIM (optional)</label>
+    <input id="PLEX_CLAIM" name="PLEX_CLAIM" type="password" value="" />
+    <div class="hint">Only needed for the initial Plex claim. Leave blank after claiming.</div>
+
+    <button type="submit">Download .env</button>
+  </form>
+</body>
+</html>

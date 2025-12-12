@@ -72,6 +72,18 @@ Generate your `.env` interactively (prompts for paths, PUID/PGID, and optional `
 pwsh -NoProfile -File .\scripts\setup.ps1
 ```
 
+### First run (web UI)
+If you prefer a browser-based setup, start the setup UI and download a generated `.env`:
+
+```powershell
+docker compose --env-file .env.example up -d --build setup-ui
+```
+
+Then open:
+- `http://<NAS-IP>:8080/`
+
+Download the `.env` file and place it next to `compose.yaml`, then redeploy your project.
+
 Notes:
 - `PLEX_CLAIM` is only needed for the initial Plex server claim; after Plex is claimed you can blank it out.
 - This repo ignores `.env` via `.gitignore`.

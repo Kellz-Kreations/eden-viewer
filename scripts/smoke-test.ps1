@@ -48,7 +48,7 @@ foreach ($key in $requiredEnvKeys) {
 $composeText = Get-Content -Path $composePath -Raw
 
 # Ensure only the intended services are present
-$serviceNames = @('plex','sonarr','radarr')
+$serviceNames = @('setup-ui','plex','sonarr','radarr')
 foreach ($svc in $serviceNames) {
   Assert-True ($composeText -match "(?m)^\s+${svc}:\s*$") "Compose defines service: $svc"
 }
