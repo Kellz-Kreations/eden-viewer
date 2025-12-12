@@ -6,7 +6,29 @@ CERT_FILE="${CERT_FILE:-$CERT_DIR/localhost.crt}"
 KEY_FILE="${KEY_FILE:-$CERT_DIR/localhost.key}"
 DAYS="${CERT_DAYS:-30}"
 
+# Bring-your-own certificate support (recommended for trusted HTTPS on Synology):
+# - Mount your cert/key into the container
+# - Set SETUP_UI_CERT_FILE and SETUP_UI_KEY_FILE to those paths
+CUSTOM_CERT_FILE="${SETUP_UI_CERT_FILE:-}"
+CUSTOM_KEY_FILE="${SETUP_UI_KEY_FILE:-}"
+
 mkdir -p "$CERT_DIR"
+
+if [ -n "$CUSTOM_CERT_FILE" ] && [ -n "$CUSTOM_KEY_FILE" ]; then
+  if [ ! -s "$CUSTOM_CERT_FILE" ] || [ ! -s "$CUSTOM_KEY_FILE" ]; then
+    echo "Custom TLS cert/key specified but not found or empty." >&2
+    exit 1
+  fi
+
+  exec gunicorn \
+    -b 0.0.0.0:8080 \
+    --workers 2 \
+    --threads 4 \
+    --timeout 30 \
+    --certfile "$CUSTOM_CERT_FILE" \
+    --keyfile "$CUSTOM_KEY_FILE" \
+    app:app
+fi
 
 if [ ! -s "$CERT_FILE" ] || [ ! -s "$KEY_FILE" ]; then
   OPENSSL_CNF="$CERT_DIR/openssl.cnf"

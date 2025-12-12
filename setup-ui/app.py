@@ -5,6 +5,7 @@ from pathlib import Path
 from zoneinfo import available_timezones
 from flask import Flask, Response, abort, make_response, render_template, request
 from werkzeug.exceptions import HTTPException
+from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = 32 * 1024
@@ -35,14 +36,14 @@ def _sanitize_env_value(value: str) -> str:
 def _sanitize_numeric(value: str) -> str:
     value = _sanitize_env_value(value)
     if not value.isdigit():
-        abort(400, description="PUID/PGID must be numeric")
+        abort(400, description="Must be numeric")
     return value
 
 
 def _ensure_valid_timezone(value: str, tz_set: set[str]) -> str:
     value = _sanitize_env_value(value)
     if value not in tz_set:
-        abort(400, description="Invalid TZ")
+        abort(400, description="Invalid timezone")
     return value
 
 
@@ -53,8 +54,13 @@ def _get_or_set_csrf() -> str:
     return token
 
 
-def _render_index(*, error_message: str | None = None, status_code: int = 200, overrides: dict[str, str] | None = None):
-    # If the repo is mounted, use .env.example to prefill defaults.
+def _render_index(
+    *,
+    error_message: str | None = None,
+    status_code: int = 200,
+    overrides: dict[str, str] | None = None,
+    field_errors: dict[str, str] | None = None,
+):
     repo_env_example = Path(os.environ.get("REPO_ENV_EXAMPLE", "/repo/.env.example"))
     file_defaults = parse_env_file(repo_env_example)
 
@@ -72,10 +78,10 @@ def _render_index(*, error_message: str | None = None, status_code: int = 200, o
             timezones=timezones,
             csrf=csrf,
             error_message=error_message,
+            field_errors=field_errors or {},
         ),
         status_code,
     )
-    # Secure cookies only when served over HTTPS.
     resp.set_cookie(
         "csrf",
         csrf,
@@ -164,27 +170,58 @@ def download():
         abort(403, description="Your session expired. Refresh the page and try again.")
 
     tz_set = set(available_timezones())
-    try:
-        values = {
-            "APPDATA_ROOT": _sanitize_env_value(request.form.get("APPDATA_ROOT", "")),
-            "DATA_ROOT": _sanitize_env_value(request.form.get("DATA_ROOT", "")),
-            "TRANSCODE_ROOT": _sanitize_env_value(request.form.get("TRANSCODE_ROOT", "")),
-            "PUID": _sanitize_numeric(request.form.get("PUID", "")),
-            "PGID": _sanitize_numeric(request.form.get("PGID", "")),
-            "TZ": _ensure_valid_timezone(request.form.get("TZ", ""), tz_set),
-            "PLEX_CLAIM": _sanitize_env_value(request.form.get("PLEX_CLAIM", "")),
-        }
-    except HTTPException as e:
-        # Preserve what the user typed (but never reflect the claim token).
-        overrides = {
-            "APPDATA_ROOT": _sanitize_env_value(request.form.get("APPDATA_ROOT", "")),
-            "DATA_ROOT": _sanitize_env_value(request.form.get("DATA_ROOT", "")),
-            "TRANSCODE_ROOT": _sanitize_env_value(request.form.get("TRANSCODE_ROOT", "")),
-            "PUID": _sanitize_env_value(request.form.get("PUID", "")),
-            "PGID": _sanitize_env_value(request.form.get("PGID", "")),
-            "TZ": _sanitize_env_value(request.form.get("TZ", "")),
-        }
-        return _render_index(error_message=e.description or "Invalid input", status_code=e.code or 400, overrides=overrides)
+
+    raw = {
+        "APPDATA_ROOT": request.form.get("APPDATA_ROOT", ""),
+        "DATA_ROOT": request.form.get("DATA_ROOT", ""),
+        "TRANSCODE_ROOT": request.form.get("TRANSCODE_ROOT", ""),
+        "PUID": request.form.get("PUID", ""),
+        "PGID": request.form.get("PGID", ""),
+        "TZ": request.form.get("TZ", ""),
+        "PLEX_CLAIM": request.form.get("PLEX_CLAIM", ""),
+    }
+
+    overrides = {
+        "APPDATA_ROOT": _sanitize_env_value(raw["APPDATA_ROOT"]),
+        "DATA_ROOT": _sanitize_env_value(raw["DATA_ROOT"]),
+        "TRANSCODE_ROOT": _sanitize_env_value(raw["TRANSCODE_ROOT"]),
+        "PUID": _sanitize_env_value(raw["PUID"]),
+        "PGID": _sanitize_env_value(raw["PGID"]),
+        "TZ": _sanitize_env_value(raw["TZ"]),
+    }
+
+    values = {
+        "APPDATA_ROOT": overrides["APPDATA_ROOT"],
+        "DATA_ROOT": overrides["DATA_ROOT"],
+        "TRANSCODE_ROOT": overrides["TRANSCODE_ROOT"],
+        "PUID": overrides["PUID"],
+        "PGID": overrides["PGID"],
+        "TZ": overrides["TZ"],
+        "PLEX_CLAIM": _sanitize_env_value(raw["PLEX_CLAIM"]),
+    }
+
+    field_errors: dict[str, str] = {}
+    if not values["APPDATA_ROOT"]:
+        field_errors["APPDATA_ROOT"] = "Required"
+    if not values["DATA_ROOT"]:
+        field_errors["DATA_ROOT"] = "Required"
+    if not values["TRANSCODE_ROOT"]:
+        field_errors["TRANSCODE_ROOT"] = "Required"
+
+    if not values["PUID"] or not values["PUID"].isdigit():
+        field_errors["PUID"] = "Must be numeric (example: 1026)"
+    if not values["PGID"] or not values["PGID"].isdigit():
+        field_errors["PGID"] = "Must be numeric (example: 100)"
+    if values["TZ"] not in tz_set:
+        field_errors["TZ"] = "Choose a valid timezone from the list"
+
+    if field_errors:
+        return _render_index(
+            error_message="Fix the highlighted fields and try again.",
+            status_code=400,
+            overrides=overrides,
+            field_errors=field_errors,
+        )
 
     env_text = build_env_text(values)
 

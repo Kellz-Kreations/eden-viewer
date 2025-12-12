@@ -21,6 +21,29 @@
   <h1>First run setup</h1>
   <p>Fill in values and click <strong>Download .env</strong>. Then place the downloaded <code>.env</code> next to <code>compose.yaml</code> and redeploy.</p>
 
+  <div style="margin: 12px 0; padding: 10px 12px; border: 1px solid #bbb; background: #fafafa;">
+    <strong>What this does</strong>
+    <ul style="margin: 8px 0 0 18px;">
+      <li>Generates a <code>.env</code> file for this repo and downloads it to your computer.</li>
+      <li>Prefills defaults from <code>.env.example</code> if the repo is mounted.</li>
+    </ul>
+    <strong>What this doesn’t do</strong>
+    <ul style="margin: 8px 0 0 18px;">
+      <li>Does not save your inputs on the server (including <code>PLEX_CLAIM</code>).</li>
+      <li>Does not configure Sonarr/Radarr/Plex beyond writing <code>.env</code>.</li>
+      <li>Intended for LAN use (don’t expose this UI directly to the internet).</li>
+    </ul>
+  </div>
+
+  <div style="margin: 12px 0; padding: 10px 12px; border: 1px solid #2b6; background: #f4fff7;">
+    <strong>Next steps</strong>
+    <ol style="margin: 8px 0 0 18px;">
+      <li>Download <code>.env</code> and place it next to <code>compose.yaml</code>.</li>
+      <li>If you started the setup-only project: run <code>docker compose -f compose.setup.yaml down</code>.</li>
+      <li>Start the full stack: <code>docker compose up -d</code> (or deploy via DSM Container Manager).</li>
+    </ol>
+  </div>
+
   {% if error_message %}
     <div style="margin: 12px 0; padding: 10px 12px; border: 1px solid #c33; background: #fff5f5;">
       <strong>Couldn’t generate .env:</strong> {{ error_message }}
@@ -32,23 +55,28 @@
     <label for="APPDATA_ROOT">APPDATA_ROOT</label>
     <input id="APPDATA_ROOT" name="APPDATA_ROOT" value="{{ defaults.APPDATA_ROOT }}" required />
     <div class="hint">Synology example: <code>/volume1/docker/appdata</code></div>
+    {% if field_errors.APPDATA_ROOT %}<div class="hint" style="color:#b00;">{{ field_errors.APPDATA_ROOT }}</div>{% endif %}
 
     <label for="DATA_ROOT">DATA_ROOT</label>
     <input id="DATA_ROOT" name="DATA_ROOT" value="{{ defaults.DATA_ROOT }}" required />
     <div class="hint">Synology example: <code>/volume1/data</code></div>
+    {% if field_errors.DATA_ROOT %}<div class="hint" style="color:#b00;">{{ field_errors.DATA_ROOT }}</div>{% endif %}
 
     <label for="TRANSCODE_ROOT">TRANSCODE_ROOT</label>
     <input id="TRANSCODE_ROOT" name="TRANSCODE_ROOT" value="{{ defaults.TRANSCODE_ROOT }}" required />
     <div class="hint">Synology example: <code>/volume1/docker/transcode</code></div>
+    {% if field_errors.TRANSCODE_ROOT %}<div class="hint" style="color:#b00;">{{ field_errors.TRANSCODE_ROOT }}</div>{% endif %}
 
     <div class="row">
       <div>
         <label for="PUID">PUID</label>
-        <input id="PUID" name="PUID" value="{{ defaults.PUID }}" inputmode="numeric" pattern="\d+" required />
+        <input id="PUID" name="PUID" value="{{ defaults.PUID }}" inputmode="numeric" pattern="\d+" required title="Numeric UID (example: 1026)" />
+        {% if field_errors.PUID %}<div class="hint" style="color:#b00;">{{ field_errors.PUID }}</div>{% endif %}
       </div>
       <div>
         <label for="PGID">PGID</label>
-        <input id="PGID" name="PGID" value="{{ defaults.PGID }}" inputmode="numeric" pattern="\d+" required />
+        <input id="PGID" name="PGID" value="{{ defaults.PGID }}" inputmode="numeric" pattern="\d+" required title="Numeric GID (example: 100)" />
+        {% if field_errors.PGID %}<div class="hint" style="color:#b00;">{{ field_errors.PGID }}</div>{% endif %}
       </div>
     </div>
 
@@ -59,10 +87,13 @@
       {% endfor %}
     </select>
     <div class="hint">Choose an IANA timezone (e.g., <code>America/Chicago</code>).</div>
+    {% if field_errors.TZ %}<div class="hint" style="color:#b00;">{{ field_errors.TZ }}</div>{% endif %}
 
     <label for="PLEX_CLAIM">PLEX_CLAIM (optional)</label>
     <input id="PLEX_CLAIM" name="PLEX_CLAIM" type="password" value="" />
     <div class="hint">Only needed for the initial Plex claim. Leave blank after claiming.</div>
+
+    <div class="hint">HTTPS note: this UI may use a self-signed certificate. To avoid browser warnings on Synology, mount a trusted cert/key and set <code>SETUP_UI_CERT_FILE</code> + <code>SETUP_UI_KEY_FILE</code>.</div>
 
     <button type="submit">Download .env</button>
   </form>

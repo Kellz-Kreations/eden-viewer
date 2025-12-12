@@ -84,6 +84,10 @@ Then open:
 
 Note: the setup UI uses a self-signed certificate by default, so your browser will show a security warning the first time.
 
+To avoid browser warnings on Synology, use a trusted certificate by mounting a cert/key into the `setup-ui` container and setting:
+- `SETUP_UI_CERT_FILE`
+- `SETUP_UI_KEY_FILE`
+
 This setup-only compose file is intended for first run and does not require a `.env` to exist yet.
 
 Download the `.env` file and place it next to `compose.yaml`, then redeploy your project.
