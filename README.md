@@ -1,31 +1,76 @@
-# Synology DS923+ Media Stack (Plex + Sonarr + Radarr)
+# Media Server Stack for Synology NAS
 
-This project provides a **DS923+-friendly** Docker Compose stack for:
-- Plex
-- Sonarr
-- Radarr
+**Turn your Synology DS923+ into a personal Netflix!**
 
-Scope is intentionally limited to **library organization and container best practices**. It does not include piracy-related integrations.
+This project helps you set up:
+- 🎬 **Plex** - Stream your movies and TV shows to any device
+- 📺 **Sonarr** - Automatically organize your TV show library
+- 🎥 **Radarr** - Automatically organize your movie library
 
-## DS923+ note (important)
-The DS923+ uses an AMD Ryzen R1600 and generally **does not have Intel Quick Sync** hardware video transcoding. Plan for **Direct Play** where possible.
+## What You Need
 
-## Folder layout (Synology host)
-Create these folders on the NAS:
-- `/volume1/docker/appdata/{plex,sonarr,radarr}`
-- `/volume1/docker/transcode/plex`
-- `/volume1/data/media/{movies,tv}`
-- `/volume1/data/incoming/{movies,tv}`
+✅ A Synology DS923+ NAS (or similar model)  
+✅ Docker installed on your NAS (via Container Manager)  
+✅ Some media files (movies/TV shows) you want to organize
 
-Why a single `/data` mount for Sonarr/Radarr?
-- Makes moves within the same filesystem (fast/atomic)
-- Avoids painful remote-path mapping issues
+## What This Does
 
-## Permissions
-Create a non-admin DSM user (example: `docker`) that owns `/volume1/docker` and `/volume1/data`.
-Set `PUID`/`PGID` in `.env` to match that user.
+- Creates a web interface to manage your media library
+- Organizes your files automatically with proper naming
+- Lets you stream to phones, tablets, smart TVs, etc.
+- All runs on your own hardware - no monthly subscriptions!
 
-## Synology DS923+ checklist (before deploy)
+## Quick Start (Easiest Way)
+
+**Step 1:** Download this project to your computer
+
+**Step 2:** Open a terminal/PowerShell and run:
+```bash
+docker compose -f compose.setup.yaml up -d --build
+```
+
+**Step 3:** Open your web browser and go to:
+```
+http://localhost:8080
+```
+(If on a different computer, replace `localhost` with your NAS's IP address)
+
+**Step 4:** Fill in the simple form and click **Start**
+
+**Step 5:** Done! Access your services:
+- Plex: `http://your-nas-ip:32400/web`
+- Sonarr: `http://your-nas-ip:8989`
+- Radarr: `http://your-nas-ip:7878`
+
+## What's Happening Behind the Scenes?
+
+The setup creates these folders on your NAS:
+- `/volume1/docker/appdata/` - Where Plex/Sonarr/Radarr save their settings
+- `/volume1/docker/transcode/` - Temporary files when converting videos
+- `/volume1/data/media/movies` - Put your movie files here
+- `/volume1/data/media/tv` - Put your TV show files here
+
+## Need Help? Common Questions
+
+**Q: What's a PUID/PGID?**  
+A: These are just numbers that tell Docker which user owns the files. The setup wizard finds these automatically - you usually don't need to worry about them!
+
+**Q: Do I need to set up anything manually?**  
+A: Nope! The web setup wizard creates all the folders and settings for you.
+
+**Q: Will this work on other Synology models?**  
+A: Probably! It's designed for DS923+, but should work on most Synology NAS devices with Docker support.
+
+**Q: Is this legal?**  
+A: Yes! This is just software to organize and stream your own media files. What you do with it is up to you.
+
+**Q: What if I want to stop everything?**  
+A: Just run: `docker compose down`
+
+## Advanced Options
+
+<details>
+<summary>Manual Setup (SSH Required)</summary>
 
 1) Create folders (SSH)
 
