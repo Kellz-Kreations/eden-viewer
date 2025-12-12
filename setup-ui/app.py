@@ -5,7 +5,6 @@ from pathlib import Path
 from zoneinfo import available_timezones
 from flask import Flask, Response, abort, make_response, render_template, request
 from werkzeug.exceptions import HTTPException
-from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = 32 * 1024
@@ -56,6 +55,7 @@ def _get_or_set_csrf() -> str:
 
 def _render_index(
     *,
+    step: int = 1,
     error_message: str | None = None,
     status_code: int = 200,
     overrides: dict[str, str] | None = None,
@@ -79,6 +79,7 @@ def _render_index(
             csrf=csrf,
             error_message=error_message,
             field_errors=field_errors or {},
+            step=step,
         ),
         status_code,
     )
@@ -161,7 +162,63 @@ def build_env_text(values: dict[str, str]) -> str:
 
 @app.get("/")
 def index():
-    return _render_index()
+    return _render_index(step=1)
+
+
+@app.post("/step2")
+def step2():
+    csrf_cookie = request.cookies.get("csrf")
+    csrf_form = request.form.get("csrf", "")
+    if not csrf_cookie or not csrf_form or csrf_cookie != csrf_form:
+        abort(403, description="Your session expired. Refresh the page and try again.")
+
+    tz_set = set(available_timezones())
+
+    raw = {
+        "APPDATA_ROOT": request.form.get("APPDATA_ROOT", ""),
+        "DATA_ROOT": request.form.get("DATA_ROOT", ""),
+        "TRANSCODE_ROOT": request.form.get("TRANSCODE_ROOT", ""),
+        "PUID": request.form.get("PUID", ""),
+        "PGID": request.form.get("PGID", ""),
+        "TZ": request.form.get("TZ", ""),
+    }
+
+    overrides = {
+        "APPDATA_ROOT": _sanitize_env_value(raw["APPDATA_ROOT"]),
+        "DATA_ROOT": _sanitize_env_value(raw["DATA_ROOT"]),
+        "TRANSCODE_ROOT": _sanitize_env_value(raw["TRANSCODE_ROOT"]),
+        "PUID": _sanitize_env_value(raw["PUID"]),
+        "PGID": _sanitize_env_value(raw["PGID"]),
+        "TZ": _sanitize_env_value(raw["TZ"]),
+    }
+
+    values = dict(overrides)
+
+    field_errors: dict[str, str] = {}
+    if not values["APPDATA_ROOT"]:
+        field_errors["APPDATA_ROOT"] = "Required"
+    if not values["DATA_ROOT"]:
+        field_errors["DATA_ROOT"] = "Required"
+    if not values["TRANSCODE_ROOT"]:
+        field_errors["TRANSCODE_ROOT"] = "Required"
+
+    if not values["PUID"] or not values["PUID"].isdigit():
+        field_errors["PUID"] = "Must be numeric (example: 1026)"
+    if not values["PGID"] or not values["PGID"].isdigit():
+        field_errors["PGID"] = "Must be numeric (example: 100)"
+    if values["TZ"] not in tz_set:
+        field_errors["TZ"] = "Choose a valid timezone from the list"
+
+    if field_errors:
+        return _render_index(
+            step=1,
+            error_message="Fix the highlighted fields and try again.",
+            status_code=400,
+            overrides=overrides,
+            field_errors=field_errors,
+        )
+
+    return _render_index(step=2, overrides=overrides)
 
 
 @app.post("/download")
@@ -170,6 +227,8 @@ def download():
     csrf_form = request.form.get("csrf", "")
     if not csrf_cookie or not csrf_form or csrf_cookie != csrf_form:
         abort(403, description="Your session expired. Refresh the page and try again.")
+
+    step_requested = request.form.get("_step", "1").strip()
 
     tz_set = set(available_timezones())
 
@@ -218,11 +277,17 @@ def download():
         field_errors["TZ"] = "Choose a valid timezone from the list"
 
     if field_errors:
+        has_step1_errors = any(
+            k in field_errors
+            for k in ("APPDATA_ROOT", "DATA_ROOT", "TRANSCODE_ROOT", "PUID", "PGID", "TZ")
+        )
+        target_step = 2 if step_requested == "2" and not has_step1_errors else 1
         return _render_index(
             error_message="Fix the highlighted fields and try again.",
             status_code=400,
             overrides=overrides,
             field_errors=field_errors,
+            step=target_step,
         )
 
     env_text = build_env_text(values)
