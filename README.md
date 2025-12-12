@@ -82,11 +82,10 @@ docker compose -f compose.setup.yaml up -d --build
 ```
 
 Then open:
-- `https://<NAS-IP>:8080/`
+- **LAN access**: `http://<NAS-IP>:8081/`
+- **Remote access**: Use Synology QuickConnect (see below)
 
-Note: the setup UI uses a self-signed certificate by default, so your browser will show a security warning the first time.
-
-To avoid browser warnings on Synology, use a trusted certificate by mounting a cert/key into the `setup-ui` container and setting:
+The setup UI runs on HTTP by default (port 8081). For HTTPS, mount a trusted cert/key and set:
 - `SETUP_UI_CERT_FILE`
 - `SETUP_UI_KEY_FILE`
 
@@ -94,12 +93,40 @@ This setup-only compose file is intended for first run and does not require a `.
 
 Download the `.env` file and place it next to `compose.yaml`, then redeploy your project.
 
-If you used the setup-only compose file, stop it before starting the full stack (avoids port 8080 conflicts):
+If you used the setup-only compose file, stop it before starting the full stack (avoids port conflicts):
 
 ```powershell
 docker compose -f compose.setup.yaml down
 docker compose up -d
 ```
+
+#### Remote access via Synology QuickConnect
+
+To access the setup UI remotely without exposing it to the internet:
+
+1. **Enable QuickConnect** in DSM:
+   - Control Panel → QuickConnect → Enable
+   - Note your QuickConnect ID (e.g., `your-nas-id`)
+
+2. **Create a reverse proxy rule** in DSM:
+   - Control Panel → Login Portal → Advanced → Reverse Proxy
+   - Create a new rule:
+     - Description: `Setup UI`
+     - Source:
+       - Protocol: `HTTPS`
+       - Hostname: `your-nas-id.quickconnect.to`
+       - Port: `443`
+       - Enable HSTS: ✓
+     - Destination:
+       - Protocol: `HTTP`
+       - Hostname: `localhost`
+       - Port: `8081`
+
+3. **Access remotely**:
+   - Navigate to `https://your-nas-id.quickconnect.to/`
+   - QuickConnect provides the SSL certificate automatically
+
+**Security note**: The setup UI has no authentication layer. Only use QuickConnect during initial setup, then remove the reverse proxy rule and stop the setup-ui container.
 
 Notes:
 - `PLEX_CLAIM` is only needed for the initial Plex server claim; after Plex is claimed you can blank it out.
