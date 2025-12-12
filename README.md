@@ -72,6 +72,8 @@ Generate your `.env` interactively (prompts for paths, PUID/PGID, and optional `
 pwsh -NoProfile -File .\scripts\setup.ps1
 ```
 
+Tip: If you leave `PLEX_CLAIM` blank, the script can optionally open `https://plex.tv/link` and use the Plex API to obtain a one-time claim token (no password is entered into the script).
+
 ### First run (web UI)
 If you prefer a browser-based setup, start the setup UI and download a generated `.env`:
 
