@@ -46,8 +46,12 @@
     </div>
 
     <label for="TZ">TZ</label>
-    <input id="TZ" name="TZ" value="{{ defaults.TZ }}" />
-    <div class="hint">Example: <code>America/Chicago</code></div>
+    <select id="TZ" name="TZ" style="width: 100%; padding: 10px; box-sizing: border-box;">
+      {% for tz in timezones %}
+        <option value="{{ tz }}" {% if tz == defaults.TZ %}selected{% endif %}>{{ tz }}</option>
+      {% endfor %}
+    </select>
+    <div class="hint">Choose an IANA timezone (e.g., <code>America/Chicago</code>).</div>
 
     <label for="PLEX_CLAIM">PLEX_CLAIM (optional)</label>
     <input id="PLEX_CLAIM" name="PLEX_CLAIM" type="password" value="" />

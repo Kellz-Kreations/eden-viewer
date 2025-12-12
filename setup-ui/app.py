@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from zoneinfo import available_timezones
 from flask import Flask, Response, render_template, request
 
 app = Flask(__name__)
@@ -66,7 +67,8 @@ def index():
     merged = dict(DEFAULTS)
     merged.update({k: v for k, v in file_defaults.items() if v is not None})
 
-    return render_template("index.html", defaults=merged)
+    timezones = sorted(available_timezones())
+    return render_template("index.html", defaults=merged, timezones=timezones)
 
 
 @app.post("/download")
