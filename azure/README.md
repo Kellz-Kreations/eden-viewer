@@ -144,6 +144,20 @@ net use Z: \\$storageAccount.file.core.windows.net\media /user:Azure\$storageAcc
 
 ## Operations
 
+## Testing (Smoke)
+
+Run a quick validation of the Azure deployment (template compiles/validates, apps are running, and service URLs are reachable):
+
+```powershell
+pwsh -NoProfile -File .\smoke-test-azure.ps1
+```
+
+If you only want to validate Azure resources and skip HTTP reachability checks:
+
+```powershell
+pwsh -NoProfile -File .\smoke-test-azure.ps1 -SkipHttpChecks
+```
+
 ### View Logs
 
 ```bash
