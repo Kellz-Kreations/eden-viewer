@@ -79,12 +79,19 @@ if ($missingVars.Count -gt 0) {
 }
 
 # Optional: validate compose schema via docker compose config
-$docker = Get-Command docker -ErrorAction SilentlyContinue
-if ($docker) {
+$dockerExe = $null
+$dockerCmd = Get-Command docker -ErrorAction SilentlyContinue
+if ($dockerCmd) {
+  $dockerExe = $dockerCmd.Source
+} elseif (Test-Path "C:\Program Files\Docker\Docker\resources\bin\docker.exe") {
+  $dockerExe = "C:\Program Files\Docker\Docker\resources\bin\docker.exe"
+}
+
+if ($dockerExe) {
   try {
-    Write-Info "Running: docker compose config"
+    Write-Info "Running: docker compose --env-file .env.example config"
     Push-Location $ProjectRoot
-    docker compose config | Out-Null
+    & $dockerExe compose --env-file .env.example config | Out-Null
     Pop-Location
     Write-Info "docker compose config: OK"
   } catch {
@@ -92,7 +99,7 @@ if ($docker) {
     Write-Err "docker compose config failed: $($_.Exception.Message)"
   }
 } else {
-  Write-Warn "Docker not found on this machine; skipped 'docker compose config'. Run this on DSM or a machine with Docker."
+  Write-Warn "Docker CLI not found (docker.exe not on PATH and Docker Desktop not detected); skipped compose validation."
 }
 
 if ($failures.Count -gt 0) {
