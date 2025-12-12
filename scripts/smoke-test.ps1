@@ -113,6 +113,31 @@ if ($failures.Count -gt 0) {
   exit 1
 }
 
+# Setup UI sanity check: ensure timezone list is not empty.
+$pythonCmd = Get-Command python -ErrorAction SilentlyContinue
+if ($pythonCmd) {
+  try {
+    $checkScript = Join-Path $ProjectRoot 'scripts/check_timezones.py'
+    Write-Info "Running: python scripts/check_timezones.py"
+    & $pythonCmd.Source $checkScript
+    if ($LASTEXITCODE -ne 0) {
+      throw "Timezone list check failed (empty)."
+    }
+    Write-Info "Timezone list check: OK"
+  } catch {
+    $failures.Add("Timezone list check failed") | Out-Null
+    Write-Err "Timezone list check failed: $($_.Exception.Message)"
+  }
+} else {
+  Write-Warn "Python not found; skipped timezone list check."
+}
+
+if ($failures.Count -gt 0) {
+  Write-Host ""
+  Write-Err ("Smoke test failed with {0} issue(s)." -f $failures.Count)
+  exit 1
+}
+
 Write-Host ""
 Write-Info "Smoke test passed."
 exit 0
