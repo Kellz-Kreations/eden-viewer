@@ -65,6 +65,18 @@ sudo chmod -R u+rwX,g+rwX,o-rwx /volume1/docker /volume1/data
 If you’d rather manage permissions in DSM UI, that’s fine too—just ensure your container user has read/write access to both `/volume1/docker` and `/volume1/data`.
 
 ## Deploy
+### First run (recommended)
+Generate your `.env` interactively (prompts for paths, PUID/PGID, and optional `PLEX_CLAIM`):
+
+```powershell
+pwsh -NoProfile -File .\scripts\setup.ps1
+```
+
+Notes:
+- `PLEX_CLAIM` is only needed for the initial Plex server claim; after Plex is claimed you can blank it out.
+- This repo ignores `.env` via `.gitignore`.
+
+### Deploy on DSM
 1. Copy `.env.example` to `.env` and edit values for your NAS.
 2. In Synology **Container Manager**:
    - Project → Create → Import
