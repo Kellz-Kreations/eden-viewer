@@ -59,7 +59,8 @@ function Get-HttpStatus {
   )
 
   try {
-    $resp = Invoke-WebRequest -Uri $Url -Method Head -TimeoutSec $HttpTimeoutSeconds -MaximumRedirection 0 -ErrorAction Stop
+    # Use GET instead of HEAD: some apps return 405 for HEAD, which would be a false negative for reachability.
+    $resp = Invoke-WebRequest -Uri $Url -Method Get -TimeoutSec $HttpTimeoutSeconds -MaximumRedirection 0 -ErrorAction Stop
     return [pscustomobject]@{ Url = $Url; StatusCode = [int]$resp.StatusCode; Error = $null }
   } catch {
     $status = $null
