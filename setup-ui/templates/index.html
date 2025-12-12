@@ -108,7 +108,7 @@
     <div class="card">
       <div class="top">
         <h1>First run setup</h1>
-        <small>LAN-only recommended</small>
+        <small>Step {{ step }} of 2 · LAN-only recommended</small>
       </div>
       <p>Fill in values and click <strong>Download .env</strong>. Then place the downloaded <code>.env</code> next to <code>compose.yaml</code> and redeploy.</p>
 
@@ -138,53 +138,82 @@
         </div>
       {% endif %}
 
-      <form method="post" action="/download" autocomplete="off">
-        <input type="hidden" name="csrf" value="{{ csrf }}" />
-        <label for="APPDATA_ROOT">APPDATA_ROOT</label>
-        <input id="APPDATA_ROOT" name="APPDATA_ROOT" value="{{ defaults.APPDATA_ROOT }}" required />
-        <div class="hint">Synology example: <code>/volume1/docker/appdata</code></div>
-        {% if field_errors.APPDATA_ROOT %}<div class="hint error">{{ field_errors.APPDATA_ROOT }}</div>{% endif %}
+      {% if step == 1 %}
+        <form method="post" action="/step2" autocomplete="off">
+          <input type="hidden" name="csrf" value="{{ csrf }}" />
 
-      <label for="DATA_ROOT">DATA_ROOT</label>
-      <input id="DATA_ROOT" name="DATA_ROOT" value="{{ defaults.DATA_ROOT }}" required />
-      <div class="hint">Synology example: <code>/volume1/data</code></div>
-      {% if field_errors.DATA_ROOT %}<div class="hint error">{{ field_errors.DATA_ROOT }}</div>{% endif %}
+          <label for="APPDATA_ROOT">APPDATA_ROOT</label>
+          <input id="APPDATA_ROOT" name="APPDATA_ROOT" value="{{ defaults.APPDATA_ROOT }}" required />
+          <div class="hint">Synology example: <code>/volume1/docker/appdata</code></div>
+          {% if field_errors.APPDATA_ROOT %}<div class="hint error">{{ field_errors.APPDATA_ROOT }}</div>{% endif %}
 
-      <label for="TRANSCODE_ROOT">TRANSCODE_ROOT</label>
-      <input id="TRANSCODE_ROOT" name="TRANSCODE_ROOT" value="{{ defaults.TRANSCODE_ROOT }}" required />
-      <div class="hint">Synology example: <code>/volume1/docker/transcode</code></div>
-      {% if field_errors.TRANSCODE_ROOT %}<div class="hint error">{{ field_errors.TRANSCODE_ROOT }}</div>{% endif %}
+          <label for="DATA_ROOT">DATA_ROOT</label>
+          <input id="DATA_ROOT" name="DATA_ROOT" value="{{ defaults.DATA_ROOT }}" required />
+          <div class="hint">Synology example: <code>/volume1/data</code></div>
+          {% if field_errors.DATA_ROOT %}<div class="hint error">{{ field_errors.DATA_ROOT }}</div>{% endif %}
 
-        <div class="row">
-          <div>
-            <label for="PUID">PUID</label>
-            <input id="PUID" name="PUID" value="{{ defaults.PUID }}" inputmode="numeric" pattern="\d+" required title="Numeric UID (example: 1026)" />
-            {% if field_errors.PUID %}<div class="hint error">{{ field_errors.PUID }}</div>{% endif %}
+          <label for="TRANSCODE_ROOT">TRANSCODE_ROOT</label>
+          <input id="TRANSCODE_ROOT" name="TRANSCODE_ROOT" value="{{ defaults.TRANSCODE_ROOT }}" required />
+          <div class="hint">Synology example: <code>/volume1/docker/transcode</code></div>
+          {% if field_errors.TRANSCODE_ROOT %}<div class="hint error">{{ field_errors.TRANSCODE_ROOT }}</div>{% endif %}
+
+          <div class="row">
+            <div>
+              <label for="PUID">PUID</label>
+              <input id="PUID" name="PUID" value="{{ defaults.PUID }}" inputmode="numeric" pattern="\d+" required title="Numeric UID (example: 1026)" />
+              {% if field_errors.PUID %}<div class="hint error">{{ field_errors.PUID }}</div>{% endif %}
+            </div>
+            <div>
+              <label for="PGID">PGID</label>
+              <input id="PGID" name="PGID" value="{{ defaults.PGID }}" inputmode="numeric" pattern="\d+" required title="Numeric GID (example: 100)" />
+              {% if field_errors.PGID %}<div class="hint error">{{ field_errors.PGID }}</div>{% endif %}
+            </div>
           </div>
-          <div>
-            <label for="PGID">PGID</label>
-            <input id="PGID" name="PGID" value="{{ defaults.PGID }}" inputmode="numeric" pattern="\d+" required title="Numeric GID (example: 100)" />
-            {% if field_errors.PGID %}<div class="hint error">{{ field_errors.PGID }}</div>{% endif %}
+
+          <label for="TZ">TZ</label>
+          <select id="TZ" name="TZ">
+            {% for tz in timezones %}
+              <option value="{{ tz }}" {% if tz == defaults.TZ %}selected{% endif %}>{{ tz }}</option>
+            {% endfor %}
+          </select>
+          <div class="hint">Choose an IANA timezone (e.g., <code>America/Chicago</code>).</div>
+          {% if field_errors.TZ %}<div class="hint error">{{ field_errors.TZ }}</div>{% endif %}
+
+          <button type="submit">Next</button>
+        </form>
+      {% else %}
+        <form method="post" action="/download" autocomplete="off">
+          <input type="hidden" name="csrf" value="{{ csrf }}" />
+          <input type="hidden" name="_step" value="2" />
+
+          <input type="hidden" name="APPDATA_ROOT" value="{{ defaults.APPDATA_ROOT }}" />
+          <input type="hidden" name="DATA_ROOT" value="{{ defaults.DATA_ROOT }}" />
+          <input type="hidden" name="TRANSCODE_ROOT" value="{{ defaults.TRANSCODE_ROOT }}" />
+          <input type="hidden" name="PUID" value="{{ defaults.PUID }}" />
+          <input type="hidden" name="PGID" value="{{ defaults.PGID }}" />
+          <input type="hidden" name="TZ" value="{{ defaults.TZ }}" />
+
+          <div class="callout" style="margin-top: 10px;">
+            <strong>Review</strong>
+            <ul>
+              <li><code>APPDATA_ROOT</code>: {{ defaults.APPDATA_ROOT }}</li>
+              <li><code>DATA_ROOT</code>: {{ defaults.DATA_ROOT }}</li>
+              <li><code>TRANSCODE_ROOT</code>: {{ defaults.TRANSCODE_ROOT }}</li>
+              <li><code>PUID</code>/<code>PGID</code>: {{ defaults.PUID }}/{{ defaults.PGID }}</li>
+              <li><code>TZ</code>: {{ defaults.TZ }}</li>
+            </ul>
+            <div class="hint">Need to change something? Use your browser Back button.</div>
           </div>
-        </div>
 
-        <label for="TZ">TZ</label>
-        <select id="TZ" name="TZ">
-          {% for tz in timezones %}
-            <option value="{{ tz }}" {% if tz == defaults.TZ %}selected{% endif %}>{{ tz }}</option>
-          {% endfor %}
-        </select>
-        <div class="hint">Choose an IANA timezone (e.g., <code>America/Chicago</code>).</div>
-        {% if field_errors.TZ %}<div class="hint error">{{ field_errors.TZ }}</div>{% endif %}
+          <label for="PLEX_CLAIM">PLEX_CLAIM (optional)</label>
+          <input id="PLEX_CLAIM" name="PLEX_CLAIM" type="password" value="" />
+          <div class="hint">Only needed for the initial Plex claim. Leave blank after claiming.</div>
 
-        <label for="PLEX_CLAIM">PLEX_CLAIM (optional)</label>
-        <input id="PLEX_CLAIM" name="PLEX_CLAIM" type="password" value="" />
-        <div class="hint">Only needed for the initial Plex claim. Leave blank after claiming.</div>
+          <div class="hint">HTTPS: to avoid browser warnings on Synology, mount a trusted cert/key and set <code>SETUP_UI_CERT_FILE</code> + <code>SETUP_UI_KEY_FILE</code>.</div>
 
-        <div class="hint">HTTPS: to avoid browser warnings on Synology, mount a trusted cert/key and set <code>SETUP_UI_CERT_FILE</code> + <code>SETUP_UI_KEY_FILE</code>.</div>
-
-        <button type="submit">Download .env</button>
-      </form>
+          <button type="submit">Download .env</button>
+        </form>
+      {% endif %}
     </div>
   </div>
 </body>
