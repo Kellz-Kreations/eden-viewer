@@ -25,6 +25,45 @@ Why a single `/data` mount for Sonarr/Radarr?
 Create a non-admin DSM user (example: `docker`) that owns `/volume1/docker` and `/volume1/data`.
 Set `PUID`/`PGID` in `.env` to match that user.
 
+## Synology DS923+ checklist (before deploy)
+
+1) Create folders (SSH)
+
+If you have SSH enabled on DSM, you can create the required folders like this:
+
+```sh
+sudo mkdir -p \
+   /volume1/docker/appdata/plex \
+   /volume1/docker/appdata/sonarr \
+   /volume1/docker/appdata/radarr \
+   /volume1/docker/transcode/plex \
+   /volume1/data/media/movies \
+   /volume1/data/media/tv \
+   /volume1/data/incoming/movies \
+   /volume1/data/incoming/tv
+```
+
+2) Confirm the container user’s PUID/PGID (SSH)
+
+Replace `docker` with whatever DSM user you created for containers:
+
+```sh
+id docker
+```
+
+Use the reported UID/GID to set `PUID`/`PGID` in `.env`.
+
+3) Set ownership + basic permissions (SSH)
+
+Replace `docker:users` with your DSM user and group:
+
+```sh
+sudo chown -R docker:users /volume1/docker /volume1/data
+sudo chmod -R u+rwX,g+rwX,o-rwx /volume1/docker /volume1/data
+```
+
+If you’d rather manage permissions in DSM UI, that’s fine too—just ensure your container user has read/write access to both `/volume1/docker` and `/volume1/data`.
+
 ## Deploy
 1. Copy `.env.example` to `.env` and edit values for your NAS.
 2. In Synology **Container Manager**:
