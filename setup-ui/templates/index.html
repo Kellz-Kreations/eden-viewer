@@ -108,7 +108,7 @@
     <div class="card">
       <div class="top">
         <h1>First run setup</h1>
-        <small>Step {{ step }} of 2 · LAN-only recommended</small>
+        <small>Step {{ step }} of 3 · LAN-only recommended</small>
       </div>
       <p>Fill in values and click <strong>Download .env</strong>. Then place the downloaded <code>.env</code> next to <code>compose.yaml</code> and redeploy.</p>
 
@@ -181,7 +181,7 @@
 
           <button type="submit">Next</button>
         </form>
-      {% else %}
+      {% elif step == 2 %}
         <form method="post" action="/download" autocomplete="off">
           <input type="hidden" name="csrf" value="{{ csrf }}" />
           <input type="hidden" name="_step" value="2" />
@@ -212,7 +212,24 @@
           <div class="hint">HTTPS: to avoid browser warnings on Synology, mount a trusted cert/key and set <code>SETUP_UI_CERT_FILE</code> + <code>SETUP_UI_KEY_FILE</code>.</div>
 
           <button type="submit">Download .env</button>
+          <button type="submit" formaction="/start">Start</button>
         </form>
+      {% else %}
+        <div class="callout" style="margin-top: 10px;">
+          <strong>✓ Stack started successfully!</strong>
+          <ul>
+            <li>Your <code>.env</code> file has been created.</li>
+            <li>Plex, Sonarr, and Radarr are now starting up.</li>
+            <li>Access services at:
+              <ul>
+                <li>Plex: <code>http://&lt;your-nas-ip&gt;:32400/web</code></li>
+                <li>Sonarr: <code>http://&lt;your-nas-ip&gt;:8989</code></li>
+                <li>Radarr: <code>http://&lt;your-nas-ip&gt;:7878</code></li>
+              </ul>
+            </li>
+          </ul>
+          <div class="hint">Note: Services may take a minute to fully start. You can now close this setup UI.</div>
+        </div>
       {% endif %}
     </div>
   </div>

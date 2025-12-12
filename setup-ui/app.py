@@ -1,6 +1,7 @@
 import os
 import re
 import secrets
+import subprocess
 from pathlib import Path
 from zoneinfo import available_timezones
 from flask import Flask, Response, abort, make_response, render_template, request
@@ -300,6 +301,114 @@ def download():
             "Cache-Control": "no-store",
         },
     )
+
+
+@app.post("/start")
+def start():
+    csrf_cookie = request.cookies.get("csrf")
+    csrf_form = request.form.get("csrf", "")
+    if not csrf_cookie or not csrf_form or csrf_cookie != csrf_form:
+        abort(403, description="Your session expired. Refresh the page and try again.")
+
+    step_requested = request.form.get("_step", "").strip()
+    if step_requested != "2":
+        abort(400, description="Invalid step")
+
+    tz_set = set(available_timezones())
+
+    raw = {
+        "APPDATA_ROOT": request.form.get("APPDATA_ROOT", ""),
+        "DATA_ROOT": request.form.get("DATA_ROOT", ""),
+        "TRANSCODE_ROOT": request.form.get("TRANSCODE_ROOT", ""),
+        "PUID": request.form.get("PUID", ""),
+        "PGID": request.form.get("PGID", ""),
+        "TZ": request.form.get("TZ", ""),
+        "PLEX_CLAIM": request.form.get("PLEX_CLAIM", ""),
+    }
+
+    overrides = {
+        "APPDATA_ROOT": _sanitize_env_value(raw["APPDATA_ROOT"]),
+        "DATA_ROOT": _sanitize_env_value(raw["DATA_ROOT"]),
+        "TRANSCODE_ROOT": _sanitize_env_value(raw["TRANSCODE_ROOT"]),
+        "PUID": _sanitize_env_value(raw["PUID"]),
+        "PGID": _sanitize_env_value(raw["PGID"]),
+        "TZ": _sanitize_env_value(raw["TZ"]),
+    }
+
+    values = {
+        "APPDATA_ROOT": overrides["APPDATA_ROOT"],
+        "DATA_ROOT": overrides["DATA_ROOT"],
+        "TRANSCODE_ROOT": overrides["TRANSCODE_ROOT"],
+        "PUID": overrides["PUID"],
+        "PGID": overrides["PGID"],
+        "TZ": overrides["TZ"],
+        "PLEX_CLAIM": _sanitize_env_value(raw["PLEX_CLAIM"]),
+    }
+
+    field_errors: dict[str, str] = {}
+    if not values["APPDATA_ROOT"]:
+        field_errors["APPDATA_ROOT"] = "Required"
+    if not values["DATA_ROOT"]:
+        field_errors["DATA_ROOT"] = "Required"
+    if not values["TRANSCODE_ROOT"]:
+        field_errors["TRANSCODE_ROOT"] = "Required"
+
+    if not values["PUID"] or not values["PUID"].isdigit():
+        field_errors["PUID"] = "Must be numeric (example: 1026)"
+    if not values["PGID"] or not values["PGID"].isdigit():
+        field_errors["PGID"] = "Must be numeric (example: 100)"
+    if values["TZ"] not in tz_set:
+        field_errors["TZ"] = "Choose a valid timezone from the list"
+
+    if field_errors:
+        return _render_index(
+            error_message="Fix the highlighted fields and try again.",
+            status_code=400,
+            overrides=overrides,
+            field_errors=field_errors,
+            step=2,
+        )
+
+    # Write .env file to repository
+    repo_root = Path(os.environ.get("REPO_ROOT", "/repo"))
+    env_file_path = repo_root / ".env"
+    
+    try:
+        env_text = build_env_text(values)
+        env_file_path.write_text(env_text, encoding="utf-8")
+    except Exception as e:
+        return _render_index(
+            step=2,
+            error_message=f"Failed to write .env file: {str(e)}",
+            status_code=500,
+            overrides=overrides,
+        )
+
+    # Start the full stack
+    try:
+        subprocess.run(
+            ["docker", "compose", "up", "-d"],
+            cwd=repo_root,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except subprocess.CalledProcessError as e:
+        return _render_index(
+            step=2,
+            error_message=f"Failed to start stack: {e.stderr}",
+            status_code=500,
+            overrides=overrides,
+        )
+    except Exception as e:
+        return _render_index(
+            step=2,
+            error_message=f"Failed to start stack: {str(e)}",
+            status_code=500,
+            overrides=overrides,
+        )
+
+    return _render_index(step=3, overrides=values)
 
 
 if __name__ == "__main__":

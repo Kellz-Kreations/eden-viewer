@@ -75,26 +75,28 @@ pwsh -NoProfile -File .\scripts\setup.ps1
 Tip: If you leave `PLEX_CLAIM` blank, the script can optionally open `https://plex.tv/link` and use the Plex API to obtain a one-time claim token (no password is entered into the script).
 
 ### First run (web UI)
-If you prefer a browser-based setup, start the setup UI and download a generated `.env`:
+If you prefer a browser-based setup, start the setup UI and follow the prompts:
 
 ```powershell
 docker compose -f compose.setup.yaml up -d --build
 ```
 
 Then open:
-- `https://<NAS-IP>:8080/`
+- `http://<NAS-IP>:8080/`
 
-Note: the setup UI uses a self-signed certificate by default, so your browser will show a security warning the first time.
+The setup UI will:
+1. Guide you through configuration (paths, PUID/PGID, timezone)
+2. Allow you to download a `.env` file **or** start the stack directly with the **Start** button
+3. When you click **Start**, it will:
+   - Write the `.env` file to the repository
+   - Start the full stack (`docker compose up -d`)
+   - Show you the access URLs for each service
 
-To avoid browser warnings on Synology, use a trusted certificate by mounting a cert/key into the `setup-ui` container and setting:
-- `SETUP_UI_CERT_FILE`
-- `SETUP_UI_KEY_FILE`
+Note: For the setup UI to start the stack, it needs access to Docker (via `/var/run/docker.sock` mount in `compose.setup.yaml`).
 
-This setup-only compose file is intended for first run and does not require a `.env` to exist yet.
+If you used the setup UI and clicked **Start**, the full stack is already running and you don't need additional commands.
 
-Download the `.env` file and place it next to `compose.yaml`, then redeploy your project.
-
-If you used the setup-only compose file, stop it before starting the full stack (avoids port 8080 conflicts):
+If you downloaded the `.env` manually instead, stop the setup UI before starting the full stack:
 
 ```powershell
 docker compose -f compose.setup.yaml down
