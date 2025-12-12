@@ -21,28 +21,34 @@
   <h1>First run setup</h1>
   <p>Fill in values and click <strong>Download .env</strong>. Then place the downloaded <code>.env</code> next to <code>compose.yaml</code> and redeploy.</p>
 
+  {% if error_message %}
+    <div style="margin: 12px 0; padding: 10px 12px; border: 1px solid #c33; background: #fff5f5;">
+      <strong>Couldn’t generate .env:</strong> {{ error_message }}
+    </div>
+  {% endif %}
+
   <form method="post" action="/download" autocomplete="off">
     <input type="hidden" name="csrf" value="{{ csrf }}" />
     <label for="APPDATA_ROOT">APPDATA_ROOT</label>
-    <input id="APPDATA_ROOT" name="APPDATA_ROOT" value="{{ defaults.APPDATA_ROOT }}" />
+    <input id="APPDATA_ROOT" name="APPDATA_ROOT" value="{{ defaults.APPDATA_ROOT }}" required />
     <div class="hint">Synology example: <code>/volume1/docker/appdata</code></div>
 
     <label for="DATA_ROOT">DATA_ROOT</label>
-    <input id="DATA_ROOT" name="DATA_ROOT" value="{{ defaults.DATA_ROOT }}" />
+    <input id="DATA_ROOT" name="DATA_ROOT" value="{{ defaults.DATA_ROOT }}" required />
     <div class="hint">Synology example: <code>/volume1/data</code></div>
 
     <label for="TRANSCODE_ROOT">TRANSCODE_ROOT</label>
-    <input id="TRANSCODE_ROOT" name="TRANSCODE_ROOT" value="{{ defaults.TRANSCODE_ROOT }}" />
+    <input id="TRANSCODE_ROOT" name="TRANSCODE_ROOT" value="{{ defaults.TRANSCODE_ROOT }}" required />
     <div class="hint">Synology example: <code>/volume1/docker/transcode</code></div>
 
     <div class="row">
       <div>
         <label for="PUID">PUID</label>
-        <input id="PUID" name="PUID" value="{{ defaults.PUID }}" inputmode="numeric" />
+        <input id="PUID" name="PUID" value="{{ defaults.PUID }}" inputmode="numeric" pattern="\d+" required />
       </div>
       <div>
         <label for="PGID">PGID</label>
-        <input id="PGID" name="PGID" value="{{ defaults.PGID }}" inputmode="numeric" />
+        <input id="PGID" name="PGID" value="{{ defaults.PGID }}" inputmode="numeric" pattern="\d+" required />
       </div>
     </div>
 

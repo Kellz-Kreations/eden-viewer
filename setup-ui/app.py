@@ -4,6 +4,7 @@ import secrets
 from pathlib import Path
 from zoneinfo import available_timezones
 from flask import Flask, Response, abort, make_response, render_template, request
+from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = 32 * 1024
@@ -50,6 +51,45 @@ def _get_or_set_csrf() -> str:
     if not token:
         token = secrets.token_urlsafe(32)
     return token
+
+
+def _render_index(*, error_message: str | None = None, status_code: int = 200, overrides: dict[str, str] | None = None):
+    # If the repo is mounted, use .env.example to prefill defaults.
+    repo_env_example = Path(os.environ.get("REPO_ENV_EXAMPLE", "/repo/.env.example"))
+    file_defaults = parse_env_file(repo_env_example)
+
+    merged = dict(DEFAULTS)
+    merged.update({k: v for k, v in file_defaults.items() if v is not None})
+    if overrides:
+        merged.update({k: v for k, v in overrides.items() if v is not None})
+
+    timezones = sorted(available_timezones())
+    csrf = _get_or_set_csrf()
+    resp = make_response(
+        render_template(
+            "index.html",
+            defaults=merged,
+            timezones=timezones,
+            csrf=csrf,
+            error_message=error_message,
+        ),
+        status_code,
+    )
+    # Secure cookies only when served over HTTPS.
+    resp.set_cookie(
+        "csrf",
+        csrf,
+        httponly=True,
+        samesite="Strict",
+        secure=bool(request.is_secure),
+    )
+    return resp
+
+
+@app.errorhandler(HTTPException)
+def handle_http_exception(e: HTTPException):
+    message = e.description if isinstance(e.description, str) and e.description else "Request failed"
+    return _render_index(error_message=message, status_code=e.code or 500)
 
 
 @app.after_request
@@ -113,25 +153,7 @@ def build_env_text(values: dict[str, str]) -> str:
 
 @app.get("/")
 def index():
-    # If the repo is mounted, use .env.example to prefill defaults.
-    repo_env_example = Path(os.environ.get("REPO_ENV_EXAMPLE", "/repo/.env.example"))
-    file_defaults = parse_env_file(repo_env_example)
-
-    merged = dict(DEFAULTS)
-    merged.update({k: v for k, v in file_defaults.items() if v is not None})
-
-    timezones = sorted(available_timezones())
-    csrf = _get_or_set_csrf()
-    resp = make_response(render_template("index.html", defaults=merged, timezones=timezones, csrf=csrf))
-    # Secure cookies only when served over HTTPS.
-    resp.set_cookie(
-        "csrf",
-        csrf,
-        httponly=True,
-        samesite="Strict",
-        secure=bool(request.is_secure),
-    )
-    return resp
+    return _render_index()
 
 
 @app.post("/download")
@@ -139,18 +161,30 @@ def download():
     csrf_cookie = request.cookies.get("csrf")
     csrf_form = request.form.get("csrf", "")
     if not csrf_cookie or not csrf_form or csrf_cookie != csrf_form:
-        abort(403)
+        abort(403, description="Your session expired. Refresh the page and try again.")
 
     tz_set = set(available_timezones())
-    values = {
-        "APPDATA_ROOT": _sanitize_env_value(request.form.get("APPDATA_ROOT", "")),
-        "DATA_ROOT": _sanitize_env_value(request.form.get("DATA_ROOT", "")),
-        "TRANSCODE_ROOT": _sanitize_env_value(request.form.get("TRANSCODE_ROOT", "")),
-        "PUID": _sanitize_numeric(request.form.get("PUID", "")),
-        "PGID": _sanitize_numeric(request.form.get("PGID", "")),
-        "TZ": _ensure_valid_timezone(request.form.get("TZ", ""), tz_set),
-        "PLEX_CLAIM": _sanitize_env_value(request.form.get("PLEX_CLAIM", "")),
-    }
+    try:
+        values = {
+            "APPDATA_ROOT": _sanitize_env_value(request.form.get("APPDATA_ROOT", "")),
+            "DATA_ROOT": _sanitize_env_value(request.form.get("DATA_ROOT", "")),
+            "TRANSCODE_ROOT": _sanitize_env_value(request.form.get("TRANSCODE_ROOT", "")),
+            "PUID": _sanitize_numeric(request.form.get("PUID", "")),
+            "PGID": _sanitize_numeric(request.form.get("PGID", "")),
+            "TZ": _ensure_valid_timezone(request.form.get("TZ", ""), tz_set),
+            "PLEX_CLAIM": _sanitize_env_value(request.form.get("PLEX_CLAIM", "")),
+        }
+    except HTTPException as e:
+        # Preserve what the user typed (but never reflect the claim token).
+        overrides = {
+            "APPDATA_ROOT": _sanitize_env_value(request.form.get("APPDATA_ROOT", "")),
+            "DATA_ROOT": _sanitize_env_value(request.form.get("DATA_ROOT", "")),
+            "TRANSCODE_ROOT": _sanitize_env_value(request.form.get("TRANSCODE_ROOT", "")),
+            "PUID": _sanitize_env_value(request.form.get("PUID", "")),
+            "PGID": _sanitize_env_value(request.form.get("PGID", "")),
+            "TZ": _sanitize_env_value(request.form.get("TZ", "")),
+        }
+        return _render_index(error_message=e.description or "Invalid input", status_code=e.code or 400, overrides=overrides)
 
     env_text = build_env_text(values)
 
