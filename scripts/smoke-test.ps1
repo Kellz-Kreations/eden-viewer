@@ -114,16 +114,46 @@ if ($failures.Count -gt 0) {
 }
 
 # Setup UI sanity check: ensure timezone list is not empty.
-$pythonCmd = Get-Command python -ErrorAction SilentlyContinue
-if ($pythonCmd) {
+# Prefer the setup-ui venv if present (it should have tzdata installed).
+$candidatePythons = @(
+  (Join-Path $ProjectRoot '.venv-setup-ui\Scripts\python.exe'),
+  (Join-Path $ProjectRoot '.venv-setup-ui\bin\python')
+)
+
+$pythonExe = $null
+foreach ($candidate in $candidatePythons) {
+  if ($candidate -and (Test-Path $candidate)) {
+    $pythonExe = $candidate
+    break
+  }
+}
+
+if (-not $pythonExe) {
+  $pythonCmd = Get-Command python -ErrorAction SilentlyContinue
+  if ($pythonCmd) { $pythonExe = $pythonCmd.Source }
+}
+
+if ($pythonExe) {
   try {
-    $checkScript = Join-Path $ProjectRoot 'scripts/check_timezones.py'
-    Write-Info "Running: python scripts/check_timezones.py"
-    & $pythonCmd.Source $checkScript
-    if ($LASTEXITCODE -ne 0) {
-      throw "Timezone list check failed (empty)."
+    # If we're not using the setup-ui venv, only run the check if tzdata is installed.
+    $usingSetupUiVenv = ($pythonExe -like "*\.venv-setup-ui*")
+    if (-not $usingSetupUiVenv) {
+      & $pythonExe -c "import importlib.util,sys; sys.exit(0 if importlib.util.find_spec('tzdata') else 1)" | Out-Null
+      if ($LASTEXITCODE -ne 0) {
+        Write-Warn "Python found but tzdata is not installed; skipped timezone list check. (Tip: install setup-ui requirements or create .venv-setup-ui)"
+        $pythonExe = $null
+      }
     }
-    Write-Info "Timezone list check: OK"
+
+    if ($pythonExe) {
+      $checkScript = Join-Path $ProjectRoot 'scripts/check_timezones.py'
+      Write-Info "Running: $pythonExe scripts/check_timezones.py"
+      & $pythonExe $checkScript
+      if ($LASTEXITCODE -ne 0) {
+        throw "Timezone list check failed (empty)."
+      }
+      Write-Info "Timezone list check: OK"
+    }
   } catch {
     $failures.Add("Timezone list check failed") | Out-Null
     Write-Err "Timezone list check failed: $($_.Exception.Message)"
