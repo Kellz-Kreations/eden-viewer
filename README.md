@@ -1,31 +1,76 @@
-# Synology DS923+ Media Stack (Plex + Sonarr + Radarr)
+# Media Server Stack for Synology NAS
 
-This project provides a **DS923+-friendly** Docker Compose stack for:
-- Plex
-- Sonarr
-- Radarr
+**Turn your Synology DS923+ into a personal Netflix!**
 
-Scope is intentionally limited to **library organization and container best practices**. It does not include piracy-related integrations.
+This project helps you set up:
+- 🎬 **Plex** - Stream your movies and TV shows to any device
+- 📺 **Sonarr** - Automatically organize your TV show library
+- 🎥 **Radarr** - Automatically organize your movie library
 
-## DS923+ note (important)
-The DS923+ uses an AMD Ryzen R1600 and generally **does not have Intel Quick Sync** hardware video transcoding. Plan for **Direct Play** where possible.
+## What You Need
 
-## Folder layout (Synology host)
-Create these folders on the NAS:
-- `/volume1/docker/appdata/{plex,sonarr,radarr}`
-- `/volume1/docker/transcode/plex`
-- `/volume1/data/media/{movies,tv}`
-- `/volume1/data/incoming/{movies,tv}`
+✅ A Synology DS923+ NAS (or similar model)  
+✅ Docker installed on your NAS (via Container Manager)  
+✅ Some media files (movies/TV shows) you want to organize
 
-Why a single `/data` mount for Sonarr/Radarr?
-- Makes moves within the same filesystem (fast/atomic)
-- Avoids painful remote-path mapping issues
+## What This Does
 
-## Permissions
-Create a non-admin DSM user (example: `docker`) that owns `/volume1/docker` and `/volume1/data`.
-Set `PUID`/`PGID` in `.env` to match that user.
+- Creates a web interface to manage your media library
+- Organizes your files automatically with proper naming
+- Lets you stream to phones, tablets, smart TVs, etc.
+- All runs on your own hardware - no monthly subscriptions!
 
-## Synology DS923+ checklist (before deploy)
+## Quick Start (Easiest Way)
+
+**Step 1:** Download this project to your computer
+
+**Step 2:** Open a terminal/PowerShell and run:
+```bash
+docker compose -f compose.setup.yaml up -d --build
+```
+
+**Step 3:** Open your web browser and go to:
+```
+http://localhost:8080
+```
+(If on a different computer, replace `localhost` with your NAS's IP address)
+
+**Step 4:** Fill in the simple form and click **Start**
+
+**Step 5:** Done! Access your services:
+- Plex: `http://your-nas-ip:32400/web`
+- Sonarr: `http://your-nas-ip:8989`
+- Radarr: `http://your-nas-ip:7878`
+
+## What's Happening Behind the Scenes?
+
+The setup creates these folders on your NAS:
+- `/volume1/docker/appdata/` - Where Plex/Sonarr/Radarr save their settings
+- `/volume1/docker/transcode/` - Temporary files when converting videos
+- `/volume1/data/media/movies` - Put your movie files here
+- `/volume1/data/media/tv` - Put your TV show files here
+
+## Need Help? Common Questions
+
+**Q: What's a PUID/PGID?**  
+A: These are just numbers that tell Docker which user owns the files. The setup wizard finds these automatically - you usually don't need to worry about them!
+
+**Q: Do I need to set up anything manually?**  
+A: Nope! The web setup wizard creates all the folders and settings for you.
+
+**Q: Will this work on other Synology models?**  
+A: Probably! It's designed for DS923+, but should work on most Synology NAS devices with Docker support.
+
+**Q: Is this legal?**  
+A: Yes! This is just software to organize and stream your own media files. What you do with it is up to you.
+
+**Q: What if I want to stop everything?**  
+A: Just run: `docker compose down`
+
+## Advanced Options
+
+<details>
+<summary>Manual Setup (SSH Required)</summary>
 
 1) Create folders (SSH)
 
@@ -64,69 +109,70 @@ sudo chmod -R u+rwX,g+rwX,o-rwx /volume1/docker /volume1/data
 
 If you’d rather manage permissions in DSM UI, that’s fine too—just ensure your container user has read/write access to both `/volume1/docker` and `/volume1/data`.
 
-## Deploy
-### First run (recommended)
-Generate your `.env` interactively (prompts for paths, PUID/PGID, and optional `PLEX_CLAIM`):
+</details>
+
+<details>
+<summary>PowerShell Setup Script (Alternative)</summary>
 
 ```powershell
 pwsh -NoProfile -File .\scripts\setup.ps1
 ```
 
-Tip: If you leave `PLEX_CLAIM` blank, the script can optionally open `https://plex.tv/link` and use the Plex API to obtain a one-time claim token (no password is entered into the script).
+The script will ask you questions and generate your configuration file.
 
-### First run (web UI)
-If you prefer a browser-based setup, start the setup UI and follow the prompts:
+</details>
 
-```powershell
-docker compose -f compose.setup.yaml up -d --build
-```
+<details>
+<summary>Using Synology Container Manager</summary>
 
-Then open:
-- `http://<NAS-IP>:8080/`
+1. Copy `.env.example` to `.env` and edit the values
+2. Open Synology **Container Manager**
+3. Click: Project → Create → Import
+4. Select this folder and deploy `compose.yaml`
 
-The setup UI will:
-1. Guide you through configuration (paths, PUID/PGID, timezone)
-2. Allow you to download a `.env` file **or** start the stack directly with the **Start** button
-3. When you click **Start**, it will:
-   - Write the `.env` file to the repository
-   - Start the full stack (`docker compose up -d`)
-   - Show you the access URLs for each service
+</details>
 
-Note: For the setup UI to start the stack, it needs access to Docker (via `/var/run/docker.sock` mount in `compose.setup.yaml`).
+## Important Technical Notes
 
-If you used the setup UI and clicked **Start**, the full stack is already running and you don't need additional commands.
+**DS923+ Hardware:**  
+The DS923+ uses an AMD Ryzen R1600 processor and does **not** have Intel Quick Sync for hardware video transcoding. For best performance, use files that can Direct Play (don't need conversion).
 
-If you downloaded the `.env` manually instead, stop the setup UI before starting the full stack:
+**Folder Structure:**  
+Using a single `/data` folder for everything makes file moves fast and avoids path mapping headaches.
 
-```powershell
-docker compose -f compose.setup.yaml down
+## Managing Your Server
+
+**Update everything:**
+```bash
+docker compose pull
 docker compose up -d
 ```
 
-Notes:
-- `PLEX_CLAIM` is only needed for the initial Plex server claim; after Plex is claimed you can blank it out.
-- This repo ignores `.env` via `.gitignore`.
+**Stop everything:**
+```bash
+docker compose down
+```
 
-### Deploy on DSM
-1. Copy `.env.example` to `.env` and edit values for your NAS.
-2. In Synology **Container Manager**:
-   - Project → Create → Import
-   - Select this folder and deploy `compose.yaml`
+**View logs:**
+```bash
+docker compose logs -f
+```
 
-## Plex library paths
-Inside Plex, add libraries using these container paths:
-- Movies: `/data/media/movies`
-- TV: `/data/media/tv`
+## What to Back Up
 
-## Updating
-Recommended approach:
-- Pull latest images
-- Recreate containers
-
-## Backups
-Back up (small, important):
+These folders are small but critical (they contain all your settings):
 - `/volume1/docker/appdata/plex`
 - `/volume1/docker/appdata/sonarr`
 - `/volume1/docker/appdata/radarr`
 
-Media backups depend on your capacity and recovery plan.
+Your media files (`/volume1/data/media/`) should be backed up based on your own backup plan.
+
+## Adding Your Media to Plex
+
+After setup, add libraries in Plex using these paths:
+- **Movies:** `/data/media/movies`
+- **TV Shows:** `/data/media/tv`
+
+---
+
+**Questions? Issues?** Check [TESTING.md](TESTING.md) for troubleshooting steps or open an issue on GitHub!
