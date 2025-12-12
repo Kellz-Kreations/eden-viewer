@@ -1,0 +1,57 @@
+name: synology-media-stack
+
+services:
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - VERSION=docker
+      - PLEX_CLAIM=${PLEX_CLAIM}
+    volumes:
+      - ${APPDATA_ROOT}/plex:/config
+      - ${DATA_ROOT}/media:/data/media:ro
+      - ${TRANSCODE_ROOT}/plex:/transcode
+    restart: unless-stopped
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    networks:
+      - media
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - UMASK=002
+    volumes:
+      - ${APPDATA_ROOT}/sonarr:/config
+      - ${DATA_ROOT}:/data
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    networks:
+      - media
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - UMASK=002
+    volumes:
+      - ${APPDATA_ROOT}/radarr:/config
+      - ${DATA_ROOT}:/data
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+
+networks:
+  media:
+    name: media
+    driver: bridge

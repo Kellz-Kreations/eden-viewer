@@ -1,0 +1,6 @@
+{
+  "APPDATA_ROOT": "/volume1/docker/appdata",
+  "DATA_ROOT": "/volume1/data",
+  "TRANSCODE_ROOT": "/volume1/docker/transcode",
+  "notes": "For reference only; .env is authoritative."
+}
