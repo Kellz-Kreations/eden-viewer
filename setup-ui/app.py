@@ -1,9 +1,15 @@
 import os
+import re
+import secrets
 from pathlib import Path
 from zoneinfo import available_timezones
-from flask import Flask, Response, render_template, request
+from flask import Flask, Response, abort, make_response, render_template, request
 
 app = Flask(__name__)
+app.config["MAX_CONTENT_LENGTH"] = 32 * 1024
+
+# Used for signing cookies (if Flask ever needs it). Not persisted.
+app.secret_key = os.environ.get("SETUP_UI_SECRET_KEY") or secrets.token_hex(32)
 
 DEFAULTS = {
     "APPDATA_ROOT": "/volume1/docker/appdata",
@@ -14,6 +20,53 @@ DEFAULTS = {
     "TZ": "America/Chicago",
     "PLEX_CLAIM": "",
 }
+
+
+_SAFE_LINE_RE = re.compile(r"[\r\n]")
+
+
+def _sanitize_env_value(value: str) -> str:
+    # Prevent newline injection into the generated .env file.
+    value = (value or "").strip()
+    return _SAFE_LINE_RE.sub("", value)
+
+
+def _sanitize_numeric(value: str) -> str:
+    value = _sanitize_env_value(value)
+    if not value.isdigit():
+        abort(400, description="PUID/PGID must be numeric")
+    return value
+
+
+def _ensure_valid_timezone(value: str, tz_set: set[str]) -> str:
+    value = _sanitize_env_value(value)
+    if value not in tz_set:
+        abort(400, description="Invalid TZ")
+    return value
+
+
+def _get_or_set_csrf() -> str:
+    token = request.cookies.get("csrf")
+    if not token:
+        token = secrets.token_urlsafe(32)
+    return token
+
+
+@app.after_request
+def add_security_headers(response: Response):
+    # Basic hardening (Microsoft-style web app hygiene):
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Referrer-Policy"] = "no-referrer"
+    response.headers["Cache-Control"] = "no-store"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self'; "
+        "base-uri 'none'; "
+        "frame-ancestors 'none'; "
+        "form-action 'self'"
+    )
+    return response
 
 
 def parse_env_file(path: Path) -> dict[str, str]:
@@ -68,19 +121,35 @@ def index():
     merged.update({k: v for k, v in file_defaults.items() if v is not None})
 
     timezones = sorted(available_timezones())
-    return render_template("index.html", defaults=merged, timezones=timezones)
+    csrf = _get_or_set_csrf()
+    resp = make_response(render_template("index.html", defaults=merged, timezones=timezones, csrf=csrf))
+    # Secure cookies only when served over HTTPS.
+    resp.set_cookie(
+        "csrf",
+        csrf,
+        httponly=True,
+        samesite="Strict",
+        secure=bool(request.is_secure),
+    )
+    return resp
 
 
 @app.post("/download")
 def download():
+    csrf_cookie = request.cookies.get("csrf")
+    csrf_form = request.form.get("csrf", "")
+    if not csrf_cookie or not csrf_form or csrf_cookie != csrf_form:
+        abort(403)
+
+    tz_set = set(available_timezones())
     values = {
-        "APPDATA_ROOT": request.form.get("APPDATA_ROOT", ""),
-        "DATA_ROOT": request.form.get("DATA_ROOT", ""),
-        "TRANSCODE_ROOT": request.form.get("TRANSCODE_ROOT", ""),
-        "PUID": request.form.get("PUID", ""),
-        "PGID": request.form.get("PGID", ""),
-        "TZ": request.form.get("TZ", ""),
-        "PLEX_CLAIM": request.form.get("PLEX_CLAIM", ""),
+        "APPDATA_ROOT": _sanitize_env_value(request.form.get("APPDATA_ROOT", "")),
+        "DATA_ROOT": _sanitize_env_value(request.form.get("DATA_ROOT", "")),
+        "TRANSCODE_ROOT": _sanitize_env_value(request.form.get("TRANSCODE_ROOT", "")),
+        "PUID": _sanitize_numeric(request.form.get("PUID", "")),
+        "PGID": _sanitize_numeric(request.form.get("PGID", "")),
+        "TZ": _ensure_valid_timezone(request.form.get("TZ", ""), tz_set),
+        "PLEX_CLAIM": _sanitize_env_value(request.form.get("PLEX_CLAIM", "")),
     }
 
     env_text = build_env_text(values)

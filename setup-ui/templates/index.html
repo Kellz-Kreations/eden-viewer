@@ -22,6 +22,7 @@
   <p>Fill in values and click <strong>Download .env</strong>. Then place the downloaded <code>.env</code> next to <code>compose.yaml</code> and redeploy.</p>
 
   <form method="post" action="/download" autocomplete="off">
+    <input type="hidden" name="csrf" value="{{ csrf }}" />
     <label for="APPDATA_ROOT">APPDATA_ROOT</label>
     <input id="APPDATA_ROOT" name="APPDATA_ROOT" value="{{ defaults.APPDATA_ROOT }}" />
     <div class="hint">Synology example: <code>/volume1/docker/appdata</code></div>
