@@ -5,97 +5,186 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Synology Media Stack Setup</title>
   <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 24px; max-width: 720px; }
-    h1 { margin: 0 0 8px 0; }
-    p { margin: 8px 0; }
+    :root {
+      --page-bg: Canvas;
+      --page-fg: CanvasText;
+      --muted: GrayText;
+      --border: color-mix(in srgb, CanvasText 18%, Canvas);
+      --surface: color-mix(in srgb, Canvas 94%, CanvasText);
+      --surface-2: color-mix(in srgb, Canvas 98%, CanvasText);
+      --accent: AccentColor;
+      --accent-fg: AccentColorText;
+      --danger: #b00020;
+      --radius: 10px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+      background: var(--page-bg);
+      color: var(--page-fg);
+    }
+    .page {
+      max-width: 880px;
+      margin: 32px auto;
+      padding: 0 16px;
+    }
+    .card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 18px 18px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+    }
+    p { margin: 10px 0; color: var(--muted); }
+    .top { display: flex; align-items: baseline; gap: 12px; justify-content: space-between; }
+    .top small { color: var(--muted); }
+
+    .callouts { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 14px 0; }
+    @media (min-width: 820px) {
+      .callouts { grid-template-columns: 1fr 1fr; }
+    }
+    .callout {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface-2);
+      padding: 12px 12px;
+    }
+    .callout strong { display: block; margin-bottom: 6px; }
+    .callout ul, .callout ol { margin: 8px 0 0 18px; padding: 0; color: var(--muted); }
+
     label { display:block; margin-top: 14px; font-weight: 600; }
-    input { width: 100%; padding: 10px; box-sizing: border-box; }
-    .hint { font-size: 12px; color: #444; }
+    input, select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--page-bg);
+      color: var(--page-fg);
+    }
+    input:focus, select:focus {
+      outline: 2px solid color-mix(in srgb, var(--accent) 70%, transparent);
+      outline-offset: 1px;
+      border-color: var(--accent);
+    }
+    .hint { font-size: 12px; color: var(--muted); margin-top: 6px; }
+    .hint.error { color: var(--danger); }
     .row { display:flex; gap: 12px; }
     .row > div { flex: 1; }
-    button { margin-top: 18px; padding: 10px 14px; font-weight: 600; }
-    code { background: #f4f4f4; padding: 2px 6px; }
+
+    .banner {
+      margin: 12px 0;
+      padding: 10px 12px;
+      border: 1px solid color-mix(in srgb, var(--danger) 45%, var(--border));
+      border-radius: var(--radius);
+      background: color-mix(in srgb, var(--danger) 8%, var(--surface-2));
+    }
+
+    button {
+      margin-top: 18px;
+      padding: 10px 14px;
+      border: 1px solid color-mix(in srgb, var(--accent) 70%, var(--border));
+      border-radius: 10px;
+      background: var(--accent);
+      color: var(--accent-fg);
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover { filter: brightness(0.98); }
+    button:active { filter: brightness(0.95); }
+
+    code { background: color-mix(in srgb, var(--page-fg) 7%, var(--page-bg)); padding: 2px 6px; border-radius: 6px; }
   </style>
 </head>
 <body>
-  <h1>First run setup</h1>
-  <p>Fill in values and click <strong>Download .env</strong>. Then place the downloaded <code>.env</code> next to <code>compose.yaml</code> and redeploy.</p>
-
-  <div style="margin: 12px 0; padding: 10px 12px; border: 1px solid #bbb; background: #fafafa;">
-    <strong>What this does</strong>
-    <ul style="margin: 8px 0 0 18px;">
-      <li>Generates a <code>.env</code> file for this repo and downloads it to your computer.</li>
-      <li>Prefills defaults from <code>.env.example</code> if the repo is mounted.</li>
-    </ul>
-    <strong>What this doesn’t do</strong>
-    <ul style="margin: 8px 0 0 18px;">
-      <li>Does not save your inputs on the server (including <code>PLEX_CLAIM</code>).</li>
-      <li>Does not configure Sonarr/Radarr/Plex beyond writing <code>.env</code>.</li>
-      <li>Intended for LAN use (don’t expose this UI directly to the internet).</li>
-    </ul>
-  </div>
-
-  <div style="margin: 12px 0; padding: 10px 12px; border: 1px solid #2b6; background: #f4fff7;">
-    <strong>Next steps</strong>
-    <ol style="margin: 8px 0 0 18px;">
-      <li>Download <code>.env</code> and place it next to <code>compose.yaml</code>.</li>
-      <li>If you started the setup-only project: run <code>docker compose -f compose.setup.yaml down</code>.</li>
-      <li>Start the full stack: <code>docker compose up -d</code> (or deploy via DSM Container Manager).</li>
-    </ol>
-  </div>
-
-  {% if error_message %}
-    <div style="margin: 12px 0; padding: 10px 12px; border: 1px solid #c33; background: #fff5f5;">
-      <strong>Couldn’t generate .env:</strong> {{ error_message }}
-    </div>
-  {% endif %}
-
-  <form method="post" action="/download" autocomplete="off">
-    <input type="hidden" name="csrf" value="{{ csrf }}" />
-    <label for="APPDATA_ROOT">APPDATA_ROOT</label>
-    <input id="APPDATA_ROOT" name="APPDATA_ROOT" value="{{ defaults.APPDATA_ROOT }}" required />
-    <div class="hint">Synology example: <code>/volume1/docker/appdata</code></div>
-    {% if field_errors.APPDATA_ROOT %}<div class="hint" style="color:#b00;">{{ field_errors.APPDATA_ROOT }}</div>{% endif %}
-
-    <label for="DATA_ROOT">DATA_ROOT</label>
-    <input id="DATA_ROOT" name="DATA_ROOT" value="{{ defaults.DATA_ROOT }}" required />
-    <div class="hint">Synology example: <code>/volume1/data</code></div>
-    {% if field_errors.DATA_ROOT %}<div class="hint" style="color:#b00;">{{ field_errors.DATA_ROOT }}</div>{% endif %}
-
-    <label for="TRANSCODE_ROOT">TRANSCODE_ROOT</label>
-    <input id="TRANSCODE_ROOT" name="TRANSCODE_ROOT" value="{{ defaults.TRANSCODE_ROOT }}" required />
-    <div class="hint">Synology example: <code>/volume1/docker/transcode</code></div>
-    {% if field_errors.TRANSCODE_ROOT %}<div class="hint" style="color:#b00;">{{ field_errors.TRANSCODE_ROOT }}</div>{% endif %}
-
-    <div class="row">
-      <div>
-        <label for="PUID">PUID</label>
-        <input id="PUID" name="PUID" value="{{ defaults.PUID }}" inputmode="numeric" pattern="\d+" required title="Numeric UID (example: 1026)" />
-        {% if field_errors.PUID %}<div class="hint" style="color:#b00;">{{ field_errors.PUID }}</div>{% endif %}
+  <div class="page">
+    <div class="card">
+      <div class="top">
+        <h1>First run setup</h1>
+        <small>LAN-only recommended</small>
       </div>
-      <div>
-        <label for="PGID">PGID</label>
-        <input id="PGID" name="PGID" value="{{ defaults.PGID }}" inputmode="numeric" pattern="\d+" required title="Numeric GID (example: 100)" />
-        {% if field_errors.PGID %}<div class="hint" style="color:#b00;">{{ field_errors.PGID }}</div>{% endif %}
+      <p>Fill in values and click <strong>Download .env</strong>. Then place the downloaded <code>.env</code> next to <code>compose.yaml</code> and redeploy.</p>
+
+      <div class="callouts">
+        <div class="callout">
+          <strong>What this does / doesn’t do</strong>
+          <ul>
+            <li>Downloads a generated <code>.env</code> file (nothing is stored server-side).</li>
+            <li>Uses defaults from <code>.env.example</code> if available.</li>
+            <li>Does not configure Plex/Sonarr/Radarr beyond writing <code>.env</code>.</li>
+            <li>Intended for LAN use (don’t expose to the internet).</li>
+          </ul>
+        </div>
+        <div class="callout">
+          <strong>Next steps</strong>
+          <ol>
+            <li>Download <code>.env</code> and place it next to <code>compose.yaml</code>.</li>
+            <li>Stop setup-only UI: <code>docker compose -f compose.setup.yaml down</code>.</li>
+            <li>Start full stack: <code>docker compose up -d</code> (or DSM Container Manager).</li>
+          </ol>
+        </div>
       </div>
+
+      {% if error_message %}
+        <div class="banner">
+          <strong>Couldn’t generate .env:</strong> {{ error_message }}
+        </div>
+      {% endif %}
+
+      <form method="post" action="/download" autocomplete="off">
+        <input type="hidden" name="csrf" value="{{ csrf }}" />
+        <label for="APPDATA_ROOT">APPDATA_ROOT</label>
+        <input id="APPDATA_ROOT" name="APPDATA_ROOT" value="{{ defaults.APPDATA_ROOT }}" required />
+        <div class="hint">Synology example: <code>/volume1/docker/appdata</code></div>
+        {% if field_errors.APPDATA_ROOT %}<div class="hint error">{{ field_errors.APPDATA_ROOT }}</div>{% endif %}
+
+      <label for="DATA_ROOT">DATA_ROOT</label>
+      <input id="DATA_ROOT" name="DATA_ROOT" value="{{ defaults.DATA_ROOT }}" required />
+      <div class="hint">Synology example: <code>/volume1/data</code></div>
+      {% if field_errors.DATA_ROOT %}<div class="hint error">{{ field_errors.DATA_ROOT }}</div>{% endif %}
+
+      <label for="TRANSCODE_ROOT">TRANSCODE_ROOT</label>
+      <input id="TRANSCODE_ROOT" name="TRANSCODE_ROOT" value="{{ defaults.TRANSCODE_ROOT }}" required />
+      <div class="hint">Synology example: <code>/volume1/docker/transcode</code></div>
+      {% if field_errors.TRANSCODE_ROOT %}<div class="hint error">{{ field_errors.TRANSCODE_ROOT }}</div>{% endif %}
+
+        <div class="row">
+          <div>
+            <label for="PUID">PUID</label>
+            <input id="PUID" name="PUID" value="{{ defaults.PUID }}" inputmode="numeric" pattern="\d+" required title="Numeric UID (example: 1026)" />
+            {% if field_errors.PUID %}<div class="hint error">{{ field_errors.PUID }}</div>{% endif %}
+          </div>
+          <div>
+            <label for="PGID">PGID</label>
+            <input id="PGID" name="PGID" value="{{ defaults.PGID }}" inputmode="numeric" pattern="\d+" required title="Numeric GID (example: 100)" />
+            {% if field_errors.PGID %}<div class="hint error">{{ field_errors.PGID }}</div>{% endif %}
+          </div>
+        </div>
+
+        <label for="TZ">TZ</label>
+        <select id="TZ" name="TZ">
+          {% for tz in timezones %}
+            <option value="{{ tz }}" {% if tz == defaults.TZ %}selected{% endif %}>{{ tz }}</option>
+          {% endfor %}
+        </select>
+        <div class="hint">Choose an IANA timezone (e.g., <code>America/Chicago</code>).</div>
+        {% if field_errors.TZ %}<div class="hint error">{{ field_errors.TZ }}</div>{% endif %}
+
+        <label for="PLEX_CLAIM">PLEX_CLAIM (optional)</label>
+        <input id="PLEX_CLAIM" name="PLEX_CLAIM" type="password" value="" />
+        <div class="hint">Only needed for the initial Plex claim. Leave blank after claiming.</div>
+
+        <div class="hint">HTTPS: to avoid browser warnings on Synology, mount a trusted cert/key and set <code>SETUP_UI_CERT_FILE</code> + <code>SETUP_UI_KEY_FILE</code>.</div>
+
+        <button type="submit">Download .env</button>
+      </form>
     </div>
-
-    <label for="TZ">TZ</label>
-    <select id="TZ" name="TZ" style="width: 100%; padding: 10px; box-sizing: border-box;">
-      {% for tz in timezones %}
-        <option value="{{ tz }}" {% if tz == defaults.TZ %}selected{% endif %}>{{ tz }}</option>
-      {% endfor %}
-    </select>
-    <div class="hint">Choose an IANA timezone (e.g., <code>America/Chicago</code>).</div>
-    {% if field_errors.TZ %}<div class="hint" style="color:#b00;">{{ field_errors.TZ }}</div>{% endif %}
-
-    <label for="PLEX_CLAIM">PLEX_CLAIM (optional)</label>
-    <input id="PLEX_CLAIM" name="PLEX_CLAIM" type="password" value="" />
-    <div class="hint">Only needed for the initial Plex claim. Leave blank after claiming.</div>
-
-    <div class="hint">HTTPS note: this UI may use a self-signed certificate. To avoid browser warnings on Synology, mount a trusted cert/key and set <code>SETUP_UI_CERT_FILE</code> + <code>SETUP_UI_KEY_FILE</code>.</div>
-
-    <button type="submit">Download .env</button>
-  </form>
+  </div>
 </body>
 </html>

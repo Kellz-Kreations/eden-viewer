@@ -110,7 +110,9 @@ def add_security_headers(response: Response):
         "default-src 'self'; "
         "base-uri 'none'; "
         "frame-ancestors 'none'; "
-        "form-action 'self'"
+        "form-action 'self'; "
+        "script-src 'none'; "
+        "style-src 'self' 'unsafe-inline'"
     )
     return response
 
