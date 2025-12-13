@@ -1,7 +1,23 @@
+# Environment files (contain sensitive paths/IDs)
 .env
-*.log
+
+# Synology/DSM artifacts
+@eaDir/
 .DS_Store
 Thumbs.db
+
+# Logs
+*.log
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Backup files
+*.bak
+*.backup
 
 # Python
 __pycache__/
