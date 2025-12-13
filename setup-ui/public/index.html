@@ -440,8 +440,15 @@
           btn.disabled = false;
           btn.textContent = 'Launch Plex';
         } else {
+          if (data.url) {
+            plexUrl = data.url;
+          }
           statusText.innerHTML = '⏳ Plex is not running yet';
           statusHint.innerHTML = 'Run <code>docker-compose up -d</code> to start the stack';
+          if (data.errorCode || data.error) {
+            const extra = (data.errorCode ? `${data.error} (${data.errorCode})` : data.error);
+            statusHint.innerHTML += `<br/><span style="color: var(--neutral-foreground-secondary);">Last check: ${extra}</span>`;
+          }
           statusBox.style.borderLeftColor = 'var(--warning-primary)';
           btn.disabled = false;
           btn.textContent = 'Try Launch Anyway';
@@ -488,8 +495,11 @@
           const domain = savedConfig.domain || 'localhost';
           document.getElementById('domain-display').textContent = domain;
           
-          // Set default Plex URL and check status
-          plexUrl = window.location.protocol + '//' + window.location.hostname + ':32400/web';
+          // Set default Plex URL and check status.
+          // Prefer the configured Plex domain (Caddy/TLS) when available.
+          plexUrl = savedConfig.domain
+            ? ('https://' + savedConfig.domain + '/web')
+            : (window.location.protocol + '//' + window.location.hostname + ':32400/web');
           checkPlexStatus();
         } else {
           throw new Error(data.message || 'Configuration failed');

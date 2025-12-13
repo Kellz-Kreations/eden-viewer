@@ -45,33 +45,120 @@ app.get('/api/health', (req, res) => {
 
 // API: Check if Plex is accessible
 app.get('/api/plex-status', async (req, res) => {
-  const plexHost = req.query.host || req.hostname;
-  const plexPort = req.query.port || 32400;
-  const plexUrl = `http://${plexHost}:${plexPort}/identity`;
-  
-  console.log(`  ├─ Checking Plex connectivity: ${plexUrl}`);
-  
-  try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 5000);
-    
-    const response = await fetch(plexUrl, { 
-      signal: controller.signal,
-      headers: { 'Accept': 'application/json' }
-    });
-    clearTimeout(timeout);
-    
-    if (response.ok) {
-      console.log('  └─ ✅ Plex is running');
-      res.json({ online: true, url: `http://${plexHost}:${plexPort}/web` });
-    } else {
-      console.log(`  └─ ⚠️ Plex responded with status ${response.status}`);
-      res.json({ online: false, error: `HTTP ${response.status}` });
+  const plexDomain = (process.env.PLEX_DOMAIN || '').trim();
+  const plexLanHost = (process.env.PLEX_LAN_HOST || process.env.SYNOLOGY_HOST || '').trim();
+  const plexPort = Number(req.query.port || 32400);
+
+  // Build candidates in priority order. This allows Setup UI to run from a different machine
+  // while still checking Plex on the NAS via domain (Caddy) or LAN host.
+  const candidates = [];
+
+  // Explicit host override (mostly for diagnostics): /api/plex-status?host=192.168.1.10&port=32400
+  if (req.query.host) {
+    const host = String(req.query.host).trim();
+    if (host) {
+      candidates.push({
+        label: 'query-host',
+        identityUrl: `http://${host}:${plexPort}/identity`,
+        webUrl: `http://${host}:${plexPort}/web`,
+      });
     }
-  } catch (error) {
-    console.log(`  └─ ❌ Plex not reachable: ${error.message}`);
-    res.json({ online: false, error: error.message });
   }
+
+  // If a domain is configured, prefer it (works whether the UI runs locally or remotely).
+  if (plexDomain) {
+    candidates.push(
+      {
+        label: 'domain-https',
+        identityUrl: `https://${plexDomain}/identity`,
+        webUrl: `https://${plexDomain}/web`,
+      },
+      {
+        label: 'domain-http',
+        identityUrl: `http://${plexDomain}/identity`,
+        webUrl: `http://${plexDomain}/web`,
+      },
+      {
+        label: 'domain-port-32400',
+        identityUrl: `http://${plexDomain}:32400/identity`,
+        webUrl: `http://${plexDomain}:32400/web`,
+      }
+    );
+  }
+
+  // Optional LAN host/IP of the NAS (recommended for LAN-only checks).
+  if (plexLanHost) {
+    candidates.push({
+      label: 'lan-host',
+      identityUrl: `http://${plexLanHost}:32400/identity`,
+      webUrl: `http://${plexLanHost}:32400/web`,
+    });
+  }
+
+  // Last resort: assume Plex is local to the machine running Setup UI.
+  candidates.push({
+    label: 'localhost',
+    identityUrl: `http://127.0.0.1:32400/identity`,
+    webUrl: `http://127.0.0.1:32400/web`,
+  });
+
+  const tried = [];
+  let lastError = null;
+  for (const candidate of candidates) {
+    tried.push(candidate.identityUrl);
+    console.log(`  ├─ Checking Plex connectivity (${candidate.label}): ${candidate.identityUrl}`);
+
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 5000);
+
+      const response = await fetch(candidate.identityUrl, {
+        signal: controller.signal,
+        headers: { Accept: 'application/json' },
+      });
+      clearTimeout(timeout);
+
+      if (response.ok) {
+        console.log('  └─ ✅ Plex is running');
+        return res.json({
+          online: true,
+          url: candidate.webUrl,
+          identityUrl: candidate.identityUrl,
+          tried,
+        });
+      }
+
+      lastError = {
+        message: `HTTP ${response.status}`,
+        status: response.status,
+        url: candidate.identityUrl,
+      };
+      console.log(`  └─ ⚠️ Plex responded with status ${response.status}`);
+    } catch (error) {
+      // Node fetch errors can be opaque; expose cause codes when available.
+      const cause = error && error.cause ? error.cause : null;
+      const code = cause && cause.code ? cause.code : undefined;
+      lastError = {
+        message: error?.message || 'fetch failed',
+        code,
+        url: candidate.identityUrl,
+      };
+      console.log(`  └─ ❌ Plex not reachable: ${lastError.message}${code ? ` (${code})` : ''}`);
+    }
+  }
+
+  const suggestedUrl = candidates[0]?.webUrl || (plexDomain ? `https://${plexDomain}/web` : '');
+  return res.json({
+    online: false,
+    url: suggestedUrl || null,
+    error: lastError?.message || 'Plex not reachable',
+    errorCode: lastError?.code || null,
+    tried,
+    hint:
+      plexLanHost || plexDomain
+        ? null
+        : 'Set PLEX_LAN_HOST (NAS IP/hostname) in .env to check Plex on your NAS from this machine.',
+  });
 });
 
 // API: Get current configuration status
