@@ -6,31 +6,52 @@
   <title>Eden Viewer - Setup</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; color: #fff; }
+    body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; background: linear-gradient(135deg, #0078d4 0%, #005a9e 50%, #003966 100%); min-height: 100vh; color: #fff; }
     .container { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
     .logo { text-align: center; margin-bottom: 40px; }
-    .logo h1 { font-size: 2.5rem; color: #e94560; }
-    .logo p { color: #888; margin-top: 8px; }
-    .card { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 30px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
-    .card h2 { margin-bottom: 20px; font-size: 1.25rem; }
+    .logo h1 { font-size: 2.5rem; color: #fff; font-weight: 600; }
+    .logo p { color: rgba(255,255,255,0.8); margin-top: 8px; }
+    .card { background: rgba(255,255,255,0.95); border-radius: 8px; padding: 30px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); color: #323130; }
+    .card h2 { margin-bottom: 20px; font-size: 1.25rem; color: #0078d4; font-weight: 600; }
     .form-group { margin-bottom: 20px; }
-    .form-group label { display: block; margin-bottom: 8px; color: #ccc; font-size: 0.9rem; }
-    .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; background: rgba(0,0,0,0.3); color: #fff; font-size: 1rem; }
-    .form-group input:focus, .form-group select:focus { outline: none; border-color: #e94560; }
-    .btn { background: #e94560; color: #fff; border: none; padding: 14px 28px; border-radius: 8px; font-size: 1rem; cursor: pointer; width: 100%; transition: background 0.2s; }
-    .btn:hover { background: #ff6b6b; }
-    .btn:disabled { background: #555; cursor: not-allowed; }
-    .status { padding: 12px; border-radius: 8px; margin-top: 20px; text-align: center; }
-    .status.success { background: rgba(46, 213, 115, 0.2); color: #2ed573; }
-    .status.error { background: rgba(233, 69, 96, 0.2); color: #e94560; }
+    .form-group label { display: block; margin-bottom: 8px; color: #605e5c; font-size: 0.9rem; font-weight: 600; }
+    .form-group input, .form-group select { width: 100%; padding: 10px 12px; border: 1px solid #8a8886; border-radius: 4px; background: #fff; color: #323130; font-size: 1rem; font-family: 'Segoe UI', sans-serif; }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: #0078d4; box-shadow: 0 0 0 2px rgba(0,120,212,0.2); }
+    .form-group input::placeholder { color: #a19f9d; }
+    .btn { background: #0078d4; color: #fff; border: none; padding: 12px 24px; border-radius: 4px; font-size: 1rem; font-weight: 600; cursor: pointer; width: 100%; transition: background 0.2s; font-family: 'Segoe UI', sans-serif; }
+    .btn:hover { background: #106ebe; }
+    .btn:active { background: #005a9e; }
+    .btn:disabled { background: #c8c6c4; color: #a19f9d; cursor: not-allowed; }
+    .btn-secondary { background: #fff; color: #0078d4; border: 1px solid #0078d4; }
+    .btn-secondary:hover { background: #f3f2f1; }
+    .status { padding: 12px; border-radius: 4px; margin-top: 20px; text-align: center; font-weight: 600; }
+    .status.success { background: #dff6dd; color: #107c10; border: 1px solid #107c10; }
+    .status.error { background: #fde7e9; color: #d13438; border: 1px solid #d13438; }
     .step-indicator { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
-    .step { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.2); }
-    .step.active { background: #e94560; }
+    .step { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.4); }
+    .step.active { background: #fff; }
+    .info-box { background: #f3f2f1; padding: 15px; border-radius: 4px; margin-bottom: 15px; border-left: 4px solid #0078d4; }
+    .info-box p { color: #605e5c; font-size: 0.9rem; margin-bottom: 10px; }
+    .info-box p:last-child { margin-bottom: 0; }
+    .info-box strong { color: #323130; }
+    .info-box code { background: #e1dfdd; padding: 2px 6px; border-radius: 3px; color: #0078d4; font-family: 'Cascadia Code', 'Consolas', monospace; }
+    .info-box a { color: #0078d4; text-decoration: none; font-weight: 600; }
+    .info-box a:hover { text-decoration: underline; }
+    .ms-logo { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px; }
+    .ms-logo svg { width: 24px; height: 24px; }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="logo">
+      <div class="ms-logo">
+        <svg viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="11" height="11" fill="#f25022"/>
+          <rect x="12" width="11" height="11" fill="#7fba00"/>
+          <rect y="12" width="11" height="11" fill="#00a4ef"/>
+          <rect x="12" y="12" width="11" height="11" fill="#ffb900"/>
+        </svg>
+      </div>
       <h1>🎬 Eden Viewer</h1>
       <p>Media Stack Setup Wizard</p>
     </div>
@@ -43,7 +64,7 @@
 
     <div class="card" id="welcome-card">
       <h2>Welcome to Eden Viewer</h2>
-      <p style="color:#aaa;margin-bottom:20px;">Configure your Plex, Sonarr, and Radarr media stack for Synology DS923+ or Azure deployment.</p>
+      <p style="color:#605e5c;margin-bottom:20px;">Configure your Plex, Sonarr, and Radarr media stack for Synology DS923+ or Azure deployment.</p>
       
       <div class="form-group">
         <label>Deployment Target</label>
@@ -103,28 +124,27 @@
       <div id="status"></div>
     </div>
 
-    <!-- Add success card -->
     <div class="card" id="success-card" style="display:none;">
       <h2>✓ Configuration Complete!</h2>
-      <p style="color:#aaa;margin-bottom:20px;">Your Eden Viewer stack is configured. Next steps:</p>
+      <p style="color:#605e5c;margin-bottom:20px;">Your Eden Viewer stack is configured. Next steps:</p>
       
-      <div style="background:rgba(0,0,0,0.3);padding:15px;border-radius:8px;margin-bottom:15px;">
-        <p style="color:#ccc;font-size:0.9rem;margin-bottom:10px;"><strong>1. Deploy the stack:</strong></p>
-        <code style="color:#e94560;">docker-compose up -d</code>
+      <div class="info-box">
+        <p><strong>1. Deploy the stack:</strong></p>
+        <code>docker-compose up -d</code>
       </div>
 
-      <div style="background:rgba(0,0,0,0.3);padding:15px;border-radius:8px;margin-bottom:15px;">
-        <p style="color:#ccc;font-size:0.9rem;margin-bottom:10px;"><strong>2. Access your services:</strong></p>
-        <p style="margin:5px 0;"><a id="plex-link" href="#" target="_blank" style="color:#e94560;">Plex</a></p>
-        <p style="margin:5px 0;"><span style="color:#888;">Sonarr/Radarr: Use VPN for secure access</span></p>
+      <div class="info-box">
+        <p><strong>2. Access your services:</strong></p>
+        <p><a id="plex-link" href="#" target="_blank">Plex Web UI</a></p>
+        <p style="color:#a19f9d;font-size:0.85rem;">Sonarr/Radarr: Use VPN for secure access</p>
       </div>
 
-      <div style="background:rgba(0,0,0,0.3);padding:15px;border-radius:8px;">
-        <p style="color:#ccc;font-size:0.9rem;margin-bottom:10px;"><strong>3. Configure DNS:</strong></p>
-        <p style="color:#888;font-size:0.85rem;">Point <span id="domain-display" style="color:#fff;"></span> to your server IP</p>
+      <div class="info-box">
+        <p><strong>3. Configure DNS:</strong></p>
+        <p>Point <code id="domain-display"></code> to your server IP</p>
       </div>
 
-      <button class="btn" style="margin-top:20px;" onclick="window.location.reload()">Start Over</button>
+      <button class="btn btn-secondary" style="margin-top:20px;" onclick="window.location.reload()">Start Over</button>
     </div>
   </div>
 
