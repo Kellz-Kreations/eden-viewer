@@ -33,7 +33,7 @@ const CONFIG_PATH = process.env.CONFIG_PATH || path.join(__dirname, 'config', 'c
 
 console.log('[2/7] 📦 Initializing Express application...');
 const app = express();
-const PORT = process.env.SETUP_UI_PORT || 3000;
+const PORT = process.env.SETUP_UI_PORT || 8080;
 
 // Rate limiting: max 100 requests per 15 minutes per IP
 const limiter = rateLimit({

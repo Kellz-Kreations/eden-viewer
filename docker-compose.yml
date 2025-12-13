@@ -61,14 +61,15 @@ services:
     build: ./setup-ui
     container_name: eden-setup-ui
     ports:
-      - "8080:8080"
+      - "8888:3000" # Changed from 8080 to 8888
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
       - TZ=${TZ:-America/Los_Angeles}
-      - SETUP_UI_PORT=8080
+      - SETUP_UI_PORT=3000
       - SETUP_UI_FIRST_RUN=${SETUP_UI_FIRST_RUN:-false}
       - CONFIG_PATH=/config/config.json
     volumes:
       - ${APPDATA_PATH:-./appdata}/setup-ui:/config
+      - .:/repo:ro
     restart: unless-stopped
