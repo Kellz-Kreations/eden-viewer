@@ -22,11 +22,11 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
       - VERSION=docker
-      - PLEX_CLAIM=${PLEX_CLAIM}
+      - PLEX_CLAIM=${PLEX_CLAIM:-}
     volumes:
-      - ${APPDATA_ROOT}/plex:/config
-      - ${DATA_ROOT}/media:/data/media:ro
-      - ${TRANSCODE_ROOT}/plex:/transcode
+      - ${APPDATA_ROOT:-/volume1/docker/appdata}/plex:/config
+      - ${DATA_ROOT:-/volume1/data}/media:/data/media:ro
+      - ${TRANSCODE_ROOT:-/volume1/docker/transcode}/plex:/transcode
     restart: unless-stopped
 
   sonarr:
@@ -40,8 +40,8 @@ services:
       - TZ=${TZ}
       - UMASK=002
     volumes:
-      - ${APPDATA_ROOT}/sonarr:/config
-      - ${DATA_ROOT}:/data
+      - ${APPDATA_ROOT:-/volume1/docker/appdata}/sonarr:/config
+      - ${DATA_ROOT:-/volume1/data}:/data
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -57,8 +57,8 @@ services:
       - TZ=${TZ}
       - UMASK=002
     volumes:
-      - ${APPDATA_ROOT}/radarr:/config
-      - ${DATA_ROOT}:/data
+      - ${APPDATA_ROOT:-/volume1/docker/appdata}/radarr:/config
+      - ${DATA_ROOT:-/volume1/data}:/data
     ports:
       - 7878:7878
     restart: unless-stopped
