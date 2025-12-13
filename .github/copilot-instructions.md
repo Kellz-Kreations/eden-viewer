@@ -62,18 +62,24 @@ For Synology DS923+ users, we recommend using a reverse proxy to handle HTTPS te
 1. **Set Environment Variables**: In your `.env` file, set the following variables:
 
     ```env
-    PLEX_DOMAIN=yourdomain.com # Your domain pointing to your NAS public IP
+    PLEX_DOMAIN=viewer.kellzkreations.com
     ```
 
-2. **Port Forwarding**: Ensure that ports 80 and 443 are forwarded to your NAS or are accessible via a VPN/reverse-proxy appliance that supports ACME HTTP-01 validation.
+2. **DNS Configuration**: Create an A record or CNAME pointing `viewer.kellzkreations.com` to your public IP or NAS hostname.
 
-3. **Create Caddy Data Directory**: Ensure the directory `/volume1/docker/appdata/caddy` exists to store certificates persistently.
+3. **Port Forwarding**: Ensure that ports 80 and 443 are forwarded to your NAS or are accessible via a VPN/reverse-proxy appliance that supports ACME HTTP-01 validation.
 
-4. **Deploy the Stack**: Use Docker Compose or Synology Container Manager to deploy the stack with the new `plex-proxy` service.
+4. **Create Caddy Data Directory**: Ensure the directory `/volume1/docker/appdata/caddy` exists to store certificates persistently:
+
+    ```bash
+    mkdir -p /volume1/docker/appdata/caddy
+    ```
+
+5. **Deploy the Stack**: Use Docker Compose or Synology Container Manager to deploy the stack with the new `plex-proxy` service.
 
 ### Accessing Services Remotely
 
-- Use `https://<PLEX_DOMAIN>` for Plex access over HTTPS.
+- Use `https://viewer.kellzkreations.com` for Plex access over HTTPS.
 - For Sonarr and Radarr, we strongly recommend using a VPN (e.g., Tailscale, Synology VPN Server) for secure remote access.
 
 ## Azure Remote Deployment Setup
