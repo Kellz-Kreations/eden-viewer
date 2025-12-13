@@ -291,3 +291,90 @@ az group delete --name mediastack-rg --yes --no-wait
 - Check status: `az containerapp show`
 - Review costs: Azure Portal → Cost Management
 - File issues: GitHub repository issues page
+
+# Eden Viewer - Azure Deployment
+
+> ⚠️ **Different Scope**: This configuration is for Azure VM hosting, separate from the main Synology DS923+ project.
+
+## Overview
+
+This directory contains configuration for hosting the media stack on an Azure VM instead of a local Synology NAS.
+
+## Prerequisites
+
+- Azure subscription
+- Azure CLI installed
+- Docker-capable VM (Ubuntu 22.04 LTS recommended)
+
+## Recommended Azure Resources
+
+| Resource | Recommendation |
+|----------|---------------|
+| VM Size | Standard_B2s (2 vCPU, 4GB) minimum |
+| OS Disk | 64GB Premium SSD |
+| Data Disk | Standard HDD (size based on library) |
+| Region | Closest to your location |
+
+## Quick Start
+
+```bash
+# 1. Create resource group
+az group create --name eden-viewer-rg --location eastus
+
+# 2. Create VM
+az vm create \
+  --resource-group eden-viewer-rg \
+  --name eden-viewer-vm \
+  --image Ubuntu2204 \
+  --size Standard_B2s \
+  --admin-username azureuser \
+  --generate-ssh-keys
+
+# 3. SSH into VM and run setup
+ssh azureuser@<VM-PUBLIC-IP>
+```
+
+## Security (Critical)
+
+**Azure VMs are internet-exposed by default.** You MUST:
+
+1. **Use NSG rules** - Only allow necessary ports
+2. **Enable authentication** - Set passwords in Sonarr/Radarr
+3. **Use HTTPS** - Put a reverse proxy (Caddy/nginx) in front
+4. **Consider VPN** - Azure VPN Gateway or Tailscale
+
+### Recommended NSG Rules
+
+| Priority | Port | Source | Action | Purpose |
+|----------|------|--------|--------|---------|
+| 100 | 22 | Your IP | Allow | SSH |
+| 110 | 32400 | Any | Allow | Plex |
+| 120 | 443 | Any | Allow | HTTPS (reverse proxy) |
+| 200 | 8989 | Your IP | Allow | Sonarr (restrict!) |
+| 210 | 7878 | Your IP | Allow | Radarr (restrict!) |
+| 4096 | * | Any | Deny | Default deny |
+
+## Cost Considerations
+
+| Component | Est. Monthly Cost |
+|-----------|------------------|
+| B2s VM | ~$30-40 |
+| 64GB Premium SSD | ~$10 |
+| 1TB Standard HDD | ~$40 |
+| Egress (streaming) | Variable |
+
+**Total**: ~$80-100+/month (vs. one-time NAS purchase)
+
+## When to Use Azure vs Synology
+
+| Use Case | Recommendation |
+|----------|---------------|
+| Home media server | Synology NAS |
+| No home internet/power | Azure |
+| Remote-first access | Azure |
+| Cost-sensitive | Synology NAS |
+| Full control/privacy | Synology NAS |
+
+---
+
+> **Recommendation**: For most home users, the Synology DS923+ setup in the [main project](../) is more cost-effective and private.
