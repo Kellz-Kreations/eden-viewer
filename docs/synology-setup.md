@@ -1,26 +1,32 @@
 # Synology Setup Notes (DSM 7.x)
 
 ## Container Manager
+
 - Use Container Manager Projects with Compose files for repeatability.
+- Keep `docker-compose.yml` and `compose.yaml` in sync when you make edits so CLI and GUI deployments match.
 
 ## Networking
-- Plex uses `network_mode: host` for simpler discovery.
+
+- Plex uses `network_mode: host` for simpler discovery and DLNA/companion features.
+- The `plex-proxy` service runs Caddy in host networking to terminate HTTPS on 443 while forwarding to Plex on 32400.
 - Sonarr/Radarr use a bridge network and publish ports to LAN.
 
-If you need remote access to Sonarr/Radarr, prefer VPN; otherwise put strong auth + TLS in front of any reverse proxy.
+> If you need remote access to Sonarr/Radarr, prefer VPN; otherwise put strong auth + TLS in front of any reverse proxy. Never forward 8989/7878 directly to the internet.
 
-## TLS & Remote Access
+## TLS & Reverse Proxy
 
-- **Default stance:** keep Plex, Sonarr, and Radarr on the LAN behind your home router. Require VPN or zero-trust tunnels (Tailscale, Synology VPN Server, WireGuard) before exposing management ports.
-- **Reverse proxy option:** if you must terminate HTTPS on the NAS, use DSM Application Portal, Caddy, or Nginx to handle TLS locally while containers remain on HTTP. Map certificates from `/volume1/docker/appdata/<proxy>/certs` and redirect all plain HTTP to HTTPS.
-- **Certificates:** back up `/volume1/docker/appdata` before introducing new certs. Use Let’s Encrypt DNS-01 (via Synology’s built-in ACME client or Caddy) or import BYO PEM bundles; renewals may increase CPU usage on the Ryzen R1600, so schedule them during off-peak hours.
-- **VPN first for *arr:** even with HTTPS, Sonarr and Radarr contain API keys and download clients. Encourage users to connect through VPN/Tailscale; if you expose them, enforce strong auth (OIDC, Authentik, Authelia) plus certificates.
-- **Monitoring:** after TLS changes, test endpoints from a LAN client (`curl -I https://nas.local:443`) and confirm DSM reverse proxy rules didn’t break container health.
+1. Set `PLEX_DOMAIN` (and optional `CADDY_ACME_EMAIL`) in `.env`. The domain must resolve to the NAS when requesting Let’s Encrypt certificates.
+2. Forward ports **80** and **443** to the NAS or place the NAS behind a VPN/reverse-proxy that terminates those ports. Alternatively, publish via Synology Application Portal with a certificate.
+3. Review `config/caddy/Caddyfile` if you need to add auth or tweak headers. Certificates and state live under `/volume1/docker/appdata/caddy`.
+4. Keep Plex’s port 32400 restricted to LAN/VPN. Update firewall rules so only RFC1918 ranges reach Plex directly; everything else should arrive through Caddy.
+
+Remember DS923+ lacks hardware transcoding, so TLS offload adds CPU load. Monitor `plex-proxy` container usage during high-traffic sessions and consider rate-limiting 4K transcodes if CPU becomes a bottleneck.
 
 ## Storage
 
 - Keep a single data root (e.g. `/volume1/data`) and mount it as `/data` in *arr containers.
 - Keep app configs in `/volume1/docker/appdata/<app>`.
+- Add `/volume1/docker/appdata/caddy` to your backup plan to retain certificates.
 
 ## Performance
 
