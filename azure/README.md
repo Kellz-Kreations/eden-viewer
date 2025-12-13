@@ -192,6 +192,88 @@ Monitor costs (`az consumption usage list ...`) and remove unused resources:
 az group delete --name rg-eden-viewer --yes --no-wait
 ```
 
+## 11. HTTPS & Certificates
+
+Azure Container Apps automatically exposes each workload at `https://<service>.<region>.azurecontainerapps.io`, terminating TLS with Microsoft-managed certificates. To harden access—especially for Sonarr/Radarr, which should remain behind VPN or zero-trust proxies—choose one of these certificate strategies:
+
+- **Azure-managed certificate**: pointed at an Azure DNS zone, renewed automatically.
+- **Azure DNS + Key Vault**: upload your own certificate (PFX) to Key Vault and bind it to each Container App.
+- **Manual PEM upload**: copy full-chain/key files into the environment and mount them via the setup UI secrets.
+
+Maintain the Synology-first posture: treat VPN (Tailscale, WireGuard, Application Gateway with SSO) as the default for managing Sonarr/Radarr, and only expose ports externally once strong authentication and TLS are verified.
+
+### Custom domains with Azure-managed certificates
+
+> Replace the placeholder names with your environment, app, and DNS values. The commands assume the `azure` directory `.env` still defines `APPDATA_ROOT`, `DATA_ROOT`, and `PUID/PGID` for volume mounts.
+
+```powershell
+$RG="rg-eden-viewer"
+$ENV="eden-viewer-aca-env"
+$APP="eden-viewer-plex"
+$HOSTNAME="plex.kellzkreations.com"
+$DNSZONE="kellzkreations.com"
+
+az containerapp hostname add `
+   --resource-group $RG `
+   --name $APP `
+   --environment $ENV `
+   --hostname $HOSTNAME
+
+az containerapp hostname enable-certificate `
+   --resource-group $RG `
+   --name $APP `
+   --hostname $HOSTNAME `
+   --certificate-type Managed `
+   --dns-zone $DNSZONE
+
+az containerapp hostname list `
+   --resource-group $RG `
+   --name $APP `
+   --output table
+```
+
+Use the same pattern for the Sonarr/Radarr apps and confirm Azure DNS has the required CNAME or A records. Azure updates certificates automatically; check renewal status with `az containerapp hostname list` or the Azure Portal if you want confirmation emails.
+
+### Bring-your-own certificates (BYO)
+
+When you manage certificates yourself (Key Vault or manual PEM), mount the full chain and private key into your containers and point the setup UI at those files:
+
+```dotenv
+SETUP_UI_CERT_FILE=/certs/fullchain.pem
+SETUP_UI_KEY_FILE=/certs/privkey.pem
+```
+
+Add a secret volume with those paths in `compose.yaml` / `docker-compose.yml`, or use Container Apps secrets to project the PEMs. The setup UI falls back to a self-signed cert when these variables are unset, so set both to enforce your own trusted chain.
+
+### Plex ingress `allowInsecure`
+
+Plex deployments use `allowInsecure: true` by default so legacy clients can fall back to HTTP. After you verify HTTPS works end-to-end, disable that fallback:
+
+```powershell
+az containerapp ingress update `
+   --resource-group $RG `
+   --name $APP `
+   --allow-insecure false
+
+# Re-enable only for troubleshooting labs
+az containerapp ingress update `
+   --resource-group $RG `
+   --name $APP `
+   --allow-insecure true
+```
+
+Expect a few minutes for the new ingress policy to propagate. Keep a VPN path handy in case clients cache the HTTP endpoint.
+
+### Validate HTTPS
+
+- From your workstation: `curl -I https://$HOSTNAME` (should return `HTTP/2 200`)
+- From the Azure VM: `curl -I https://<service>.<region>.azurecontainerapps.io`
+- Run the scripted check: `./smoke-test-azure.ps1 -EnvironmentName $ENV`
+
+If any service fails the HTTPS probes, roll back to VPN-only access until certificates are healthy.
+
+> 🛡️ VM-specific note: if you later expose the Docker stack directly from the VM, terminate TLS through a reverse proxy (Caddy, Nginx, or Apache) or `certbot`-managed Let's Encrypt certs, and keep Sonarr/Radarr restricted to VPN/zero-trust with strong auth even after HTTPS is enabled.
+
 ## Security Checklist
 
 - Keep Sonarr/Radarr private (VPN or authenticated reverse proxy with TLS).
@@ -209,6 +291,7 @@ For everyday use, stay on the Synology DS923+ stack (direct play, Btrfs snapshot
 If the browser spins / times out:
 
 1. **Confirm containers are actually running (on the VM):**
+
    ```bash
    cd ~/eden-viewer/azure
    docker compose --env-file .env -f docker-compose.yml ps
@@ -216,11 +299,13 @@ If the browser spins / times out:
    ```
 
 2. **Confirm Plex is listening locally (on the VM):**
+
    ```bash
    curl -I http://127.0.0.1:32400/web
    ```
 
 3. **Confirm Azure NSG allows inbound 32400 and the VM firewall isn’t blocking:**
+
    ```bash
    sudo ufw status || true
    sudo ss -lntp | grep 32400 || true
