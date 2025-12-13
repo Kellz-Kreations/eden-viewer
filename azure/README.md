@@ -145,12 +145,11 @@ From the VM:
 ```bash
 cd ~/eden-viewer/azure
 
-# Pick ONE compose file. If both exist, remove/rename the one you don't want:
-#   rm -f compose.yaml     # if you're using docker-compose.yml
-#   rm -f docker-compose.yml # if you're using compose.yaml
+# If both exist, choose one and remove the other to prevent Compose auto-picking:
+#   rm -f compose.yaml        # if you're using docker-compose.yml
+#   rm -f docker-compose.yml  # if you're using compose.yaml
 
-# Always force the env file + compose file to avoid "variable not set" + ":/data" errors:
-docker compose --env-file .env -f docker-compose.yml pull
+# Recommended: always force env + file
 docker compose --env-file .env -f docker-compose.yml up -d
 docker compose --env-file .env -f docker-compose.yml ps
 ```

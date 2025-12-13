@@ -17,27 +17,25 @@ DATA_PATH="${DATA_PATH:-/volume1/data}"
 APPDATA_PATH="${APPDATA_PATH:-/volume1/docker/appdata}"
 
 # Compose file (allow override; default matches common Compose v2 naming)
-COMPOSE_FILE="${COMPOSE_FILE:-compose.yaml}"
+COMPOSE_FILE="${COMPOSE_FILE:-}"
+COMPOSE_FILE_EXPLICIT=false
 
-# Use sudo only when not running as root (must be defined before first use; set -u is on)
+# Use sudo only when not running as root (must be defined before run()/compose detection)
 SUDO="sudo"
 if [[ "$(id -u)" -eq 0 ]]; then
     SUDO=""
 fi
 
-# Non-interactive confirmation
-YES=false
-
-# Detect Compose command (DSM varies) (requires SUDO to be defined)
+# Detect Compose command (DSM varies) (do NOT reference $SUDO here)
 COMPOSE_CMD=""
 if command -v docker-compose >/dev/null 2>&1; then
     COMPOSE_CMD="docker-compose"
-elif command -v docker >/dev/null 2>&1 && $SUDO docker compose version >/dev/null 2>&1; then
+elif command -v docker >/dev/null 2>&1 && docker compose version >/dev/null 2>&1; then
     COMPOSE_CMD="docker compose"
 fi
 
 # Better error context (line + failing command)
-trap 'echo -e "${RED}Error:${NC} Command failed on line ${BASH_LINENO[0]}: ${BASH_COMMAND}" >&2' ERR
+trap 'printf "%b\n" "${RED}Error:${NC} Command failed on line ${BASH_LINENO[0]}: ${BASH_COMMAND}" >&2' ERR
 
 # Usage function
 usage() {
@@ -63,16 +61,23 @@ err()  { printf "%b\n" "${RED}$*${NC}" 1>&2; }
 run() {
     if [[ "${DRY_RUN}" == true ]]; then
         echo "  Would run: $*"
+        return 0
+    fi
+
+    if [[ -n "${SUDO}" ]]; then
+        sudo "$@"
     else
-        # shellcheck disable=SC2086
-        $SUDO "$@"
+        "$@"
     fi
 }
 
 is_tty() { [[ -t 0 && -t 1 ]]; }
 
-# Parse arguments (support multiple)
+# Parse/runtime defaults early (set -u safety)
 DRY_RUN=false
+YES=false
+
+# Parse arguments (support multiple)
 while [[ $# -gt 0 ]]; do
     case "$1" in
         -n|--dry-run)
@@ -95,6 +100,7 @@ while [[ $# -gt 0 ]]; do
             ;;
         -f|--compose-file)
             COMPOSE_FILE="${2:?Missing value for --compose-file}"
+            COMPOSE_FILE_EXPLICIT=true
             shift
             ;;
         -h|--help)
@@ -110,6 +116,24 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
+# Resolve compose file after args parsing
+if [[ "${COMPOSE_FILE_EXPLICIT}" != true ]]; then
+    if [[ -f "docker-compose.yml" && -f "compose.yaml" ]]; then
+        warn "Warning: Both docker-compose.yml and compose.yaml exist. Defaulting to docker-compose.yml."
+        warn "Set COMPOSE_FILE=compose.yaml or use --compose-file compose.yaml to override, or remove the unused file."
+    fi
+
+    if [[ -z "${COMPOSE_FILE}" ]]; then
+        if [[ -f "docker-compose.yml" ]]; then
+            COMPOSE_FILE="docker-compose.yml"
+        elif [[ -f "compose.yaml" ]]; then
+            COMPOSE_FILE="compose.yaml"
+        else
+            COMPOSE_FILE="docker-compose.yml"
+        fi
+    fi
+fi
+
 if [[ "${DRY_RUN}" == true ]]; then
     warn "[DRY RUN MODE - No changes will be made]"
     echo ""
@@ -118,13 +142,13 @@ fi
 log "=== Synology Media Stack Setup ==="
 echo ""
 
-# Print plan early (UX)
+# Print plan early (UX) (now prints resolved values)
 echo "Plan:"
 echo "  Stack path:   $STACK_PATH"
 echo "  Data path:    $DATA_PATH"
 echo "  Appdata path: $APPDATA_PATH"
 echo "  Compose file: $COMPOSE_FILE"
-echo "  Compose cmd:  ${COMPOSE_CMD:-<not found yet>}"
+echo "  Compose cmd:  ${COMPOSE_CMD:-<not found>}"
 echo ""
 
 # Optional UX hint: compose file isn't required for setup, but will be for deploy
@@ -137,6 +161,12 @@ fi
 if [[ ! -d "/volume1" ]]; then
     warn "Warning: /volume1 not found. Are you running this on a Synology NAS?"
     if [[ "${YES}" == true ]]; then
+        warn "Continuing because --yes was provided."
+    elif is_tty; then
+        read -r -p "Continue anyway? (y/N): " confirm
+        if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
+            echo "Aborted."
+            exit 1
         fi
     else
         err "Non-interactive shell detected. Re-run with --yes to continue."
