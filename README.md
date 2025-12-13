@@ -295,6 +295,26 @@ Plex has built-in secure streaming:
 - Exposing Sonarr/Radarr ports directly to internet
 - Port forwarding without authentication/TLS
 
+## Accessing from Outside Your Home
+
+### Recommended: Synology VPN Server
+
+1. **DSM → Package Center → Install VPN Server**
+2. Enable OpenVPN or L2TP/IPSec
+3. Configure port forwarding on your router (UDP 1194 for OpenVPN)
+4. Export config and connect from your device
+5. Once connected, access services via LAN IP
+
+### Plex Only: Built-in Remote Access
+
+1. Open Plex → **Settings → Remote Access**
+2. Enable and verify port 32400 is reachable
+3. Access from anywhere via `https://app.plex.tv`
+
+### ❌ Not Recommended
+
+Exposing Sonarr/Radarr directly to the internet without VPN or reverse proxy with TLS + authentication.
+
 ## Troubleshooting
 
 | Issue | Command / Solution |
