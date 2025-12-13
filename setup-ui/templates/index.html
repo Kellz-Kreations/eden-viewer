@@ -6,16 +6,32 @@
   <title>Synology Media Stack Setup</title>
   <style>
     :root {
-      --page-bg: Canvas;
-      --page-fg: CanvasText;
-      --muted: GrayText;
-      --border: color-mix(in srgb, CanvasText 18%, Canvas);
-      --surface: color-mix(in srgb, Canvas 94%, CanvasText);
-      --surface-2: color-mix(in srgb, Canvas 98%, CanvasText);
-      --accent: #0078D4;
-      --accent-fg: #FFFFFF;
-      --danger: #b00020;
+      color-scheme: dark;
+      --page-bg: #0f1115;
+      --page-fg: #f3f4f6;
+      --muted: #9ca3af;
+      --border: rgba(148, 163, 184, 0.28);
+      --surface: rgba(30, 35, 45, 0.92);
+      --surface-2: rgba(37, 43, 55, 0.85);
+      --accent: #0ea5e9;
+      --accent-fg: #0b0f17;
+      --danger: #f87171;
       --radius: 10px;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        color-scheme: light;
+        --page-bg: Canvas;
+        --page-fg: CanvasText;
+        --muted: GrayText;
+        --border: color-mix(in srgb, CanvasText 18%, Canvas);
+        --surface: color-mix(in srgb, Canvas 94%, CanvasText);
+        --surface-2: color-mix(in srgb, Canvas 98%, CanvasText);
+        --accent: #0078D4;
+        --accent-fg: #FFFFFF;
+        --danger: #b00020;
+      }
     }
 
     * { box-sizing: border-box; }
@@ -84,7 +100,7 @@
       padding: 10px 12px;
       border: 1px solid color-mix(in srgb, var(--danger) 45%, var(--border));
       border-radius: var(--radius);
-      background: color-mix(in srgb, var(--danger) 8%, var(--surface-2));
+      background: color-mix(in srgb, var(--danger) 16%, var(--surface-2));
     }
 
     button {
@@ -100,7 +116,7 @@
     button:hover { filter: brightness(0.98); }
     button:active { filter: brightness(0.95); }
 
-    code { background: color-mix(in srgb, var(--page-fg) 7%, var(--page-bg)); padding: 2px 6px; border-radius: 6px; }
+    code { background: color-mix(in srgb, var(--page-fg) 12%, var(--page-bg)); padding: 2px 6px; border-radius: 6px; }
   </style>
 </head>
 <body>
