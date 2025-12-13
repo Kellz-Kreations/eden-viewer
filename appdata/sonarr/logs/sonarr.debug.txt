@@ -1620,3 +1620,4 @@
 2025-12-13 04:34:56.0|Info|Microsoft.Hosting.Lifetime|Content root path: /app/sonarr/bin
 2025-12-13 04:34:56.0|Info|ManagedHttpDispatcher|IPv4 is available: True, IPv6 will be disabled
 2025-12-13 04:34:56.4|Debug|Sonarr.Http.Authentication.ApiKeyAuthenticationHandler|AuthenticationScheme: API was not authenticated.
+2025-12-13 04:38:55.9|Debug|ImportListSyncService|No import lists with automatic add enabled

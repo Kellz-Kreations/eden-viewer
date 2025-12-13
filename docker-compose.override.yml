@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  plex-proxy:
+    image: caddy:2-alpine
+    container_name: plex-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - /volume1/docker/appdata/caddy:/data
+    environment:
+      - PLEX_DOMAIN=${PLEX_DOMAIN:-viewer.kellzkreations.com}
+    depends_on:
+      - plex

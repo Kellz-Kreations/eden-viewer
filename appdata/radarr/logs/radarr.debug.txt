@@ -1093,3 +1093,4 @@
 2025-12-13 04:34:55.8|Info|Microsoft.Hosting.Lifetime|Hosting environment: Production
 2025-12-13 04:34:55.8|Info|Microsoft.Hosting.Lifetime|Content root path: /app/radarr/bin
 2025-12-13 04:34:55.8|Info|ManagedHttpDispatcher|IPv4 is available: True, IPv6 will be disabled
+2025-12-13 04:38:25.8|Debug|ImportListSyncService|No enabled import lists, skipping sync and cleaning
