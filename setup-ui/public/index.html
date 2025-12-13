@@ -4,147 +4,416 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eden Viewer - Setup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; background: linear-gradient(135deg, #0078d4 0%, #005a9e 50%, #003966 100%); min-height: 100vh; color: #fff; }
-    .container { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
-    .logo { text-align: center; margin-bottom: 40px; }
-    .logo h1 { font-size: 2.5rem; color: #fff; font-weight: 600; }
-    .logo p { color: rgba(255,255,255,0.8); margin-top: 8px; }
-    .card { background: rgba(255,255,255,0.95); border-radius: 8px; padding: 30px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); color: #323130; }
-    .card h2 { margin-bottom: 20px; font-size: 1.25rem; color: #0078d4; font-weight: 600; }
-    .form-group { margin-bottom: 20px; }
-    .form-group label { display: block; margin-bottom: 8px; color: #605e5c; font-size: 0.9rem; font-weight: 600; }
-    .form-group input, .form-group select { width: 100%; padding: 10px 12px; border: 1px solid #8a8886; border-radius: 4px; background: #fff; color: #323130; font-size: 1rem; font-family: 'Segoe UI', sans-serif; }
-    .form-group input:focus, .form-group select:focus { outline: none; border-color: #0078d4; box-shadow: 0 0 0 2px rgba(0,120,212,0.2); }
-    .form-group input::placeholder { color: #a19f9d; }
-    .btn { background: #0078d4; color: #fff; border: none; padding: 12px 24px; border-radius: 4px; font-size: 1rem; font-weight: 600; cursor: pointer; width: 100%; transition: background 0.2s; font-family: 'Segoe UI', sans-serif; }
-    .btn:hover { background: #106ebe; }
-    .btn:active { background: #005a9e; }
-    .btn:disabled { background: #c8c6c4; color: #a19f9d; cursor: not-allowed; }
-    .btn-secondary { background: #fff; color: #0078d4; border: 1px solid #0078d4; }
-    .btn-secondary:hover { background: #f3f2f1; }
-    .status { padding: 12px; border-radius: 4px; margin-top: 20px; text-align: center; font-weight: 600; }
-    .status.success { background: #dff6dd; color: #107c10; border: 1px solid #107c10; }
-    .status.error { background: #fde7e9; color: #d13438; border: 1px solid #d13438; }
-    .step-indicator { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
-    .step { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.4); }
-    .step.active { background: #fff; }
-    .info-box { background: #f3f2f1; padding: 15px; border-radius: 4px; margin-bottom: 15px; border-left: 4px solid #0078d4; }
-    .info-box p { color: #605e5c; font-size: 0.9rem; margin-bottom: 10px; }
-    .info-box p:last-child { margin-bottom: 0; }
-    .info-box strong { color: #323130; }
-    .info-box code { background: #e1dfdd; padding: 2px 6px; border-radius: 3px; color: #0078d4; font-family: 'Cascadia Code', 'Consolas', monospace; }
-    .info-box a { color: #0078d4; text-decoration: none; font-weight: 600; }
-    .info-box a:hover { text-decoration: underline; }
-    .ms-logo { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px; }
-    .ms-logo svg { width: 24px; height: 24px; }
+    :root {
+      --ms-blue: #0078d4;
+      --ms-blue-dark: #106ebe;
+      --ms-blue-darker: #005a9e;
+      --ms-green: #107c10;
+      --ms-red: #d13438;
+      --ms-yellow: #ffb900;
+      --ms-orange: #f25022;
+      --neutral-primary: #323130;
+      --neutral-secondary: #605e5c;
+      --neutral-tertiary: #a19f9d;
+      --neutral-light: #edebe9;
+      --neutral-lighter: #f3f2f1;
+      --neutral-white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--neutral-lighter);
+      min-height: 100vh;
+      color: var(--neutral-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .setup-container {
+      width: 100%;
+      max-width: 480px;
+      margin: 40px 20px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .ms-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      margin-bottom: 24px;
+    }
+
+    .ms-logo div {
+      width: 20px;
+      height: 20px;
+    }
+
+    .app-title {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--neutral-primary);
+      margin-bottom: 8px;
+    }
+
+    .app-subtitle {
+      font-size: 14px;
+      color: var(--neutral-secondary);
+    }
+
+    .card {
+      background: var(--neutral-white);
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+      padding: 32px;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--neutral-primary);
+      margin-bottom: 8px;
+    }
+
+    .card-description {
+      font-size: 14px;
+      color: var(--neutral-secondary);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .form-field {
+      margin-bottom: 20px;
+    }
+
+    .form-field label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--neutral-primary);
+      margin-bottom: 6px;
+    }
+
+    .form-field input,
+    .form-field select {
+      width: 100%;
+      height: 32px;
+      padding: 0 8px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--neutral-primary);
+      background: var(--neutral-white);
+      border: 1px solid var(--neutral-tertiary);
+      border-radius: 2px;
+      outline: none;
+      transition: border-color 0.1s;
+    }
+
+    .form-field input:hover,
+    .form-field select:hover {
+      border-color: var(--neutral-secondary);
+    }
+
+    .form-field input:focus,
+    .form-field select:focus {
+      border-color: var(--ms-blue);
+      border-width: 2px;
+      padding: 0 7px;
+    }
+
+    .form-field select:focus {
+      padding: 0 7px;
+    }
+
+    .form-field input::placeholder {
+      color: var(--neutral-tertiary);
+    }
+
+    .form-field-hint {
+      font-size: 12px;
+      color: var(--neutral-secondary);
+      margin-top: 4px;
+    }
+
+    .btn-primary {
+      width: 100%;
+      height: 32px;
+      padding: 0 20px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      color: var(--neutral-white);
+      background: var(--ms-blue);
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+
+    .btn-primary:hover {
+      background: var(--ms-blue-dark);
+    }
+
+    .btn-primary:active {
+      background: var(--ms-blue-darker);
+    }
+
+    .btn-primary:disabled {
+      background: var(--neutral-light);
+      color: var(--neutral-tertiary);
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      width: 100%;
+      height: 32px;
+      padding: 0 20px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      color: var(--neutral-primary);
+      background: var(--neutral-white);
+      border: 1px solid var(--neutral-tertiary);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.1s, border-color 0.1s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--neutral-lighter);
+      border-color: var(--neutral-secondary);
+    }
+
+    .message-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px;
+      border-radius: 2px;
+      margin-top: 16px;
+      font-size: 14px;
+    }
+
+    .message-bar.success {
+      background: #dff6dd;
+      color: var(--ms-green);
+    }
+
+    .message-bar.error {
+      background: #fde7e9;
+      color: var(--ms-red);
+    }
+
+    .message-bar-icon {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+    }
+
+    .progress-steps {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .progress-step {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--neutral-light);
+    }
+
+    .progress-step.active {
+      background: var(--ms-blue);
+    }
+
+    .progress-step.complete {
+      background: var(--ms-green);
+    }
+
+    .success-content {
+      display: none;
+    }
+
+    .success-content.visible {
+      display: block;
+    }
+
+    .setup-content.hidden {
+      display: none;
+    }
+
+    .next-step {
+      background: var(--neutral-lighter);
+      border-radius: 2px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .next-step-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--neutral-primary);
+      margin-bottom: 8px;
+    }
+
+    .next-step-content {
+      font-size: 13px;
+      color: var(--neutral-secondary);
+    }
+
+    .next-step-content code {
+      display: inline-block;
+      background: var(--neutral-white);
+      border: 1px solid var(--neutral-light);
+      border-radius: 2px;
+      padding: 2px 6px;
+      font-family: 'Cascadia Code', 'Consolas', monospace;
+      font-size: 12px;
+      color: var(--neutral-primary);
+    }
+
+    .next-step-content a {
+      color: var(--ms-blue);
+      text-decoration: none;
+    }
+
+    .next-step-content a:hover {
+      text-decoration: underline;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--neutral-light);
+      margin: 24px 0;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">
+  <div class="setup-container">
+    <div class="header">
       <div class="ms-logo">
-        <svg viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="11" height="11" fill="#f25022"/>
-          <rect x="12" width="11" height="11" fill="#7fba00"/>
-          <rect y="12" width="11" height="11" fill="#00a4ef"/>
-          <rect x="12" y="12" width="11" height="11" fill="#ffb900"/>
-        </svg>
+        <div style="background:#f25022;"></div>
+        <div style="background:#7fba00;"></div>
+        <div style="background:#00a4ef;"></div>
+        <div style="background:#ffb900;"></div>
       </div>
-      <h1>🎬 Eden Viewer</h1>
-      <p>Media Stack Setup Wizard</p>
+      <h1 class="app-title">Eden Viewer</h1>
+      <p class="app-subtitle">Media Stack Setup</p>
     </div>
 
-    <div class="step-indicator">
-      <div class="step active" id="step1"></div>
-      <div class="step" id="step2"></div>
-      <div class="step" id="step3"></div>
+    <div class="progress-steps">
+      <div class="progress-step active" id="step1"></div>
+      <div class="progress-step" id="step2"></div>
+      <div class="progress-step" id="step3"></div>
     </div>
 
-    <div class="card" id="welcome-card">
-      <h2>Welcome to Eden Viewer</h2>
-      <p style="color:#605e5c;margin-bottom:20px;">Configure your Plex, Sonarr, and Radarr media stack for Synology DS923+ or Azure deployment.</p>
-      
-      <div class="form-group">
-        <label>Deployment Target</label>
-        <select id="deploymentTarget">
-          <option value="synology">Synology DS923+ (Local)</option>
-          <option value="azure">Azure Container Apps (Remote)</option>
-        </select>
+    <div class="card">
+      <div class="setup-content" id="setup-content">
+        <h2 class="card-title">Configure your environment</h2>
+        <p class="card-description">Set up your Plex, Sonarr, and Radarr media stack for Synology or Azure.</p>
+
+        <div class="form-field">
+          <label for="deploymentTarget">Deployment target</label>
+          <select id="deploymentTarget">
+            <option value="synology">Synology DS923+ (Local)</option>
+            <option value="azure">Azure Container Apps (Remote)</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="domain">Custom domain</label>
+          <input type="text" id="domain" placeholder="viewer.kellzkreations.com" value="viewer.kellzkreations.com">
+          <p class="form-field-hint">Your domain for HTTPS access</p>
+        </div>
+
+        <div class="form-field">
+          <label for="puid">PUID</label>
+          <input type="text" id="puid" placeholder="1000" value="1000">
+          <p class="form-field-hint">User ID for container permissions</p>
+        </div>
+
+        <div class="form-field">
+          <label for="pgid">PGID</label>
+          <input type="text" id="pgid" placeholder="1000" value="1000">
+          <p class="form-field-hint">Group ID for container permissions</p>
+        </div>
+
+        <div class="form-field">
+          <label for="timezone">Timezone</label>
+          <select id="timezone">
+            <option value="America/New_York">America/New_York (Eastern)</option>
+            <option value="America/Chicago">America/Chicago (Central)</option>
+            <option value="America/Denver">America/Denver (Mountain)</option>
+            <option value="America/Los_Angeles">America/Los_Angeles (Pacific)</option>
+            <option value="America/Anchorage">America/Anchorage (Alaska)</option>
+            <option value="Pacific/Honolulu">Pacific/Honolulu (Hawaii)</option>
+            <option value="America/Phoenix">America/Phoenix (Arizona)</option>
+            <option value="America/Toronto">America/Toronto</option>
+            <option value="America/Vancouver">America/Vancouver</option>
+            <option value="Europe/London">Europe/London (GMT)</option>
+            <option value="Europe/Paris">Europe/Paris (CET)</option>
+            <option value="Europe/Berlin">Europe/Berlin (CET)</option>
+            <option value="Europe/Amsterdam">Europe/Amsterdam (CET)</option>
+            <option value="Europe/Moscow">Europe/Moscow (MSK)</option>
+            <option value="Asia/Tokyo">Asia/Tokyo (JST)</option>
+            <option value="Asia/Shanghai">Asia/Shanghai (CST)</option>
+            <option value="Asia/Hong_Kong">Asia/Hong_Kong (HKT)</option>
+            <option value="Asia/Singapore">Asia/Singapore (SGT)</option>
+            <option value="Asia/Dubai">Asia/Dubai (GST)</option>
+            <option value="Asia/Kolkata">Asia/Kolkata (IST)</option>
+            <option value="Australia/Sydney">Australia/Sydney (AEST)</option>
+            <option value="Australia/Melbourne">Australia/Melbourne (AEST)</option>
+            <option value="Australia/Perth">Australia/Perth (AWST)</option>
+            <option value="Pacific/Auckland">Pacific/Auckland (NZST)</option>
+            <option value="UTC">UTC</option>
+          </select>
+        </div>
+
+        <button class="btn-primary" id="saveBtn" onclick="saveConfig()">Continue</button>
+        <div id="status"></div>
       </div>
 
-      <div class="form-group">
-        <label>Custom Domain (for HTTPS)</label>
-        <input type="text" id="domain" placeholder="viewer.kellzkreations.com" value="viewer.kellzkreations.com">
+      <div class="success-content" id="success-content">
+        <h2 class="card-title">Setup complete</h2>
+        <p class="card-description">Your configuration has been saved. Follow these steps to finish.</p>
+
+        <div class="next-step">
+          <p class="next-step-title">1. Deploy the stack</p>
+          <p class="next-step-content"><code>docker-compose up -d</code></p>
+        </div>
+
+        <div class="next-step">
+          <p class="next-step-title">2. Configure DNS</p>
+          <p class="next-step-content">Point <code id="domain-display"></code> to your server IP address.</p>
+        </div>
+
+        <div class="next-step">
+          <p class="next-step-title">3. Access your services</p>
+          <p class="next-step-content">
+            <a id="plex-link" href="#" target="_blank">Open Plex Web UI</a><br>
+            <span style="color:var(--neutral-tertiary);">Use VPN for Sonarr/Radarr access</span>
+          </p>
+        </div>
+
+        <div class="divider"></div>
+
+        <button class="btn-secondary" onclick="window.location.reload()">Start over</button>
       </div>
-
-      <div class="form-group">
-        <label>PUID (User ID)</label>
-        <input type="text" id="puid" placeholder="1000" value="1000">
-      </div>
-
-      <div class="form-group">
-        <label>PGID (Group ID)</label>
-        <input type="text" id="pgid" placeholder="1000" value="1000">
-      </div>
-
-      <div class="form-group">
-        <label>Timezone</label>
-        <select id="timezone">
-          <option value="America/New_York">America/New_York (Eastern)</option>
-          <option value="America/Chicago">America/Chicago (Central)</option>
-          <option value="America/Denver">America/Denver (Mountain)</option>
-          <option value="America/Los_Angeles">America/Los_Angeles (Pacific)</option>
-          <option value="America/Anchorage">America/Anchorage (Alaska)</option>
-          <option value="Pacific/Honolulu">Pacific/Honolulu (Hawaii)</option>
-          <option value="America/Phoenix">America/Phoenix (Arizona)</option>
-          <option value="America/Toronto">America/Toronto</option>
-          <option value="America/Vancouver">America/Vancouver</option>
-          <option value="Europe/London">Europe/London (GMT)</option>
-          <option value="Europe/Paris">Europe/Paris (CET)</option>
-          <option value="Europe/Berlin">Europe/Berlin (CET)</option>
-          <option value="Europe/Amsterdam">Europe/Amsterdam (CET)</option>
-          <option value="Europe/Moscow">Europe/Moscow (MSK)</option>
-          <option value="Asia/Tokyo">Asia/Tokyo (JST)</option>
-          <option value="Asia/Shanghai">Asia/Shanghai (CST)</option>
-          <option value="Asia/Hong_Kong">Asia/Hong_Kong (HKT)</option>
-          <option value="Asia/Singapore">Asia/Singapore (SGT)</option>
-          <option value="Asia/Dubai">Asia/Dubai (GST)</option>
-          <option value="Asia/Kolkata">Asia/Kolkata (IST)</option>
-          <option value="Australia/Sydney">Australia/Sydney (AEST)</option>
-          <option value="Australia/Melbourne">Australia/Melbourne (AEST)</option>
-          <option value="Australia/Perth">Australia/Perth (AWST)</option>
-          <option value="Pacific/Auckland">Pacific/Auckland (NZST)</option>
-          <option value="UTC">UTC</option>
-        </select>
-      </div>
-
-      <button class="btn" onclick="saveConfig()">Save & Continue</button>
-      <div id="status"></div>
-    </div>
-
-    <div class="card" id="success-card" style="display:none;">
-      <h2>✓ Configuration Complete!</h2>
-      <p style="color:#605e5c;margin-bottom:20px;">Your Eden Viewer stack is configured. Next steps:</p>
-      
-      <div class="info-box">
-        <p><strong>1. Deploy the stack:</strong></p>
-        <code>docker-compose up -d</code>
-      </div>
-
-      <div class="info-box">
-        <p><strong>2. Access your services:</strong></p>
-        <p><a id="plex-link" href="#" target="_blank">Plex Web UI</a></p>
-        <p style="color:#a19f9d;font-size:0.85rem;">Sonarr/Radarr: Use VPN for secure access</p>
-      </div>
-
-      <div class="info-box">
-        <p><strong>3. Configure DNS:</strong></p>
-        <p>Point <code id="domain-display"></code> to your server IP</p>
-      </div>
-
-      <button class="btn btn-secondary" style="margin-top:20px;" onclick="window.location.reload()">Start Over</button>
     </div>
   </div>
 
@@ -156,11 +425,13 @@
         if (data.configured && data.domain) {
           document.getElementById('domain').value = data.domain;
         }
-      } catch (e) { console.error(e); }
+      } catch (e) {
+        console.error('Status check failed:', e);
+      }
     }
 
     async function saveConfig() {
-      const btn = document.querySelector('#welcome-card .btn');
+      const btn = document.getElementById('saveBtn');
       btn.disabled = true;
       btn.textContent = 'Saving...';
 
@@ -168,43 +439,3 @@
         domain: document.getElementById('domain').value,
         puid: document.getElementById('puid').value,
         pgid: document.getElementById('pgid').value,
-        timezone: document.getElementById('timezone').value,
-        deploymentTarget: document.getElementById('deploymentTarget').value
-      };
-
-      try {
-        const res = await fetch('/api/configure', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(config)
-        });
-        const data = await res.json();
-        
-        if (data.success) {
-          // Show success card instead of redirecting
-          document.getElementById('welcome-card').style.display = 'none';
-          document.getElementById('success-card').style.display = 'block';
-          document.getElementById('step2').classList.add('active');
-          document.getElementById('step3').classList.add('active');
-          
-          // Update links with configured domain
-          const domain = config.domain || 'localhost';
-          document.getElementById('plex-link').href = `https://${domain}`;
-          document.getElementById('plex-link').textContent = `https://${domain}`;
-          document.getElementById('domain-display').textContent = domain;
-        } else {
-          throw new Error(data.message);
-        }
-      } catch (e) {
-        const status = document.getElementById('status');
-        status.className = 'status error';
-        status.textContent = '✗ ' + e.message;
-        btn.disabled = false;
-        btn.textContent = 'Save & Continue';
-      }
-    }
-
-    checkStatus();
-  </script>
-</body>
-</html>
