@@ -6,7 +6,6 @@
 set -e
 
 RESOURCE_GROUP="mediastack-rg"
-LOCATION="eastus"
 
 # Get environment name
 ENV_NAME=$(az containerapp env list -g "$RESOURCE_GROUP" --query "[0].name" -o tsv)
@@ -18,17 +17,13 @@ fi
 
 echo "Using environment: $ENV_NAME"
 
-# Get storage account info
-STORAGE_ACCOUNT=$(az storage account list -g "$RESOURCE_GROUP" --query "[0].name" -o tsv)
-STORAGE_KEY=$(az storage account keys list -g "$RESOURCE_GROUP" -n "$STORAGE_ACCOUNT" --query "[0].value" -o tsv)
-
 echo ""
 echo "Which service do you want to deploy?"
 echo "1) Plex"
 echo "2) Sonarr"
 echo "3) Radarr"
 echo "4) All"
-read -p "Enter choice (1-4): " choice
+read -r -p "Enter choice (1-4): " choice
 
 deploy_plex() {
     echo "🎬 Deploying Plex..."

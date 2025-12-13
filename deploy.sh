@@ -40,7 +40,7 @@ echo "Step 3: Validating configuration..."
 cd "$STACK_PATH"
 if grep -q "1026" .env; then
     echo "Warning: .env contains default PUID (1026). Verify this matches your user."
-    id $(whoami)
+    id "$(whoami)"
 fi
 
 # Dry run
@@ -50,7 +50,7 @@ sudo docker-compose config --quiet && echo "✓ Configuration valid"
 
 # Deploy prompt
 echo ""
-read -p "Step 5: Deploy containers now? (y/N): " confirm
+read -r -p "Step 5: Deploy containers now? (y/N): " confirm
 if [[ "$confirm" =~ ^[Yy]$ ]]; then
     echo "Deploying..."
     sudo docker-compose up -d
