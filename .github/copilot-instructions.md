@@ -9,3 +9,32 @@
 - Note DS923+ (Ryzen R1600) has no Intel Quick Sync; plan around Direct Play.
 - Use `.env` variables for PUID/PGID/TZ and Synology host paths.
 - Provide safe defaults and `-WhatIf`/dry-run guidance when applicable.
+- Avoid advanced Docker networking; use default bridge or host network modes.
+- Emphasize regular backups of `/volume1/docker/appdata` and media libraries.
+- When suggesting commands, ensure compatibility with Synology's DSM environment.
+- Avoid suggesting non-Docker installation methods for the services.
+- When discussing resource usage, consider DS923+'s 4GB RAM and CPU limitations.
+- When mentioning updates, recommend checking Synology's Package Center for Docker updates.
+- Do not suggest using Kubernetes, Swarm, or other orchestration tools.
+- When discussing storage, prefer Synology's Btrfs features (snapshots, integrity checks) if relevant.
+- When mentioning logs, guide users to access them via DSM or mapped log directories.
+---
+---description: Instructions for GitHub Copilot to assist with Synology DS923+ media stack using Docker Compose.
+applyTo: **/docker-compose.yml, **/README.md
+---
+For contributions related to the Synology DS923+ media stack using Docker Compose, please adhere to the following guidelines:
+- Focus on Plex, Sonarr, and Radarr services only.
+- Use shared data mounts and appropriate Synology host paths.
+- Ensure compatibility with Synology DSM and hardware limitations.
+- Emphasize security, backups, and resource considerations specific to the DS923+.
+- Avoid piracy-related content and advanced Docker orchestration methods.
+- Provide clear, Synology-specific instructions for setup, configuration, and maintenance.
+- When suggesting code snippets or configurations, ensure they align with best practices for running containers on Synology NAS devices.
+- Keep instructions concise and relevant to the target audience of Synology DS923+ users.
+- Use environment variables for user/group IDs and timezone settings.
+- Recommend LAN-only access for management interfaces unless secure remote access methods are specified.
+- When discussing updates or maintenance, reference Synology's Package Center and DSM features.
+- Prioritize ease of use and clarity for users who may not be advanced Docker users.
+- When mentioning storage options, highlight Synology's Btrfs capabilities where applicable.
+- Ensure all guidance is practical for the hardware and software environment of the Synology DS923+.
+

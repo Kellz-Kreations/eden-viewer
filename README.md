@@ -1,19 +1,34 @@
-# Media Server Stack for Synology NAS
+# Synology DS923+ Media Stack
 
-**Turn your Synology DS923+ into a personal Netflix!**
+Docker Compose stack for Plex, Sonarr, and Radarr on Synology DS923+.
 
-This project helps you set up:
-- 🎬 **Plex** - Stream your movies and TV shows to any device
-- 📺 **Sonarr** - Automatically organize your TV show library
-- 🎥 **Radarr** - Automatically organize your movie library
+## Quick Deploy
 
-<div align="center">
+```bash
+# 1. SSH into your Synology
+ssh your-user@NAS_IP
 
-| Plex | Sonarr | Radarr |
-| --- | --- | --- |
-| <img src="docs/assets/plex-logo.svg" alt="Plex logo" width="160"/> | <img src="docs/assets/sonarr-logo.svg" alt="Sonarr logo" width="160"/> | <img src="docs/assets/radarr-logo.svg" alt="Radarr logo" width="160"/> |
+# 2. Create directory structure
+sudo mkdir -p /volume1/data/media/{movies,tv}
+sudo mkdir -p /volume1/docker/appdata/{plex,sonarr,radarr}
+sudo mkdir -p /volume1/docker/eden-viewer
 
-</div>
+# 3. Copy files to NAS (run from your local machine)
+# scp -r .env docker-compose.yml your-user@NAS_IP:/volume1/docker/eden-viewer/
+
+# 4. Get your PUID/PGID (on NAS)
+id $(whoami)
+# Example output: uid=1026(youruser) gid=100(users)
+
+# 5. Update .env with your PUID/PGID values
+
+# 6. Deploy
+cd /volume1/docker/eden-viewer
+sudo docker-compose up -d
+
+# 7. Verify
+sudo docker-compose ps
+```
 
 ## What You Need
 
@@ -210,3 +225,17 @@ Back up (small, important):
 - `/volume1/docker/appdata/radarr`
 
 Media backups depend on your capacity and recovery plan.
+
+## Resource Considerations
+
+- DS923+ has 4GB RAM (upgradable)
+- Limit concurrent streams in Plex
+- Avoid transcoding when possible
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Permission denied | Verify PUID/PGID match your user |
+| Container won't start | Check logs: `docker-compose logs [service]` |
+| Plex not finding media | Verify volume mounts and folder permissions |
