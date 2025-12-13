@@ -10,6 +10,10 @@ from azure.ai.evaluation import evaluate
 from evaluation.evaluators import EnvFormatEvaluator, InstructionConstraintEvaluator
 from evaluation.model_config import load_azure_openai_model_config
 from evaluation.targets import chatbot_target, envgen_target
+from evaluation.tracing import ensure_tracing
+
+
+ensure_tracing()
 
 
 def _repo_root() -> Path:

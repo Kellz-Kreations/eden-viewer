@@ -76,4 +76,17 @@ By default this runs both suites in `stub` mode.
 .\.venv-eval\Scripts\python .\evaluation\run.py envgen
 ```
 
+## Tracing (optional)
+
+Enable OpenTelemetry spans when you want deeper visibility into evaluation runs:
+
+```powershell
+$env:EDEN_TRACING_ENABLED = "true"
+$env:EDEN_TRACING_ENDPOINT = "http://localhost:4318/v1/traces"  # optional override
+$env:EDEN_TRACING_SERVICE = "eden-viewer-eval"                   # optional override
+pwsh -NoProfile -File .\scripts\eval.ps1
+```
+
+> 💡 Tip: In VS Code, run the command palette entry `AI Toolkit: Open Trace Viewer` (`ai-mlstudio.tracing.open`) first so traces flow into the collector at `http://localhost:4318`.
+
 Outputs are written under `evaluation/out/`.

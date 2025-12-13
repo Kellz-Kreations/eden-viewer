@@ -4,7 +4,11 @@ from typing import Any, Dict
 
 from flask import Flask, jsonify, request
 
+from evaluation.tracing import ensure_tracing
+
 app = Flask(__name__)
+
+ensure_tracing()
 
 
 def _extract_kv(query: str, key: str) -> str | None:
