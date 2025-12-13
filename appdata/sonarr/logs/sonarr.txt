@@ -5244,3 +5244,12 @@
 2025-12-13 04:34:55.9|Info|Microsoft.Hosting.Lifetime|Hosting environment: Production
 2025-12-13 04:34:56.0|Info|Microsoft.Hosting.Lifetime|Content root path: /app/sonarr/bin
 2025-12-13 04:34:56.0|Info|ManagedHttpDispatcher|IPv4 is available: True, IPv6 will be disabled
+2025-12-13 04:48:56.0|Info|RssSyncService|Starting RSS Sync
+2025-12-13 04:48:56.1|Warn|FetchAndParseRssService|No available indexers. check your configuration.
+2025-12-13 04:48:56.1|Info|DownloadDecisionMaker|No results found
+2025-12-13 04:48:56.1|Info|RssSyncService|RSS Sync Completed. Reports found: 0, Reports grabbed: 0
+2025-12-13 11:24:01.1|Info|SceneMappingService|Updating Scene mappings
+2025-12-13 11:24:01.5|Info|RssSyncService|Starting RSS Sync
+2025-12-13 11:24:01.5|Warn|FetchAndParseRssService|No available indexers. check your configuration.
+2025-12-13 11:24:01.5|Info|DownloadDecisionMaker|No results found
+2025-12-13 11:24:01.5|Info|RssSyncService|RSS Sync Completed. Reports found: 0, Reports grabbed: 0

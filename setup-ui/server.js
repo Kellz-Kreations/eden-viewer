@@ -77,11 +77,6 @@ app.get('/api/plex-status', async (req, res) => {
         label: 'domain-http',
         identityUrl: `http://${plexDomain}/identity`,
         webUrl: `http://${plexDomain}/web`,
-      },
-      {
-        label: 'domain-port-32400',
-        identityUrl: `http://${plexDomain}:32400/identity`,
-        webUrl: `http://${plexDomain}:32400/web`,
       }
     );
   }
@@ -90,27 +85,49 @@ app.get('/api/plex-status', async (req, res) => {
   if (plexLanHost) {
     candidates.push({
       label: 'lan-host',
-      identityUrl: `http://${plexLanHost}:32400/identity`,
-      webUrl: `http://${plexLanHost}:32400/web`,
+      identityUrl: `http://${plexLanHost}:${plexPort}/identity`,
+      webUrl: `http://${plexLanHost}:${plexPort}/web`,
     });
   }
 
-  // Last resort: assume Plex is local to the machine running Setup UI.
+  // If Setup UI runs in a Docker container (Docker Desktop), 127.0.0.1 points at the
+  // container itself. `host.docker.internal` lets the container reach the host.
+  candidates.push({
+    label: 'docker-desktop-host',
+    identityUrl: `http://host.docker.internal:${plexPort}/identity`,
+    // Browser should open the host-published port, not host.docker.internal.
+    webUrl: `http://localhost:${plexPort}/web`,
+  });
+
+  // Last resort: assume Plex is local to the machine running Setup UI (when running
+  // this server directly on the host, not in Docker).
   candidates.push({
     label: 'localhost',
-    identityUrl: `http://127.0.0.1:32400/identity`,
-    webUrl: `http://127.0.0.1:32400/web`,
+    identityUrl: `http://127.0.0.1:${plexPort}/identity`,
+    webUrl: `http://localhost:${plexPort}/web`,
   });
 
   const tried = [];
   let lastError = null;
+
+  // Keep the endpoint responsive. This is called from the UI on a 10s interval.
+  const overallBudgetMs = 4500;
+  const startMs = Date.now();
+
   for (const candidate of candidates) {
+    const elapsedMs = Date.now() - startMs;
+    const remainingMs = overallBudgetMs - elapsedMs;
+    if (remainingMs <= 0) {
+      break;
+    }
+
     tried.push(candidate.identityUrl);
     console.log(`  ├─ Checking Plex connectivity (${candidate.label}): ${candidate.identityUrl}`);
 
     try {
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 5000);
+      const perAttemptTimeoutMs = Math.max(800, Math.min(1500, remainingMs));
+      const timeout = setTimeout(() => controller.abort(), perAttemptTimeoutMs);
 
       const response = await fetch(candidate.identityUrl, {
         signal: controller.signal,

@@ -1,0 +1,4 @@
+{$PLEX_DOMAIN} {
+    reverse_proxy plex:32400
+    encode gzip
+}

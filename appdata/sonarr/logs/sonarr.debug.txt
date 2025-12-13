@@ -1621,3 +1621,21 @@
 2025-12-13 04:34:56.0|Info|ManagedHttpDispatcher|IPv4 is available: True, IPv6 will be disabled
 2025-12-13 04:34:56.4|Debug|Sonarr.Http.Authentication.ApiKeyAuthenticationHandler|AuthenticationScheme: API was not authenticated.
 2025-12-13 04:38:55.9|Debug|ImportListSyncService|No import lists with automatic add enabled
+2025-12-13 04:43:55.9|Debug|ImportListSyncService|No import lists with automatic add enabled
+2025-12-13 04:48:56.0|Debug|ImportListSyncService|No import lists with automatic add enabled
+2025-12-13 04:48:56.0|Info|RssSyncService|Starting RSS Sync
+2025-12-13 04:48:56.1|Warn|FetchAndParseRssService|No available indexers. check your configuration.
+2025-12-13 04:48:56.1|Info|DownloadDecisionMaker|No results found
+2025-12-13 04:48:56.1|Info|RssSyncService|RSS Sync Completed. Reports found: 0, Reports grabbed: 0
+2025-12-13 04:48:56.1|Debug|PendingReleaseService|Removing failed releases from pending
+2025-12-13 04:54:26.1|Debug|ImportListSyncService|No import lists with automatic add enabled
+2025-12-13 11:24:01.1|Debug|InstallUpdateService|Checking for updates
+2025-12-13 11:24:01.1|Info|SceneMappingService|Updating Scene mappings
+2025-12-13 11:24:01.2|Debug|XemProxy|Fetching alternate names
+2025-12-13 11:24:01.4|Debug|InstallUpdateService|No update available
+2025-12-13 11:24:01.5|Debug|ImportListSyncService|No import lists with automatic add enabled
+2025-12-13 11:24:01.5|Info|RssSyncService|Starting RSS Sync
+2025-12-13 11:24:01.5|Warn|FetchAndParseRssService|No available indexers. check your configuration.
+2025-12-13 11:24:01.5|Info|DownloadDecisionMaker|No results found
+2025-12-13 11:24:01.5|Info|RssSyncService|RSS Sync Completed. Reports found: 0, Reports grabbed: 0
+2025-12-13 11:24:01.6|Debug|PendingReleaseService|Removing failed releases from pending
