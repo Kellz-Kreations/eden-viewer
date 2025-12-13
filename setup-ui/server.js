@@ -9,17 +9,6 @@ const net = require('net');
 const rateLimit = require('express-rate-limit');
 
 // Startup banner
-
-// Rate limiting: max 100 requests per 15 minutes per IP
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-});
-
-// Apply the rate limiter to all requests
-const app = express();
-app.use(limiter);
-
 console.log('');
 console.log('╔══════════════════════════════════════════════════════════════╗');
 console.log('║                    Eden Viewer Setup UI                       ║');
@@ -40,9 +29,27 @@ const repoRoot = (() => {
 const envPath = path.join(repoRoot, '.env');
 require('dotenv').config({ path: envPath });
 
+const CONFIG_PATH = process.env.CONFIG_PATH || path.join(__dirname, 'config', 'config.json');
+
 console.log('[2/7] 📦 Initializing Express application...');
 const app = express();
 const PORT = process.env.SETUP_UI_PORT || 3000;
+
+// Rate limiting: max 100 requests per 15 minutes per IP
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+});
+
+// Apply the rate limiter to all requests
+app.use(limiter);
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+});
+app.use(limiter);
 
 function withTimeout(promise, timeoutMs, label) {
   return new Promise((resolve, reject) => {
@@ -141,6 +148,17 @@ app.use((req, res, next) => {
   console.log(`[${timestamp}] ${req.method} ${req.path}`);
   next();
 });
+
+// Check if first run
+function isFirstRun() {
+  if (process.env.SETUP_UI_FIRST_RUN === 'true') return true;
+  try {
+    return !fs.existsSync(CONFIG_PATH);
+  } catch (err) {
+    console.error('Error checking config:', err.message);
+    return true;
+  }
+}
 
 console.log('[4/7] 🛤️  Registering API routes...');
 
@@ -324,7 +342,7 @@ app.get('/api/plex-status', async (req, res) => {
   });
 });
 
-// API: Get current configuration status
+// API: Get current configuration status (merged)
 app.get('/api/status', (req, res) => {
   const configExists = fs.existsSync(envPath);
   
@@ -332,12 +350,53 @@ app.get('/api/status', (req, res) => {
   
   res.json({
     configured: configExists,
+    firstRun: isFirstRun(),
+    configExists: fs.existsSync(CONFIG_PATH),
     domain: process.env.PLEX_DOMAIN || null,
     environment: process.env.DEPLOYMENT_TARGET || 'synology'
   });
 });
 
-// API: Save configuration
+// API: Get current config (OOBE)
+app.get('/api/config', (req, res) => {
+  try {
+    if (fs.existsSync(CONFIG_PATH)) {
+      const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
+      res.json(config);
+    } else {
+      res.json({
+        puid: process.env.PUID || '1000',
+        pgid: process.env.PGID || '1000',
+        tz: process.env.TZ || 'America/Los_Angeles',
+        dataPath: '/volume1/data',
+        appdataPath: '/volume1/docker/appdata',
+        plexClaim: '',
+        services: { plex: true, sonarr: true, radarr: true }
+      });
+    }
+  } catch (err) {
+    console.error('Error reading config:', err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// API: Save config (OOBE)
+app.post('/api/config', (req, res) => {
+  try {
+    const configDir = path.dirname(CONFIG_PATH);
+    if (!fs.existsSync(configDir)) {
+      fs.mkdirSync(configDir, { recursive: true });
+    }
+    fs.writeFileSync(CONFIG_PATH, JSON.stringify(req.body, null, 2));
+    console.log('Config saved:', CONFIG_PATH);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Error saving config:', err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// API: Save .env configuration
 app.post('/api/configure', (req, res) => {
   const { domain, puid, pgid, timezone, deploymentTarget } = req.body;
   
@@ -375,9 +434,20 @@ DEPLOYMENT_TARGET=${deploymentTarget || 'synology'}
   }
 });
 
-// Serve OOBE UI
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Server error:', err);
+  res.status(500).json({ error: 'Internal server error' });
+});
+
+// Serve OOBE UI (must be last)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  const indexPath = path.join(__dirname, 'public', 'index.html');
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    res.status(404).send('Setup UI not found. Ensure public/index.html exists.');
+  }
 });
 
 console.log('[5/7] 🔐 Checking TLS certificate configuration...');
@@ -480,104 +550,4 @@ process.on('SIGTERM', () => {
   console.log('🛑 Received SIGTERM signal');
   console.log('👋 Shutting down Eden Viewer Setup UI...');
   process.exit(0);
-});
-
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
-
-const app = express();
-const PORT = process.env.SETUP_UI_PORT || 8080;
-const CONFIG_PATH = process.env.CONFIG_PATH || path.join(__dirname, 'config', 'config.json');
-
-app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Check if first run
-function isFirstRun() {
-  if (process.env.SETUP_UI_FIRST_RUN === 'true') return true;
-  try {
-    return !fs.existsSync(CONFIG_PATH);
-  } catch (err) {
-    console.error('Error checking config:', err.message);
-    return true;
-  }
-}
-
-// API: Get setup status
-app.get('/api/status', (req, res) => {
-  try {
-    res.json({
-      firstRun: isFirstRun(),
-      configExists: fs.existsSync(CONFIG_PATH)
-    });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// API: Get current config
-app.get('/api/config', (req, res) => {
-  try {
-    if (fs.existsSync(CONFIG_PATH)) {
-      const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
-      res.json(config);
-    } else {
-      res.json({
-        puid: process.env.PUID || '1000',
-        pgid: process.env.PGID || '1000',
-        tz: process.env.TZ || 'America/Los_Angeles',
-        dataPath: '/volume1/data',
-        appdataPath: '/volume1/docker/appdata',
-        plexClaim: '',
-        services: { plex: true, sonarr: true, radarr: true }
-      });
-    }
-  } catch (err) {
-    console.error('Error reading config:', err.message);
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// API: Save config
-app.post('/api/config', (req, res) => {
-  try {
-    const configDir = path.dirname(CONFIG_PATH);
-    if (!fs.existsSync(configDir)) {
-      fs.mkdirSync(configDir, { recursive: true });
-    }
-    fs.writeFileSync(CONFIG_PATH, JSON.stringify(req.body, null, 2));
-    console.log('Config saved:', CONFIG_PATH);
-    res.json({ success: true });
-  } catch (err) {
-    console.error('Error saving config:', err.message);
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// Serve OOBE UI
-app.get('*', (req, res) => {
-  const indexPath = path.join(__dirname, 'public', 'index.html');
-  if (fs.existsSync(indexPath)) {
-    res.sendFile(indexPath);
-  } else {
-    res.status(404).send('Setup UI not found. Ensure public/index.html exists.');
-  }
-});
-
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error('Server error:', err);
-  res.status(500).json({ error: 'Internal server error' });
-});
-
-const server = app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Eden Viewer Setup UI running on http://0.0.0.0:${PORT}`);
-  console.log(`Config path: ${CONFIG_PATH}`);
-  console.log(`First run: ${isFirstRun()}`);
-});
-
-server.on('error', (err) => {
-  console.error('Failed to start server:', err.message);
-  process.exit(1);
 });
