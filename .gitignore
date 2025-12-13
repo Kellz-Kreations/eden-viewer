@@ -28,3 +28,16 @@ __pycache__/
 
 # Evaluation outputs
 evaluation/out/
+
+# Database artifacts
+appdata/**/*.db-wal
+appdata/**/*.db-shm
+appdata/**/*.db-journal
+
+# Database runtime artifacts (SQLite WAL/SHM files)
+*.db-wal
+*.db-shm
+*.db-journal
+*.db-wal
+*.db-shm
+*.db-journal
