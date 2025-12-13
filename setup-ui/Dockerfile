@@ -2,15 +2,14 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-RUN apk add --no-cache openssl
-
 COPY package*.json ./
 RUN npm ci --only=production
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 8080
 
-RUN chmod +x /app/entrypoint.sh
+ENV NODE_ENV=production
+ENV SETUP_UI_PORT=8080
 
-ENTRYPOINT ["/app/entrypoint.sh"]
+CMD ["node", "server.js"]
