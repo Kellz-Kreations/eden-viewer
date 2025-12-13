@@ -62,3 +62,6 @@ setup-ui/config/*.json
 *.key
 *.crt
 **/certs/
+
+setup-ui/config/config.json
+.env
