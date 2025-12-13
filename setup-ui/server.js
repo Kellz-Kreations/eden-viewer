@@ -481,3 +481,77 @@ process.on('SIGTERM', () => {
   console.log('👋 Shutting down Eden Viewer Setup UI...');
   process.exit(0);
 });
+
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+
+const app = express();
+const PORT = process.env.SETUP_UI_PORT || 8080;
+const CONFIG_PATH = process.env.CONFIG_PATH || '/config/config.json';
+
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Check if first run
+function isFirstRun() {
+  if (process.env.SETUP_UI_FIRST_RUN === 'true') return true;
+  try {
+    return !fs.existsSync(CONFIG_PATH);
+  } catch {
+    return true;
+  }
+}
+
+// API: Get setup status
+app.get('/api/status', (req, res) => {
+  res.json({
+    firstRun: isFirstRun(),
+    configExists: fs.existsSync(CONFIG_PATH)
+  });
+});
+
+// API: Get current config
+app.get('/api/config', (req, res) => {
+  try {
+    if (fs.existsSync(CONFIG_PATH)) {
+      const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
+      res.json(config);
+    } else {
+      res.json({
+        puid: process.env.PUID || '1000',
+        pgid: process.env.PGID || '1000',
+        tz: process.env.TZ || 'America/Los_Angeles',
+        dataPath: '/volume1/data',
+        appdataPath: '/volume1/docker/appdata',
+        services: { plex: true, sonarr: true, radarr: true }
+      });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// API: Save config
+app.post('/api/config', (req, res) => {
+  try {
+    const configDir = path.dirname(CONFIG_PATH);
+    if (!fs.existsSync(configDir)) {
+      fs.mkdirSync(configDir, { recursive: true });
+    }
+    fs.writeFileSync(CONFIG_PATH, JSON.stringify(req.body, null, 2));
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Serve OOBE UI
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Eden Viewer Setup UI running on port ${PORT}`);
+  console.log(`First run: ${isFirstRun()}`);
+});
