@@ -97,6 +97,7 @@ docker compose version
 ```bash
 sudo mkdir -p /srv/eden-viewer/appdata/{plex,sonarr,radarr}
 sudo mkdir -p /srv/eden-viewer/media/{movies,tv}
+sudo mkdir -p /srv/eden-viewer/transcode
 sudo chown -R azureuser:azureuser /srv/eden-viewer
 
 mkdir -p ~/eden-viewer
@@ -112,14 +113,17 @@ cp .env.example .env
 nano .env
 ```
 
-Example `.env` overrides for Azure:
+Example `.env` overrides for Azure (place this in the same directory as `docker-compose.yml` or `compose.yaml`):
 
 ```
 PUID=1000
 PGID=1000
 TZ=America/New_York
-DATA_PATH=/srv/eden-viewer
-APPDATA_PATH=/srv/eden-viewer/appdata
+
+APPDATA_ROOT=/srv/eden-viewer/appdata
+DATA_ROOT=/srv/eden-viewer/media
+TRANSCODE_ROOT=/srv/eden-viewer/transcode
+PLEX_CLAIM=  # optional; leave blank if not claiming
 ```
 
 Reuse your Synology media/appdata backups if desired (`rsync` or `scp`).
