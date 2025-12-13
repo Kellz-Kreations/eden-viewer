@@ -4,417 +4,402 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eden Viewer - Setup</title>
-  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    /* Fluent Design System - Base Styles */
     :root {
-      --ms-blue: #0078d4;
-      --ms-blue-dark: #106ebe;
-      --ms-blue-darker: #005a9e;
-      --ms-green: #107c10;
-      --ms-red: #d13438;
-      --ms-yellow: #ffb900;
-      --ms-orange: #f25022;
-      --neutral-primary: #323130;
-      --neutral-secondary: #605e5c;
-      --neutral-tertiary: #a19f9d;
-      --neutral-light: #edebe9;
-      --neutral-lighter: #f3f2f1;
-      --neutral-white: #ffffff;
+      --brand-primary: #0078d4;
+      --brand-primary-hover: #106ebe;
+      --brand-primary-pressed: #005a9e;
+      --neutral-foreground: #242424;
+      --neutral-foreground-secondary: #616161;
+      --neutral-foreground-disabled: #a19f9d;
+      --neutral-background: #ffffff;
+      --neutral-background-subtle: #faf9f8;
+      --neutral-stroke: #d1d1d1;
+      --neutral-stroke-strong: #8a8886;
+      --success-primary: #107c10;
+      --success-background: #dff6dd;
+      --danger-primary: #d13438;
+      --danger-background: #fde7e9;
+      --warning-primary: #ffb900;
+      --shadow-4: 0 1.6px 3.6px 0 rgba(0,0,0,0.132), 0 0.3px 0.9px 0 rgba(0,0,0,0.108);
+      --shadow-8: 0 3.2px 7.2px 0 rgba(0,0,0,0.132), 0 0.6px 1.8px 0 rgba(0,0,0,0.108);
+      --shadow-16: 0 6.4px 14.4px 0 rgba(0,0,0,0.132), 0 1.2px 3.6px 0 rgba(0,0,0,0.108);
+      --radius-medium: 4px;
+      --radius-large: 8px;
+      --duration-fast: 0.1s;
+      --duration-normal: 0.2s;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--neutral-lighter);
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body { 
+      font-family: 'Segoe UI Variable', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 14px;
+      line-height: 20px;
+      background: linear-gradient(180deg, #0078d4 0%, #005a9e 100%);
       min-height: 100vh;
-      color: var(--neutral-primary);
+      color: var(--neutral-foreground);
+    }
+
+    /* Layout */
+    .container { 
+      max-width: 480px; 
+      margin: 0 auto; 
+      padding: 48px 24px;
+      min-height: 100vh;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
     }
 
-    .setup-container {
-      width: 100%;
-      max-width: 480px;
-      margin: 40px 20px;
-    }
-
-    .header {
-      text-align: center;
+    /* Header */
+    .header { 
+      text-align: center; 
       margin-bottom: 32px;
+      color: #fff;
     }
-
-    .ms-logo {
+    .header-logo {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 2px;
-      margin-bottom: 24px;
+      gap: 12px;
+      margin-bottom: 8px;
     }
-
-    .ms-logo div {
-      width: 20px;
-      height: 20px;
-    }
-
-    .app-title {
+    .header-logo svg { width: 32px; height: 32px; }
+    .header h1 { 
       font-size: 28px;
       font-weight: 600;
-      color: var(--neutral-primary);
-      margin-bottom: 8px;
+      line-height: 36px;
+      letter-spacing: -0.5px;
     }
-
-    .app-subtitle {
+    .header p { 
       font-size: 14px;
-      color: var(--neutral-secondary);
-    }
-
-    .card {
-      background: var(--neutral-white);
-      border-radius: 4px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-      padding: 32px;
-    }
-
-    .card-title {
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--neutral-primary);
-      margin-bottom: 8px;
-    }
-
-    .card-description {
-      font-size: 14px;
-      color: var(--neutral-secondary);
-      margin-bottom: 24px;
-      line-height: 1.5;
-    }
-
-    .form-field {
-      margin-bottom: 20px;
-    }
-
-    .form-field label {
-      display: block;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--neutral-primary);
-      margin-bottom: 6px;
-    }
-
-    .form-field input,
-    .form-field select {
-      width: 100%;
-      height: 32px;
-      padding: 0 8px;
-      font-size: 14px;
-      font-family: inherit;
-      color: var(--neutral-primary);
-      background: var(--neutral-white);
-      border: 1px solid var(--neutral-tertiary);
-      border-radius: 2px;
-      outline: none;
-      transition: border-color 0.1s;
-    }
-
-    .form-field input:hover,
-    .form-field select:hover {
-      border-color: var(--neutral-secondary);
-    }
-
-    .form-field input:focus,
-    .form-field select:focus {
-      border-color: var(--ms-blue);
-      border-width: 2px;
-      padding: 0 7px;
-    }
-
-    .form-field select:focus {
-      padding: 0 7px;
-    }
-
-    .form-field input::placeholder {
-      color: var(--neutral-tertiary);
-    }
-
-    .form-field-hint {
-      font-size: 12px;
-      color: var(--neutral-secondary);
+      line-height: 20px;
+      color: rgba(255,255,255,0.8);
       margin-top: 4px;
     }
 
-    .btn-primary {
+    /* Progress Indicator */
+    .progress { 
+      display: flex; 
+      justify-content: center; 
+      gap: 8px; 
+      margin-bottom: 24px; 
+    }
+    .progress-step { 
+      width: 8px; 
+      height: 8px; 
+      border-radius: 50%; 
+      background: rgba(255,255,255,0.3);
+      transition: background var(--duration-normal);
+    }
+    .progress-step.active { background: #fff; }
+
+    /* Card */
+    .card { 
+      background: var(--neutral-background);
+      border-radius: var(--radius-large);
+      padding: 24px;
+      box-shadow: var(--shadow-16);
+    }
+    .card-title { 
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 28px;
+      color: var(--neutral-foreground);
+      margin-bottom: 8px;
+    }
+    .card-description {
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--neutral-foreground-secondary);
+      margin-bottom: 24px;
+    }
+
+    /* Form Controls */
+    .form-group { margin-bottom: 16px; }
+    .form-group:last-of-type { margin-bottom: 24px; }
+    
+    .form-label { 
+      display: block; 
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      color: var(--neutral-foreground);
+      margin-bottom: 6px;
+    }
+    
+    .form-control {
+      width: 100%;
+      height: 32px;
+      padding: 0 12px;
+      font-size: 14px;
+      font-family: inherit;
+      line-height: 20px;
+      color: var(--neutral-foreground);
+      background: var(--neutral-background);
+      border: 1px solid var(--neutral-stroke-strong);
+      border-radius: var(--radius-medium);
+      transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+    }
+    .form-control:hover { border-color: var(--neutral-foreground-secondary); }
+    .form-control:focus { 
+      outline: none;
+      border-color: var(--brand-primary);
+      box-shadow: inset 0 0 0 1px var(--brand-primary);
+    }
+    .form-control::placeholder { color: var(--neutral-foreground-disabled); }
+
+    select.form-control {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23616161' d='M2.5 4.5L6 8l3.5-3.5h-7z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      padding-right: 32px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       width: 100%;
       height: 32px;
       padding: 0 20px;
       font-size: 14px;
       font-weight: 600;
       font-family: inherit;
-      color: var(--neutral-white);
-      background: var(--ms-blue);
+      line-height: 20px;
       border: none;
-      border-radius: 2px;
+      border-radius: var(--radius-medium);
       cursor: pointer;
-      transition: background 0.1s;
+      transition: background var(--duration-fast), box-shadow var(--duration-fast);
     }
-
-    .btn-primary:hover {
-      background: var(--ms-blue-dark);
+    .btn-primary {
+      background: var(--brand-primary);
+      color: #fff;
     }
-
-    .btn-primary:active {
-      background: var(--ms-blue-darker);
+    .btn-primary:hover { background: var(--brand-primary-hover); }
+    .btn-primary:active { background: var(--brand-primary-pressed); }
+    .btn-primary:focus-visible {
+      outline: 2px solid var(--brand-primary);
+      outline-offset: 2px;
     }
-
     .btn-primary:disabled {
-      background: var(--neutral-light);
-      color: var(--neutral-tertiary);
+      background: #f3f2f1;
+      color: var(--neutral-foreground-disabled);
       cursor: not-allowed;
     }
 
     .btn-secondary {
-      width: 100%;
-      height: 32px;
-      padding: 0 20px;
-      font-size: 14px;
-      font-weight: 600;
-      font-family: inherit;
-      color: var(--neutral-primary);
-      background: var(--neutral-white);
-      border: 1px solid var(--neutral-tertiary);
-      border-radius: 2px;
-      cursor: pointer;
-      transition: background 0.1s, border-color 0.1s;
+      background: var(--neutral-background);
+      color: var(--neutral-foreground);
+      border: 1px solid var(--neutral-stroke-strong);
     }
+    .btn-secondary:hover { background: var(--neutral-background-subtle); }
 
-    .btn-secondary:hover {
-      background: var(--neutral-lighter);
-      border-color: var(--neutral-secondary);
-    }
-
+    /* Message Bar */
     .message-bar {
       display: flex;
       align-items: center;
       gap: 8px;
       padding: 12px;
-      border-radius: 2px;
+      border-radius: var(--radius-medium);
       margin-top: 16px;
       font-size: 14px;
+      line-height: 20px;
     }
-
-    .message-bar.success {
-      background: #dff6dd;
-      color: var(--ms-green);
+    .message-bar-success {
+      background: var(--success-background);
+      color: var(--success-primary);
     }
-
-    .message-bar.error {
-      background: #fde7e9;
-      color: var(--ms-red);
+    .message-bar-error {
+      background: var(--danger-background);
+      color: var(--danger-primary);
     }
+    .message-bar-icon { flex-shrink: 0; }
 
-    .message-bar-icon {
-      flex-shrink: 0;
-      width: 16px;
-      height: 16px;
-    }
-
-    .progress-steps {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 24px;
-    }
-
-    .progress-step {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--neutral-light);
-    }
-
-    .progress-step.active {
-      background: var(--ms-blue);
-    }
-
-    .progress-step.complete {
-      background: var(--ms-green);
-    }
-
-    .success-content {
-      display: none;
-    }
-
-    .success-content.visible {
-      display: block;
-    }
-
-    .setup-content.hidden {
-      display: none;
-    }
-
-    .next-step {
-      background: var(--neutral-lighter);
-      border-radius: 2px;
-      padding: 16px;
+    /* Info Box */
+    .info-box {
+      background: var(--neutral-background-subtle);
+      border-radius: var(--radius-medium);
+      padding: 12px 16px;
       margin-bottom: 12px;
+      border-left: 3px solid var(--brand-primary);
     }
-
-    .next-step-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--neutral-primary);
-      margin-bottom: 8px;
-    }
-
-    .next-step-content {
-      font-size: 13px;
-      color: var(--neutral-secondary);
-    }
-
-    .next-step-content code {
-      display: inline-block;
-      background: var(--neutral-white);
-      border: 1px solid var(--neutral-light);
-      border-radius: 2px;
-      padding: 2px 6px;
-      font-family: 'Cascadia Code', 'Consolas', monospace;
+    .info-box:last-of-type { margin-bottom: 24px; }
+    .info-box-title {
       font-size: 12px;
-      color: var(--neutral-primary);
+      font-weight: 600;
+      line-height: 16px;
+      color: var(--neutral-foreground-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
     }
-
-    .next-step-content a {
-      color: var(--ms-blue);
+    .info-box-content {
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--neutral-foreground);
+    }
+    .info-box code {
+      font-family: 'Cascadia Code', 'Consolas', monospace;
+      font-size: 13px;
+      background: #e1dfdd;
+      padding: 2px 6px;
+      border-radius: 3px;
+      color: var(--brand-primary);
+    }
+    .info-box a {
+      color: var(--brand-primary);
       text-decoration: none;
+      font-weight: 600;
+    }
+    .info-box a:hover { text-decoration: underline; }
+    .info-box .hint {
+      font-size: 12px;
+      line-height: 16px;
+      color: var(--neutral-foreground-secondary);
+      margin-top: 4px;
     }
 
-    .next-step-content a:hover {
-      text-decoration: underline;
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
     }
 
-    .divider {
-      height: 1px;
-      background: var(--neutral-light);
-      margin: 24px 0;
+    /* Focus visible for keyboard navigation */
+    .form-control:focus-visible {
+      outline: 2px solid var(--brand-primary);
+      outline-offset: 2px;
     }
   </style>
 </head>
 <body>
-  <div class="setup-container">
-    <div class="header">
-      <div class="ms-logo">
-        <div style="background:#f25022;"></div>
-        <div style="background:#7fba00;"></div>
-        <div style="background:#00a4ef;"></div>
-        <div style="background:#ffb900;"></div>
+  <div class="container">
+    <header class="header">
+      <div class="header-logo">
+        <svg viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="11" height="11" fill="#f25022"/>
+          <rect x="12" width="11" height="11" fill="#7fba00"/>
+          <rect y="12" width="11" height="11" fill="#00a4ef"/>
+          <rect x="12" y="12" width="11" height="11" fill="#ffb900"/>
+        </svg>
+        <h1>Eden Viewer</h1>
       </div>
-      <h1 class="app-title">Eden Viewer</h1>
-      <p class="app-subtitle">Media Stack Setup</p>
-    </div>
+      <p>Media Stack Setup Wizard</p>
+    </header>
 
-    <div class="progress-steps">
-      <div class="progress-step active" id="step1"></div>
+    <nav class="progress" aria-label="Setup progress">
+      <div class="progress-step active" id="step1" aria-current="step"></div>
       <div class="progress-step" id="step2"></div>
       <div class="progress-step" id="step3"></div>
-    </div>
+    </nav>
 
-    <div class="card">
-      <div class="setup-content" id="setup-content">
-        <h2 class="card-title">Configure your environment</h2>
-        <p class="card-description">Set up your Plex, Sonarr, and Radarr media stack for Synology or Azure.</p>
+    <main class="card" id="welcome-card" role="form" aria-labelledby="welcome-title">
+      <h2 class="card-title" id="welcome-title">Configure your stack</h2>
+      <p class="card-description">Set up Plex, Sonarr, and Radarr for your Synology DS923+ or Azure deployment.</p>
+      
+      <div class="form-group">
+        <label class="form-label" for="deploymentTarget">Deployment target</label>
+        <select class="form-control" id="deploymentTarget">
+          <option value="synology">Synology DS923+ (Local)</option>
+          <option value="azure">Azure Container Apps (Remote)</option>
+        </select>
+      </div>
 
-        <div class="form-field">
-          <label for="deploymentTarget">Deployment target</label>
-          <select id="deploymentTarget">
-            <option value="synology">Synology DS923+ (Local)</option>
-            <option value="azure">Azure Container Apps (Remote)</option>
-          </select>
-        </div>
+      <div class="form-group">
+        <label class="form-label" for="domain">Custom domain</label>
+        <input class="form-control" type="text" id="domain" placeholder="viewer.kellzkreations.com" value="viewer.kellzkreations.com" autocomplete="url">
+      </div>
 
-        <div class="form-field">
-          <label for="domain">Custom domain</label>
-          <input type="text" id="domain" placeholder="viewer.kellzkreations.com" value="viewer.kellzkreations.com">
-          <p class="form-field-hint">Your domain for HTTPS access</p>
-        </div>
+      <div class="form-group">
+        <label class="form-label" for="puid">User ID (PUID)</label>
+        <input class="form-control" type="text" id="puid" placeholder="1000" value="1000" inputmode="numeric">
+      </div>
 
-        <div class="form-field">
-          <label for="puid">PUID</label>
-          <input type="text" id="puid" placeholder="1000" value="1000">
-          <p class="form-field-hint">User ID for container permissions</p>
-        </div>
+      <div class="form-group">
+        <label class="form-label" for="pgid">Group ID (PGID)</label>
+        <input class="form-control" type="text" id="pgid" placeholder="1000" value="1000" inputmode="numeric">
+      </div>
 
-        <div class="form-field">
-          <label for="pgid">PGID</label>
-          <input type="text" id="pgid" placeholder="1000" value="1000">
-          <p class="form-field-hint">Group ID for container permissions</p>
-        </div>
-
-        <div class="form-field">
-          <label for="timezone">Timezone</label>
-          <select id="timezone">
-            <option value="America/New_York">America/New_York (Eastern)</option>
-            <option value="America/Chicago">America/Chicago (Central)</option>
-            <option value="America/Denver">America/Denver (Mountain)</option>
-            <option value="America/Los_Angeles">America/Los_Angeles (Pacific)</option>
-            <option value="America/Anchorage">America/Anchorage (Alaska)</option>
-            <option value="Pacific/Honolulu">Pacific/Honolulu (Hawaii)</option>
-            <option value="America/Phoenix">America/Phoenix (Arizona)</option>
-            <option value="America/Toronto">America/Toronto</option>
-            <option value="America/Vancouver">America/Vancouver</option>
-            <option value="Europe/London">Europe/London (GMT)</option>
-            <option value="Europe/Paris">Europe/Paris (CET)</option>
-            <option value="Europe/Berlin">Europe/Berlin (CET)</option>
-            <option value="Europe/Amsterdam">Europe/Amsterdam (CET)</option>
-            <option value="Europe/Moscow">Europe/Moscow (MSK)</option>
-            <option value="Asia/Tokyo">Asia/Tokyo (JST)</option>
-            <option value="Asia/Shanghai">Asia/Shanghai (CST)</option>
-            <option value="Asia/Hong_Kong">Asia/Hong_Kong (HKT)</option>
-            <option value="Asia/Singapore">Asia/Singapore (SGT)</option>
-            <option value="Asia/Dubai">Asia/Dubai (GST)</option>
-            <option value="Asia/Kolkata">Asia/Kolkata (IST)</option>
-            <option value="Australia/Sydney">Australia/Sydney (AEST)</option>
-            <option value="Australia/Melbourne">Australia/Melbourne (AEST)</option>
-            <option value="Australia/Perth">Australia/Perth (AWST)</option>
-            <option value="Pacific/Auckland">Pacific/Auckland (NZST)</option>
+      <div class="form-group">
+        <label class="form-label" for="timezone">Timezone</label>
+        <select class="form-control" id="timezone">
+          <optgroup label="Americas">
+            <option value="America/New_York">New York (Eastern)</option>
+            <option value="America/Chicago">Chicago (Central)</option>
+            <option value="America/Denver">Denver (Mountain)</option>
+            <option value="America/Los_Angeles">Los Angeles (Pacific)</option>
+            <option value="America/Anchorage">Anchorage (Alaska)</option>
+            <option value="Pacific/Honolulu">Honolulu (Hawaii)</option>
+            <option value="America/Phoenix">Phoenix (Arizona)</option>
+            <option value="America/Toronto">Toronto</option>
+            <option value="America/Vancouver">Vancouver</option>
+          </optgroup>
+          <optgroup label="Europe">
+            <option value="Europe/London">London (GMT)</option>
+            <option value="Europe/Paris">Paris (CET)</option>
+            <option value="Europe/Berlin">Berlin (CET)</option>
+            <option value="Europe/Amsterdam">Amsterdam (CET)</option>
+            <option value="Europe/Moscow">Moscow (MSK)</option>
+          </optgroup>
+          <optgroup label="Asia & Pacific">
+            <option value="Asia/Tokyo">Tokyo (JST)</option>
+            <option value="Asia/Shanghai">Shanghai (CST)</option>
+            <option value="Asia/Hong_Kong">Hong Kong (HKT)</option>
+            <option value="Asia/Singapore">Singapore (SGT)</option>
+            <option value="Asia/Dubai">Dubai (GST)</option>
+            <option value="Asia/Kolkata">Kolkata (IST)</option>
+            <option value="Australia/Sydney">Sydney (AEST)</option>
+            <option value="Australia/Melbourne">Melbourne (AEST)</option>
+            <option value="Australia/Perth">Perth (AWST)</option>
+            <option value="Pacific/Auckland">Auckland (NZST)</option>
+          </optgroup>
+          <optgroup label="Other">
             <option value="UTC">UTC</option>
-          </select>
-        </div>
-
-        <button class="btn-primary" id="saveBtn" onclick="saveConfig()">Continue</button>
-        <div id="status"></div>
+          </optgroup>
+        </select>
       </div>
 
-      <div class="success-content" id="success-content">
-        <h2 class="card-title">Setup complete</h2>
-        <p class="card-description">Your configuration has been saved. Follow these steps to finish.</p>
+      <button class="btn btn-primary" id="saveBtn" onclick="saveConfig()">
+        Save configuration
+      </button>
+      <div id="status" role="status" aria-live="polite"></div>
+    </main>
 
-        <div class="next-step">
-          <p class="next-step-title">1. Deploy the stack</p>
-          <p class="next-step-content"><code>docker-compose up -d</code></p>
+    <main class="card" id="success-card" style="display:none;" role="alert" aria-labelledby="success-title">
+      <h2 class="card-title" id="success-title">✓ Configuration complete</h2>
+      <p class="card-description">Your Eden Viewer stack is ready. Follow these steps to finish setup.</p>
+      
+      <div class="info-box">
+        <div class="info-box-title">Step 1</div>
+        <div class="info-box-content">
+          <code>docker-compose up -d</code>
+          <div class="hint">Deploy the media stack</div>
         </div>
-
-        <div class="next-step">
-          <p class="next-step-title">2. Configure DNS</p>
-          <p class="next-step-content">Point <code id="domain-display"></code> to your server IP address.</p>
-        </div>
-
-        <div class="next-step">
-          <p class="next-step-title">3. Access your services</p>
-          <p class="next-step-content">
-            <a id="plex-link" href="#" target="_blank">Open Plex Web UI</a><br>
-            <span style="color:var(--neutral-tertiary);">Use VPN for Sonarr/Radarr access</span>
-          </p>
-        </div>
-
-        <div class="divider"></div>
-
-        <button class="btn-secondary" onclick="window.location.reload()">Start over</button>
       </div>
-    </div>
+
+      <div class="info-box">
+        <div class="info-box-title">Step 2</div>
+        <div class="info-box-content">
+          <a id="plex-link" href="#" target="_blank" rel="noopener">Open Plex Web UI</a>
+          <div class="hint">Sonarr and Radarr require VPN access</div>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <div class="info-box-title">Step 3</div>
+        <div class="info-box-content">
+          Point <code id="domain-display"></code> to your server
+          <div class="hint">Create an A record or CNAME in your DNS</div>
+        </div>
+      </div>
+
+      <button class="btn btn-secondary" onclick="window.location.reload()">
+        Start over
+      </button>
+    </main>
   </div>
 
   <script>
@@ -425,13 +410,12 @@
         if (data.configured && data.domain) {
           document.getElementById('domain').value = data.domain;
         }
-      } catch (e) {
-        console.error('Status check failed:', e);
-      }
+      } catch (e) { console.error('Status check failed:', e); }
     }
 
     async function saveConfig() {
       const btn = document.getElementById('saveBtn');
+      const originalText = btn.textContent;
       btn.disabled = true;
       btn.textContent = 'Saving...';
 
@@ -439,3 +423,41 @@
         domain: document.getElementById('domain').value,
         puid: document.getElementById('puid').value,
         pgid: document.getElementById('pgid').value,
+        timezone: document.getElementById('timezone').value,
+        deploymentTarget: document.getElementById('deploymentTarget').value
+      };
+
+      try {
+        const res = await fetch('/api/configure', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(config)
+        });
+        const data = await res.json();
+        
+        if (data.success) {
+          document.getElementById('welcome-card').style.display = 'none';
+          document.getElementById('success-card').style.display = 'block';
+          document.getElementById('step2').classList.add('active');
+          document.getElementById('step3').classList.add('active');
+          
+          const domain = config.domain || 'localhost';
+          document.getElementById('plex-link').href = `https://${domain}`;
+          document.getElementById('domain-display').textContent = domain;
+        } else {
+          throw new Error(data.message || 'Configuration failed');
+        }
+      } catch (e) {
+        const status = document.getElementById('status');
+        status.className = 'message-bar message-bar-error';
+        status.innerHTML = `<span class="message-bar-icon">✕</span> ${e.message}`;
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    }
+
+    // Initialize
+    checkStatus();
+  </script>
+</body>
+</html>
