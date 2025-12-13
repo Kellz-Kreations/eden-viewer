@@ -51,6 +51,21 @@ services:
       - 7878:7878
     restart: unless-stopped
 
+  plex-proxy:
+    image: caddy:2.7
+    container_name: plex-proxy
+    network_mode: host
+    environment:
+      - PLEX_DOMAIN=${PLEX_DOMAIN}
+      - CADDY_ACME_EMAIL=${CADDY_ACME_EMAIL:-}
+    volumes:
+      - ${APPDATA_ROOT:-/volume1/docker/appdata}/caddy/config:/config
+      - ${APPDATA_ROOT:-/volume1/docker/appdata}/caddy/data:/data
+      - ./config/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+    depends_on:
+      - plex
+    restart: unless-stopped
+
 networks:
   media:
     name: media

@@ -60,3 +60,18 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
+
+  plex-proxy:
+    image: caddy:2.7
+    container_name: plex-proxy
+    network_mode: host
+    environment:
+      - PLEX_DOMAIN=${PLEX_DOMAIN}
+      - CADDY_ACME_EMAIL=${CADDY_ACME_EMAIL:-}
+    volumes:
+      - ${APPDATA_PATH}/caddy/config:/config
+      - ${APPDATA_PATH}/caddy/data:/data
+      - ./config/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+    depends_on:
+      - plex
+    restart: unless-stopped
