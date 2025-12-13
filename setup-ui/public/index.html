@@ -417,7 +417,9 @@
         if (data.configured && data.domain) {
           document.getElementById('domain').value = data.domain;
         }
-      } catch (e) { console.error('Status check failed:', e); }
+      } catch (e) { 
+        console.error('Status check failed:', e); 
+      }
     }
 
     async function checkPlexStatus() {
@@ -439,7 +441,7 @@
           btn.textContent = 'Launch Plex';
         } else {
           statusText.innerHTML = '⏳ Plex is not running yet';
-          statusHint.innerHTML = `Run <code>docker-compose up -d</code> to start the stack`;
+          statusHint.innerHTML = 'Run <code>docker-compose up -d</code> to start the stack';
           statusBox.style.borderLeftColor = 'var(--warning-primary)';
           btn.disabled = false;
           btn.textContent = 'Try Launch Anyway';
@@ -487,7 +489,7 @@
           document.getElementById('domain-display').textContent = domain;
           
           // Set default Plex URL and check status
-          plexUrl = `${window.location.protocol}//${window.location.hostname}:32400/web`;
+          plexUrl = window.location.protocol + '//' + window.location.hostname + ':32400/web';
           checkPlexStatus();
         } else {
           throw new Error(data.message || 'Configuration failed');
@@ -495,26 +497,21 @@
       } catch (e) {
         const status = document.getElementById('status');
         status.className = 'message-bar message-bar-error';
-        status.innerHTML = `<span class="message-bar-icon">✕</span> ${e.message}`;
+        status.innerHTML = '<span class="message-bar-icon">✕</span> ' + e.message;
         btn.disabled = false;
         btn.textContent = originalText;
       }
     }
 
     function launchPlex() {
-      const url = plexUrl || `${window.location.protocol}//${window.location.hostname}:32400/web`;
+      const url = plexUrl || (window.location.protocol + '//' + window.location.hostname + ':32400/web');
       window.location.href = url;
     }
 
-
-
-
-
-
-
-
-</html></body>  </script>    checkPlexStatus();    checkStatus();    // Initial checks    // Initialize
-    checkStatus();
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      checkStatus();
+    });
   </script>
 </body>
 </html>
