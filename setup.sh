@@ -15,6 +15,9 @@ STACK_PATH="${STACK_PATH:-/volume1/docker/eden-viewer}"
 DATA_PATH="${DATA_PATH:-/volume1/data}"
 APPDATA_PATH="${APPDATA_PATH:-/volume1/docker/appdata}"
 
+# Compose file (allow override; default matches common Compose v2 naming)
+COMPOSE_FILE="${COMPOSE_FILE:-compose.yaml}"
+
 # Use sudo only when not running as root
 SUDO="sudo"
 if [[ "$(id -u)" -eq 0 ]]; then
@@ -136,7 +139,7 @@ echo ""
 echo "Next steps:"
 echo "  1. Copy project files to: $STACK_PATH"
 echo "  2. Edit .env with your PUID/PGID and timezone"
-echo "  3. Deploy: cd $STACK_PATH && $SUDO $COMPOSE_CMD up -d"
-echo "  4. Verify: $SUDO $COMPOSE_CMD ps"
+echo "  3. Deploy: cd $STACK_PATH && $SUDO $COMPOSE_CMD --env-file .env -f $COMPOSE_FILE up -d"
+echo "  4. Verify: $SUDO $COMPOSE_CMD --env-file .env -f $COMPOSE_FILE ps"
 echo ""
 echo -e "${YELLOW}Reminder: Regularly back up $APPDATA_PATH using Hyper Backup or Btrfs snapshots.${NC}"
