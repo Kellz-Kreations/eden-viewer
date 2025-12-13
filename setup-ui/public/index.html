@@ -383,26 +383,31 @@
       <div class="info-box">
         <div class="info-box-title">Step 2</div>
         <div class="info-box-content">
-          <a id="plex-link" href="#" target="_blank" rel="noopener">Open Plex Web UI</a>
-          <div class="hint">Sonarr and Radarr require VPN access</div>
+          Point <code id="domain-display"></code> to your server
+          <div class="hint">Create an A record or CNAME in your DNS</div>
         </div>
       </div>
 
       <div class="info-box">
         <div class="info-box-title">Step 3</div>
         <div class="info-box-content">
-          Point <code id="domain-display"></code> to your server
-          <div class="hint">Create an A record or CNAME in your DNS</div>
+          Access Plex at <a id="plex-link-local" href="#" target="_blank" rel="noopener"></a>
+          <div class="hint">Or via your domain once DNS is configured</div>
         </div>
       </div>
 
-      <button class="btn btn-secondary" onclick="window.location.reload()">
-        Start over
+      <button class="btn btn-primary" id="launchPlexBtn" onclick="launchPlex()">
+        Launch Plex
+      </button>
+      <button class="btn btn-secondary" style="margin-top:8px;" onclick="window.location.reload()">
+        Edit configuration
       </button>
     </main>
   </div>
 
   <script>
+    let savedConfig = {};
+
     async function checkStatus() {
       try {
         const res = await fetch('/api/status');
@@ -419,7 +424,7 @@
       btn.disabled = true;
       btn.textContent = 'Saving...';
 
-      const config = {
+      savedConfig = {
         domain: document.getElementById('domain').value,
         puid: document.getElementById('puid').value,
         pgid: document.getElementById('pgid').value,
@@ -431,7 +436,7 @@
         const res = await fetch('/api/configure', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(config)
+          body: JSON.stringify(savedConfig)
         });
         const data = await res.json();
         
@@ -441,9 +446,13 @@
           document.getElementById('step2').classList.add('active');
           document.getElementById('step3').classList.add('active');
           
-          const domain = config.domain || 'localhost';
-          document.getElementById('plex-link').href = `https://${domain}`;
+          const domain = savedConfig.domain || 'localhost';
           document.getElementById('domain-display').textContent = domain;
+          
+          // Set local Plex URL (same host, port 32400)
+          const plexLocalUrl = `${window.location.protocol}//${window.location.hostname}:32400/web`;
+          document.getElementById('plex-link-local').href = plexLocalUrl;
+          document.getElementById('plex-link-local').textContent = plexLocalUrl;
         } else {
           throw new Error(data.message || 'Configuration failed');
         }
@@ -454,6 +463,11 @@
         btn.disabled = false;
         btn.textContent = originalText;
       }
+    }
+
+    function launchPlex() {
+      const plexUrl = `${window.location.protocol}//${window.location.hostname}:32400/web`;
+      window.location.href = plexUrl;
     }
 
     // Initialize
