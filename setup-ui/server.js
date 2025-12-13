@@ -4,6 +4,8 @@ const fs = require('fs');
 const https = require('https');
 const http = require('http');
 const os = require('os');
+const dns = require('dns').promises;
+const net = require('net');
 
 // Startup banner
 console.log('');
@@ -14,11 +16,108 @@ console.log('╚═════════════════════�
 console.log('');
 
 console.log('[1/7] 🔧 Loading environment configuration...');
-require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
+const repoRoot = (() => {
+  const explicit = (process.env.SETUP_UI_REPO_ROOT || '').trim();
+  if (explicit) return explicit;
+  // When running in Docker via compose.setup.yaml, the repo is mounted at /repo.
+  if (fs.existsSync('/repo')) return '/repo';
+  // Default local-dev behavior: setup-ui is a subfolder of the repo.
+  return path.join(__dirname, '..');
+})();
+
+const envPath = path.join(repoRoot, '.env');
+require('dotenv').config({ path: envPath });
 
 console.log('[2/7] 📦 Initializing Express application...');
 const app = express();
 const PORT = process.env.SETUP_UI_PORT || 3000;
+
+function withTimeout(promise, timeoutMs, label) {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => {
+      const err = new Error(`${label || 'operation'} timed out`);
+      err.code = 'ETIMEDOUT';
+      reject(err);
+    }, timeoutMs);
+
+    promise
+      .then((value) => {
+        clearTimeout(timer);
+        resolve(value);
+      })
+      .catch((error) => {
+        clearTimeout(timer);
+        reject(error);
+      });
+  });
+}
+
+async function canResolveHost(urlString, timeoutMs) {
+  try {
+    const url = new URL(urlString);
+    const host = url.hostname;
+    if (!host || host === 'localhost' || net.isIP(host)) {
+      return true;
+    }
+
+    // Keep this very short so we never stall the endpoint.
+    const dnsBudgetMs = Math.max(250, Math.min(600, Math.floor(timeoutMs / 2)));
+    await withTimeout(dns.lookup(host), dnsBudgetMs, 'dns lookup');
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function probeHttpUrl(urlString, timeoutMs) {
+  return new Promise((resolve, reject) => {
+    let url;
+    try {
+      url = new URL(urlString);
+    } catch (e) {
+      reject(e);
+      return;
+    }
+
+    const lib = url.protocol === 'https:' ? https : http;
+
+    const req = lib.request(
+      {
+        protocol: url.protocol,
+        hostname: url.hostname,
+        port: url.port,
+        path: url.pathname + url.search,
+        method: 'GET',
+        headers: { Accept: 'application/json' },
+      },
+      (res) => {
+        clearTimeout(hardTimer);
+        // Drain data so the socket can close cleanly.
+        res.on('data', () => {});
+        res.on('end', () => {
+          resolve({ ok: res.statusCode >= 200 && res.statusCode < 300, status: res.statusCode });
+        });
+      }
+    );
+
+    const hardTimer = setTimeout(() => {
+      const err = new Error('request timed out');
+      err.code = 'ETIMEDOUT';
+      req.destroy(err);
+    }, timeoutMs);
+
+    req.on('error', (err) => {
+      clearTimeout(hardTimer);
+      reject(err);
+    });
+
+    req.on('close', () => {
+      clearTimeout(hardTimer);
+    });
+
+    req.end();
+  });
+}
 
 console.log('[3/7] ⚙️  Configuring middleware...');
 app.use(express.json());
@@ -48,6 +147,34 @@ app.get('/api/plex-status', async (req, res) => {
   const plexDomain = (process.env.PLEX_DOMAIN || '').trim();
   const plexLanHost = (process.env.PLEX_LAN_HOST || process.env.SYNOLOGY_HOST || '').trim();
   const plexPort = Number(req.query.port || 32400);
+
+  const sanitizeHost = (value) => {
+    const host = String(value || '').trim();
+    // Allow typical hostnames and IPv4. (Intentionally excludes IPv6 literals for simplicity.)
+    if (!host) return '';
+    if (!/^[a-z0-9.-]+$/i.test(host)) return '';
+    return host;
+  };
+
+  // When the Setup UI is opened from another device, returning `localhost` for the Plex URL
+  // points at the *client* device, not the server. Prefer the Host header in that case.
+  const clientHost = sanitizeHost(req.hostname);
+  const clientReachableHost = clientHost && !['localhost', '127.0.0.1'].includes(clientHost) ? clientHost : 'localhost';
+
+  const isRunningInDocker = () => {
+    // Heuristic: works for Linux-based containers (Synology, most Docker images).
+    // When running on Windows/macOS host, these paths typically do not exist.
+    try {
+      if (fs.existsSync('/.dockerenv')) return true;
+      if (fs.existsSync('/proc/1/cgroup')) {
+        const cgroup = fs.readFileSync('/proc/1/cgroup', 'utf8');
+        return /docker|containerd|kubepods/i.test(cgroup);
+      }
+    } catch {
+      // ignore
+    }
+    return false;
+  };
 
   // Build candidates in priority order. This allows Setup UI to run from a different machine
   // while still checking Plex on the NAS via domain (Caddy) or LAN host.
@@ -90,21 +217,23 @@ app.get('/api/plex-status', async (req, res) => {
     });
   }
 
-  // If Setup UI runs in a Docker container (Docker Desktop), 127.0.0.1 points at the
-  // container itself. `host.docker.internal` lets the container reach the host.
-  candidates.push({
-    label: 'docker-desktop-host',
-    identityUrl: `http://host.docker.internal:${plexPort}/identity`,
-    // Browser should open the host-published port, not host.docker.internal.
-    webUrl: `http://localhost:${plexPort}/web`,
-  });
+  if (isRunningInDocker()) {
+    // If Setup UI runs in a Docker container (Docker Desktop), 127.0.0.1 points at the
+    // container itself. `host.docker.internal` lets the container reach the host.
+    candidates.push({
+      label: 'docker-desktop-host',
+      identityUrl: `http://host.docker.internal:${plexPort}/identity`,
+      // Browser should open the host-published port.
+      webUrl: `http://${clientReachableHost}:${plexPort}/web`,
+    });
+  }
 
   // Last resort: assume Plex is local to the machine running Setup UI (when running
   // this server directly on the host, not in Docker).
   candidates.push({
     label: 'localhost',
     identityUrl: `http://127.0.0.1:${plexPort}/identity`,
-    webUrl: `http://localhost:${plexPort}/web`,
+    webUrl: `http://${clientReachableHost}:${plexPort}/web`,
   });
 
   const tried = [];
@@ -125,17 +254,23 @@ app.get('/api/plex-status', async (req, res) => {
     console.log(`  ├─ Checking Plex connectivity (${candidate.label}): ${candidate.identityUrl}`);
 
     try {
-      const controller = new AbortController();
       const perAttemptTimeoutMs = Math.max(800, Math.min(1500, remainingMs));
-      const timeout = setTimeout(() => controller.abort(), perAttemptTimeoutMs);
 
-      const response = await fetch(candidate.identityUrl, {
-        signal: controller.signal,
-        headers: { Accept: 'application/json' },
-      });
-      clearTimeout(timeout);
+      // Guard against long DNS stalls that don't reliably respect fetch abort.
+      const resolvable = await canResolveHost(candidate.identityUrl, perAttemptTimeoutMs);
+      if (!resolvable) {
+        lastError = {
+          message: 'DNS lookup failed',
+          code: 'ENOTFOUND',
+          url: candidate.identityUrl,
+        };
+        console.log('  └─ ❌ Plex not reachable: DNS lookup failed (ENOTFOUND)');
+        continue;
+      }
 
-      if (response.ok) {
+      const result = await probeHttpUrl(candidate.identityUrl, perAttemptTimeoutMs);
+
+      if (result.ok) {
         console.log('  └─ ✅ Plex is running');
         return res.json({
           online: true,
@@ -146,15 +281,14 @@ app.get('/api/plex-status', async (req, res) => {
       }
 
       lastError = {
-        message: `HTTP ${response.status}`,
-        status: response.status,
+        message: `HTTP ${result.status}`,
+        status: result.status,
         url: candidate.identityUrl,
       };
-      console.log(`  └─ ⚠️ Plex responded with status ${response.status}`);
+      console.log(`  └─ ⚠️ Plex responded with status ${result.status}`);
     } catch (error) {
       // Node fetch errors can be opaque; expose cause codes when available.
-      const cause = error && error.cause ? error.cause : null;
-      const code = cause && cause.code ? cause.code : undefined;
+      const code = error && error.code ? error.code : undefined;
       lastError = {
         message: error?.message || 'fetch failed',
         code,
@@ -180,7 +314,6 @@ app.get('/api/plex-status', async (req, res) => {
 
 // API: Get current configuration status
 app.get('/api/status', (req, res) => {
-  const envPath = path.join(__dirname, '..', '.env');
   const configExists = fs.existsSync(envPath);
   
   console.log(`  ├─ Config check: ${configExists ? 'Found' : 'Not found'} (${envPath})`);
@@ -221,7 +354,6 @@ DEPLOYMENT_TARGET=${deploymentTarget || 'synology'}
 `;
 
   try {
-    const envPath = path.join(__dirname, '..', '.env');
     fs.writeFileSync(envPath, envContent);
     console.log(`  └─ ✅ Configuration saved to ${envPath}`);
     res.json({ success: true, message: 'Configuration saved' });

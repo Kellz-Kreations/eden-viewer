@@ -449,6 +449,9 @@
             const extra = (data.errorCode ? `${data.error} (${data.errorCode})` : data.error);
             statusHint.innerHTML += `<br/><span style="color: var(--neutral-foreground-secondary);">Last check: ${extra}</span>`;
           }
+          if (data.hint) {
+            statusHint.innerHTML += `<br/><span style="color: var(--neutral-foreground-secondary);">Hint: ${data.hint}</span>`;
+          }
           statusBox.style.borderLeftColor = 'var(--warning-primary)';
           btn.disabled = false;
           btn.textContent = 'Try Launch Anyway';

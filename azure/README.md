@@ -259,7 +259,7 @@ SETUP_UI_CERT_FILE=/certs/fullchain.pem
 SETUP_UI_KEY_FILE=/certs/privkey.pem
 ```
 
-Add a secret volume with those paths in `compose.yaml` / `docker-compose.yml`, or use Container Apps secrets to project the PEMs. The setup UI falls back to a self-signed cert when these variables are unset, so set both to enforce your own trusted chain.
+Add a secret volume with those paths in `compose.yaml` / `docker-compose.yml`, or use Container Apps secrets to project the PEMs. The Setup UI Docker image falls back to a self-signed cert when these variables are unset, so set both to enforce your own trusted chain.
 
 ### Plex ingress `allowInsecure`
 

@@ -5,7 +5,9 @@ services:
     build:
       context: ./setup-ui
     ports:
-      - 8080:8080
+      - 3000:3000
     volumes:
-      - ./:/repo:ro
+      - ./:/repo
+    environment:
+      - SETUP_UI_REPO_ROOT=/repo
     restart: unless-stopped
