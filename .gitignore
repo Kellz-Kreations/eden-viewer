@@ -51,3 +51,14 @@ appdata/
 # SQLite artifacts
 *.db-wal
 *.db-shm
+
+# Sensitive configuration files
+.env
+setup-ui/config/config.json
+setup-ui/config/*.json
+
+# Certificates
+*.pem
+*.key
+*.crt
+**/certs/
