@@ -6,8 +6,20 @@ const http = require('http');
 const os = require('os');
 const dns = require('dns').promises;
 const net = require('net');
+const rateLimit = require('express-rate-limit');
 
 // Startup banner
+
+// Rate limiting: max 100 requests per 15 minutes per IP
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+});
+
+// Apply the rate limiter to all requests
+const app = express();
+app.use(limiter);
+
 console.log('');
 console.log('╔══════════════════════════════════════════════════════════════╗');
 console.log('║                    Eden Viewer Setup UI                       ║');
