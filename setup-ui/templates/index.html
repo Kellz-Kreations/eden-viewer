@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Synology Media Stack Setup</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/fluent.css') }}" />
+</head>
+<body>
+  {% set icons = url_for('static', filename='icons/fluent-symbols.svg') %}
+  <main class="page" role="main">
+    <article class="card">
+      <header class="header">
+        <div class="header-title">
+          <span class="icon-badge" aria-hidden="true">
+            <svg focusable="false" aria-hidden="true">
+              <use href="{{ icons }}#cloud-upload-24"></use>
+            </svg>
+          </span>
+          <h1>First-run Setup</h1>
+        </div>
+        <nav class="stepper" role="navigation" aria-label="Setup progress">
+          <div class="stepper-step">
+            <span class="stepper-dot {% if step == 1 %}is-active{% else %}is-complete{% endif %}" aria-hidden="true"></span>
+            <span>Paths</span>
+          </div>
+          <span class="stepper-rail {% if step == 2 %}is-complete{% endif %}" aria-hidden="true"></span>
+          <div class="stepper-step">
+            <span class="stepper-dot {% if step == 2 %}is-active{% endif %}" aria-hidden="true"></span>
+            <span>Review</span>
+          </div>
+          <span class="visually-hidden">Step {{ step }} of 2</span>
+        </nav>
+      </header>
+
+      <p class="description">
+        Configure your Synology media stack with Microsoft Fluent styling. Enter the values below and select
+        <strong>Download .env</strong> to generate configuration for Plex, Sonarr, and Radarr.
+      </p>
+
+      <div class="info-grid">
+        <section class="info-card" aria-label="What this does">
+          <div class="info-card-header">
+            <svg focusable="false" aria-hidden="true">
+              <use href="{{ icons }}#info-circle-20"></use>
+            </svg>
+            What this does
+          </div>
+          <ul>
+            <li>Generates a <code>.env</code> file locally; nothing is stored on the server.</li>
+            <li>Prefills defaults using <code>.env.example</code> when present.</li>
+            <li>Targets Plex, Sonarr, and Radarr with a shared <code>/data</code> mount.</li>
+            <li>Designed for LAN access; use VPN or TLS if exposing remotely.</li>
+          </ul>
+        </section>
+        <section class="info-card" aria-label="Next steps">
+          <div class="info-card-header">
+            <svg focusable="false" aria-hidden="true">
+              <use href="{{ icons }}#text-bullet-list-20"></use>
+            </svg>
+            Next steps
+          </div>
+          <ol>
+            <li>Place the downloaded <code>.env</code> beside <code>compose.yaml</code>.</li>
+            <li>Stop the setup UI: <code>docker compose -f compose.setup.yaml down</code>.</li>
+            <li>Start the full stack: <code>docker compose up -d</code> or use DSM Container Manager.</li>
+          </ol>
+        </section>
+      </div>
+
+      {% if error_message %}
+      <div class="message-bar error" role="alert" aria-live="assertive">
+        <svg focusable="false" aria-hidden="true">
+          <use href="{{ icons }}#info-circle-20"></use>
+        </svg>
+        <div>
+          <strong>Configuration error</strong>
+          <div>{{ error_message }}</div>
+        </div>
+      </div>
+      {% endif %}
+
+      {% if step == 1 %}
+      <form method="post" action="/step2" autocomplete="off" novalidate>
+        <input type="hidden" name="csrf" value="{{ csrf }}" />
+
+        <div class="form-group">
+          <label for="APPDATA_ROOT">APPDATA_ROOT</label>
+          <input
+            id="APPDATA_ROOT"
+            name="APPDATA_ROOT"
+            type="text"
+            required
+            value="{{ defaults.APPDATA_ROOT }}"
+            aria-describedby="hint-appdata"
+            {% if field_errors.APPDATA_ROOT %}class="error" aria-invalid="true"{% endif %}
+          />
+          <div id="hint-appdata" class="hint">
+            Synology example: <code>/volume1/docker/appdata</code>
+          </div>
+          {% if field_errors.APPDATA_ROOT %}
+          <div class="hint error" role="alert">{{ field_errors.APPDATA_ROOT }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          <label for="DATA_ROOT">DATA_ROOT</label>
+          <input
+            id="DATA_ROOT"
+            name="DATA_ROOT"
+            type="text"
+            required
+            value="{{ defaults.DATA_ROOT }}"
+            aria-describedby="hint-data"
+            {% if field_errors.DATA_ROOT %}class="error" aria-invalid="true"{% endif %}
+          />
+          <div id="hint-data" class="hint">
+            Shared media mount for Sonarr/Radarr: <code>/volume1/data</code>
+          </div>
+          {% if field_errors.DATA_ROOT %}
+          <div class="hint error" role="alert">{{ field_errors.DATA_ROOT }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          <label for="TRANSCODE_ROOT">TRANSCODE_ROOT</label>
+          <input
+            id="TRANSCODE_ROOT"
+            name="TRANSCODE_ROOT"
+            type="text"
+            required
+            value="{{ defaults.TRANSCODE_ROOT }}"
+            aria-describedby="hint-transcode"
+            {% if field_errors.TRANSCODE_ROOT %}class="error" aria-invalid="true"{% endif %}
+          />
+          <div id="hint-transcode" class="hint">
+            Plex transcode cache (Ryzen R1600 uses Direct Play): <code>/volume1/docker/transcode</code>
+          </div>
+          {% if field_errors.TRANSCODE_ROOT %}
+          <div class="hint error" role="alert">{{ field_errors.TRANSCODE_ROOT }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="PUID">PUID</label>
+            <input
+              id="PUID"
+              name="PUID"
+              type="text"
+              inputmode="numeric"
+              pattern="\d+"
+              required
+              title="Numeric UID (example: 1026)"
+              value="{{ defaults.PUID }}"
+              {% if field_errors.PUID %}class="error" aria-invalid="true"{% endif %}
+            />
+            {% if field_errors.PUID %}
+            <div class="hint error" role="alert">{{ field_errors.PUID }}</div>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            <label for="PGID">PGID</label>
+            <input
+              id="PGID"
+              name="PGID"
+              type="text"
+              inputmode="numeric"
+              pattern="\d+"
+              required
+              title="Numeric GID (example: 100)"
+              value="{{ defaults.PGID }}"
+              {% if field_errors.PGID %}class="error" aria-invalid="true"{% endif %}
+            />
+            {% if field_errors.PGID %}
+            <div class="hint error" role="alert">{{ field_errors.PGID }}</div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="hint">Need UID/GID? Run <code>id</code> via SSH on DSM.</div>
+
+        <div class="form-group">
+          <label for="TZ">Timezone</label>
+          <select
+            id="TZ"
+            name="TZ"
+            aria-describedby="hint-tz"
+            {% if field_errors.TZ %}class="error" aria-invalid="true"{% endif %}
+          >
+            {% for tz in timezones %}
+            <option value="{{ tz }}" {% if tz == defaults.TZ %}selected{% endif %}>{{ tz }}</option>
+            {% endfor %}
+          </select>
+          <div id="hint-tz" class="hint">Select your IANA timezone (e.g. <code>America/Chicago</code>).</div>
+          {% if field_errors.TZ %}
+          <div class="hint error" role="alert">{{ field_errors.TZ }}</div>
+          {% endif %}
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="btn btn-primary">
+            <svg focusable="false" aria-hidden="true">
+              <use href="{{ icons }}#arrow-right-20"></use>
+            </svg>
+            Continue
+          </button>
+        </div>
+      </form>
+      {% else %}
+      <form method="post" action="/download" autocomplete="off">
+        <input type="hidden" name="csrf" value="{{ csrf }}" />
+        <input type="hidden" name="_step" value="2" />
+        <input type="hidden" name="APPDATA_ROOT" value="{{ defaults.APPDATA_ROOT }}" />
+        <input type="hidden" name="DATA_ROOT" value="{{ defaults.DATA_ROOT }}" />
+        <input type="hidden" name="TRANSCODE_ROOT" value="{{ defaults.TRANSCODE_ROOT }}" />
+        <input type="hidden" name="PUID" value="{{ defaults.PUID }}" />
+        <input type="hidden" name="PGID" value="{{ defaults.PGID }}" />
+        <input type="hidden" name="TZ" value="{{ defaults.TZ }}" />
+
+        <section class="review-card" aria-label="Configuration review">
+          <div class="review-card-header">
+            <svg focusable="false" aria-hidden="true">
+              <use href="{{ icons }}#checkmark-circle-20"></use>
+            </svg>
+            Review your settings
+          </div>
+          <ul class="review-list">
+            <li>
+              <span class="review-label">APPDATA_ROOT</span>
+              <span class="review-value">{{ defaults.APPDATA_ROOT }}</span>
+            </li>
+            <li>
+              <span class="review-label">DATA_ROOT</span>
+              <span class="review-value">{{ defaults.DATA_ROOT }}</span>
+            </li>
+            <li>
+              <span class="review-label">TRANSCODE_ROOT</span>
+              <span class="review-value">{{ defaults.TRANSCODE_ROOT }}</span>
+            </li>
+            <li>
+              <span class="review-label">PUID / PGID</span>
+              <span class="review-value">{{ defaults.PUID }} / {{ defaults.PGID }}</span>
+            </li>
+            <li>
+              <span class="review-label">Timezone</span>
+              <span class="review-value">{{ defaults.TZ }}</span>
+            </li>
+          </ul>
+        </section>
+
+        <div class="form-group">
+          <label for="PLEX_CLAIM">PLEX_CLAIM <span class="label-optional">(optional)</span></label>
+          <input id="PLEX_CLAIM" name="PLEX_CLAIM" type="password" value="" autocomplete="off" aria-describedby="hint-plex" />
+          <div id="hint-plex" class="hint">
+            Only required for initial Plex claim. Retrieve from <a href="https://plex.tv/claim" target="_blank" rel="noopener noreferrer">plex.tv/claim</a> then leave blank.
+          </div>
+        </div>
+
+        <div class="security-notice">
+          <svg focusable="false" aria-hidden="true">
+            <use href="{{ icons }}#alert-20"></use>
+          </svg>
+          <span>For HTTPS, mount trusted certificates and set <code>SETUP_UI_CERT_FILE</code> + <code>SETUP_UI_KEY_FILE</code> in <code>compose.setup.yaml</code>.</span>
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="btn btn-primary">
+            <svg focusable="false" aria-hidden="true">
+              <use href="{{ icons }}#download-20"></use>
+            </svg>
+            Download .env
+          </button>
+          <a href="/" class="btn btn-link">
+            <svg focusable="false" aria-hidden="true">
+              <use href="{{ icons }}#chevron-left-20"></use>
+            </svg>
+            Go back
+          </a>
+        </div>
+      </form>
+      {% endif %}
+    </article>
+  </main>
+</body>
+</html>
