@@ -137,6 +137,12 @@ fi
 if [[ ! -d "/volume1" ]]; then
     warn "Warning: /volume1 not found. Are you running this on a Synology NAS?"
     if [[ "${YES}" == true ]]; then
+        warn "Continuing because --yes flag was supplied."
+    elif is_tty; then
+        read -r -p "Continue anyway? [y/N]: " reply
+        if [[ ! "$reply" =~ ^[Yy]$ ]]; then
+            err "Aborting at user request."
+            exit 1
         fi
     else
         err "Non-interactive shell detected. Re-run with --yes to continue."
