@@ -66,3 +66,51 @@ When running in Azure, the `azure/smoke-test-azure.ps1` script verifies HTTPS re
 - Use the same certificate authority (CA) as the rest of your stack to avoid browser trust prompts.
 - Rotate certificates before expiry and remove unused secrets from Container Apps.
 - Update `.env` entries (PUID/PGID/TZ) as needed when the setup UI writes files onto shared volumes.
+
+# Eden Viewer Setup UI
+
+A web-based OOBE (Out-of-Box Experience) wizard for configuring the Eden Viewer media stack.
+
+## Features
+
+- Multi-step configuration wizard
+- Storage path configuration (Synology `/volume1` paths)
+- PUID/PGID/TZ environment settings
+- Plex claim token integration
+- Service selection (Plex, Sonarr, Radarr)
+
+## Running Locally
+
+```bash
+cd setup-ui
+npm install
+npm start
+```
+
+Access at `http://localhost:8080`
+
+## Docker
+
+```bash
+docker compose up setup-ui --build
+```
+
+## Environment Variables
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `SETUP_UI_PORT` | `8080` | Server port |
+| `SETUP_UI_FIRST_RUN` | `false` | Force first-run experience |
+| `CONFIG_PATH` | `/config/config.json` | Config file location |
+| `PUID` | `1000` | Default user ID |
+| `PGID` | `1000` | Default group ID |
+| `TZ` | `America/Los_Angeles` | Default timezone |
+
+## Testing OOBE
+
+To re-test the first-run experience:
+
+```bash
+rm ./appdata/setup-ui/config.json
+docker compose up setup-ui --build
+```

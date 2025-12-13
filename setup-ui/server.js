@@ -529,10 +529,12 @@ app.get('/api/config', (req, res) => {
         tz: process.env.TZ || 'America/Los_Angeles',
         dataPath: '/volume1/data',
         appdataPath: '/volume1/docker/appdata',
+        plexClaim: '',
         services: { plex: true, sonarr: true, radarr: true }
       });
     }
   } catch (err) {
+    console.error('Error reading config:', err.message);
     res.status(500).json({ error: err.message });
   }
 });
@@ -545,8 +547,10 @@ app.post('/api/config', (req, res) => {
       fs.mkdirSync(configDir, { recursive: true });
     }
     fs.writeFileSync(CONFIG_PATH, JSON.stringify(req.body, null, 2));
+    console.log('Config saved:', CONFIG_PATH);
     res.json({ success: true });
   } catch (err) {
+    console.error('Error saving config:', err.message);
     res.status(500).json({ error: err.message });
   }
 });
