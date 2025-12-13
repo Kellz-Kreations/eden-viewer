@@ -11,9 +11,11 @@ services:
       - PGID=${PGID:-1000}
       - TZ=${TZ:-UTC}
       - VERSION=docker
+      - PLEX_CLAIM=${PLEX_CLAIM:-}
     volumes:
-      - ${APPDATA_PATH:-/opt/appdata}/plex:/config
-      - ${DATA_PATH:-/mnt/data}/media:/data/media:ro
+      - ${APPDATA_ROOT:-/srv/eden-viewer/appdata}/plex:/config
+      - ${DATA_ROOT:-/srv/eden-viewer/media}:/data:ro
+      - ${TRANSCODE_ROOT:-/srv/eden-viewer/transcode}/plex:/transcode
     restart: unless-stopped
 
   sonarr:
@@ -24,8 +26,8 @@ services:
       - PGID=${PGID:-1000}
       - TZ=${TZ:-UTC}
     volumes:
-      - ${APPDATA_PATH:-/opt/appdata}/sonarr:/config
-      - ${DATA_PATH:-/mnt/data}:/data
+      - ${APPDATA_ROOT:-/srv/eden-viewer/appdata}/sonarr:/config
+      - ${DATA_ROOT:-/srv/eden-viewer/media}:/data
     ports:
       - "127.0.0.1:8989:8989"  # Localhost only - use reverse proxy
     restart: unless-stopped
@@ -38,8 +40,8 @@ services:
       - PGID=${PGID:-1000}
       - TZ=${TZ:-UTC}
     volumes:
-      - ${APPDATA_PATH:-/opt/appdata}/radarr:/config
-      - ${DATA_PATH:-/mnt/data}:/data
+      - ${APPDATA_ROOT:-/srv/eden-viewer/appdata}/radarr:/config
+      - ${DATA_ROOT:-/srv/eden-viewer/media}:/data
     ports:
       - "127.0.0.1:7878:7878"  # Localhost only - use reverse proxy
     restart: unless-stopped

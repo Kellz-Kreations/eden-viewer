@@ -54,7 +54,7 @@ az network nsg rule create `
   --priority 110 `
   --direction Inbound `
   --protocol Tcp `
-  --source-address-prefixes <YOUR.IP.ADDR.0/32> `
+  --source-address-prefixes YOUR_PUBLIC_IP_CIDR `
   --destination-port-ranges 22 `
   --access Allow
 ```
@@ -64,7 +64,7 @@ Use Tailscale/WireGuard/Azure VPN Gateway when you need remote Sonarr/Radarr acc
 ## 3. Connect
 
 ```bash
-ssh azureuser@<PUBLIC_IP>
+ssh azureuser@YOUR_PUBLIC_IP
 ```
 
 (Optional) assign a DNS label:
@@ -106,9 +106,16 @@ mkdir -p ~/eden-viewer
 ## 6. Retrieve Project Files & Configure
 
 ```bash
-cd ~/eden-viewer
-git clone https://github.com/<your-repo>/eden-viewer.git .  # or scp from Synology
+mkdir -p ~/eden-viewer
 
+# Option A (recommended): copy the repo from your workstation
+# From your Windows/PowerShell terminal, in the repo folder:
+#   scp -r . azureuser@YOUR_PUBLIC_IP:~/eden-viewer
+
+# Option B: clone from GitHub (only if you know the real URL)
+#   git clone https://github.com/ORG_OR_USER/eden-viewer.git ~/eden-viewer
+
+cd ~/eden-viewer/azure
 cp .env.example .env
 nano .env
 ```
@@ -131,7 +138,7 @@ Reuse your Synology media/appdata backups if desired (`rsync` or `scp`).
 ## 7. Deploy the Stack
 
 ```bash
-cd ~/eden-viewer
+cd ~/eden-viewer/azure
 docker compose pull
 docker compose up -d
 
@@ -150,7 +157,7 @@ Troubleshoot (`docker ps`, `docker logs <container>`, `systemctl status docker`)
 
 ```powershell
 az network dns record-set a create --resource-group eden --zone-name kellzkreations.com --name viewer
-az network dns record-set a add-record --resource-group eden --zone-name kellzkreations.com --record-set-name viewer --ipv4-address <PUBLIC_IP>
+az network dns record-set a add-record --resource-group eden --zone-name kellzkreations.com --record-set-name viewer --ipv4-address YOUR_PUBLIC_IP
 ```
 
 Flush local DNS or wait for TTL (default 3600 s).
