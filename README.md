@@ -181,6 +181,8 @@ To access the setup UI remotely without exposing it to the internet:
 
 **Security note**: The setup UI has no authentication layer. Only use QuickConnect during initial setup, then remove the reverse proxy rule and stop the setup-ui container.
 
+> 💡 The setup UI now defaults to a dark theme (with light fallback for daylight readers).
+
 Notes:
 - `PLEX_CLAIM` is only needed for the initial Plex server claim; after Plex is claimed you can blank it out.
 - This repo ignores `.env` via `.gitignore`.
