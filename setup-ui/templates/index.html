@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Synology Media Stack Setup</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/fluent.css') }}" />
+  <script src="{{ url_for('static', filename='js/setup.js') }}" defer></script>
 </head>
 <body>
   {% set icons = url_for('static', filename='icons/fluent-symbols.svg') %}
@@ -21,15 +22,20 @@
         </div>
         <nav class="stepper" role="navigation" aria-label="Setup progress">
           <div class="stepper-step">
-            <span class="stepper-dot {% if step == 1 %}is-active{% else %}is-complete{% endif %}" aria-hidden="true"></span>
+            <span class="stepper-dot {% if step == 1 %}is-active{% elif step > 1 %}is-complete{% endif %}" aria-hidden="true"></span>
             <span>Paths</span>
           </div>
-          <span class="stepper-rail {% if step == 2 %}is-complete{% endif %}" aria-hidden="true"></span>
+          <span class="stepper-rail {% if step > 1 %}is-complete{% endif %}" aria-hidden="true"></span>
           <div class="stepper-step">
-            <span class="stepper-dot {% if step == 2 %}is-active{% endif %}" aria-hidden="true"></span>
-            <span>Review</span>
+            <span class="stepper-dot {% if step == 2 %}is-active{% elif step > 2 %}is-complete{% endif %}" aria-hidden="true"></span>
+            <span>.env</span>
           </div>
-          <span class="visually-hidden">Step {{ step }} of 2</span>
+          <span class="stepper-rail {% if step > 2 %}is-complete{% endif %}" aria-hidden="true"></span>
+          <div class="stepper-step">
+            <span class="stepper-dot {% if step == 3 %}is-active{% endif %}" aria-hidden="true"></span>
+            <span>Run</span>
+          </div>
+          <span class="visually-hidden">Step {{ step }} of 3</span>
         </nav>
       </header>
 
@@ -83,6 +89,25 @@
       {% if step == 1 %}
       <form method="post" action="/step2" autocomplete="off" novalidate>
         <input type="hidden" name="csrf" value="{{ csrf }}" />
+
+        <div class="form-group">
+          <label for="STACK_PATH">STACK_PATH</label>
+          <input
+            id="STACK_PATH"
+            name="STACK_PATH"
+            type="text"
+            required
+            value="{{ defaults.STACK_PATH }}"
+            aria-describedby="hint-stack"
+            {% if field_errors.STACK_PATH %}class="error" aria-invalid="true"{% endif %}
+          />
+          <div id="hint-stack" class="hint">
+            Where <code>compose.yaml</code> + the generated <code>.env</code> live (Synology example: <code>/volume1/docker/eden-viewer</code>)
+          </div>
+          {% if field_errors.STACK_PATH %}
+          <div class="hint error" role="alert">{{ field_errors.STACK_PATH }}</div>
+          {% endif %}
+        </div>
 
         <div class="form-group">
           <label for="APPDATA_ROOT">APPDATA_ROOT</label>
@@ -206,10 +231,11 @@
           </button>
         </div>
       </form>
-      {% else %}
-      <form method="post" action="/download" autocomplete="off">
+      {% elif step == 2 %}
+      <form method="post" action="/step3" autocomplete="off">
         <input type="hidden" name="csrf" value="{{ csrf }}" />
         <input type="hidden" name="_step" value="2" />
+        <input type="hidden" name="STACK_PATH" value="{{ defaults.STACK_PATH }}" />
         <input type="hidden" name="APPDATA_ROOT" value="{{ defaults.APPDATA_ROOT }}" />
         <input type="hidden" name="DATA_ROOT" value="{{ defaults.DATA_ROOT }}" />
         <input type="hidden" name="TRANSCODE_ROOT" value="{{ defaults.TRANSCODE_ROOT }}" />
@@ -225,6 +251,10 @@
             Review your settings
           </div>
           <ul class="review-list">
+            <li>
+              <span class="review-label">STACK_PATH</span>
+              <span class="review-value">{{ defaults.STACK_PATH }}</span>
+            </li>
             <li>
               <span class="review-label">APPDATA_ROOT</span>
               <span class="review-value">{{ defaults.APPDATA_ROOT }}</span>
@@ -248,6 +278,17 @@
           </ul>
         </section>
 
+        <section class="review-card" aria-label="Generated .env preview">
+          <div class="review-card-header">
+            <svg focusable="false" aria-hidden="true">
+              <use href="{{ icons }}#document-20"></use>
+            </svg>
+            Generated <code>.env</code>
+          </div>
+          <textarea id="envText" class="env-preview" rows="14" readonly aria-label="Generated .env">{{ env_text }}</textarea>
+          <div class="hint">Place this <code>.env</code> beside <code>compose.yaml</code> in <code>{{ defaults.STACK_PATH }}</code>.</div>
+        </section>
+
         <div class="form-group">
           <label for="PLEX_CLAIM">PLEX_CLAIM <span class="label-optional">(optional)</span></label>
           <input id="PLEX_CLAIM" name="PLEX_CLAIM" type="password" value="" autocomplete="off" aria-describedby="hint-plex" />
@@ -264,11 +305,23 @@
         </div>
 
         <div class="button-group">
-          <button type="submit" class="btn btn-primary">
+          <button type="button" class="btn btn-secondary" data-copy-env>
+            <svg focusable="false" aria-hidden="true">
+              <use href="{{ icons }}#copy-20"></use>
+            </svg>
+            Copy
+          </button>
+          <button type="submit" class="btn btn-secondary" formaction="/download">
             <svg focusable="false" aria-hidden="true">
               <use href="{{ icons }}#download-20"></use>
             </svg>
             Download .env
+          </button>
+          <button type="submit" class="btn btn-primary">
+            <svg focusable="false" aria-hidden="true">
+              <use href="{{ icons }}#arrow-right-20"></use>
+            </svg>
+            Continue
           </button>
           <a href="/" class="btn btn-link">
             <svg focusable="false" aria-hidden="true">
@@ -278,6 +331,29 @@
           </a>
         </div>
       </form>
+      {% else %}
+      <section class="review-card" aria-label="Run commands">
+        <div class="review-card-header">
+          <svg focusable="false" aria-hidden="true">
+            <use href="{{ icons }}#terminal-20"></use>
+          </svg>
+          Run the stack
+        </div>
+        <p class="hint">From a terminal/SSH session on Synology (or your Docker host), run:</p>
+        <textarea class="env-preview" rows="5" readonly aria-label="Run commands">cd {{ defaults.STACK_PATH }}
+docker compose --env-file .env -f compose.yaml up -d
+docker compose --env-file .env -f compose.yaml ps</textarea>
+        <div class="hint">Sonarr/Radarr should stay LAN-only; for remote access use VPN or strong auth + TLS.</div>
+      </section>
+
+      <div class="button-group">
+        <a href="/" class="btn btn-link">
+          <svg focusable="false" aria-hidden="true">
+            <use href="{{ icons }}#chevron-left-20"></use>
+          </svg>
+          Start over
+        </a>
+      </div>
       {% endif %}
     </article>
   </main>
