@@ -25,7 +25,7 @@ fi
 COMPOSE_CMD=""
 if command -v docker-compose >/dev/null 2>&1; then
     COMPOSE_CMD="docker-compose"
-elif command -v docker >/dev/null 2>&1 && docker compose version >/dev/null 2>&1; then
+elif command -v docker >/dev/null 2>&1 && $SUDO docker compose version >/dev/null 2>&1; then
     COMPOSE_CMD="docker compose"
 fi
 
