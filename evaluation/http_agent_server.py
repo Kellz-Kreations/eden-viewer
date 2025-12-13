@@ -11,7 +11,9 @@ def _extract_kv(query: str, key: str) -> str | None:
     # Matches KEY=/path, KEY=value, KEY = value (stops at whitespace or punctuation)
     pattern = rf"\b{re.escape(key)}\s*=\s*([^\s,;]+)"
     match = re.search(pattern, query)
-    return match.group(1).strip() if match else None
+    if not match:
+        return None
+    return match.group(1).strip().rstrip(".,;:)\"']")
 
 
 def _env_response(query: str) -> str:
