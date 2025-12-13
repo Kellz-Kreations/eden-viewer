@@ -43,6 +43,37 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// API: Check if Plex is accessible
+app.get('/api/plex-status', async (req, res) => {
+  const plexHost = req.query.host || req.hostname;
+  const plexPort = req.query.port || 32400;
+  const plexUrl = `http://${plexHost}:${plexPort}/identity`;
+  
+  console.log(`  ├─ Checking Plex connectivity: ${plexUrl}`);
+  
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
+    
+    const response = await fetch(plexUrl, { 
+      signal: controller.signal,
+      headers: { 'Accept': 'application/json' }
+    });
+    clearTimeout(timeout);
+    
+    if (response.ok) {
+      console.log('  └─ ✅ Plex is running');
+      res.json({ online: true, url: `http://${plexHost}:${plexPort}/web` });
+    } else {
+      console.log(`  └─ ⚠️ Plex responded with status ${response.status}`);
+      res.json({ online: false, error: `HTTP ${response.status}` });
+    }
+  } catch (error) {
+    console.log(`  └─ ❌ Plex not reachable: ${error.message}`);
+    res.json({ online: false, error: error.message });
+  }
+});
+
 // API: Get current configuration status
 app.get('/api/status', (req, res) => {
   const envPath = path.join(__dirname, '..', '.env');

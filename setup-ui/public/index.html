@@ -22,6 +22,7 @@
       --danger-primary: #d13438;
       --danger-background: #fde7e9;
       --warning-primary: #ffb900;
+      --warning-background: #fff4ce;
       --shadow-4: 0 1.6px 3.6px 0 rgba(0,0,0,0.132), 0 0.3px 0.9px 0 rgba(0,0,0,0.108);
       --shadow-8: 0 3.2px 7.2px 0 rgba(0,0,0,0.132), 0 0.6px 1.8px 0 rgba(0,0,0,0.108);
       --shadow-16: 0 6.4px 14.4px 0 rgba(0,0,0,0.132), 0 1.2px 3.6px 0 rgba(0,0,0,0.108);
@@ -388,16 +389,16 @@
         </div>
       </div>
 
-      <div class="info-box">
-        <div class="info-box-title">Step 3</div>
-        <div class="info-box-content">
-          Access Plex at <a id="plex-link-local" href="#" target="_blank" rel="noopener"></a>
-          <div class="hint">Or via your domain once DNS is configured</div>
+      <div class="info-box" id="plex-status-box">
+        <div class="info-box-title">Step 3 - Plex Status</div>
+        <div class="info-box-content" id="plex-status-content">
+          <span id="plex-status-text">Checking Plex connectivity...</span>
+          <div class="hint" id="plex-status-hint"></div>
         </div>
       </div>
 
-      <button class="btn btn-primary" id="launchPlexBtn" onclick="launchPlex()">
-        Launch Plex
+      <button class="btn btn-primary" id="launchPlexBtn" onclick="launchPlex()" disabled>
+        Checking Plex...
       </button>
       <button class="btn btn-secondary" style="margin-top:8px;" onclick="window.location.reload()">
         Edit configuration
@@ -407,6 +408,7 @@
 
   <script>
     let savedConfig = {};
+    let plexUrl = '';
 
     async function checkStatus() {
       try {
@@ -416,6 +418,41 @@
           document.getElementById('domain').value = data.domain;
         }
       } catch (e) { console.error('Status check failed:', e); }
+    }
+
+    async function checkPlexStatus() {
+      const btn = document.getElementById('launchPlexBtn');
+      const statusText = document.getElementById('plex-status-text');
+      const statusHint = document.getElementById('plex-status-hint');
+      const statusBox = document.getElementById('plex-status-box');
+      
+      try {
+        const res = await fetch('/api/plex-status');
+        const data = await res.json();
+        
+        if (data.online) {
+          plexUrl = data.url;
+          statusText.innerHTML = '✅ Plex is running and accessible';
+          statusHint.textContent = data.url;
+          statusBox.style.borderLeftColor = 'var(--success-primary)';
+          btn.disabled = false;
+          btn.textContent = 'Launch Plex';
+        } else {
+          statusText.innerHTML = '⏳ Plex is not running yet';
+          statusHint.innerHTML = `Run <code>docker-compose up -d</code> to start the stack`;
+          statusBox.style.borderLeftColor = 'var(--warning-primary)';
+          btn.disabled = false;
+          btn.textContent = 'Try Launch Anyway';
+          
+          // Retry check in 10 seconds
+          setTimeout(checkPlexStatus, 10000);
+        }
+      } catch (e) {
+        statusText.innerHTML = '❌ Unable to check Plex status';
+        statusHint.textContent = e.message;
+        btn.disabled = false;
+        btn.textContent = 'Try Launch Anyway';
+      }
     }
 
     async function saveConfig() {
@@ -449,10 +486,9 @@
           const domain = savedConfig.domain || 'localhost';
           document.getElementById('domain-display').textContent = domain;
           
-          // Set local Plex URL (same host, port 32400)
-          const plexLocalUrl = `${window.location.protocol}//${window.location.hostname}:32400/web`;
-          document.getElementById('plex-link-local').href = plexLocalUrl;
-          document.getElementById('plex-link-local').textContent = plexLocalUrl;
+          // Set default Plex URL and check status
+          plexUrl = `${window.location.protocol}//${window.location.hostname}:32400/web`;
+          checkPlexStatus();
         } else {
           throw new Error(data.message || 'Configuration failed');
         }
@@ -466,11 +502,18 @@
     }
 
     function launchPlex() {
-      const plexUrl = `${window.location.protocol}//${window.location.hostname}:32400/web`;
-      window.location.href = plexUrl;
+      const url = plexUrl || `${window.location.protocol}//${window.location.hostname}:32400/web`;
+      window.location.href = url;
     }
 
-    // Initialize
+
+
+
+
+
+
+
+</html></body>  </script>    checkPlexStatus();    checkStatus();    // Initial checks    // Initialize
     checkStatus();
   </script>
 </body>
