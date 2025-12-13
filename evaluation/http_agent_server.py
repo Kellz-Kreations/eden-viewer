@@ -42,16 +42,9 @@ def _env_response(query: str) -> str:
         f"TZ={values['TZ']}",
     ]
 
-    wants_no_extras = "do not include any extra keys" in query.lower()
-
-    # Only include optional keys if explicitly requested, or if extras are allowed.
-    if (not wants_no_extras) or ("PLEX_CLAIM" in query or "plex claim" in query.lower()):
-        plex_claim = _extract_kv(query, "PLEX_CLAIM") or ""
-        lines += ["", f"PLEX_CLAIM={plex_claim}"]
-
-    if (not wants_no_extras) and ("ADVERTISE_IP" in query or "advertise" in query.lower()):
-        advertise_ip = _extract_kv(query, "ADVERTISE_IP") or ""
-        lines += [f"ADVERTISE_IP={advertise_ip}"]
+    plex_claim = _extract_kv(query, "PLEX_CLAIM") or ""
+    advertise_ip = _extract_kv(query, "ADVERTISE_IP") or ""
+    lines += ["", f"PLEX_CLAIM={plex_claim}", f"ADVERTISE_IP={advertise_ip}"]
 
     lines.append("")
     return "\n".join(lines)
