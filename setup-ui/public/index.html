@@ -3,528 +3,132 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Eden Viewer - Setup</title>
+  <title>Eden Viewer Setup</title>
   <style>
-    /* Fluent Design System - Base Styles */
-    :root {
-      --brand-primary: #0078d4;
-      --brand-primary-hover: #106ebe;
-      --brand-primary-pressed: #005a9e;
-      --neutral-foreground: #242424;
-      --neutral-foreground-secondary: #616161;
-      --neutral-foreground-disabled: #a19f9d;
-      --neutral-background: #ffffff;
-      --neutral-background-subtle: #faf9f8;
-      --neutral-stroke: #d1d1d1;
-      --neutral-stroke-strong: #8a8886;
-      --success-primary: #107c10;
-      --success-background: #dff6dd;
-      --danger-primary: #d13438;
-      --danger-background: #fde7e9;
-      --warning-primary: #ffb900;
-      --warning-background: #fff4ce;
-      --shadow-4: 0 1.6px 3.6px 0 rgba(0,0,0,0.132), 0 0.3px 0.9px 0 rgba(0,0,0,0.108);
-      --shadow-8: 0 3.2px 7.2px 0 rgba(0,0,0,0.132), 0 0.6px 1.8px 0 rgba(0,0,0,0.108);
-      --shadow-16: 0 6.4px 14.4px 0 rgba(0,0,0,0.132), 0 1.2px 3.6px 0 rgba(0,0,0,0.108);
-      --radius-medium: 4px;
-      --radius-large: 8px;
-      --duration-fast: 0.1s;
-      --duration-normal: 0.2s;
-    }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    body { 
-      font-family: 'Segoe UI Variable', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-      font-size: 14px;
-      line-height: 20px;
-      background: linear-gradient(180deg, #0078d4 0%, #005a9e 100%);
-      min-height: 100vh;
-      color: var(--neutral-foreground);
-    }
-
-    /* Layout */
-    .container { 
-      max-width: 480px; 
-      margin: 0 auto; 
-      padding: 48px 24px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Header */
-    .header { 
-      text-align: center; 
-      margin-bottom: 32px;
-      color: #fff;
-    }
-    .header-logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 8px;
-    }
-    .header-logo svg { width: 32px; height: 32px; }
-    .header h1 { 
-      font-size: 28px;
-      font-weight: 600;
-      line-height: 36px;
-      letter-spacing: -0.5px;
-    }
-    .header p { 
-      font-size: 14px;
-      line-height: 20px;
-      color: rgba(255,255,255,0.8);
-      margin-top: 4px;
-    }
-
-    /* Progress Indicator */
-    .progress { 
-      display: flex; 
-      justify-content: center; 
-      gap: 8px; 
-      margin-bottom: 24px; 
-    }
-    .progress-step { 
-      width: 8px; 
-      height: 8px; 
-      border-radius: 50%; 
-      background: rgba(255,255,255,0.3);
-      transition: background var(--duration-normal);
-    }
-    .progress-step.active { background: #fff; }
-
-    /* Card */
-    .card { 
-      background: var(--neutral-background);
-      border-radius: var(--radius-large);
-      padding: 24px;
-      box-shadow: var(--shadow-16);
-    }
-    .card-title { 
-      font-size: 20px;
-      font-weight: 600;
-      line-height: 28px;
-      color: var(--neutral-foreground);
-      margin-bottom: 8px;
-    }
-    .card-description {
-      font-size: 14px;
-      line-height: 20px;
-      color: var(--neutral-foreground-secondary);
-      margin-bottom: 24px;
-    }
-
-    /* Form Controls */
-    .form-group { margin-bottom: 16px; }
-    .form-group:last-of-type { margin-bottom: 24px; }
-    
-    .form-label { 
-      display: block; 
-      font-size: 14px;
-      font-weight: 600;
-      line-height: 20px;
-      color: var(--neutral-foreground);
-      margin-bottom: 6px;
-    }
-    
-    .form-control {
-      width: 100%;
-      height: 32px;
-      padding: 0 12px;
-      font-size: 14px;
-      font-family: inherit;
-      line-height: 20px;
-      color: var(--neutral-foreground);
-      background: var(--neutral-background);
-      border: 1px solid var(--neutral-stroke-strong);
-      border-radius: var(--radius-medium);
-      transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
-    }
-    .form-control:hover { border-color: var(--neutral-foreground-secondary); }
-    .form-control:focus { 
-      outline: none;
-      border-color: var(--brand-primary);
-      box-shadow: inset 0 0 0 1px var(--brand-primary);
-    }
-    .form-control::placeholder { color: var(--neutral-foreground-disabled); }
-
-    select.form-control {
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23616161' d='M2.5 4.5L6 8l3.5-3.5h-7z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 10px center;
-      padding-right: 32px;
-    }
-
-    /* Buttons */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 32px;
-      padding: 0 20px;
-      font-size: 14px;
-      font-weight: 600;
-      font-family: inherit;
-      line-height: 20px;
-      border: none;
-      border-radius: var(--radius-medium);
-      cursor: pointer;
-      transition: background var(--duration-fast), box-shadow var(--duration-fast);
-    }
-    .btn-primary {
-      background: var(--brand-primary);
-      color: #fff;
-    }
-    .btn-primary:hover { background: var(--brand-primary-hover); }
-    .btn-primary:active { background: var(--brand-primary-pressed); }
-    .btn-primary:focus-visible {
-      outline: 2px solid var(--brand-primary);
-      outline-offset: 2px;
-    }
-    .btn-primary:disabled {
-      background: #f3f2f1;
-      color: var(--neutral-foreground-disabled);
-      cursor: not-allowed;
-    }
-
-    .btn-secondary {
-      background: var(--neutral-background);
-      color: var(--neutral-foreground);
-      border: 1px solid var(--neutral-stroke-strong);
-    }
-    .btn-secondary:hover { background: var(--neutral-background-subtle); }
-
-    /* Message Bar */
-    .message-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px;
-      border-radius: var(--radius-medium);
-      margin-top: 16px;
-      font-size: 14px;
-      line-height: 20px;
-    }
-    .message-bar-success {
-      background: var(--success-background);
-      color: var(--success-primary);
-    }
-    .message-bar-error {
-      background: var(--danger-background);
-      color: var(--danger-primary);
-    }
-    .message-bar-icon { flex-shrink: 0; }
-
-    /* Info Box */
-    .info-box {
-      background: var(--neutral-background-subtle);
-      border-radius: var(--radius-medium);
-      padding: 12px 16px;
-      margin-bottom: 12px;
-      border-left: 3px solid var(--brand-primary);
-    }
-    .info-box:last-of-type { margin-bottom: 24px; }
-    .info-box-title {
-      font-size: 12px;
-      font-weight: 600;
-      line-height: 16px;
-      color: var(--neutral-foreground-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 4px;
-    }
-    .info-box-content {
-      font-size: 14px;
-      line-height: 20px;
-      color: var(--neutral-foreground);
-    }
-    .info-box code {
-      font-family: 'Cascadia Code', 'Consolas', monospace;
-      font-size: 13px;
-      background: #e1dfdd;
-      padding: 2px 6px;
-      border-radius: 3px;
-      color: var(--brand-primary);
-    }
-    .info-box a {
-      color: var(--brand-primary);
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .info-box a:hover { text-decoration: underline; }
-    .info-box .hint {
-      font-size: 12px;
-      line-height: 16px;
-      color: var(--neutral-foreground-secondary);
-      margin-top: 4px;
-    }
-
-    /* Accessibility */
-    @media (prefers-reduced-motion: reduce) {
-      * { transition: none !important; }
-    }
-
-    /* Focus visible for keyboard navigation */
-    .form-control:focus-visible {
-      outline: 2px solid var(--brand-primary);
-      outline-offset: 2px;
-    }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; color: #fff; }
+    .container { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
+    .logo { text-align: center; margin-bottom: 40px; }
+    .logo h1 { font-size: 2.5rem; background: linear-gradient(90deg, #e94560, #0f3460); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .card { background: rgba(255,255,255,0.1); border-radius: 16px; padding: 30px; margin-bottom: 20px; backdrop-filter: blur(10px); }
+    .step { display: none; } .step.active { display: block; }
+    h2 { margin-bottom: 20px; color: #e94560; }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; margin-bottom: 8px; font-weight: 500; }
+    input, select { width: 100%; padding: 12px; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; background: rgba(255,255,255,0.1); color: #fff; font-size: 1rem; }
+    input:focus, select:focus { outline: none; border-color: #e94560; }
+    .checkbox-group { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .checkbox-group input { width: auto; }
+    .btn { padding: 14px 28px; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: all 0.3s; }
+    .btn-primary { background: #e94560; color: #fff; } .btn-primary:hover { background: #d63850; }
+    .btn-secondary { background: rgba(255,255,255,0.2); color: #fff; } .btn-secondary:hover { background: rgba(255,255,255,0.3); }
+    .btn-group { display: flex; gap: 10px; justify-content: space-between; margin-top: 30px; }
+    .progress { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
+    .progress-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.3); }
+    .progress-dot.active { background: #e94560; }
+    .success { text-align: center; } .success svg { width: 80px; height: 80px; color: #4ade80; margin-bottom: 20px; }
   </style>
 </head>
 <body>
   <div class="container">
-    <header class="header">
-      <div class="header-logo">
-        <svg viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect width="11" height="11" fill="#f25022"/>
-          <rect x="12" width="11" height="11" fill="#7fba00"/>
-          <rect y="12" width="11" height="11" fill="#00a4ef"/>
-          <rect x="12" y="12" width="11" height="11" fill="#ffb900"/>
-        </svg>
-        <h1>Eden Viewer</h1>
+    <div class="logo"><h1>🎬 Eden Viewer</h1><p>Media Stack Setup</p></div>
+    <div class="progress" id="progress"></div>
+    <div class="card">
+      <!-- Step 1: Welcome -->
+      <div class="step active" data-step="1">
+        <h2>Welcome!</h2>
+        <p>Let's configure your Eden Viewer media stack. This wizard will guide you through setting up Plex, Sonarr, and Radarr.</p>
+        <p style="margin-top:15px;opacity:0.8">Works with Synology DS923+ and Azure deployments.</p>
+        <div class="btn-group"><div></div><button class="btn btn-primary" onclick="nextStep()">Get Started →</button></div>
       </div>
-      <p>Media Stack Setup Wizard</p>
-    </header>
-
-    <nav class="progress" aria-label="Setup progress">
-      <div class="progress-step active" id="step1" aria-current="step"></div>
-      <div class="progress-step" id="step2"></div>
-      <div class="progress-step" id="step3"></div>
-    </nav>
-
-    <main class="card" id="welcome-card" role="form" aria-labelledby="welcome-title">
-      <h2 class="card-title" id="welcome-title">Configure your stack</h2>
-      <p class="card-description">Set up Plex, Sonarr, and Radarr for your Synology DS923+ or Azure deployment.</p>
-      
-      <div class="form-group">
-        <label class="form-label" for="deploymentTarget">Deployment target</label>
-        <select class="form-control" id="deploymentTarget">
-          <option value="synology">Synology DS923+ (Local)</option>
-          <option value="azure">Azure Container Apps (Remote)</option>
-        </select>
+      <!-- Step 2: Paths -->
+      <div class="step" data-step="2">
+        <h2>Storage Paths</h2>
+        <div class="form-group"><label>Media Data Path</label><input type="text" id="dataPath" value="/volume1/data" placeholder="/volume1/data"></div>
+        <div class="form-group"><label>App Data Path</label><input type="text" id="appdataPath" value="/volume1/docker/appdata" placeholder="/volume1/docker/appdata"></div>
+        <div class="form-group">
+          <label>Plex Claim Token (Optional)</label>
+          <input type="text" id="plexClaim" placeholder="claim-xxxxxxxxxxxx">
+          <p style="margin-top:8px;font-size:0.9rem;opacity:0.8">
+            Get your claim token from <a href="https://www.plex.tv/claim/" target="_blank" rel="noopener" style="color:#e94560">plex.tv/claim</a> (valid for 4 minutes)
+          </p>
+        </div>
+        <div class="btn-group"><button class="btn btn-secondary" onclick="prevStep()">← Back</button><button class="btn btn-primary" onclick="nextStep()">Next →</button></div>
       </div>
-
-      <div class="form-group">
-        <label class="form-label" for="domain">Custom domain</label>
-        <input class="form-control" type="text" id="domain" placeholder="viewer.kellzkreations.com" value="viewer.kellzkreations.com" autocomplete="url">
+      <!-- Step 3: Environment -->
+      <div class="step" data-step="3">
+        <h2>Environment Settings</h2>
+        <div class="form-group"><label>PUID (User ID)</label><input type="text" id="puid" value="1000"></div>
+        <div class="form-group"><label>PGID (Group ID)</label><input type="text" id="pgid" value="1000"></div>
+        <div class="form-group"><label>Timezone</label><select id="tz"><option value="America/Los_Angeles">America/Los_Angeles</option><option value="America/New_York">America/New_York</option><option value="Europe/London">Europe/London</option><option value="UTC">UTC</option></select></div>
+        <div class="btn-group"><button class="btn btn-secondary" onclick="prevStep()">← Back</button><button class="btn btn-primary" onclick="nextStep()">Next →</button></div>
       </div>
-
-      <div class="form-group">
-        <label class="form-label" for="puid">User ID (PUID)</label>
-        <input class="form-control" type="text" id="puid" placeholder="1000" value="1000" inputmode="numeric">
+      <!-- Step 4: Services -->
+      <div class="step" data-step="4">
+        <h2>Select Services</h2>
+        <div class="checkbox-group"><input type="checkbox" id="svc-plex" checked><label for="svc-plex">Plex Media Server</label></div>
+        <div class="checkbox-group"><input type="checkbox" id="svc-sonarr" checked><label for="svc-sonarr">Sonarr (TV Shows)</label></div>
+        <div class="checkbox-group"><input type="checkbox" id="svc-radarr" checked><label for="svc-radarr">Radarr (Movies)</label></div>
+        <div class="btn-group"><button class="btn btn-secondary" onclick="prevStep()">← Back</button><button class="btn btn-primary" onclick="saveConfig()">Complete Setup →</button></div>
       </div>
-
-      <div class="form-group">
-        <label class="form-label" for="pgid">Group ID (PGID)</label>
-        <input class="form-control" type="text" id="pgid" placeholder="1000" value="1000" inputmode="numeric">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" for="timezone">Timezone</label>
-        <select class="form-control" id="timezone">
-          <optgroup label="Americas">
-            <option value="America/New_York">New York (Eastern)</option>
-            <option value="America/Chicago">Chicago (Central)</option>
-            <option value="America/Denver">Denver (Mountain)</option>
-            <option value="America/Los_Angeles">Los Angeles (Pacific)</option>
-            <option value="America/Anchorage">Anchorage (Alaska)</option>
-            <option value="Pacific/Honolulu">Honolulu (Hawaii)</option>
-            <option value="America/Phoenix">Phoenix (Arizona)</option>
-            <option value="America/Toronto">Toronto</option>
-            <option value="America/Vancouver">Vancouver</option>
-          </optgroup>
-          <optgroup label="Europe">
-            <option value="Europe/London">London (GMT)</option>
-            <option value="Europe/Paris">Paris (CET)</option>
-            <option value="Europe/Berlin">Berlin (CET)</option>
-            <option value="Europe/Amsterdam">Amsterdam (CET)</option>
-            <option value="Europe/Moscow">Moscow (MSK)</option>
-          </optgroup>
-          <optgroup label="Asia & Pacific">
-            <option value="Asia/Tokyo">Tokyo (JST)</option>
-            <option value="Asia/Shanghai">Shanghai (CST)</option>
-            <option value="Asia/Hong_Kong">Hong Kong (HKT)</option>
-            <option value="Asia/Singapore">Singapore (SGT)</option>
-            <option value="Asia/Dubai">Dubai (GST)</option>
-            <option value="Asia/Kolkata">Kolkata (IST)</option>
-            <option value="Australia/Sydney">Sydney (AEST)</option>
-            <option value="Australia/Melbourne">Melbourne (AEST)</option>
-            <option value="Australia/Perth">Perth (AWST)</option>
-            <option value="Pacific/Auckland">Auckland (NZST)</option>
-          </optgroup>
-          <optgroup label="Other">
-            <option value="UTC">UTC</option>
-          </optgroup>
-        </select>
-      </div>
-
-      <button class="btn btn-primary" id="saveBtn" onclick="saveConfig()">
-        Save configuration
-      </button>
-      <div id="status" role="status" aria-live="polite"></div>
-    </main>
-
-    <main class="card" id="success-card" style="display:none;" role="alert" aria-labelledby="success-title">
-      <h2 class="card-title" id="success-title">✓ Configuration complete</h2>
-      <p class="card-description">Your Eden Viewer stack is ready. Follow these steps to finish setup.</p>
-      
-      <div class="info-box">
-        <div class="info-box-title">Step 1</div>
-        <div class="info-box-content">
-          <code>docker-compose up -d</code>
-          <div class="hint">Deploy the media stack</div>
+      <!-- Step 5: Complete -->
+      <div class="step" data-step="5">
+        <div class="success">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <h2>Setup Complete!</h2>
+          <p>Your Eden Viewer stack is configured and ready to go.</p>
+          <div style="margin:25px 0">
+            <button class="btn btn-primary" onclick="launchPlex()" style="font-size:1.1rem;padding:16px 32px">
+              🎬 Launch Plex Media Server
+            </button>
+          </div>
+          <p style="opacity:0.8;font-size:0.9rem">
+            Or access services directly:<br>
+            <a href="http://localhost:32400/web" target="_blank" style="color:#e94560">Plex :32400</a> · 
+            <a href="http://localhost:8989" target="_blank" style="color:#e94560">Sonarr :8989</a> · 
+            <a href="http://localhost:7878" target="_blank" style="color:#e94560">Radarr :7878</a>
+          </p>
         </div>
       </div>
-
-      <div class="info-box">
-        <div class="info-box-title">Step 2</div>
-        <div class="info-box-content">
-          Point <code id="domain-display"></code> to your server
-          <div class="hint">Create an A record or CNAME in your DNS</div>
-        </div>
-      </div>
-
-      <div class="info-box" id="plex-status-box">
-        <div class="info-box-title">Step 3 - Plex Status</div>
-        <div class="info-box-content" id="plex-status-content">
-          <span id="plex-status-text">Checking Plex connectivity...</span>
-          <div class="hint" id="plex-status-hint"></div>
-        </div>
-      </div>
-
-      <button class="btn btn-primary" id="launchPlexBtn" onclick="launchPlex()" disabled>
-        Checking Plex...
-      </button>
-      <button class="btn btn-secondary" style="margin-top:8px;" onclick="window.location.reload()">
-        Edit configuration
-      </button>
-    </main>
+    </div>
   </div>
-
   <script>
-    let savedConfig = {};
-    let plexUrl = '';
-
-    async function checkStatus() {
-      try {
-        const res = await fetch('/api/status');
-        const data = await res.json();
-        if (data.configured && data.domain) {
-          document.getElementById('domain').value = data.domain;
-        }
-      } catch (e) { 
-        console.error('Status check failed:', e); 
-      }
+    let currentStep = 1; const totalSteps = 5;
+    function updateProgress() {
+      const p = document.getElementById('progress');
+      p.innerHTML = Array.from({length: totalSteps}, (_, i) => `<div class="progress-dot ${i < currentStep ? 'active' : ''}"></div>`).join('');
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      document.querySelector(`[data-step="${currentStep}"]`).classList.add('active');
     }
-
-    async function checkPlexStatus() {
-      const btn = document.getElementById('launchPlexBtn');
-      const statusText = document.getElementById('plex-status-text');
-      const statusHint = document.getElementById('plex-status-hint');
-      const statusBox = document.getElementById('plex-status-box');
-      
-      try {
-        const res = await fetch('/api/plex-status');
-        const data = await res.json();
-        
-        if (data.online) {
-          plexUrl = data.url;
-          statusText.innerHTML = '✅ Plex is running and accessible';
-          statusHint.textContent = data.url;
-          statusBox.style.borderLeftColor = 'var(--success-primary)';
-          btn.disabled = false;
-          btn.textContent = 'Launch Plex';
-        } else {
-          if (data.url) {
-            plexUrl = data.url;
-          }
-          statusText.innerHTML = '⏳ Plex is not running yet';
-          statusHint.innerHTML = 'Run <code>docker-compose up -d</code> to start the stack';
-          if (data.errorCode || data.error) {
-            const extra = (data.errorCode ? `${data.error} (${data.errorCode})` : data.error);
-            statusHint.innerHTML += `<br/><span style="color: var(--neutral-foreground-secondary);">Last check: ${extra}</span>`;
-          }
-          if (data.hint) {
-            statusHint.innerHTML += `<br/><span style="color: var(--neutral-foreground-secondary);">Hint: ${data.hint}</span>`;
-          }
-          statusBox.style.borderLeftColor = 'var(--warning-primary)';
-          btn.disabled = false;
-          btn.textContent = 'Try Launch Anyway';
-          
-          // Retry check in 10 seconds
-          setTimeout(checkPlexStatus, 10000);
-        }
-      } catch (e) {
-        statusText.innerHTML = '❌ Unable to check Plex status';
-        statusHint.textContent = e.message;
-        btn.disabled = false;
-        btn.textContent = 'Try Launch Anyway';
-      }
-    }
-
+    function nextStep() { if (currentStep < totalSteps) { currentStep++; updateProgress(); } }
+    function prevStep() { if (currentStep > 1) { currentStep--; updateProgress(); } }
     async function saveConfig() {
-      const btn = document.getElementById('saveBtn');
-      const originalText = btn.textContent;
-      btn.disabled = true;
-      btn.textContent = 'Saving...';
-
-      savedConfig = {
-        domain: document.getElementById('domain').value,
+      const config = {
+        dataPath: document.getElementById('dataPath').value,
+        appdataPath: document.getElementById('appdataPath').value,
+        plexClaim: document.getElementById('plexClaim').value,
         puid: document.getElementById('puid').value,
         pgid: document.getElementById('pgid').value,
-        timezone: document.getElementById('timezone').value,
-        deploymentTarget: document.getElementById('deploymentTarget').value
-      };
-
-      try {
-        const res = await fetch('/api/configure', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(savedConfig)
-        });
-        const data = await res.json();
-        
-        if (data.success) {
-          document.getElementById('welcome-card').style.display = 'none';
-          document.getElementById('success-card').style.display = 'block';
-          document.getElementById('step2').classList.add('active');
-          document.getElementById('step3').classList.add('active');
-          
-          const domain = savedConfig.domain || 'localhost';
-          document.getElementById('domain-display').textContent = domain;
-          
-          // Set default Plex URL and check status.
-          // Prefer the configured Plex domain (Caddy/TLS) when available.
-          plexUrl = savedConfig.domain
-            ? ('https://' + savedConfig.domain + '/web')
-            : (window.location.protocol + '//' + window.location.hostname + ':32400/web');
-          checkPlexStatus();
-        } else {
-          throw new Error(data.message || 'Configuration failed');
+        tz: document.getElementById('tz').value,
+        services: {
+          plex: document.getElementById('svc-plex').checked,
+          sonarr: document.getElementById('svc-sonarr').checked,
+          radarr: document.getElementById('svc-radarr').checked
         }
-      } catch (e) {
-        const status = document.getElementById('status');
-        status.className = 'message-bar message-bar-error';
-        status.innerHTML = '<span class="message-bar-icon">✕</span> ' + e.message;
-        btn.disabled = false;
-        btn.textContent = originalText;
-      }
+      };
+      try {
+        await fetch('/api/config', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(config) });
+        nextStep();
+      } catch (e) { alert('Error saving config: ' + e.message); }
     }
-
     function launchPlex() {
-      const url = plexUrl || (window.location.protocol + '//' + window.location.hostname + ':32400/web');
-      window.location.href = url;
+      // Redirect to Plex web interface
+      const plexUrl = window.location.hostname === 'localhost' 
+        ? 'http://localhost:32400/web'
+        : `http://${window.location.hostname}:32400/web`;
+      window.location.href = plexUrl;
     }
-
-    // Initialize on page load
-    document.addEventListener('DOMContentLoaded', function() {
-      checkStatus();
-    });
-  </script>
+    updateProgress();
+    fetch('/api/status').then(r => r.json()).then(d => { if (!d.firstRun) currentStep = 5; updateProgress(); });  </script>
 </body>
 </html>

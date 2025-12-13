@@ -488,7 +488,7 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.SETUP_UI_PORT || 8080;
-const CONFIG_PATH = process.env.CONFIG_PATH || '/config/config.json';
+const CONFIG_PATH = process.env.CONFIG_PATH || path.join(__dirname, 'config', 'config.json');
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -498,17 +498,22 @@ function isFirstRun() {
   if (process.env.SETUP_UI_FIRST_RUN === 'true') return true;
   try {
     return !fs.existsSync(CONFIG_PATH);
-  } catch {
+  } catch (err) {
+    console.error('Error checking config:', err.message);
     return true;
   }
 }
 
 // API: Get setup status
 app.get('/api/status', (req, res) => {
-  res.json({
-    firstRun: isFirstRun(),
-    configExists: fs.existsSync(CONFIG_PATH)
-  });
+  try {
+    res.json({
+      firstRun: isFirstRun(),
+      configExists: fs.existsSync(CONFIG_PATH)
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // API: Get current config
@@ -548,10 +553,27 @@ app.post('/api/config', (req, res) => {
 
 // Serve OOBE UI
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  const indexPath = path.join(__dirname, 'public', 'index.html');
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    res.status(404).send('Setup UI not found. Ensure public/index.html exists.');
+  }
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Eden Viewer Setup UI running on port ${PORT}`);
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Server error:', err);
+  res.status(500).json({ error: 'Internal server error' });
+});
+
+const server = app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Eden Viewer Setup UI running on http://0.0.0.0:${PORT}`);
+  console.log(`Config path: ${CONFIG_PATH}`);
   console.log(`First run: ${isFirstRun()}`);
+});
+
+server.on('error', (err) => {
+  console.error('Failed to start server:', err.message);
+  process.exit(1);
 });
