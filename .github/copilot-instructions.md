@@ -46,6 +46,7 @@
 - Support `--dry-run` plus a non-interactive `--yes` mode for SSH/automation.
 - Print a clear “plan” up front (resolved paths, detected Docker Compose command).
 - Avoid blocking prompts when stdin/stdout are not TTY; require explicit `--yes` to proceed.
+- When using `set -u`, define variables like `SUDO` before any reference (including in Compose detection).
 
 Thank you for contributing to the Synology DS923+ media stack project!
 

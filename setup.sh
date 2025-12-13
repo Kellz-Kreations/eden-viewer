@@ -19,10 +19,16 @@ APPDATA_PATH="${APPDATA_PATH:-/volume1/docker/appdata}"
 # Compose file (allow override; default matches common Compose v2 naming)
 COMPOSE_FILE="${COMPOSE_FILE:-compose.yaml}"
 
+# Use sudo only when not running as root (must be defined before first use; set -u is on)
+SUDO="sudo"
+if [[ "$(id -u)" -eq 0 ]]; then
+    SUDO=""
+fi
+
 # Non-interactive confirmation
 YES=false
 
-# Detect Compose command (DSM varies)
+# Detect Compose command (DSM varies) (requires SUDO to be defined)
 COMPOSE_CMD=""
 if command -v docker-compose >/dev/null 2>&1; then
     COMPOSE_CMD="docker-compose"
@@ -121,16 +127,16 @@ echo "  Compose file: $COMPOSE_FILE"
 echo "  Compose cmd:  ${COMPOSE_CMD:-<not found yet>}"
 echo ""
 
+# Optional UX hint: compose file isn't required for setup, but will be for deploy
+if [[ ! -f "$STACK_PATH/$COMPOSE_FILE" ]]; then
+    warn "Note: '$STACK_PATH/$COMPOSE_FILE' not found yet. Copy your compose file there before deploying."
+    echo ""
+fi
+
 # Check if running on Synology DSM
 if [[ ! -d "/volume1" ]]; then
     warn "Warning: /volume1 not found. Are you running this on a Synology NAS?"
     if [[ "${YES}" == true ]]; then
-        warn "Continuing because --yes was provided."
-    elif is_tty; then
-        read -r -p "Continue anyway? (y/N): " confirm
-        if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
-            echo "Aborted."
-            exit 1
         fi
     else
         err "Non-interactive shell detected. Re-run with --yes to continue."
