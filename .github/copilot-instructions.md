@@ -10,6 +10,14 @@ applyTo: "**"
 - Prioritize LAN-only access for Synology; require VPN or authenticated reverse proxy + TLS before exposing *arr services externally.
 - Document certificate handling for both Azure-managed endpoints and bring-your-own (BYO) certificates so contributors can maintain consistent HTTPS guidance.
 
+## Setup UI
+- The Setup UI provides a web-based OOBE (Out-of-Box Experience) wizard at `http://localhost:8080`.
+- Reference the Setup UI for first-run configuration of PUID/PGID/TZ, storage paths, and service selection.
+- The `/api/plex-status` endpoint checks Plex connectivity using fallback candidates: domain (HTTPS/HTTP) → LAN host → Docker internal → localhost.
+- Support TLS for Setup UI via `SETUP_UI_CERT_FILE` and `SETUP_UI_KEY_FILE` environment variables.
+- Force OOBE mode with `SETUP_UI_FIRST_RUN=true` for testing.
+- Default port is 8080; auto-fallback to random port if busy.
+
 ## Synology DS923+
 - Assume DSM 7.x with Docker (Container Manager) and Btrfs volumes under `/volume1`.
 - Recommend VPN-first access (Tailscale, Synology VPN Server, WireGuard) instead of public exposure.
@@ -52,6 +60,7 @@ This document outlines the steps to configure TLS/HTTPS for both Synology DS923+
 1. [Synology DS923+ Setup](#synology-ds923-setup)
 2. [Azure Remote Deployment Setup](#azure-remote-deployment-setup)
 3. [Plex Ingress Policy](#plex-ingress-policy)
+4. [Setup UI Quick Start](#setup-ui-quick-start)
 
 ## Synology DS923+ Setup
 
@@ -112,6 +121,26 @@ By default, the Azure Container Apps configuration allows insecure HTTP traffic 
 - Always back up your configuration and data before making changes to TLS or reverse proxy settings.
 - Refer to the detailed setup guides in `azure/README.md` and `docs/synology-setup.md` for more information on configuring your specific environment.
 - Stay updated with best practices for security and certificate management to ensure a safe media streaming experience.
+
+## Setup UI Quick Start
+
+The Setup UI wizard guides first-time users through configuration:
+
+```bash
+cd setup-ui
+npm install
+npm start
+# Access at http://localhost:8080
+```
+
+### Testing OOBE
+```bash
+# Force first-run experience
+rm -f config/config.json
+SETUP_UI_FIRST_RUN=true npm start
+```
+
+See [setup-ui/README.md](../setup-ui/README.md) for full API documentation.
 
 Happy streaming!
 — The Eden Viewer Team
