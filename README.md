@@ -7,6 +7,14 @@ This project helps you set up:
 - 📺 **Sonarr** - Automatically organize your TV show library
 - 🎥 **Radarr** - Automatically organize your movie library
 
+<div align="center">
+
+| Plex | Sonarr | Radarr |
+| --- | --- | --- |
+| <img src="docs/assets/plex-logo.svg" alt="Plex logo" width="160"/> | <img src="docs/assets/sonarr-logo.svg" alt="Sonarr logo" width="160"/> | <img src="docs/assets/radarr-logo.svg" alt="Radarr logo" width="160"/> |
+
+</div>
+
 ## What You Need
 
 ✅ A Synology DS923+ NAS (or similar model)  
