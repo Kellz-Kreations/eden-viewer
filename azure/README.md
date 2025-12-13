@@ -247,7 +247,7 @@ Add a secret volume with those paths in `compose.yaml` / `docker-compose.yml`, o
 
 ### Plex ingress `allowInsecure`
 
-Plex deployments use `allowInsecure: true` by default so legacy clients can fall back to HTTP. After you verify HTTPS works end-to-end, disable that fallback:
+The Bicep template now ships with `allowInsecure: false`, forcing HTTPS-only access to the Azure Container App endpoint. If you need temporary HTTP fallback for troubleshooting older clients, toggle it explicitly:
 
 ```powershell
 az containerapp ingress update `

@@ -37,7 +37,7 @@ sudo docker-compose ps
 
 ## Directory Structure
 
-```
+```text
 /volume1/
 ├── data/
 │   └── media/
