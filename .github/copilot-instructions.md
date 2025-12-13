@@ -38,5 +38,14 @@
 - Prioritize ease of use and clarity for users who may not be advanced Docker users.
 - When mentioning storage options, highlight Synology's Btrfs capabilities where applicable.
 
+## Script UX Guidelines
+
+**Applies to:** `**/*.sh`
+
+- Prefer idempotent scripts (safe to re-run).
+- Support `--dry-run` plus a non-interactive `--yes` mode for SSH/automation.
+- Print a clear “plan” up front (resolved paths, detected Docker Compose command).
+- Avoid blocking prompts when stdin/stdout are not TTY; require explicit `--yes` to proceed.
+
 Thank you for contributing to the Synology DS923+ media stack project!
 
