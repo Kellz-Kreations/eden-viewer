@@ -56,6 +56,16 @@ If you want LLM-judged metrics (task adherence/relevance), set:
 
 ## Run evaluations
 
+### Quick run (recommended)
+
+From the repo root:
+
+```powershell
+pwsh -NoProfile -File .\scripts\eval.ps1
+```
+
+By default this runs both suites in `stub` mode.
+
 ### A) Chatbot evaluation
 ```powershell
 .\.venv-eval\Scripts\python .\evaluation\run.py chatbot
