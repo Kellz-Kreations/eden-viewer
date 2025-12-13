@@ -2,6 +2,7 @@
 # Synology DS923+ Media Stack Setup Script
 
 set -e
+set -o pipefail
 
 # Colors for output
 RED='\033[0;31m'
@@ -9,10 +10,24 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-# Default paths
-STACK_PATH="/volume1/docker/eden-viewer"
-DATA_PATH="/volume1/data"
-APPDATA_PATH="/volume1/docker/appdata"
+# Default paths (allow override via environment)
+STACK_PATH="${STACK_PATH:-/volume1/docker/eden-viewer}"
+DATA_PATH="${DATA_PATH:-/volume1/data}"
+APPDATA_PATH="${APPDATA_PATH:-/volume1/docker/appdata}"
+
+# Use sudo only when not running as root
+SUDO="sudo"
+if [[ "$(id -u)" -eq 0 ]]; then
+    SUDO=""
+fi
+
+# Detect Compose command (DSM varies)
+COMPOSE_CMD=""
+if command -v docker-compose >/dev/null 2>&1; then
+    COMPOSE_CMD="docker-compose"
+elif command -v docker >/dev/null 2>&1 && docker compose version >/dev/null 2>&1; then
+    COMPOSE_CMD="docker compose"
+fi
 
 # Usage function
 usage() {
@@ -67,6 +82,13 @@ if ! command -v docker &> /dev/null; then
     exit 1
 fi
 
+# Check if Docker Compose is available (v1 or v2)
+if [[ -z "$COMPOSE_CMD" ]]; then
+    echo -e "${RED}Error: Docker Compose not found (neither 'docker-compose' nor 'docker compose').${NC}"
+    echo "On DSM, ensure the Docker package is up to date in Package Center."
+    exit 1
+fi
+
 # Create directory structure
 echo "Creating directories..."
 if [[ "$DRY_RUN" == true ]]; then
@@ -77,31 +99,34 @@ if [[ "$DRY_RUN" == true ]]; then
     echo "  Would create: $APPDATA_PATH/radarr"
     echo "  Would create: $STACK_PATH"
 else
-    sudo mkdir -p "$DATA_PATH/media/movies"
-    sudo mkdir -p "$DATA_PATH/media/tv"
-    sudo mkdir -p "$APPDATA_PATH/plex"
-    sudo mkdir -p "$APPDATA_PATH/sonarr"
-    sudo mkdir -p "$APPDATA_PATH/radarr"
-    sudo mkdir -p "$STACK_PATH"
+    $SUDO mkdir -p "$DATA_PATH/media/movies"
+    $SUDO mkdir -p "$DATA_PATH/media/tv"
+    $SUDO mkdir -p "$APPDATA_PATH/plex"
+    $SUDO mkdir -p "$APPDATA_PATH/sonarr"
+    $SUDO mkdir -p "$APPDATA_PATH/radarr"
+    $SUDO mkdir -p "$STACK_PATH"
     echo -e "${GREEN}  Directories created.${NC}"
 fi
 
 # Get PUID/PGID
 echo ""
 echo "Your user info:"
-id $(whoami)
+id "$(id -un)"
 echo ""
 echo -e "${YELLOW}Update .env with PUID/PGID from above before deploying.${NC}"
 
-# Set permissions
+CURRENT_UID="$(id -u)"
+CURRENT_GID="$(id -g)"
+
+# Set permissions (only for this stack's paths)
 echo ""
 echo "Setting permissions..."
 if [[ "$DRY_RUN" == true ]]; then
-    echo "  Would chown: $APPDATA_PATH to $(id -u):$(id -g)"
-    echo "  Would chown: $DATA_PATH/media to $(id -u):$(id -g)"
+    echo "  Would chown: $APPDATA_PATH/{plex,sonarr,radarr} to ${CURRENT_UID}:${CURRENT_GID}"
+    echo "  Would chown: $DATA_PATH/media to ${CURRENT_UID}:${CURRENT_GID}"
 else
-    sudo chown -R $(id -u):$(id -g) "$APPDATA_PATH"
-    sudo chown -R $(id -u):$(id -g) "$DATA_PATH/media"
+    $SUDO chown -R "${CURRENT_UID}:${CURRENT_GID}" "$APPDATA_PATH/plex" "$APPDATA_PATH/sonarr" "$APPDATA_PATH/radarr"
+    $SUDO chown -R "${CURRENT_UID}:${CURRENT_GID}" "$DATA_PATH/media"
     echo -e "${GREEN}  Permissions set.${NC}"
 fi
 
@@ -111,7 +136,7 @@ echo ""
 echo "Next steps:"
 echo "  1. Copy project files to: $STACK_PATH"
 echo "  2. Edit .env with your PUID/PGID and timezone"
-echo "  3. Deploy: cd $STACK_PATH && sudo docker-compose up -d"
-echo "  4. Verify: sudo docker-compose ps"
+echo "  3. Deploy: cd $STACK_PATH && $SUDO $COMPOSE_CMD up -d"
+echo "  4. Verify: $SUDO $COMPOSE_CMD ps"
 echo ""
 echo -e "${YELLOW}Reminder: Regularly back up $APPDATA_PATH using Hyper Backup or Btrfs snapshots.${NC}"
