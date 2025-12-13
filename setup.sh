@@ -136,11 +136,11 @@ fi
 # Check if running on Synology DSM
 if [[ ! -d "/volume1" ]]; then
     warn "Warning: /volume1 not found. Are you running this on a Synology NAS?"
-    if [[ "${YES}" == true ]]; then
+    if [[ "${YES}" != true ]]; then
+        if ! is_tty; then
+            err "Non-interactive shell detected. Re-run with --yes to continue."
+            exit 1
         fi
-    else
-        err "Non-interactive shell detected. Re-run with --yes to continue."
-        exit 1
     fi
 fi
 

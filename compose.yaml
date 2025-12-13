@@ -1,6 +1,15 @@
 name: synology-media-stack
 
 services:
+  setup-ui:
+    build:
+      context: ./setup-ui
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/repo:ro
+    restart: unless-stopped
+
   plex:
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
