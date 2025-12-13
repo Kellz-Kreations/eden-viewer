@@ -63,18 +63,60 @@
     .top { display: flex; align-items: baseline; gap: 12px; justify-content: space-between; }
     .top small { color: var(--muted); }
 
-    .callouts { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 14px 0; }
-    @media (min-width: 820px) {
-      .callouts { grid-template-columns: 1fr 1fr; }
+    .progress {
+      margin: 16px 0 4px;
     }
-    .callout {
+    .progress-track {
+      display: flex;
+      align-items: center;
+    }
+    .progress-step {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
       border: 1px solid var(--border);
-      border-radius: var(--radius);
       background: var(--surface-2);
-      padding: 12px 12px;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      transition: all 0.25s ease;
     }
-    .callout strong { display: block; margin-bottom: 6px; }
-    .callout ul, .callout ol { margin: 8px 0 0 18px; padding: 0; color: var(--muted); }
+    .progress-step.is-active {
+      border-color: color-mix(in srgb, var(--accent) 70%, var(--border));
+      background: var(--accent);
+      color: var(--accent-fg);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 16%, transparent);
+    }
+    .progress-bar {
+      flex: 1;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--border);
+      margin: 0 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .progress-bar::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 0%;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+    .progress-bar.is-complete::after {
+      width: 100%;
+    }
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.2px;
+    }
 
     label { display:block; margin-top: 14px; font-weight: 600; }
     input, select {
@@ -115,6 +157,10 @@
     }
     button:hover { filter: brightness(0.98); }
     button:active { filter: brightness(0.95); }
+    button:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--accent) 60%, transparent);
+      outline-offset: 2px;
+    }
 
     code { background: color-mix(in srgb, var(--page-fg) 12%, var(--page-bg)); padding: 2px 6px; border-radius: 6px; }
   </style>
@@ -125,6 +171,17 @@
       <div class="top">
         <h1>First run setup</h1>
         <small>Step {{ step }} of 2 · LAN-only recommended</small>
+      </div>
+      <div class="progress" role="group" aria-label="Setup progress">
+        <div class="progress-track">
+          <span class="progress-step {% if step >= 1 %}is-active{% endif %}">1</span>
+          <span class="progress-bar {% if step > 1 %}is-complete{% endif %}"></span>
+          <span class="progress-step {% if step >= 2 %}is-active{% endif %}">2</span>
+        </div>
+        <div class="progress-labels" aria-hidden="true">
+          <span>Paths & IDs</span>
+          <span>Review & Download</span>
+        </div>
       </div>
       <p>Fill in values and click <strong>Download .env</strong>. Then place the downloaded <code>.env</code> next to <code>compose.yaml</code> and redeploy.</p>
 
