@@ -1,147 +1,104 @@
-````instructions
-# Synology DS923+ Media Stack - Quick Start Guide
+# Copilot Instructions
 
-This guide provides a streamlined setup for Plex, Sonarr, and Radarr on your Synology DS923+ using Docker Compose.
+## Project Overview
 
-## Prerequisites
+<!-- Brief description of the project and its purpose -->
 
-- Synology DS923+ with DSM 7.1+
-- Docker and Docker Compose installed
-- Basic knowledge of SSH and command line usage
+## Tech Stack
 
-## 1. Prepare Your Synology
+<!-- List the primary technologies, frameworks, and tools -->
 
-- Ensure your DSM is up to date.
-- Install Docker from the Package Center.
-- Enable SSH for terminal access (Control Panel > Terminal & SNMP).
+- 
+- 
+- 
 
-## 2. Create Directories
+## Code Style & Conventions
 
-SSH into your Synology and run:
-```bash
-mkdir -p /volume1/docker/appdata/plex
-mkdir -p /volume1/docker/appdata/sonarr
-mkdir -p /volume1/docker/appdata/radarr
+<!-- Define naming conventions, formatting rules, and patterns -->
+
+- 
+- 
+- 
+
+## File Structure
+
+<!-- Describe the project's directory organization -->
+
+```
+/src
+/tests
+/docs
 ```
 
-## 3. Set Permissions
+## File-Specific Guidelines
 
-Adjust permissions for the `docker` group:
-```bash
-sudo chown -R $USER:docker /volume1/docker/appdata
-```
+### `**/*.ts` / `**/*.js`
 
-## 4. Create a Docker Network
+<!-- TypeScript/JavaScript specific rules -->
 
-Create a dedicated Docker network for the media stack:
-```bash
-docker network create media-stack
-```
+### `**/*.css` / `**/*.scss`
 
-## 5. Deploy Plex
+<!-- Styling specific rules -->
 
-Create a `docker-compose.yml` in `/volume1/docker/appdata/plex` with the following content:
-```yaml
-version: '3.8'
-services:
-  plex:
-    image: plexinc/pms-docker
-    container_name: plex
-    network_mode: "host"
-    environment:
-      - PUID=1026
-      - PGID=100
-      - VERSION=docker
-    volumes:
-      - /volume1/docker/appdata/plex:/config
-      - /volume1/data:/data
-    restart: unless-stopped
-```
+### `**/tests/**`
 
-Start Plex:
-```bash
-cd /volume1/docker/appdata/plex
-docker-compose up -d
-```
+<!-- Testing conventions -->
 
-## 6. Deploy Sonarr
+## Environment & Configuration
 
-Create a `docker-compose.yml` in `/volume1/docker/appdata/sonarr` with the following content:
-```yaml
-version: '3.8'
-services:
-  sonarr:
-    image: ghcr.io/linuxserver/sonarr
-    container_name: sonarr
-    network_mode: "host"
-    environment:
-      - PUID=1026
-      - PGID=100
-      - TZ=America/New_York
-    volumes:
-      - /volume1/docker/appdata/sonarr:/config
-      - /volume1/data:/data
-    restart: unless-stopped
-```
+<!-- Required environment variables and configuration -->
 
-Start Sonarr:
-```bash
-cd /volume1/docker/appdata/sonarr
-docker-compose up -d
-```
+| Variable | Purpose | Example |
+|----------|---------|---------|
+| | | |
 
-## 7. Deploy Radarr
+## Do's and Don'ts
 
-Create a `docker-compose.yml` in `/volume1/docker/appdata/radarr` with the following content:
-```yaml
-version: '3.8'
-services:
-  radarr:
-    image: ghcr.io/linuxserver/radarr
-    container_name: radarr
-    network_mode: "host"
-    environment:
-      - PUID=1026
-      - PGID=100
-      - TZ=America/New_York
-    volumes:
-      - /volume1/docker/appdata/radarr:/config
-      - /volume1/data:/data
-    restart: unless-stopped
-```
+### Do
 
-Start Radarr:
-```bash
-cd /volume1/docker/appdata/radarr
-docker-compose up -d
-```
+- 
+- 
+- 
 
-## 8. Accessing the Applications
+### Don't
 
-- Plex: `http://<your-synology-ip>:32400`
-- Sonarr: `http://<your-synology-ip>:8989`
-- Radarr: `http://<your-synology-ip>:7878`
+- 
+- 
+- 
 
-## 9. Setting Up Reverse Proxy (Optional)
+## Common Patterns
 
-For secure remote access, set up a reverse proxy with DSM's Application Portal:
-- Enable Web Station and PHP 7.4+.
-- Create reverse proxy rules for Plex, Sonarr, and Radarr.
+<!-- Describe patterns and idioms used in this codebase -->
 
-## 10. Regular Maintenance
+## Testing Requirements
 
-- Back up `/volume1/docker/appdata` regularly.
-- Monitor container logs and performance.
-- Update Docker images and containers as needed.
+<!-- Testing expectations and coverage requirements -->
 
-## Troubleshooting Tips
+- 
+- 
 
-- Check container status: `docker ps -a`
-- View logs: `docker logs <container_name>`
-- Resource usage: `docker stats`
+## Security Considerations
 
-For detailed troubleshooting, refer to the [Docker documentation](https://docs.docker.com/engine/reference/commandline/cli/).
+<!-- Security practices to follow -->
 
-Thank you for using the Synology DS923+ Media Stack Quick Start Guide!
-````
+- 
+- 
+
+## Performance Guidelines
+
+<!-- Performance best practices for this project -->
+
+- 
+- 
+
+## Documentation Standards
+
+<!-- How code should be documented -->
+
+- 
+- 
+
+## Additional Notes
+
+<!-- Any other project-specific guidance -->
 
