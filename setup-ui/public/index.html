@@ -78,10 +78,14 @@
           <h2>Setup Complete!</h2>
           <p>Your Eden Viewer stack is configured and ready to go.</p>
           <div style="margin:25px 0">
-            <button class="btn btn-primary" onclick="launchPlex()" style="font-size:1.1rem;padding:16px 32px">
-              🎬 Launch Plex Media Server
+            <button id="launchPlexBtn" class="btn btn-primary" onclick="launchPlex()">
+              🎬 Launch Plex
             </button>
           </div>
+          <p id="plexOfflineMsg" style="display: none; color: #f39c12; margin-top: 10px;">
+            ⚠️ Plex is not running yet. Start the Docker stack first, or 
+            <a href="https://app.plex.tv" target="_blank">manage Plex online</a>.
+          </p>
           <p style="opacity:0.8;font-size:0.9rem">
             Or access services directly:<br>
             <a href="http://localhost:32400/web" target="_blank" style="color:#e94560">Plex :32400</a> · 
@@ -121,12 +125,27 @@
         nextStep();
       } catch (e) { alert('Error saving config: ' + e.message); }
     }
-    function launchPlex() {
-      // Redirect to Plex web interface
-      const plexUrl = window.location.hostname === 'localhost' 
-        ? 'http://localhost:32400/web'
-        : `http://${window.location.hostname}:32400/web`;
-      window.location.href = plexUrl;
+    async function launchPlex() {
+      try {
+        const res = await fetch('/api/plex-status');
+        const data = await res.json();
+        
+        if (data.online && data.url) {
+            window.open(data.url, '_blank');
+        } else {
+            // Show offline message and offer alternatives
+            document.getElementById('plexOfflineMsg').style.display = 'block';
+            // Still allow opening the configured URL (it might work externally)
+            if (data.url) {
+                const openAnyway = confirm('Plex appears offline locally. Open the configured URL anyway?\n\n' + data.url);
+                if (openAnyway) {
+                    window.open(data.url, '_blank');
+                }
+            }
+        }
+      } catch (err) {
+        document.getElementById('plexOfflineMsg').style.display = 'block';
+      }
     }
     updateProgress();
     fetch('/api/status').then(r => r.json()).then(d => { if (!d.firstRun) currentStep = 5; updateProgress(); });  </script>
