@@ -48,9 +48,8 @@ def _ensure_valid_timezone(value: str, tz_set: set[str]) -> str:
 
 
 def _get_or_set_csrf() -> str:
-    token = request.cookies.get("csrf")
-    if not token:
-        token = secrets.token_urlsafe(32)
+    # Always generate a new, random CSRF token on each response.
+    token = secrets.token_urlsafe(32)
     return token
 
 
