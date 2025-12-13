@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   plex-proxy:
     image: caddy:2-alpine
