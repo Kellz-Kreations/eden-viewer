@@ -103,7 +103,23 @@ sudo chown -R azureuser:azureuser /srv/eden-viewer
 mkdir -p ~/eden-viewer
 ```
 
-## 6. Retrieve Project Files & Configure
+## 6. Get Your Plex Claim Token (Required for First-Time Setup)
+
+> ⚠️ **Critical for remote/headless servers**: Plex requires a claim token to link the server to your account on first run. The token expires in **4 minutes**, so get it right before deploying.
+
+1. Open <https://www.plex.tv/claim/> in your browser (must be logged in to Plex).
+2. Copy the token (looks like `claim-xxxxxxxxxxxxxxxxxxxx`).
+3. Paste it into your `.env` file as `PLEX_CLAIM=claim-xxxxxxxxxxxxxxxxxxxx`.
+4. Deploy the stack within 4 minutes.
+
+If the token expires before Plex starts, delete the Plex config folder and redeploy with a fresh token:
+
+```bash
+sudo rm -rf /srv/eden-viewer/appdata/plex
+# Get new token, update .env, then: docker compose up -d
+```
+
+## 7. Retrieve Project Files & Configure
 
 ```bash
 mkdir -p ~/eden-viewer
@@ -130,7 +146,7 @@ TZ=America/New_York
 APPDATA_ROOT=/srv/eden-viewer/appdata
 DATA_ROOT=/srv/eden-viewer/media
 TRANSCODE_ROOT=/srv/eden-viewer/transcode
-PLEX_CLAIM=  # optional; leave blank if not claiming
+PLEX_CLAIM=claim-xxxxxxxxxxxxxxxxxxxx  # REQUIRED for first run!
 ```
 
 Reuse your Synology media/appdata backups if desired (`rsync` or `scp`).
@@ -138,7 +154,7 @@ Reuse your Synology media/appdata backups if desired (`rsync` or `scp`).
 > Important: run `docker compose ...` **on the Azure VM** (after SSH), not from your Windows machine.
 > If you see “Found multiple config files… Using compose.yaml”, explicitly pick the file with `-f` and/or delete the one you are not using.
 
-## 7. Deploy the Stack
+## 8. Deploy the Stack
 
 From the VM:
 
@@ -161,7 +177,7 @@ If your repo uses `compose.yaml` instead:
 docker compose --env-file .env -f compose.yaml up -d
 ```
 
-## 8. Validate
+## 9. Validate
 
 - Plex: `http://<PUBLIC_IP>:32400/web`
 - Sonarr/Radarr: tunnel via VPN → `http://<TUNNEL_IP>:8989` and `:7878`
@@ -169,7 +185,7 @@ docker compose --env-file .env -f compose.yaml up -d
 
 Troubleshoot (`docker ps`, `docker logs <container>`, `systemctl status docker`) if services fail.
 
-## 9. Optional: Custom DNS
+## 10. Optional: Custom DNS
 
 ```powershell
 az network dns record-set a create --resource-group eden --zone-name kellzkreations.com --name viewer
@@ -178,7 +194,7 @@ az network dns record-set a add-record --resource-group eden --zone-name kellzkr
 
 Flush local DNS or wait for TTL (default 3600 s).
 
-## 10. Backups & Maintenance
+## 11. Backups & Maintenance
 
 - Snapshot VM disks: `az snapshot create ...`
 - Export configs: `tar czf appdata-backup.tar.gz -C /srv/eden-viewer/appdata .`
@@ -192,7 +208,7 @@ Monitor costs (`az consumption usage list ...`) and remove unused resources:
 az group delete --name rg-eden-viewer --yes --no-wait
 ```
 
-## 11. HTTPS & Certificates
+## 12. HTTPS & Certificates
 
 Azure Container Apps automatically exposes each workload at `https://<service>.<region>.azurecontainerapps.io`, terminating TLS with Microsoft-managed certificates. To harden access—especially for Sonarr/Radarr, which should remain behind VPN or zero-trust proxies—choose one of these certificate strategies:
 

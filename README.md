@@ -19,10 +19,15 @@ A Docker Compose stack for Plex, Sonarr, and Radarr on Synology DS923+ NAS.
 cp .env.example .env
 nano .env  # Set PUID, PGID, TZ
 
-# 3. Deploy
+# 3. Get Plex claim token (first-time setup only)
+#    Visit https://www.plex.tv/claim/ and copy the token
+#    Add to .env: PLEX_CLAIM=claim-xxxxxxxxxxxxxxxxxxxx
+#    Token expires in 4 minutes - deploy quickly!
+
+# 4. Deploy
 sudo docker-compose up -d
 
-# 4. Verify
+# 5. Verify
 sudo docker-compose ps
 ```
 
