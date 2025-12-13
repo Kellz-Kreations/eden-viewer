@@ -77,15 +77,35 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
           <h2>Setup Complete!</h2>
           <p>Your Eden Viewer stack is configured and ready to go.</p>
-          <div style="margin:25px 0">
-            <button id="launchPlexBtn" class="btn btn-primary" onclick="launchPlex()">
+          
+          <div id="plexLaunchSection">
+            <div id="plexClaimStatus" style="margin-bottom: 15px;">
+              <p>🔍 Checking Plex server status...</p>
+            </div>
+            
+            <button id="launchPlexBtn" class="btn btn-primary" disabled onclick="launchPlex()">
               🎬 Launch Plex
             </button>
+            
+            <div id="plexNotClaimed" style="display: none; margin-top: 15px; padding: 15px; background: #fff3cd; border-radius: 8px;">
+              <h4>⚠️ Server Not Claimed</h4>
+              <p>Your Plex server is running but not yet linked to your account.</p>
+              <ol>
+                  <li>Go to <a href="https://www.plex.tv/claim/" target="_blank">plex.tv/claim</a> to get a claim code</li>
+                  <li>The code expires in 4 minutes</li>
+                  <li>Enter the code below:</li>
+              </ol>
+              <input type="text" id="claimCodeInput" placeholder="claim-xxxxxxxxxxxx" style="width: 100%; padding: 10px; margin: 10px 0;">
+              <button class="btn btn-secondary" onclick="updateClaimCode()">Update Claim Code</button>
+              <button class="btn btn-secondary" onclick="checkPlexStatus()">🔄 Refresh Status</button>
+            </div>
+            
+            <p id="plexOfflineMsg" style="display: none; color: #f39c12; margin-top: 10px;">
+              ⚠️ Plex is not running yet. Start the Docker stack first, or 
+              <a href="https://app.plex.tv" target="_blank">manage Plex online</a>.
+            </p>
           </div>
-          <p id="plexOfflineMsg" style="display: none; color: #f39c12; margin-top: 10px;">
-            ⚠️ Plex is not running yet. Start the Docker stack first, or 
-            <a href="https://app.plex.tv" target="_blank">manage Plex online</a>.
-          </p>
+          
           <p style="opacity:0.8;font-size:0.9rem">
             Or access services directly:<br>
             <a href="http://localhost:32400/web" target="_blank" style="color:#e94560">Plex :32400</a> · 
@@ -125,29 +145,73 @@
         nextStep();
       } catch (e) { alert('Error saving config: ' + e.message); }
     }
-    async function launchPlex() {
-      try {
-        const res = await fetch('/api/plex-status');
-        const data = await res.json();
+    async function checkPlexStatus() {
+        const statusDiv = document.getElementById('plexClaimStatus');
+        const launchBtn = document.getElementById('launchPlexBtn');
+        const notClaimedDiv = document.getElementById('plexNotClaimed');
+        const offlineMsg = document.getElementById('plexOfflineMsg');
         
-        if (data.online && data.url) {
-            window.open(data.url, '_blank');
-        } else {
-            // Show offline message and offer alternatives
-            document.getElementById('plexOfflineMsg').style.display = 'block';
-            // Still allow opening the configured URL (it might work externally)
-            if (data.url) {
-                const openAnyway = confirm('Plex appears offline locally. Open the configured URL anyway?\n\n' + data.url);
-                if (openAnyway) {
-                    window.open(data.url, '_blank');
-                }
+        statusDiv.innerHTML = '<p>🔍 Checking Plex server status...</p>';
+        launchBtn.disabled = true;
+        notClaimedDiv.style.display = 'none';
+        offlineMsg.style.display = 'none';
+        
+        try {
+            const res = await fetch('/api/plex-status');
+            const data = await res.json();
+            
+            if (data.online && data.claimed) {
+                // Server is online AND claimed - ready to launch!
+                statusDiv.innerHTML = '<p style="color: #27ae60;">✅ Plex server is online and claimed!</p>';
+                launchBtn.disabled = false;
+                window.plexUrl = data.url;
+            } else if (data.online && !data.claimed) {
+                // Server is online but NOT claimed
+                statusDiv.innerHTML = '<p style="color: #f39c12;">⚠️ Plex server is online but not claimed</p>';
+                notClaimedDiv.style.display = 'block';
+            } else {
+                // Server is offline
+                statusDiv.innerHTML = '<p style="color: #e74c3c;">❌ Plex server is offline</p>';
+                offlineMsg.style.display = 'block';
             }
+        } catch (err) {
+            statusDiv.innerHTML = '<p style="color: #e74c3c;">❌ Could not check Plex status</p>';
+            offlineMsg.style.display = 'block';
         }
-      } catch (err) {
-        document.getElementById('plexOfflineMsg').style.display = 'block';
-      }
     }
+
+    async function updateClaimCode() {
+        const claimCode = document.getElementById('claimCodeInput').value.trim();
+        if (!claimCode || !claimCode.startsWith('claim-')) {
+            alert('Please enter a valid claim code (starts with "claim-")');
+            return;
+        }
+        
+        try {
+            const res = await fetch('/api/config', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ plexClaim: claimCode })
+            });
+            
+            if (res.ok) {
+                alert('Claim code updated! The server needs to restart to apply the new claim. Check status again in a moment.');
+                setTimeout(checkPlexStatus, 5000);
+            }
+        } catch (err) {
+            alert('Failed to update claim code: ' + err.message);
+        }
+    }
+
+    function launchPlex() {
+        if (window.plexUrl) {
+            window.open(window.plexUrl, '_blank');
+        }
+    }
+
     updateProgress();
-    fetch('/api/status').then(r => r.json()).then(d => { if (!d.firstRun) currentStep = 5; updateProgress(); });  </script>
+    fetch('/api/status').then(r => r.json()).then(d => { if (!d.firstRun) currentStep = 5; updateProgress(); });
+    checkPlexStatus();
+  </script>
 </body>
 </html>
