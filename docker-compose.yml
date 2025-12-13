@@ -55,14 +55,3 @@ services:
     ports:
       - "7878:7878"
     restart: unless-stopped
-
-  setup-ui:
-    build: ./setup-ui
-    container_name: eden-setup-ui
-    environment:
-      - SETUP_UI_PORT=3000
-    volumes:
-      - ./.env:/app/../.env
-    ports:
-      - "3000:3000"
-    restart: unless-stopped
