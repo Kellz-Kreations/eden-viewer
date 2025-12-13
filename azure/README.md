@@ -122,7 +122,7 @@ nano .env
 
 Example `.env` overrides for Azure (place this in the same directory as `docker-compose.yml` or `compose.yaml`):
 
-```
+```dotenv
 PUID=1000
 PGID=1000
 TZ=America/New_York

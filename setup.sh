@@ -140,8 +140,3 @@ echo "  3. Deploy: cd $STACK_PATH && $SUDO $COMPOSE_CMD up -d"
 echo "  4. Verify: $SUDO $COMPOSE_CMD ps"
 echo ""
 echo -e "${YELLOW}Reminder: Regularly back up $APPDATA_PATH using Hyper Backup or Btrfs snapshots.${NC}"
-
-APPDATA_ROOT=/srv/eden-viewer/appdata
-DATA_ROOT=/srv/eden-viewer/media
-TRANSCODE_ROOT=/srv/eden-viewer/transcode
-PLEX_CLAIM=claim-xxxx   # optional
