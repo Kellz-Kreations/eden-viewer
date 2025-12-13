@@ -13,6 +13,7 @@ app.config["MAX_CONTENT_LENGTH"] = 32 * 1024
 app.secret_key = os.environ.get("SETUP_UI_SECRET_KEY") or secrets.token_hex(32)
 
 DEFAULTS = {
+    "STACK_PATH": "/volume1/docker/eden-viewer",
     "APPDATA_ROOT": "/volume1/docker/appdata",
     "DATA_ROOT": "/volume1/data",
     "TRANSCODE_ROOT": "/volume1/docker/transcode",
@@ -69,6 +70,8 @@ def _render_index(
     if overrides:
         merged.update({k: v for k, v in overrides.items() if v is not None})
 
+    env_text = build_env_text(merged) if step in (2, 3) else ""
+
     timezones = sorted(available_timezones())
     csrf = _get_or_set_csrf()
     resp = make_response(
@@ -80,6 +83,7 @@ def _render_index(
             error_message=error_message,
             field_errors=field_errors or {},
             step=step,
+            env_text=env_text,
         ),
         status_code,
     )
@@ -112,7 +116,7 @@ def add_security_headers(response: Response):
         "base-uri 'none'; "
         "frame-ancestors 'none'; "
         "form-action 'self'; "
-        "script-src 'none'; "
+        "script-src 'self'; "
         "style-src 'self' 'unsafe-inline'"
     )
     return response
@@ -175,6 +179,7 @@ def step2():
     tz_set = set(available_timezones())
 
     raw = {
+        "STACK_PATH": request.form.get("STACK_PATH", ""),
         "APPDATA_ROOT": request.form.get("APPDATA_ROOT", ""),
         "DATA_ROOT": request.form.get("DATA_ROOT", ""),
         "TRANSCODE_ROOT": request.form.get("TRANSCODE_ROOT", ""),
@@ -184,6 +189,7 @@ def step2():
     }
 
     overrides = {
+        "STACK_PATH": _sanitize_env_value(raw["STACK_PATH"]),
         "APPDATA_ROOT": _sanitize_env_value(raw["APPDATA_ROOT"]),
         "DATA_ROOT": _sanitize_env_value(raw["DATA_ROOT"]),
         "TRANSCODE_ROOT": _sanitize_env_value(raw["TRANSCODE_ROOT"]),
@@ -195,6 +201,8 @@ def step2():
     values = dict(overrides)
 
     field_errors: dict[str, str] = {}
+    if not values["STACK_PATH"]:
+        field_errors["STACK_PATH"] = "Required"
     if not values["APPDATA_ROOT"]:
         field_errors["APPDATA_ROOT"] = "Required"
     if not values["DATA_ROOT"]:
@@ -221,6 +229,66 @@ def step2():
     return _render_index(step=2, overrides=overrides)
 
 
+@app.post("/step3")
+def step3():
+    csrf_cookie = request.cookies.get("csrf")
+    csrf_form = request.form.get("csrf", "")
+    if not csrf_cookie or not csrf_form or csrf_cookie != csrf_form:
+        abort(403, description="Your session expired. Refresh the page and try again.")
+
+    tz_set = set(available_timezones())
+
+    raw = {
+        "STACK_PATH": request.form.get("STACK_PATH", ""),
+        "APPDATA_ROOT": request.form.get("APPDATA_ROOT", ""),
+        "DATA_ROOT": request.form.get("DATA_ROOT", ""),
+        "TRANSCODE_ROOT": request.form.get("TRANSCODE_ROOT", ""),
+        "PUID": request.form.get("PUID", ""),
+        "PGID": request.form.get("PGID", ""),
+        "TZ": request.form.get("TZ", ""),
+    }
+
+    overrides = {
+        "STACK_PATH": _sanitize_env_value(raw["STACK_PATH"]),
+        "APPDATA_ROOT": _sanitize_env_value(raw["APPDATA_ROOT"]),
+        "DATA_ROOT": _sanitize_env_value(raw["DATA_ROOT"]),
+        "TRANSCODE_ROOT": _sanitize_env_value(raw["TRANSCODE_ROOT"]),
+        "PUID": _sanitize_env_value(raw["PUID"]),
+        "PGID": _sanitize_env_value(raw["PGID"]),
+        "TZ": _sanitize_env_value(raw["TZ"]),
+    }
+
+    values = dict(overrides)
+
+    field_errors: dict[str, str] = {}
+    if not values["STACK_PATH"]:
+        field_errors["STACK_PATH"] = "Required"
+    if not values["APPDATA_ROOT"]:
+        field_errors["APPDATA_ROOT"] = "Required"
+    if not values["DATA_ROOT"]:
+        field_errors["DATA_ROOT"] = "Required"
+    if not values["TRANSCODE_ROOT"]:
+        field_errors["TRANSCODE_ROOT"] = "Required"
+
+    if not values["PUID"] or not values["PUID"].isdigit():
+        field_errors["PUID"] = "Must be numeric (example: 1026)"
+    if not values["PGID"] or not values["PGID"].isdigit():
+        field_errors["PGID"] = "Must be numeric (example: 100)"
+    if values["TZ"] not in tz_set:
+        field_errors["TZ"] = "Choose a valid timezone from the list"
+
+    if field_errors:
+        return _render_index(
+            step=1,
+            error_message="Fix the highlighted fields and try again.",
+            status_code=400,
+            overrides=overrides,
+            field_errors=field_errors,
+        )
+
+    return _render_index(step=3, overrides=overrides)
+
+
 @app.post("/download")
 def download():
     csrf_cookie = request.cookies.get("csrf")
@@ -233,6 +301,7 @@ def download():
     tz_set = set(available_timezones())
 
     raw = {
+        "STACK_PATH": request.form.get("STACK_PATH", ""),
         "APPDATA_ROOT": request.form.get("APPDATA_ROOT", ""),
         "DATA_ROOT": request.form.get("DATA_ROOT", ""),
         "TRANSCODE_ROOT": request.form.get("TRANSCODE_ROOT", ""),
@@ -243,6 +312,7 @@ def download():
     }
 
     overrides = {
+        "STACK_PATH": _sanitize_env_value(raw["STACK_PATH"]),
         "APPDATA_ROOT": _sanitize_env_value(raw["APPDATA_ROOT"]),
         "DATA_ROOT": _sanitize_env_value(raw["DATA_ROOT"]),
         "TRANSCODE_ROOT": _sanitize_env_value(raw["TRANSCODE_ROOT"]),
@@ -262,6 +332,8 @@ def download():
     }
 
     field_errors: dict[str, str] = {}
+    if not overrides["STACK_PATH"]:
+        field_errors["STACK_PATH"] = "Required"
     if not values["APPDATA_ROOT"]:
         field_errors["APPDATA_ROOT"] = "Required"
     if not values["DATA_ROOT"]:
@@ -279,7 +351,7 @@ def download():
     if field_errors:
         has_step1_errors = any(
             k in field_errors
-            for k in ("APPDATA_ROOT", "DATA_ROOT", "TRANSCODE_ROOT", "PUID", "PGID", "TZ")
+            for k in ("STACK_PATH", "APPDATA_ROOT", "DATA_ROOT", "TRANSCODE_ROOT", "PUID", "PGID", "TZ")
         )
         target_step = 2 if step_requested == "2" and not has_step1_errors else 1
         return _render_index(
