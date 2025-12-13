@@ -30,7 +30,8 @@ sudo docker-compose ps
 
 | Service | Port | URL |
 |---------|------|-----|
-| Plex | 32400 | `http://<NAS-IP>:32400/web` |
+| Plex (LAN fallback) | 32400 | `http://<NAS-IP>:32400/web` *(VPN/LAN only)* |
+| Plex (TLS) | 443 | `https://<PLEX_DOMAIN>` |
 | Sonarr | 8989 | `http://<NAS-IP>:8989` |
 | Radarr | 7878 | `http://<NAS-IP>:7878` |
 
@@ -50,15 +51,24 @@ sudo docker-compose ps
     └── eden-viewer/   # This stack
 ```
 
+## HTTPS & Reverse Proxy
+
+We terminate HTTPS in front of Plex with a lightweight Caddy reverse proxy while Plex keeps listening on port **32400** for LAN clients and companion apps.
+
+1. Set `PLEX_DOMAIN` and (optionally) `CADDY_ACME_EMAIL` in `.env`. The domain must resolve to your NAS public IP when requesting certificates.
+2. Ensure ports **80** and **443** forward to the NAS or sit behind a VPN/reverse-proxy appliance that supports ACME HTTP-01 validation. Synology Application Portal or your edge firewall can proxy 80/443 if you do not forward directly.
+3. Confirm `/volume1/docker/appdata/caddy` exists (created on first run) so certificates persist. Back this path up along with the rest of `/volume1/docker/appdata` before editing certificates.
+4. Deploy with `docker compose up -d` (or Container Manager Project). The new `plex-proxy` service issues/renews certificates automatically and proxies traffic to Plex on 32400.
+
+> **Legacy access:** Keep Plex’s port 32400 open only to trusted LAN or VPN networks. Do **not** expose 32400 directly to the internet once HTTPS on 443 is available.
+
 ## Remote Access
 
-### Plex Remote Access (Built-in)
+### Plex Remote Access (Built-in + TLS)
 
-Plex has built-in remote access that works automatically:
-
-1. Open Plex Web UI → Settings → Remote Access
-2. Enable "Remote Access"
-3. Plex handles NAT traversal automatically
+- For LAN/VPN clients, use `https://<PLEX_DOMAIN>` (terminates in Caddy on port 443) or `http://<NAS-IP>:32400/web` while on trusted networks.
+- Plex still supports the built-in remote access workflow. Confirm remote access in Plex settings **after** the `plex-proxy` service finishes certificate provisioning so Plex sees the correct external URL.
+- Legacy clients that insist on HTTP fallback continue working through the proxy thanks to the `X-Plex-Device` header handling.
 
 ### Sonarr/Radarr Remote Access (VPN Recommended)
 

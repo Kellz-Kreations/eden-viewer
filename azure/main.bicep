@@ -141,7 +141,7 @@ resource plexApp 'Microsoft.App/containerApps@2023-05-01' = {
         external: true
         targetPort: 32400
         transport: 'http'
-        allowInsecure: true
+        allowInsecure: false
       }
     }
     template: {
