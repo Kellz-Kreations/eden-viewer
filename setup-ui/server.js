@@ -480,20 +480,29 @@ if (addresses.length > 0) {
 console.log('[7/7] 🚀 Starting HTTP server...');
 console.log('');
 
-// Start server
-if (hasCerts) {
-  const options = {
-    cert: fs.readFileSync(certFile),
-    key: fs.readFileSync(keyFile)
-  };
-  https.createServer(options, app).listen(PORT, () => {
-    printStartupComplete('https', PORT, addresses);
+// Start server with fallback to random port if default is in use
+function startServer(port, retryWithRandom = true) {
+  const server = hasCerts
+    ? https.createServer({ cert: fs.readFileSync(certFile), key: fs.readFileSync(keyFile) }, app)
+    : http.createServer(app);
+
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE' && retryWithRandom) {
+      console.log(`⚠️  Port ${port} is in use, trying random port...`);
+      startServer(0, false); // 0 = let OS assign random available port
+    } else {
+      console.error(`❌ Failed to start server: ${err.message}`);
+      process.exit(1);
+    }
   });
-} else {
-  http.createServer(app).listen(PORT, () => {
-    printStartupComplete('http', PORT, addresses);
+
+  server.listen(port, () => {
+    const actualPort = server.address().port;
+    printStartupComplete(hasCerts ? 'https' : 'http', actualPort, addresses);
   });
 }
+
+startServer(PORT);
 
 function printStartupComplete(protocol, port, addresses) {
   console.log('╔══════════════════════════════════════════════════════════════╗');
