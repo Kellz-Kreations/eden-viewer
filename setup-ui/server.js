@@ -44,13 +44,6 @@ const limiter = rateLimit({
 // Apply the rate limiter to all requests
 app.use(limiter);
 
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-});
-app.use(limiter);
-
 function withTimeout(promise, timeoutMs, label) {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => {
