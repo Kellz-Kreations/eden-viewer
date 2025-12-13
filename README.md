@@ -245,55 +245,51 @@ sudo docker-compose ps
 Expected output:
 ```
 NAME      STATUS         PORTS
-plex      Up (healthy)   (host network)
+plex      Up             (host network)
 sonarr    Up             0.0.0.0:8989->8989/tcp
 radarr    Up             0.0.0.0:7878->7878/tcp
 ```
 
 ### 2. Access from LAN
 
-From any device on your network, open a browser:
+From any device on your home network:
 
-| Service | URL                          | First-Time Setup |
-|---------|------------------------------|------------------|
-| Plex    | `http://NAS_IP:32400/web`    | Link Plex account, add libraries |
-| Sonarr  | `http://NAS_IP:8989`         | Set authentication (Settings → General) |
-| Radarr  | `http://NAS_IP:7878`         | Set authentication (Settings → General) |
+| Service | URL                        |
+|---------|----------------------------|
+| Plex    | `http://NAS_IP:32400/web`  |
+| Sonarr  | `http://NAS_IP:8989`       |
+| Radarr  | `http://NAS_IP:7878`       |
 
-> **⚠️ Important:** Configure authentication in Sonarr/Radarr immediately—they have no auth by default.
+> **⚠️ First-time setup:** Configure authentication in Sonarr/Radarr immediately via **Settings → General → Security**.
 
-### 3. Test media paths
+## Remote Access (Outside Your Home)
 
-In Sonarr/Radarr, verify the `/data` mount:
-- Go to **Settings → Media Management**
-- Add root folder: `/data/media/tv` (Sonarr) or `/data/media/movies` (Radarr)
+| Method | Steps | Exposes |
+|--------|-------|---------|
+| **Synology VPN** (Recommended) | Package Center → VPN Server → Configure OpenVPN → Connect from device | All services via LAN IPs |
+| **Plex Remote Access** | Plex → Settings → Remote Access → Enable | Plex only (secure) |
+| **Synology QuickConnect** | DSM only | ❌ Not for Docker containers |
 
-In Plex:
-- Add library pointing to `/data/media/movies` or `/data/media/tv`
-
-## Remote Access
-
-### Option 1: Synology VPN (Recommended)
-
-Securely access all services from anywhere:
+### Setting Up Synology VPN
 
 1. **DSM → Package Center → Install VPN Server**
-2. Configure OpenVPN or L2TP/IPSec
-3. Connect from your phone/laptop via VPN client
-4. Access services using LAN URLs
+2. Open VPN Server → **OpenVPN** → Enable
+3. Export configuration file
+4. Forward **UDP 1194** on your router to NAS IP
+5. Import config into OpenVPN client (phone/laptop)
+6. Connect → Access `http://NAS_LAN_IP:8989` etc.
 
-### Option 2: Plex Remote Access (Plex Only)
+### Plex Remote Access (Plex Only)
 
-Plex has built-in secure streaming:
-
-1. Plex → **Settings → Remote Access**
-2. Enable and allow port 32400 through your router
-3. Stream from `https://app.plex.tv` anywhere
+1. Open `http://NAS_IP:32400/web`
+2. **Settings → Remote Access → Enable**
+3. Verify "Fully accessible outside your network"
+4. Access from anywhere via `https://app.plex.tv`
 
 ### ❌ Not Recommended
 
-- Exposing Sonarr/Radarr ports directly to internet
-- Port forwarding without authentication/TLS
+- Port forwarding Sonarr/Radarr directly to internet
+- Exposing management UIs without VPN or TLS + authentication
 
 ## Accessing from Outside Your Home
 
