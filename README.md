@@ -304,3 +304,111 @@ Plex has built-in secure streaming:
 | Can't reach UI | Check firewall: DSM → Control Panel → Security → Firewall |
 | Plex not finding media | Verify path: `sudo docker exec plex ls /data/media` |
 | Port already in use | `sudo netstat -tlnp \| grep [port]` |
+
+## Azure VM Deployment
+
+If hosting on an Azure VM instead of Synology:
+
+### 1. Create Azure VM
+
+- **Size:** Standard B2s (2 vCPU, 4GB RAM) minimum
+- **OS:** Ubuntu 22.04 LTS
+- **Disk:** 64GB+ Premium SSD for OS, attach data disk for media
+
+### 2. Install Docker
+
+```bash
+# SSH into your Azure VM
+ssh azureuser@<VM_PUBLIC_IP>
+
+# Install Docker
+curl -fsSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+sudo systemctl enable docker
+
+# Install Docker Compose
+sudo apt install docker-compose-plugin -y
+
+# Logout and back in for group changes
+exit
+```
+
+### 3. Create directories
+
+```bash
+sudo mkdir -p /data/media/{movies,tv}
+sudo mkdir -p /docker/appdata/{plex,sonarr,radarr}
+sudo chown -R $USER:$USER /data /docker
+```
+
+### 4. Update `.env` for Azure
+
+```env
+PUID=1000
+PGID=1000
+TZ=UTC
+DATA_PATH=/data
+APPDATA_PATH=/docker/appdata
+```
+
+### 5. Deploy
+
+```bash
+git clone <your-repo> ~/eden-viewer
+cd ~/eden-viewer
+docker compose up -d
+```
+
+### 6. Configure Azure Network Security Group (NSG)
+
+Allow inbound traffic for services:
+
+| Service | Port  | Source        |
+|---------|-------|---------------|
+| Plex    | 32400 | Your IP / Any |
+| Sonarr  | 8989  | Your IP only  |
+| Radarr  | 7878  | Your IP only  |
+
+```bash
+# Azure CLI example (restrict Sonarr/Radarr to your IP)
+az network nsg rule create \
+  --resource-group <RG> \
+  --nsg-name <NSG_NAME> \
+  --name AllowPlex \
+  --priority 100 \
+  --destination-port-ranges 32400 \
+  --access Allow
+
+az network nsg rule create \
+  --resource-group <RG> \
+  --nsg-name <NSG_NAME> \
+  --name AllowSonarr \
+  --priority 110 \
+  --destination-port-ranges 8989 \
+  --source-address-prefixes <YOUR_PUBLIC_IP> \
+  --access Allow
+```
+
+### 7. Access from Browser
+
+| Service | URL |
+|---------|-----|
+| Plex    | `http://<VM_PUBLIC_IP>:32400/web` |
+| Sonarr  | `http://<VM_PUBLIC_IP>:8989` |
+| Radarr  | `http://<VM_PUBLIC_IP>:7878` |
+
+### ⚠️ Azure Security Best Practices
+
+1. **Restrict NSG rules** to your public IP only
+2. **Enable authentication** in Sonarr/Radarr immediately
+3. **Use Azure Bastion or VPN** for management access
+4. **Consider Cloudflare Tunnel** or Azure Application Gateway with TLS for production
+
+### Test connectivity
+
+```bash
+# From your local machine
+curl -I http://<VM_PUBLIC_IP>:32400/web
+curl -I http://<VM_PUBLIC_IP>:8989
+curl -I http://<VM_PUBLIC_IP>:7878
+```
