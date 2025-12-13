@@ -69,17 +69,9 @@ When running in Azure, the `azure/smoke-test-azure.ps1` script verifies HTTPS re
 
 # Eden Viewer Setup UI
 
-A web-based OOBE (Out-of-Box Experience) wizard for configuring the Eden Viewer media stack.
+Web-based OOBE wizard for configuring the Eden Viewer media stack.
 
-## Features
-
-- Multi-step configuration wizard
-- Storage path configuration (Synology `/volume1` paths)
-- PUID/PGID/TZ environment settings
-- Plex claim token integration
-- Service selection (Plex, Sonarr, Radarr)
-
-## Running Locally
+## Quick Start
 
 ```bash
 cd setup-ui
@@ -87,30 +79,41 @@ npm install
 npm start
 ```
 
-Access at `http://localhost:8080`
+Access at **http://localhost:8080**
 
-## Docker
+## Features
 
-```bash
-docker compose up setup-ui --build
-```
+- 🧙 Multi-step configuration wizard
+- 🔍 Plex connectivity detection (domain → LAN → localhost)
+- 🔐 TLS/HTTPS support via `SETUP_UI_CERT_FILE` / `SETUP_UI_KEY_FILE`
+- 🚦 Rate limiting (100 req/15 min per IP)
+- 🔄 Auto port fallback if default port is busy
 
 ## Environment Variables
 
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `SETUP_UI_PORT` | `8080` | Server port |
-| `SETUP_UI_FIRST_RUN` | `false` | Force first-run experience |
-| `CONFIG_PATH` | `/config/config.json` | Config file location |
-| `PUID` | `1000` | Default user ID |
-| `PGID` | `1000` | Default group ID |
-| `TZ` | `America/Los_Angeles` | Default timezone |
+| `SETUP_UI_FIRST_RUN` | `false` | Force OOBE mode |
+| `PLEX_DOMAIN` | - | Custom domain for Plex |
+| `PLEX_LAN_HOST` | - | NAS IP for LAN checks |
+| `SETUP_UI_CERT_FILE` | - | TLS certificate path |
+| `SETUP_UI_KEY_FILE` | - | TLS private key path |
+
+## API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/health` | Health check |
+| GET | `/api/status` | Configuration status |
+| GET | `/api/config` | Current config |
+| POST | `/api/config` | Save OOBE config |
+| GET | `/api/plex-status` | Check Plex connectivity |
 
 ## Testing OOBE
 
-To re-test the first-run experience:
-
 ```bash
-rm ./appdata/setup-ui/config.json
-docker compose up setup-ui --build
+# Reset first-run state
+rm -f config/config.json
+SETUP_UI_FIRST_RUN=true npm start
 ```
