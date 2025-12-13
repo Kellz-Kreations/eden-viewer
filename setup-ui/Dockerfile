@@ -1,28 +1,12 @@
-FROM python:3.12-slim
+FROM node:20-alpine
 
 WORKDIR /app
 
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
+COPY package*.json ./
+RUN npm ci --only=production
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends openssl ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
+COPY . .
 
-RUN addgroup --system app && adduser --system --ingroup app app
+EXPOSE 3000
 
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
-
-COPY app.py ./
-COPY templates ./templates
-COPY static ./static
-COPY entrypoint.sh ./entrypoint.sh
-RUN chmod +x ./entrypoint.sh
-
-ENV PORT=8080
-EXPOSE 8080
-
-USER app
-
-CMD ["./entrypoint.sh"]
+CMD ["node", "server.js"]

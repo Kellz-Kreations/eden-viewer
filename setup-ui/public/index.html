@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eden Viewer - Setup</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; color: #fff; }
+    .container { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
+    .logo { text-align: center; margin-bottom: 40px; }
+    .logo h1 { font-size: 2.5rem; color: #e94560; }
+    .logo p { color: #888; margin-top: 8px; }
+    .card { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 30px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
+    .card h2 { margin-bottom: 20px; font-size: 1.25rem; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; margin-bottom: 8px; color: #ccc; font-size: 0.9rem; }
+    .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; background: rgba(0,0,0,0.3); color: #fff; font-size: 1rem; }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: #e94560; }
+    .btn { background: #e94560; color: #fff; border: none; padding: 14px 28px; border-radius: 8px; font-size: 1rem; cursor: pointer; width: 100%; transition: background 0.2s; }
+    .btn:hover { background: #ff6b6b; }
+    .btn:disabled { background: #555; cursor: not-allowed; }
+    .status { padding: 12px; border-radius: 8px; margin-top: 20px; text-align: center; }
+    .status.success { background: rgba(46, 213, 115, 0.2); color: #2ed573; }
+    .status.error { background: rgba(233, 69, 96, 0.2); color: #e94560; }
+    .step-indicator { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
+    .step { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.2); }
+    .step.active { background: #e94560; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <h1>🎬 Eden Viewer</h1>
+      <p>Media Stack Setup Wizard</p>
+    </div>
+
+    <div class="step-indicator">
+      <div class="step active" id="step1"></div>
+      <div class="step" id="step2"></div>
+      <div class="step" id="step3"></div>
+    </div>
+
+    <div class="card" id="welcome-card">
+      <h2>Welcome to Eden Viewer</h2>
+      <p style="color:#aaa;margin-bottom:20px;">Configure your Plex, Sonarr, and Radarr media stack for Synology DS923+ or Azure deployment.</p>
+      
+      <div class="form-group">
+        <label>Deployment Target</label>
+        <select id="deploymentTarget">
+          <option value="synology">Synology DS923+ (Local)</option>
+          <option value="azure">Azure Container Apps (Remote)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Custom Domain (for HTTPS)</label>
+        <input type="text" id="domain" placeholder="viewer.kellzkreations.com" value="viewer.kellzkreations.com">
+      </div>
+
+      <div class="form-group">
+        <label>PUID (User ID)</label>
+        <input type="text" id="puid" placeholder="1000" value="1000">
+      </div>
+
+      <div class="form-group">
+        <label>PGID (Group ID)</label>
+        <input type="text" id="pgid" placeholder="1000" value="1000">
+      </div>
+
+      <div class="form-group">
+        <label>Timezone</label>
+        <input type="text" id="timezone" placeholder="America/New_York" value="America/New_York">
+      </div>
+
+      <button class="btn" onclick="saveConfig()">Save & Continue</button>
+      <div id="status"></div>
+    </div>
+  </div>
+
+  <script>
+    async function checkStatus() {
+      try {
+        const res = await fetch('/api/status');
+        const data = await res.json();
+        if (data.configured && data.domain) {
+          document.getElementById('domain').value = data.domain;
+        }
+      } catch (e) { console.error(e); }
+    }
+
+    async function saveConfig() {
+      const btn = document.querySelector('.btn');
+      btn.disabled = true;
+      btn.textContent = 'Saving...';
+
+      const config = {
+        domain: document.getElementById('domain').value,
+        puid: document.getElementById('puid').value,
+        pgid: document.getElementById('pgid').value,
+        timezone: document.getElementById('timezone').value,
+        deploymentTarget: document.getElementById('deploymentTarget').value
+      };
+
+      try {
+        const res = await fetch('/api/configure', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(config)
+        });
+        const data = await res.json();
+        
+        const status = document.getElementById('status');
+        if (data.success) {
+          status.className = 'status success';
+          status.textContent = '✓ Configuration saved! Redirecting...';
+          document.getElementById('step2').classList.add('active');
+          setTimeout(() => {
+            window.location.href = `https://${config.domain}`;
+          }, 2000);
+        } else {
+          throw new Error(data.message);
+        }
+      } catch (e) {
+        const status = document.getElementById('status');
+        status.className = 'status error';
+        status.textContent = '✗ ' + e.message;
+        btn.disabled = false;
+        btn.textContent = 'Save & Continue';
+      }
+    }
+
+    checkStatus();
+  </script>
+</body>
+</html>
