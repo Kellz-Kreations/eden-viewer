@@ -135,14 +135,30 @@ PLEX_CLAIM=  # optional; leave blank if not claiming
 
 Reuse your Synology media/appdata backups if desired (`rsync` or `scp`).
 
+> Important: run `docker compose ...` **on the Azure VM** (after SSH), not from your Windows machine.
+> If you see “Found multiple config files… Using compose.yaml”, explicitly pick the file with `-f` and/or delete the one you are not using.
+
 ## 7. Deploy the Stack
+
+From the VM:
 
 ```bash
 cd ~/eden-viewer/azure
-docker compose pull
-docker compose up -d
 
-docker compose ps
+# Pick ONE compose file. If both exist, remove/rename the one you don't want:
+#   rm -f compose.yaml     # if you're using docker-compose.yml
+#   rm -f docker-compose.yml # if you're using compose.yaml
+
+# Always force the env file + compose file to avoid "variable not set" + ":/data" errors:
+docker compose --env-file .env -f docker-compose.yml pull
+docker compose --env-file .env -f docker-compose.yml up -d
+docker compose --env-file .env -f docker-compose.yml ps
+```
+
+If your repo uses `compose.yaml` instead:
+
+```bash
+docker compose --env-file .env -f compose.yaml up -d
 ```
 
 ## 8. Validate
@@ -187,3 +203,30 @@ az group delete --name rg-eden-viewer --yes --no-wait
 ---
 
 For everyday use, stay on the Synology DS923+ stack (direct play, Btrfs snapshots, Hyper Backup). Use this Azure VM guide only when remote hosting is absolutely required.
+
+## UI/UX “Stalled” Checklist (Azure VM)
+
+If the browser spins / times out:
+
+1. **Confirm containers are actually running (on the VM):**
+   ```bash
+   cd ~/eden-viewer/azure
+   docker compose --env-file .env -f docker-compose.yml ps
+   docker compose --env-file .env -f docker-compose.yml logs --tail 200 plex
+   ```
+
+2. **Confirm Plex is listening locally (on the VM):**
+   ```bash
+   curl -I http://127.0.0.1:32400/web
+   ```
+
+3. **Confirm Azure NSG allows inbound 32400 and the VM firewall isn’t blocking:**
+   ```bash
+   sudo ufw status || true
+   sudo ss -lntp | grep 32400 || true
+   ```
+
+4. **Test direct IP before DNS:**
+   - `http://YOUR_PUBLIC_IP:32400/web`
+
+If local `curl` fails, it’s a container/compose/env issue (not DNS). If local works but remote fails, it’s NSG/UFW/routing.

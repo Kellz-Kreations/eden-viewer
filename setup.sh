@@ -32,38 +32,57 @@ elif command -v docker >/dev/null 2>&1 && $SUDO docker compose version >/dev/nul
     COMPOSE_CMD="docker compose"
 fi
 
+# Better error context (line + failing command)
+trap 'echo -e "${RED}Error:${NC} Command failed on line ${BASH_LINENO[0]}: ${BASH_COMMAND}" >&2' ERR
+
 # Usage function
 usage() {
     echo "Usage: $0 [OPTIONS]"
     echo ""
     echo "Options:"
-    echo "  -n, --dry-run    Show what would be done without making changes"
-    echo "  -h, --help       Show this help message"
+    echo "  -n, --dry-run        Show what would be done without making changes"
+    echo "  -y, --yes            Non-interactive; assume 'yes' for prompts"
+    echo "  -h, --help           Show this help message"
+    echo ""
+    echo "Environment overrides:"
+    echo "  STACK_PATH   (default: /volume1/docker/eden-viewer)"
+    echo "  DATA_PATH    (default: /volume1/data)"
+    echo "  APPDATA_PATH (default: /volume1/docker/appdata)"
+    echo "  COMPOSE_FILE (default: compose.yaml)"
     echo ""
     echo "This script sets up the directory structure for Plex, Sonarr, and Radarr"
     echo "on a Synology DS923+ NAS."
 }
 
-# Parse arguments
+# Parse arguments (support multiple flags)
 DRY_RUN=false
-case "$1" in
-    -n|--dry-run)
-        DRY_RUN=true
-        echo -e "${YELLOW}[DRY RUN MODE - No changes will be made]${NC}"
-        echo ""
-        ;;
-    -h|--help)
-        usage
-        exit 0
-        ;;
-    "")
-        ;;
-    *)
-        echo -e "${RED}Unknown option: $1${NC}"
-        usage
-        exit 1
-        ;;
-esac
+ASSUME_YES=false
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -n|--dry-run)
+            DRY_RUN=true
+            shift
+            ;;
+        -y|--yes)
+            ASSUME_YES=true
+            shift
+            ;;
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        *)
+            echo -e "${RED}Unknown option: $1${NC}"
+            usage
+            exit 1
+            ;;
+    esac
+done
+
+if [[ "$DRY_RUN" == true ]]; then
+    echo -e "${YELLOW}[DRY RUN MODE - No changes will be made]${NC}"
+    echo ""
+fi
 
 echo -e "${GREEN}=== Synology Media Stack Setup ===${NC}"
 echo ""
@@ -71,10 +90,16 @@ echo ""
 # Check if running on Synology DSM
 if [[ ! -d "/volume1" ]]; then
     echo -e "${YELLOW}Warning: /volume1 not found. Are you running this on a Synology NAS?${NC}"
-    read -p "Continue anyway? (y/N): " confirm
-    if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
-        echo "Aborted."
-        exit 1
+    if [[ "$DRY_RUN" == true ]]; then
+        echo -e "${YELLOW}Dry-run: continuing without prompt.${NC}"
+    elif [[ "$ASSUME_YES" == true ]]; then
+        echo -e "${YELLOW}Non-interactive (--yes): continuing.${NC}"
+    else
+        read -p "Continue anyway? (y/N): " confirm
+        if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
+            echo "Aborted."
+            exit 1
+        fi
     fi
 fi
 
@@ -90,6 +115,22 @@ if [[ -z "$COMPOSE_CMD" ]]; then
     echo -e "${RED}Error: Docker Compose not found (neither 'docker-compose' nor 'docker compose').${NC}"
     echo "On DSM, ensure the Docker package is up to date in Package Center."
     exit 1
+fi
+
+# Quick UX summary (what will be used)
+echo -e "${GREEN}Config:${NC}"
+echo "  STACK_PATH:   $STACK_PATH"
+echo "  DATA_PATH:    $DATA_PATH"
+echo "  APPDATA_PATH: $APPDATA_PATH"
+echo "  COMPOSE_CMD:  $COMPOSE_CMD"
+echo "  COMPOSE_FILE: $COMPOSE_FILE"
+echo ""
+
+# Helpful hint if compose file likely missing (doesn't block setup)
+if [[ ! -f "$STACK_PATH/$COMPOSE_FILE" && ! -f "./$COMPOSE_FILE" ]]; then
+    echo -e "${YELLOW}Note:${NC} '$COMPOSE_FILE' not found in '$STACK_PATH' or current directory."
+    echo "      If compose lives elsewhere, set COMPOSE_FILE or run from the stack directory."
+    echo ""
 fi
 
 # Create directory structure
@@ -139,7 +180,7 @@ echo ""
 echo "Next steps:"
 echo "  1. Copy project files to: $STACK_PATH"
 echo "  2. Edit .env with your PUID/PGID and timezone"
-echo "  3. Deploy: cd $STACK_PATH && $SUDO $COMPOSE_CMD --env-file .env -f $COMPOSE_FILE up -d"
-echo "  4. Verify: $SUDO $COMPOSE_CMD --env-file .env -f $COMPOSE_FILE ps"
+echo "  3. Deploy: cd \"$STACK_PATH\" && $SUDO $COMPOSE_CMD --env-file .env -f \"$COMPOSE_FILE\" up -d"
+echo "  4. Verify: $SUDO $COMPOSE_CMD --env-file .env -f \"$COMPOSE_FILE\" ps"
 echo ""
 echo -e "${YELLOW}Reminder: Regularly back up $APPDATA_PATH using Hyper Backup or Btrfs snapshots.${NC}"
