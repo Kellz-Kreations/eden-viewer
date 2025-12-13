@@ -29,4 +29,57 @@
 - Always reference `.env` variables for PUID/PGID/TZ and Synology path mappings (`/volume1/data`, `/volume1/docker/appdata`).
 - Reinforce VPN + TLS requirements for Sonarr/Radarr when remote access is mentioned.
 - Link to detailed steps in `azure/README.md`, `docs/synology-setup.md`, and setup UI docs after they are updated with TLS workflows.
+- Use clear, concise language suitable for users with moderate technical skills familiar with Docker and Synology DSM.
+- Encourage best practices around security, backups, and certificate management throughout the documentation.
+- Test generated instructions against both Synology and Azure setups to ensure accuracy and completeness before finalizing.
+- Avoid suggesting any properties other than `name`, `description`, and `applyTo` in the YAML front matter.
+- Set `applyTo` to `**` to ensure the instructions apply to all files in the repository.
+- Provide examples and code snippets where applicable to illustrate configuration steps.
+- Highlight any potential pitfalls or common mistakes users might encounter during TLS setup and how to avoid them.---
+description: This file provides instructions for setting up TLS/HTTPS for the Synology DS923+ and Azure remote deployments of the Eden Viewer media stack.
+applyTo: **Examples: **/*.md, **/azure/**, **/docs/**, **/setup-ui/**
+--- # TLS/HTTPS Setup for Eden Viewer Media Stack
+This document outlines the steps to configure TLS/HTTPS for both Synology DS923+ local deployments and Azure remote deployments of the Eden Viewer media stack, which includes Plex, Sonarr, and Radarr.
+## Table of Contents
+1. [Synology DS923+ Setup](#synology-ds923-setup)
+2. [Azure Remote Deployment Setup](#azure-remote-deployment-setup)
+3. [Plex Ingress Policy](#plex-ingress-policy)
+## Synology DS923+ Setup
+For Synology DS923+ users, we recommend using a reverse proxy to handle HTTPS termination. This allows Plex to continue listening on its default port (32400) for LAN clients while providing secure access over HTTPS.     
+### Steps to Configure HTTPS with Caddy Reverse Proxy
+1. **Set Environment Variables**: In your `.env` file, set the following variables
+
+    ```env
+    PLEX_DOMAIN=yourdomain.com # Your domain pointing to your NAS public IP
+
+2. **Port Forwarding**: Ensure that ports 80 and 443 are forwarded to your NAS or are accessible via a VPN/reverse-proxy appliance that supports ACME HTTP-01 validation.
+3. **Create Caddy Data Directory**: Ensure the directory `/volume1/docker/appdata/caddy` exists to store certificates persistently.
+4. **Deploy the Stack**: Use Docker Compose or Synology Container Manager to deploy the stack with the new `plex-proxy` service.
+### Accessing Services Remotely
+- Use `https://<PLEX_DOMAIN>` for Plex access over HTTPS.
+- For Sonarr and Radarr, we strongly recommend using a VPN (e.g., Tailscale, Synology VPN Server) for secure remote access.
+## Azure Remote Deployment Setup
+Azure Container Apps provide built-in HTTPS endpoints for your services. You can use Azure-managed certificates or bring your own certificates for custom domains.
+### Configuring HTTPS in Azure
+1. **Custom Domain Setup**: Bind your custom domain to the Azure Container App services.
+2. **Certificate Options**:
+   - Use Azure-managed certificates for automatic provisioning.
+   - Use Azure Key Vault to manage your own certificates.
+   - Manually upload PEM files if preferred.
+3. **Mounting Certificates**: Use the `SETUP_UI_CERT_FILE` and `SETUP_UI_KEY_FILE` environment variables to mount your certificates into the setup UI container.
+### Storage Account HTTPS Enforcement
+Ensure that your Azure Storage Accounts enforce HTTPS by setting `supportsHttpsTrafficOnly = true` and `minimumTlsVersion = TLS1_2`.  
+## Plex Ingress Policy
+By default, the Azure Container Apps configuration allows insecure HTTP traffic to maintain compatibility with legacy Plex clients. However, for enhanced security, you can disable this by setting `allowInsecure: false` in your ingress configuration. This will enforce HTTPS-only access to your Plex service.  
+### Recommendations   
+- For testing and lab environments, you may keep HTTP enabled.
+- For production environments, especially when exposing services to the internet, it is recommended to disable HTTP access once HTTPS is confirmed to be working correctly.
+- Always back up your configuration and data before making changes to TLS or reverse proxy settings.
+- Refer to the detailed setup guides in `azure/README.md` and `docs/synology-setup.md` for more information on configuring your specific environment.
+- Stay updated with best practices for security and certificate management to ensure a safe media streaming experience.
+- Happy streaming!
+-- The Eden Viewer Team
+---
+description: This file provides instructions for setting up TLS/HTTPS for the Synology DS923+ and Azure remote deployments of the Eden Viewer media stack.
+applyTo: ** Examples: **/*.md, **/azure/**, **/docs/**, **/setup-ui/**
 
