@@ -44,3 +44,10 @@ appdata/**/*.db-journal
 *.db-wal
 *.db-shm
 *.db-journal
+
+# Application data (runtime artifacts)
+appdata/
+
+# SQLite artifacts
+*.db-wal
+*.db-shm
