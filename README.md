@@ -232,10 +232,75 @@ Media backups depend on your capacity and recovery plan.
 - Limit concurrent streams in Plex
 - Avoid transcoding when possible
 
+## Testing Your Setup
+
+### 1. Verify containers are running
+
+```bash
+ssh your-user@NAS_IP
+cd /volume1/docker/eden-viewer
+sudo docker-compose ps
+```
+
+Expected output:
+```
+NAME      STATUS         PORTS
+plex      Up (healthy)   (host network)
+sonarr    Up             0.0.0.0:8989->8989/tcp
+radarr    Up             0.0.0.0:7878->7878/tcp
+```
+
+### 2. Access from LAN
+
+From any device on your network, open a browser:
+
+| Service | URL                          | First-Time Setup |
+|---------|------------------------------|------------------|
+| Plex    | `http://NAS_IP:32400/web`    | Link Plex account, add libraries |
+| Sonarr  | `http://NAS_IP:8989`         | Set authentication (Settings → General) |
+| Radarr  | `http://NAS_IP:7878`         | Set authentication (Settings → General) |
+
+> **⚠️ Important:** Configure authentication in Sonarr/Radarr immediately—they have no auth by default.
+
+### 3. Test media paths
+
+In Sonarr/Radarr, verify the `/data` mount:
+- Go to **Settings → Media Management**
+- Add root folder: `/data/media/tv` (Sonarr) or `/data/media/movies` (Radarr)
+
+In Plex:
+- Add library pointing to `/data/media/movies` or `/data/media/tv`
+
+## Remote Access
+
+### Option 1: Synology VPN (Recommended)
+
+Securely access all services from anywhere:
+
+1. **DSM → Package Center → Install VPN Server**
+2. Configure OpenVPN or L2TP/IPSec
+3. Connect from your phone/laptop via VPN client
+4. Access services using LAN URLs
+
+### Option 2: Plex Remote Access (Plex Only)
+
+Plex has built-in secure streaming:
+
+1. Plex → **Settings → Remote Access**
+2. Enable and allow port 32400 through your router
+3. Stream from `https://app.plex.tv` anywhere
+
+### ❌ Not Recommended
+
+- Exposing Sonarr/Radarr ports directly to internet
+- Port forwarding without authentication/TLS
+
 ## Troubleshooting
 
-| Issue | Solution |
-|-------|----------|
-| Permission denied | Verify PUID/PGID match your user |
-| Container won't start | Check logs: `docker-compose logs [service]` |
-| Plex not finding media | Verify volume mounts and folder permissions |
+| Issue | Command / Solution |
+|-------|-------------------|
+| Container not starting | `sudo docker-compose logs [service]` |
+| Permission denied | Verify PUID/PGID: `id $(whoami)` |
+| Can't reach UI | Check firewall: DSM → Control Panel → Security → Firewall |
+| Plex not finding media | Verify path: `sudo docker exec plex ls /data/media` |
+| Port already in use | `sudo netstat -tlnp \| grep [port]` |
