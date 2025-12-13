@@ -74,7 +74,7 @@ URLs will be displayed at the end, like:
 ### Storage Shares
 - `appdata` (100 GB) - Application configs for Plex/Sonarr/Radarr
 - `media` (1 TB) - Your movies and TV shows
-- `transcode` (50 GB) - Temporary transcoding files
+- `transcode` (100 GB) - Temporary transcoding files (Premium shares require a minimum quota)
 
 ### Container Apps
 All with persistent storage mounted:

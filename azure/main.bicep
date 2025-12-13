@@ -82,7 +82,8 @@ resource transcodeShare 'Microsoft.Storage/storageAccounts/fileServices/shares@2
   parent: fileServices
   name: 'transcode'
   properties: {
-    shareQuota: 50
+    // Premium Azure Files shares require a minimum quota; keep this at 100GB to avoid ARM deployment failures.
+    shareQuota: 100
     enabledProtocols: 'SMB'
   }
 }
