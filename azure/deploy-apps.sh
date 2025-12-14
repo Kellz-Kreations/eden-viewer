@@ -32,6 +32,23 @@ read -p "Enter choice (1-4): " choice
 
 deploy_plex() {
     echo "🎬 Deploying Plex..."
+    
+    # Check for claim token
+    if [ -z "$PLEX_CLAIM" ]; then
+        echo ""
+        echo "⚠️  PLEX_CLAIM not set. For first-time setup:"
+        echo "   1. Go to https://www.plex.tv/claim/"
+        echo "   2. Copy the token (expires in 4 minutes)"
+        echo "   3. Run: export PLEX_CLAIM=claim-xxxxxxxxxxxx"
+        echo "   4. Re-run this script"
+        echo ""
+        read -p "Continue without claim token? (y/N): " proceed
+        if [ "$proceed" != "y" ] && [ "$proceed" != "Y" ]; then
+            echo "Aborted."
+            return 1
+        fi
+    fi
+    
     az containerapp create \
         --name plex \
         --resource-group "$RESOURCE_GROUP" \
@@ -45,7 +62,8 @@ deploy_plex() {
             PUID=1000 \
             PGID=1000 \
             TZ=America/Chicago \
-            VERSION=docker
+            VERSION=docker \
+            PLEX_CLAIM="${PLEX_CLAIM:-}"
     
     echo "✅ Plex deployed"
 }

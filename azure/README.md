@@ -119,6 +119,44 @@ sudo rm -rf /srv/eden-viewer/appdata/plex
 # Get new token, update .env, then: docker compose up -d
 ```
 
+### Container Apps Claim Process
+
+When using Azure Container Apps (Bicep deployment), the claim token is passed as a secret:
+
+```powershell
+# 1. Get a fresh claim token from https://www.plex.tv/claim/
+# 2. Deploy with the token (expires in 4 minutes!)
+
+az deployment group create \
+  --resource-group eden-viewer-rg \
+  --template-file main.bicep \
+  --parameters plexClaimToken="claim-xxxxxxxxxxxx"
+```
+
+Or update an existing Plex container app:
+
+```powershell
+# Update the PLEX_CLAIM secret and restart
+az containerapp secret set \
+  --resource-group eden-viewer-rg \
+  --name plex \
+  --secrets plex-claim="claim-xxxxxxxxxxxx"
+
+az containerapp revision restart \
+  --resource-group eden-viewer-rg \
+  --name plex
+
+# Verify claim status
+curl -s https://plex.<region>.azurecontainerapps.io/identity | grep claimed
+```
+
+If you see `claimed="0"` after deployment, delete the Plex config and redeploy:
+
+```powershell
+# Clear Plex config from Azure Files share (via Azure Portal or CLI)
+# Then redeploy with a fresh claim token
+```
+
 ## 7. Retrieve Project Files & Configure
 
 ```bash

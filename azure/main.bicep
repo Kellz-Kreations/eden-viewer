@@ -4,6 +4,10 @@ param namePrefix string = 'mediastack'
 @description('Location for all resources')
 param location string = resourceGroup().location
 
+@description('Plex claim token for initial server setup (get from plex.tv/claim, expires in 4 min)')
+@secure()
+param plexClaimToken string = ''
+
 @description('Container Apps Environment name')
 param environmentName string = '${namePrefix}-env'
 
@@ -137,6 +141,12 @@ resource plexApp 'Microsoft.App/containerApps@2023-05-01' = {
   properties: {
     environmentId: environment.id
     configuration: {
+      secrets: [
+        {
+          name: 'plex-claim'
+          value: plexClaimToken
+        }
+      ]
       ingress: {
         external: true
         targetPort: 32400
@@ -165,6 +175,10 @@ resource plexApp 'Microsoft.App/containerApps@2023-05-01' = {
             {
               name: 'VERSION'
               value: 'docker'
+            }
+            {
+              name: 'PLEX_CLAIM'
+              secretRef: 'plex-claim'
             }
           ]
           resources: {
