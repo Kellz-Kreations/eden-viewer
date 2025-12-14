@@ -198,49 +198,48 @@
         checkPlexOnLoad();
     }
     async function launchPlex() {
-        const btn = document.getElementById('launchPlexBtn');
+        const btn = document.getElementById('launchPlexBtn') || event.target;
+        const originalText = btn.textContent;
         btn.disabled = true;
         btn.textContent = '🔍 Checking...';
-        
+
         try {
             const res = await fetch('/api/plex-status');
             const data = await res.json();
             
-            console.log('Plex status:', data); // Debug
-            
             if (!data.online) {
+                alert('⚠️ Plex is not running.\n\nStart your Docker stack or check Azure Container Apps.\n\nYou can also visit https://app.plex.tv to manage your servers.');
                 btn.disabled = false;
-                btn.textContent = '🎬 Launch Plex';
-                alert('⚠️ Plex is not running.\n\nStart the Docker stack first, or visit https://app.plex.tv');
+                btn.textContent = originalText;
                 return;
             }
-            
+
             if (data.online && !data.claimed) {
-                btn.disabled = false;
-                btn.textContent = '🎬 Launch Plex';
                 const proceed = confirm(
-                    '⚠️ Plex server is online but NOT CLAIMED.\n\n' +
-                    'You need to claim it with your Plex account.\n\n' +
-                    'Get a claim code from: https://www.plex.tv/claim/\n\n' +
-                    'Open Plex anyway?'
+                    '⚠️ Plex server is online but NOT CLAIMED!\n\n' +
+                    'You must claim it with your Plex account before use.\n\n' +
+                    '1. Go to https://www.plex.tv/claim/\n' +
+                    '2. Copy the claim token (expires in 4 min)\n' +
+                    '3. Redeploy with PLEX_CLAIM env var\n\n' +
+                    'Open Plex anyway to attempt manual claim?'
                 );
-                if (!proceed) return;
+                if (!proceed) {
+                    btn.disabled = false;
+                    btn.textContent = originalText;
+                    return;
+                }
             }
-            
-            // Open Plex URL
+
+            // Open Plex
             const plexUrl = data.url || 'https://app.plex.tv';
-            console.log('Opening:', plexUrl);
             window.open(plexUrl, '_blank');
             
-            btn.disabled = false;
-            btn.textContent = '🎬 Launch Plex';
-            
         } catch (err) {
-            console.error('Plex status error:', err);
-            btn.disabled = false;
-            btn.textContent = '🎬 Launch Plex';
-            alert('❌ Could not check Plex status: ' + err.message);
+            alert('❌ Error checking Plex: ' + err.message);
         }
+        
+        btn.disabled = false;
+        btn.textContent = originalText;
     }
     updateProgress();
     fetch('/api/status').then(r => r.json()).then(d => { if (!d.firstRun) currentStep = 5; updateProgress(); });

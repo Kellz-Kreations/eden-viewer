@@ -299,12 +299,15 @@ app.get('/api/plex-status', async (req, res) => {
         const claimed = claimedMatch ? claimedMatch[1] === '1' : false;
         const machineIdMatch = body.match(/machineIdentifier="([^"]+)"/);
         const machineIdentifier = machineIdMatch ? machineIdMatch[1] : null;
+        const versionMatch = body.match(/version="([^"]+)"/);
+        const version = versionMatch ? versionMatch[1] : null;
 
         console.log('  └─ ✅ Plex is running');
         return res.json({
           online: true,
           claimed: claimed,
           machineIdentifier: machineIdentifier,
+          version: version,
           url: successUrl.replace('/identity', '/web'),
           source: candidate.name
         });
