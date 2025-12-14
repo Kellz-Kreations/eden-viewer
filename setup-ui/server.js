@@ -12,7 +12,7 @@ const rateLimit = require('express-rate-limit');
 console.log('');
 console.log('╔══════════════════════════════════════════════════════════════╗');
 console.log('║                    Eden Viewer Setup UI                       ║');
-console.log('║                        v1.0.0                                 ║');
+console.log('║                        v2.0.0                                 ║');
 console.log('╚══════════════════════════════════════════════════════════════╝');
 console.log('');
 

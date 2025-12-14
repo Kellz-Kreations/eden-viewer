@@ -1,6 +1,6 @@
 {
   "name": "eden-viewer-setup-ui",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "description": "OOBE Setup UI for Eden Viewer Media Stack",
   "main": "server.js",
   "scripts": {
