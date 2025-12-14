@@ -81,7 +81,9 @@ async function canResolveHost(urlString, timeoutMs) {
   }
 }
 
-function probeHttpUrl(urlString, timeoutMs) {
+function probeHttpUrl(urlString, timeoutMs, opts = {}) {
+  const { allowInsecureTls = false, maxBytes = 64 * 1024 } = opts;
+
   return new Promise((resolve, reject) => {
     let url;
     try {
@@ -91,28 +93,47 @@ function probeHttpUrl(urlString, timeoutMs) {
       return;
     }
 
-    const lib = url.protocol === 'https:' ? https : http;
+    const isHttps = url.protocol === 'https:';
+    const lib = isHttps ? https : http;
 
-    const req = lib.request(
-      {
-        protocol: url.protocol,
-        hostname: url.hostname,
-        port: url.port,
-        path: url.pathname + url.search,
-        method: 'GET',
-        headers: { Accept: 'application/json' },
-      },
-      (res) => {
+    const requestOptions = {
+      protocol: url.protocol,
+      hostname: url.hostname,
+      port: url.port,
+      path: url.pathname + url.search,
+      method: 'GET',
+      headers: { Accept: 'application/xml,text/xml,*/*' },
+      ...(isHttps ? { rejectUnauthorized: !allowInsecureTls } : {}),
+    };
+
+    let hardTimer;
+
+    const req = lib.request(requestOptions, (res) => {
+      const chunks = [];
+      let size = 0;
+
+      res.on('data', (chunk) => {
+        size += chunk.length;
+        if (size > maxBytes) {
+          const err = new Error('response too large');
+          err.code = 'ERESPONSETOOLARGE';
+          req.destroy(err);
+          return;
+        }
+        chunks.push(chunk);
+      });
+
+      res.on('end', () => {
         clearTimeout(hardTimer);
-        // Drain data so the socket can close cleanly.
-        res.on('data', () => {});
-        res.on('end', () => {
-          resolve({ ok: res.statusCode >= 200 && res.statusCode < 300, status: res.statusCode });
+        resolve({
+          ok: res.statusCode >= 200 && res.statusCode < 300,
+          status: res.statusCode,
+          body: Buffer.concat(chunks).toString('utf8'),
         });
-      }
-    );
+      });
+    });
 
-    const hardTimer = setTimeout(() => {
+    hardTimer = setTimeout(() => {
       const err = new Error('request timed out');
       err.code = 'ETIMEDOUT';
       req.destroy(err);
@@ -205,7 +226,7 @@ app.get('/api/plex-status', async (req, res) => {
 
   // Explicit host override (mostly for diagnostics): /api/plex-status?host=192.168.1.10&port=32400
   if (req.query.host) {
-    const host = String(req.query.host).trim();
+    const host = sanitizeHost(req.query.host);
     if (host) {
       candidates.push({
         label: 'query-host',
@@ -291,9 +312,15 @@ app.get('/api/plex-status', async (req, res) => {
         continue;
       }
 
-      const result = await probeHttpUrl(candidate.identityUrl, perAttemptTimeoutMs);
+      const allowInsecureTls =
+        String(process.env.SETUP_UI_PLEX_INSECURE_TLS || '').toLowerCase() === 'true';
+
+      const result = await probeHttpUrl(candidate.identityUrl, perAttemptTimeoutMs, {
+        allowInsecureTls,
+      });
 
       if (result.ok) {
+        const body = result.body || '';
         // Parse the claimed status from the XML
         const claimedMatch = body.match(/claimed="(\d+)"/);
         const claimed = claimedMatch ? claimedMatch[1] === '1' : false;
@@ -308,8 +335,8 @@ app.get('/api/plex-status', async (req, res) => {
           claimed: claimed,
           machineIdentifier: machineIdentifier,
           version: version,
-          url: successUrl.replace('/identity', '/web'),
-          source: candidate.name
+          url: candidate.webUrl || candidate.identityUrl.replace('/identity', '/web'),
+          source: candidate.label,
         });
       }
 
@@ -455,9 +482,24 @@ app.get('*', (req, res) => {
 
 console.log('[5/7] 🔐 Checking TLS certificate configuration...');
 
-const certFile = process.env.SETUP_UI_CERT_FILE;
-const keyFile = process.env.SETUP_UI_KEY_FILE;
-const hasCerts = certFile && keyFile && fs.existsSync(certFile) && fs.existsSync(keyFile);
+const certFile = (process.env.SETUP_UI_CERT_FILE || '').trim();
+const keyFile = (process.env.SETUP_UI_KEY_FILE || '').trim();
+const wantsTls = Boolean(certFile || keyFile);
+
+if (wantsTls) {
+  if (!certFile || !keyFile) {
+    console.error('❌ Both SETUP_UI_CERT_FILE and SETUP_UI_KEY_FILE must be set.');
+    process.exit(1);
+  }
+  if (!fs.existsSync(certFile) || !fs.existsSync(keyFile)) {
+    console.error('❌ TLS cert/key specified but files do not exist.');
+    console.error(`   CERT: ${certFile}`);
+    console.error(`   KEY:  ${keyFile}`);
+    process.exit(1);
+  }
+}
+
+const hasCerts = wantsTls;
 
 if (hasCerts) {
   console.log(`  ├─ Certificate: ${certFile}`);
@@ -487,7 +529,7 @@ if (addresses.length > 0) {
   console.log('  └─ No external network interfaces found');
 }
 
-console.log('[7/7] 🚀 Starting HTTP server...');
+console.log(`[7/7] 🚀 Starting ${hasCerts ? 'HTTPS' : 'HTTP'} server...`);
 console.log('');
 
 // Start server with fallback to random port if default is in use
@@ -563,3 +605,6 @@ process.on('SIGTERM', () => {
   console.log('👋 Shutting down Eden Viewer Setup UI...');
   process.exit(0);
 });
+
+// Update version constant
+const VERSION = '3.0.0';

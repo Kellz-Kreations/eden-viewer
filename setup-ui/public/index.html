@@ -142,66 +142,98 @@
     }
     function nextStep() { if (currentStep < totalSteps) { currentStep++; updateProgress(); } }
     function prevStep() { if (currentStep > 1) { currentStep--; updateProgress(); } }
-    async function saveConfig() {
-      const config = {
-        dataPath: document.getElementById('dataPath').value,
-        appdataPath: document.getElementById('appdataPath').value,
-        plexClaim: document.getElementById('plexClaim').value,
-        puid: document.getElementById('puid').value,
-        pgid: document.getElementById('pgid').value,
-        tz: document.getElementById('tz').value,
+    function collectConfig() {
+      return {
+        dataPath: document.getElementById('dataPath')?.value,
+        appdataPath: document.getElementById('appdataPath')?.value,
+        plexClaim: document.getElementById('plexClaim')?.value,
+        puid: document.getElementById('puid')?.value,
+        pgid: document.getElementById('pgid')?.value,
+        tz: document.getElementById('tz')?.value,
         services: {
-          plex: document.getElementById('svc-plex').checked,
-          sonarr: document.getElementById('svc-sonarr').checked,
-          radarr: document.getElementById('svc-radarr').checked
+          plex: document.getElementById('svc-plex')?.checked,
+          sonarr: document.getElementById('svc-sonarr')?.checked,
+          radarr: document.getElementById('svc-radarr')?.checked
         }
       };
+    }
+    async function saveConfig() {
       try {
-        await fetch('/api/config', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(config) });
+        await fetch('/api/config', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(collectConfig())
+        });
         nextStep();
       } catch (e) { alert('Error saving config: ' + e.message); }
     }
+    function setLaunchButtonsDisabled(disabled) {
+      document.querySelectorAll('[id="launchPlexBtn"]').forEach((btn) => {
+      btn.disabled = disabled;
+      });
+    }
     let plexUrl = null;
     async function checkPlexOnLoad() {
-        const statusText = document.getElementById('plexStatusText');
-        const launchBtn = document.getElementById('launchPlexBtn');
-        const claimSection = document.getElementById('claimSection');
-        
-        try {
-            const res = await fetch('/api/plex-status');
-            const data = await res.json();
-            
-            if (data.online && data.claimed) {
-                statusText.innerHTML = '✅ Plex is online and claimed!';
-                statusText.style.color = '#27ae60';
-                launchBtn.disabled = false;
-                plexUrl = data.url;
-                claimSection.style.display = 'none';
-            } else if (data.online && !data.claimed) {
-                statusText.innerHTML = '⚠️ Plex is online but NOT claimed';
-                statusText.style.color = '#f39c12';
-                launchBtn.disabled = true;
-                claimSection.style.display = 'block';
-            } else {
-                statusText.innerHTML = '❌ Plex is offline';
-                statusText.style.color = '#e74c3c';
-                launchBtn.disabled = true;
-            }
-        } catch (err) {
-            statusText.innerHTML = '❌ Could not connect to Plex';
-            statusText.style.color = '#e74c3c';
-            launchBtn.disabled = true;
+      const statusText = document.getElementById('plexStatusText');
+      const claimSection = document.getElementById('claimSection');
+      const claimStatus = document.getElementById('plexClaimStatus');
+      const notClaimedBox = document.getElementById('plexNotClaimed');
+      const offlineMsg = document.getElementById('plexOfflineMsg');
+
+      try {
+        const res = await fetch('/api/plex-status');
+        const data = await res.json();
+
+        if (data.online && data.claimed) {
+          statusText.innerHTML = '✅ Plex is online and claimed!';
+          statusText.style.color = '#27ae60';
+          setLaunchButtonsDisabled(false);
+          plexUrl = data.url;
+          if (claimSection) claimSection.style.display = 'none';
+        } else if (data.online && !data.claimed) {
+          statusText.innerHTML = '⚠️ Plex is online but NOT claimed';
+          statusText.style.color = '#f39c12';
+          setLaunchButtonsDisabled(true);
+          if (claimSection) claimSection.style.display = 'block';
+        } else {
+          statusText.innerHTML = '❌ Plex is offline';
+          statusText.style.color = '#e74c3c';
+          setLaunchButtonsDisabled(true);
+          if (claimSection) claimSection.style.display = 'none';
         }
+
+        if (claimStatus) {
+          claimStatus.innerHTML = data.online
+          ? (data.claimed ? '<p>✅ Plex is online and claimed.</p>' : '<p>⚠️ Plex is online but not claimed.</p>')
+          : '<p>❌ Plex is offline.</p>';
+        }
+        if (offlineMsg) offlineMsg.style.display = data.online ? 'none' : 'block';
+        if (notClaimedBox) notClaimedBox.style.display = (data.online && !data.claimed) ? 'block' : 'none';
+
+        return data;
+      } catch (err) {
+        statusText.innerHTML = '❌ Could not connect to Plex';
+        statusText.style.color = '#e74c3c';
+        setLaunchButtonsDisabled(true);
+        if (claimStatus) {
+          claimStatus.innerHTML = '<p>❌ Could not connect to Plex.</p>';
+        }
+        if (offlineMsg) offlineMsg.style.display = 'block';
+        if (notClaimedBox) notClaimedBox.style.display = 'none';
+        return null;
+      }
     }
     function recheckPlex() {
         document.getElementById('plexStatusText').innerHTML = '🔍 Checking...';
         checkPlexOnLoad();
     }
-    async function launchPlex() {
-        const btn = document.getElementById('launchPlexBtn') || event.target;
-        const originalText = btn.textContent;
-        btn.disabled = true;
-        btn.textContent = '🔍 Checking...';
+    async function launchPlex(event) {
+        const btn = event?.target || document.querySelector('[id="launchPlexBtn"]');
+        const originalText = btn ? btn.textContent : '';
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = '🔍 Checking...';
+        }
 
         try {
             const res = await fetch('/api/plex-status');
@@ -209,8 +241,10 @@
             
             if (!data.online) {
                 alert('⚠️ Plex is not running.\n\nStart your Docker stack or check Azure Container Apps.\n\nYou can also visit https://app.plex.tv to manage your servers.');
-                btn.disabled = false;
-                btn.textContent = originalText;
+                if (btn) {
+                  btn.disabled = false;
+                  btn.textContent = originalText;
+                }
                 return;
             }
 
@@ -224,8 +258,10 @@
                     'Open Plex anyway to attempt manual claim?'
                 );
                 if (!proceed) {
+                  if (btn) {
                     btn.disabled = false;
                     btn.textContent = originalText;
+                  }
                     return;
                 }
             }
@@ -238,9 +274,38 @@
             alert('❌ Error checking Plex: ' + err.message);
         }
         
-        btn.disabled = false;
-        btn.textContent = originalText;
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = originalText;
+        }
     }
+      async function checkPlexStatus() {
+        return checkPlexOnLoad();
+      }
+      async function updateClaimCode() {
+        const code = (document.getElementById('claimCodeInput')?.value || document.getElementById('newClaimCode')?.value || '').trim();
+        if (!code) {
+          alert('Enter a Plex claim code first.');
+          return;
+        }
+
+        const plexClaim = document.getElementById('plexClaim');
+        if (plexClaim) plexClaim.value = code;
+
+        const config = collectConfig();
+        config.plexClaim = code;
+
+        try {
+          await fetch('/api/config', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(config)
+          });
+          alert('Saved claim code to config. Redeploy with PLEX_CLAIM to link Plex.');
+        } catch (e) {
+          alert('Failed to save claim code: ' + e.message);
+        }
+      }
     updateProgress();
     fetch('/api/status').then(r => r.json()).then(d => { if (!d.firstRun) currentStep = 5; updateProgress(); });
     checkPlexStatus();
