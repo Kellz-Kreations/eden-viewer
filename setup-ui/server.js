@@ -8,15 +8,17 @@ const dns = require('dns').promises;
 const net = require('net');
 const rateLimit = require('express-rate-limit');
 
+const VERSION = '3.0.0';
+
 // Startup banner
 console.log('');
 console.log('╔══════════════════════════════════════════════════════════════╗');
-console.log('║                    Eden Viewer Setup UI                       ║');
-console.log('║                        v2.0.0                                 ║');
+console.log('║                      Eden Viewer Setup UI                    ║');
+console.log(`║                        Version ${VERSION.padEnd(9)}║`);
 console.log('╚══════════════════════════════════════════════════════════════╝');
 console.log('');
 
-console.log('[1/7] 🔧 Loading environment configuration...');
+console.log('[1/7] Loading environment configuration...');
 const repoRoot = (() => {
   const explicit = (process.env.SETUP_UI_REPO_ROOT || '').trim();
   if (explicit) return explicit;
@@ -31,7 +33,7 @@ require('dotenv').config({ path: envPath });
 
 const CONFIG_PATH = process.env.CONFIG_PATH || path.join(__dirname, 'config', 'config.json');
 
-console.log('[2/7] 📦 Initializing Express application...');
+console.log('[2/7] Initializing Express application...');
 const app = express();
 const PORT = process.env.SETUP_UI_PORT || 8080;
 
@@ -152,7 +154,7 @@ function probeHttpUrl(urlString, timeoutMs, opts = {}) {
   });
 }
 
-console.log('[3/7] ⚙️  Configuring middleware...');
+console.log('[3/7] Configuring middleware...');
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -174,7 +176,7 @@ function isFirstRun() {
   }
 }
 
-console.log('[4/7] 🛤️  Registering API routes...');
+console.log('[4/7] Registering API routes...');
 
 // API: Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -308,7 +310,7 @@ app.get('/api/plex-status', async (req, res) => {
           code: 'ENOTFOUND',
           url: candidate.identityUrl,
         };
-        console.log('  └─ ❌ Plex not reachable: DNS lookup failed (ENOTFOUND)');
+        console.log('  └─ Plex not reachable: DNS lookup failed (ENOTFOUND).');
         continue;
       }
 
@@ -329,7 +331,7 @@ app.get('/api/plex-status', async (req, res) => {
         const versionMatch = body.match(/version="([^"]+)"/);
         const version = versionMatch ? versionMatch[1] : null;
 
-        console.log('  └─ ✅ Plex is running');
+        console.log('  └─ Plex is running.');
         return res.json({
           online: true,
           claimed: claimed,
@@ -345,7 +347,7 @@ app.get('/api/plex-status', async (req, res) => {
         status: result.status,
         url: candidate.identityUrl,
       };
-      console.log(`  └─ ⚠️ Plex responded with status ${result.status}`);
+      console.log(`  └─ Plex responded with status ${result.status}.`);
     } catch (error) {
       // Node fetch errors can be opaque; expose cause codes when available.
       const code = error && error.code ? error.code : undefined;
@@ -354,7 +356,7 @@ app.get('/api/plex-status', async (req, res) => {
         code,
         url: candidate.identityUrl,
       };
-      console.log(`  └─ ❌ Plex not reachable: ${lastError.message}${code ? ` (${code})` : ''}`);
+      console.log(`  └─ Plex not reachable: ${lastError.message}${code ? ` (${code})` : ''}.`);
     }
   }
 
@@ -456,10 +458,10 @@ DEPLOYMENT_TARGET=${deploymentTarget || 'synology'}
 
   try {
     fs.writeFileSync(envPath, envContent);
-    console.log(`  └─ ✅ Configuration saved to ${envPath}`);
+    console.log(`  └─ Configuration saved to ${envPath}.`);
     res.json({ success: true, message: 'Configuration saved' });
   } catch (error) {
-    console.error(`  └─ ❌ Failed to save configuration: ${error.message}`);
+    console.error(`  └─ Failed to save configuration: ${error.message}`);
     res.status(500).json({ success: false, message: error.message });
   }
 });
@@ -480,7 +482,7 @@ app.get('*', (req, res) => {
   }
 });
 
-console.log('[5/7] 🔐 Checking TLS certificate configuration...');
+console.log('[5/7] Checking TLS certificate configuration...');
 
 const certFile = (process.env.SETUP_UI_CERT_FILE || '').trim();
 const keyFile = (process.env.SETUP_UI_KEY_FILE || '').trim();
@@ -488,11 +490,11 @@ const wantsTls = Boolean(certFile || keyFile);
 
 if (wantsTls) {
   if (!certFile || !keyFile) {
-    console.error('❌ Both SETUP_UI_CERT_FILE and SETUP_UI_KEY_FILE must be set.');
+    console.error('Both SETUP_UI_CERT_FILE and SETUP_UI_KEY_FILE must be set.');
     process.exit(1);
   }
   if (!fs.existsSync(certFile) || !fs.existsSync(keyFile)) {
-    console.error('❌ TLS cert/key specified but files do not exist.');
+    console.error('TLS cert/key is specified but the files do not exist.');
     console.error(`   CERT: ${certFile}`);
     console.error(`   KEY:  ${keyFile}`);
     process.exit(1);
@@ -529,7 +531,7 @@ if (addresses.length > 0) {
   console.log('  └─ No external network interfaces found');
 }
 
-console.log(`[7/7] 🚀 Starting ${hasCerts ? 'HTTPS' : 'HTTP'} server...`);
+console.log(`[7/7] Starting ${hasCerts ? 'HTTPS' : 'HTTP'} server...`);
 console.log('');
 
 // Start server with fallback to random port if default is in use
@@ -540,10 +542,10 @@ function startServer(port, retryWithRandom = true) {
 
   server.on('error', (err) => {
     if (err.code === 'EADDRINUSE' && retryWithRandom) {
-      console.log(`⚠️  Port ${port} is in use, trying random port...`);
+      console.log(`Port ${port} is in use. Retrying with a random port.`);
       startServer(0, false); // 0 = let OS assign random available port
     } else {
-      console.error(`❌ Failed to start server: ${err.message}`);
+      console.error(`Failed to start the server: ${err.message}`);
       process.exit(1);
     }
   });
@@ -558,7 +560,7 @@ startServer(PORT);
 
 function printStartupComplete(protocol, port, addresses) {
   console.log('╔══════════════════════════════════════════════════════════════╗');
-  console.log('║                    ✅ Server Ready                           ║');
+  console.log('║                     Server Ready                             ║');
   console.log('╠══════════════════════════════════════════════════════════════╣');
   console.log(`║  Protocol:  ${protocol.toUpperCase().padEnd(48)}║`);
   console.log(`║  Port:      ${port.toString().padEnd(48)}║`);
@@ -579,10 +581,10 @@ function printStartupComplete(protocol, port, addresses) {
   console.log('╠══════════════════════════════════════════════════════════════╣');
   
   if (protocol === 'http') {
-    console.log('║  ⚠️  Running without TLS - Set SETUP_UI_CERT_FILE and        ║');
-    console.log('║     SETUP_UI_KEY_FILE environment variables for HTTPS       ║');
+    console.log('║  Warning: TLS is disabled. Set SETUP_UI_CERT_FILE and        ║');
+    console.log('║           SETUP_UI_KEY_FILE to enable HTTPS.                ║');
   } else {
-    console.log('║  🔒 TLS enabled - Connection is secure                       ║');
+    console.log('║  TLS is enabled. All connections are encrypted.             ║');
   }
   
   console.log('╚══════════════════════════════════════════════════════════════╝');
@@ -594,17 +596,14 @@ function printStartupComplete(protocol, port, addresses) {
 // Graceful shutdown
 process.on('SIGINT', () => {
   console.log('');
-  console.log('🛑 Received SIGINT signal');
-  console.log('👋 Shutting down Eden Viewer Setup UI...');
+  console.log('Received SIGINT (Ctrl+C).');
+  console.log('Stopping Eden Viewer Setup UI.');
   process.exit(0);
 });
 
 process.on('SIGTERM', () => {
   console.log('');
-  console.log('🛑 Received SIGTERM signal');
-  console.log('👋 Shutting down Eden Viewer Setup UI...');
+  console.log('Received SIGTERM.');
+  console.log('Stopping Eden Viewer Setup UI.');
   process.exit(0);
 });
-
-// Update version constant
-const VERSION = '3.0.0';

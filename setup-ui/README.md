@@ -1,13 +1,23 @@
 # Setup UI
 
-A lightweight onboarding helper that renders the Docker Compose configuration wizard for Synology DS923+ and the optional Azure mirror stack.
+The Setup UI is a lightweight onboarding wizard for the Eden Viewer media stack. It supports Synology DS923+ deployments and the optional Azure mirror stack, and is designed for LAN or VPN access.
 
-- Local dev (`npm start`) defaults to HTTP on port 3000.
-- The Docker image defaults to HTTPS on port 3000 by generating a short-lived self-signed certificate at startup.
+- Local development (`npm start`) listens on HTTP port **8080** by default.
+- The Docker image exposes HTTPS on port **3000** and generates a short-lived self-signed certificate at startup.
 
-The UI is intended for LAN or VPN access only.
+## Run locally with npm
 
-## Quick Start
+```bash
+cd setup-ui
+npm install
+npm start
+```
+
+The server binds to `http://localhost:8080`. If the port is in use, the app selects the next available port and prints the new URL in the startup banner.
+
+Set `SETUP_UI_CERT_FILE` and `SETUP_UI_KEY_FILE` when you want to terminate TLS in-process. The server verifies that both files exist before enabling HTTPS.
+
+## Run with Docker
 
 ```bash
 # Build locally
@@ -21,7 +31,7 @@ docker run --rm \
   eden-setup-ui
 ```
 
-By default the container entrypoint generates a short-lived self-signed certificate for `localhost`. Modern browsers will show a warning because the cert is not trusted.
+The container entry point generates a short-lived self-signed certificate for `localhost`. Modern browsers warn because the certificate is not trusted.
 
 ## Bring Your Own Certificate (Recommended)
 
@@ -39,8 +49,16 @@ docker run --rm \
   eden-setup-ui
 ```
 
-- Both `SETUP_UI_CERT_FILE` and `SETUP_UI_KEY_FILE` must be set. The entrypoint validates the files exist and exits if they are missing.
+- The entrypoint requires both `SETUP_UI_CERT_FILE` and `SETUP_UI_KEY_FILE`. If either file is missing, the container exits with an error.
 - For Azure Container Apps, upload the PEM bundle and key as secrets, mount them into `/certs`, and set the same environment variables via `az containerapp secret set` + `--set-env-vars`.
+
+## npm scripts
+
+| Script | Description |
+|--------|-------------|
+| `npm start` | Runs the production server (`node server.js`). |
+| `npm run dev` | Alias for `npm start`. Useful for local iterative development. |
+| `npm run build` | Performs a syntax check on `server.js`. |
 
 ## Certificate Renewal
 
@@ -67,27 +85,18 @@ When running in Azure, the `azure/smoke-test-azure.ps1` script verifies HTTPS re
 - Rotate certificates before expiry and remove unused secrets from Container Apps.
 - Update `.env` entries (PUID/PGID/TZ) as needed when the setup UI writes files onto shared volumes.
 
-# Eden Viewer Setup UI
 
-Web-based OOBE wizard for configuring the Eden Viewer media stack.
+## Eden Viewer Setup UI
 
-## Quick Start
-
-```bash
-cd setup-ui
-npm install
-npm start
-```
-
-Access at **http://localhost:8080**
+Web-based out-of-box experience (OOBE) wizard for configuring the Eden Viewer media stack.
 
 ## Features
 
 - 🧙 Multi-step configuration wizard
-- 🔍 Plex connectivity detection (domain → LAN → localhost)
-- 🔐 TLS/HTTPS support via `SETUP_UI_CERT_FILE` / `SETUP_UI_KEY_FILE`
-- 🚦 Rate limiting (100 req/15 min per IP)
-- 🔄 Auto port fallback if default port is busy
+- Plex connectivity detection (domain → LAN host → localhost)
+- TLS/HTTPS support through `SETUP_UI_CERT_FILE` / `SETUP_UI_KEY_FILE`
+- Rate limiting (100 requests per 15 minutes per IP)
+- Automatic port fallback if the default port is busy
 
 ## Environment Variables
 
