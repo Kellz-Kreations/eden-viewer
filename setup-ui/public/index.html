@@ -99,21 +99,50 @@
               <p>🔍 Checking Plex server status...</p>
             </div>
             
-            <button id="launchPlexBtnStep5" class="btn btn-primary btn-launch-plex" onclick="launchPlex(event)">
-              🎬 Launch Plex
-            </button>
+            <!-- Cloud/Remote deployment: Use app.plex.tv -->
+            <div id="cloudAccessSection" style="margin: 20px 0; padding: 20px; background: rgba(233,69,96,0.1); border-radius: 12px; border: 1px solid #e94560;">
+              <h3 style="margin-bottom: 15px;">🌐 Access Your Plex Server</h3>
+              <p style="margin-bottom: 15px;">For cloud deployments (Azure, remote servers), access Plex through the official Plex app:</p>
+              
+              <a href="https://app.plex.tv" target="_blank" class="btn btn-primary" style="display: inline-block; text-decoration: none; margin-bottom: 15px;">
+                🎬 Open app.plex.tv
+              </a>
+              
+              <p style="font-size: 0.9rem; opacity: 0.9;">
+                Sign in with your Plex account. Your server will appear in the sidebar once claimed.<br>
+                This bypasses the "local network" requirement that blocks direct access.
+              </p>
+            </div>
             
-            <div id="plexNotClaimed" style="display: none; margin-top: 15px; padding: 15px; background: #fff3cd; border-radius: 8px;">
-              <h4>⚠️ Server Not Claimed</h4>
-              <p>Your Plex server is running but not yet linked to your account.</p>
-              <ol>
-                  <li>Go to <a href="https://www.plex.tv/claim/" target="_blank">plex.tv/claim</a> to get a claim code</li>
-                  <li>The code expires in 4 minutes</li>
-                  <li>Enter the code below:</li>
-              </ol>
-              <input type="text" id="claimCodeInput" placeholder="claim-xxxxxxxxxxxx" style="width: 100%; padding: 10px; margin: 10px 0;">
-              <button class="btn btn-secondary" onclick="updateClaimCode()">Update Claim Code</button>
-              <button class="btn btn-secondary" onclick="checkPlexStatus()">🔄 Refresh Status</button>
+            <div id="plexNotClaimed" style="display: none; margin-top: 15px; padding: 15px; background: #fff3cd; border-radius: 8px; color: #333;">
+              <h4>⚠️ Server Not Yet Claimed</h4>
+              <p style="margin: 10px 0;">Your Plex server is running but needs to be linked to your Plex account.</p>
+              
+              <div style="background: #fff; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <strong>Option 1: Claim via Environment Variable</strong>
+                <ol style="margin: 10px 0 0 20px; text-align: left;">
+                  <li>Go to <a href="https://www.plex.tv/claim/" target="_blank" style="color:#e94560">plex.tv/claim</a></li>
+                  <li>Copy the token (expires in 4 minutes)</li>
+                  <li>Set <code>PLEX_CLAIM=claim-xxx</code> in your environment</li>
+                  <li>Restart the Plex container</li>
+                </ol>
+              </div>
+              
+              <div style="background: #fff; padding: 15px; border-radius: 8px;">
+                <strong>Option 2: Claim via SSH Tunnel (Advanced)</strong>
+                <ol style="margin: 10px 0 0 20px; text-align: left;">
+                  <li>SSH tunnel: <code>ssh -L 32400:localhost:32400 user@server</code></li>
+                  <li>Open <a href="http://localhost:32400/web" target="_blank" style="color:#e94560">localhost:32400/web</a></li>
+                  <li>Sign in with your Plex account</li>
+                </ol>
+              </div>
+              
+              <button class="btn btn-secondary" onclick="checkPlexStatus()" style="margin-top: 15px;">🔄 Refresh Status</button>
+            </div>
+            
+            <div id="plexClaimed" style="display: none; margin-top: 15px; padding: 15px; background: #d4edda; border-radius: 8px; color: #333;">
+              <h4>✅ Server Claimed!</h4>
+              <p>Your Plex server is linked to your account. Access it at <a href="https://app.plex.tv" target="_blank" style="color:#e94560">app.plex.tv</a></p>
             </div>
             
             <p id="plexOfflineMsg" style="display: none; color: #f39c12; margin-top: 10px;">
@@ -122,8 +151,8 @@
             </p>
           </div>
           
-          <p style="opacity:0.8;font-size:0.9rem">
-            Or access services directly:<br>
+          <p style="margin-top: 20px; opacity:0.8; font-size:0.9rem;">
+            Direct service links (local/LAN only):<br>
             <a href="http://localhost:32400/web" target="_blank" style="color:#e94560">Plex :32400</a> · 
             <a href="http://localhost:8989" target="_blank" style="color:#e94560">Sonarr :8989</a> · 
             <a href="http://localhost:7878" target="_blank" style="color:#e94560">Radarr :7878</a>
@@ -209,6 +238,10 @@
         }
         if (offlineMsg) offlineMsg.style.display = data.online ? 'none' : 'block';
         if (notClaimedBox) notClaimedBox.style.display = (data.online && !data.claimed) ? 'block' : 'none';
+        
+        // Show claimed success box
+        const claimedBox = document.getElementById('plexClaimed');
+        if (claimedBox) claimedBox.style.display = (data.online && data.claimed) ? 'block' : 'none';
 
         return data;
       } catch (err) {
