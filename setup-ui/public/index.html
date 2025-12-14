@@ -74,7 +74,7 @@
           <p id="plexStatusText">🔍 Checking Plex status...</p>
         </div>
         
-        <button id="launchPlexBtn" class="btn btn-primary" onclick="launchPlex()">
+        <button id="launchPlexBtnStep4" class="btn btn-primary btn-launch-plex" onclick="launchPlex(event)">
           🎬 Launch Plex
         </button>
         
@@ -99,7 +99,7 @@
               <p>🔍 Checking Plex server status...</p>
             </div>
             
-            <button id="launchPlexBtn" class="btn btn-primary" onclick="launchPlex()">
+            <button id="launchPlexBtnStep5" class="btn btn-primary btn-launch-plex" onclick="launchPlex(event)">
               🎬 Launch Plex
             </button>
             
@@ -168,8 +168,8 @@
       } catch (e) { alert('Error saving config: ' + e.message); }
     }
     function setLaunchButtonsDisabled(disabled) {
-      document.querySelectorAll('[id="launchPlexBtn"]').forEach((btn) => {
-      btn.disabled = disabled;
+      document.querySelectorAll('.btn-launch-plex').forEach((btn) => {
+        btn.disabled = disabled;
       });
     }
     let plexUrl = null;

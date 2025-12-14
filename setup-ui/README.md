@@ -62,7 +62,7 @@ docker run --rm \
 
 ## Certificate Renewal
 
-- Automate renewals with Let’s Encrypt (DNS-01 via Caddy, acme.sh, or Synology’s built-in ACME client). After renewal, restart the container so Gunicorn reads the updated files.
+- Automate renewals with Let's Encrypt (DNS-01 via Caddy, acme.sh, or Synology's built-in ACME client). After renewal, restart the container so Node reads the updated files.
 - Schedule renewals during off-peak hours; certificate generation can briefly spike CPU usage on the DS923+ (Ryzen R1600).
 - Always snapshot or back up `/volume1/docker/appdata/setup-ui/certs` before modifying certificates.
 
@@ -84,11 +84,6 @@ When running in Azure, the `azure/smoke-test-azure.ps1` script verifies HTTPS re
 - Use the same certificate authority (CA) as the rest of your stack to avoid browser trust prompts.
 - Rotate certificates before expiry and remove unused secrets from Container Apps.
 - Update `.env` entries (PUID/PGID/TZ) as needed when the setup UI writes files onto shared volumes.
-
-
-## Eden Viewer Setup UI
-
-Web-based out-of-box experience (OOBE) wizard for configuring the Eden Viewer media stack.
 
 ## Features
 
