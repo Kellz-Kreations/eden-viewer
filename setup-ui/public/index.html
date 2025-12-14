@@ -5,172 +5,739 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eden Viewer Setup</title>
   <style>
+    /* Windows 11 / Fluent 2 Design System */
+    :root {
+      --font-family: "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, sans-serif;
+      --bg-solid: #f3f3f3;
+      --bg-card: #ffffff;
+      --bg-subtle: #f9f9f9;
+      --bg-control: #ffffff;
+      --text-primary: #1a1a1a;
+      --text-secondary: #616161;
+      --text-tertiary: #8a8a8a;
+      --stroke: #e0e0e0;
+      --stroke-control: #d1d1d1;
+      --accent: #0067c0;
+      --accent-hover: #005a9e;
+      --accent-text: #ffffff;
+      --success: #0f7b0f;
+      --success-bg: #dff6dd;
+      --warning: #9d5d00;
+      --warning-bg: #fff4ce;
+      --error: #c42b1c;
+      --error-bg: #fde7e9;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --shadow-card: 0 2px 4px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+      --shadow-elevated: 0 8px 16px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.06);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-solid: #202020;
+        --bg-card: #2d2d2d;
+        --bg-subtle: #252525;
+        --bg-control: #3d3d3d;
+        --text-primary: #ffffff;
+        --text-secondary: #c5c5c5;
+        --text-tertiary: #9a9a9a;
+        --stroke: #3d3d3d;
+        --stroke-control: #4d4d4d;
+        --accent: #60cdff;
+        --accent-hover: #4cc2ff;
+        --accent-text: #000000;
+        --success: #6ccb5f;
+        --success-bg: rgba(108,203,95,0.15);
+        --warning: #fce100;
+        --warning-bg: rgba(252,225,0,0.15);
+        --error: #ff99a4;
+        --error-bg: rgba(255,153,164,0.15);
+        --shadow-card: 0 2px 4px rgba(0,0,0,0.2);
+        --shadow-elevated: 0 8px 16px rgba(0,0,0,0.3);
+      }
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; color: #fff; }
-    .container { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
-    .logo { text-align: center; margin-bottom: 40px; }
-    .logo h1 { font-size: 2.5rem; background: linear-gradient(90deg, #e94560, #0f3460); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .card { background: rgba(255,255,255,0.1); border-radius: 16px; padding: 30px; margin-bottom: 20px; backdrop-filter: blur(10px); }
-    .step { display: none; } .step.active { display: block; }
-    h2 { margin-bottom: 20px; color: #e94560; }
-    .form-group { margin-bottom: 20px; }
-    label { display: block; margin-bottom: 8px; font-weight: 500; }
-    input, select { width: 100%; padding: 12px; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; background: rgba(255,255,255,0.1); color: #fff; font-size: 1rem; }
-    input:focus, select:focus { outline: none; border-color: #e94560; }
-    .checkbox-group { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-    .checkbox-group input { width: auto; }
-    .btn { padding: 14px 28px; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: all 0.3s; }
-    .btn-primary { background: #e94560; color: #fff; } .btn-primary:hover { background: #d63850; }
-    .btn-secondary { background: rgba(255,255,255,0.2); color: #fff; } .btn-secondary:hover { background: rgba(255,255,255,0.3); }
-    .btn-group { display: flex; gap: 10px; justify-content: space-between; margin-top: 30px; }
-    .progress { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
-    .progress-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.3); }
-    .progress-dot.active { background: #e94560; }
-    .success { text-align: center; } .success svg { width: 80px; height: 80px; color: #4ade80; margin-bottom: 20px; }
+    
+    body {
+      font-family: var(--font-family);
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-primary);
+      background: var(--bg-solid);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 48px 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .setup-container {
+      width: 100%;
+      max-width: 580px;
+    }
+
+    /* Header / Branding */
+    .setup-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .setup-header h1 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .setup-header p {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    /* Progress Stepper */
+    .stepper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+
+    .stepper-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--stroke);
+      transition: all 200ms ease;
+    }
+
+    .stepper-dot.active {
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(0,103,192,0.2);
+    }
+
+    .stepper-dot.complete {
+      background: var(--success);
+    }
+
+    .stepper-line {
+      width: 32px;
+      height: 2px;
+      background: var(--stroke);
+      transition: background 200ms ease;
+    }
+
+    .stepper-line.complete {
+      background: var(--success);
+    }
+
+    /* Card */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      padding: 32px;
+    }
+
+    /* Steps */
+    .step { display: none; }
+    .step.active { display: block; }
+
+    .step-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .step-description {
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    /* Form Controls */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .form-group .optional {
+      font-weight: 400;
+      color: var(--text-tertiary);
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      height: 36px;
+      padding: 0 12px;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--text-primary);
+      background: var(--bg-control);
+      border: 1px solid var(--stroke-control);
+      border-radius: var(--radius-sm);
+      transition: border-color 150ms ease, box-shadow 150ms ease;
+    }
+
+    .form-group input:hover,
+    .form-group select:hover {
+      border-color: var(--text-tertiary);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+
+    .form-group .hint {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      margin-top: 4px;
+    }
+
+    .form-group .hint a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .form-group .hint a:hover {
+      text-decoration: underline;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* Checkbox List */
+    .checkbox-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 150ms ease;
+    }
+
+    .checkbox-item:hover {
+      background: var(--bg-control);
+      border-color: var(--stroke-control);
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .checkbox-item .label-text {
+      flex: 1;
+    }
+
+    .checkbox-item .label-text strong {
+      display: block;
+      font-weight: 600;
+    }
+
+    .checkbox-item .label-text span {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 36px;
+      padding: 0 20px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      transition: all 150ms ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--accent-text);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background: var(--bg-control);
+      color: var(--text-primary);
+      border: 1px solid var(--stroke-control);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-subtle);
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    /* Status Boxes */
+    .status-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      margin-bottom: 16px;
+    }
+
+    .status-box.info {
+      background: var(--bg-subtle);
+      border: 1px solid var(--stroke);
+    }
+
+    .status-box.success {
+      background: var(--success-bg);
+      border: 1px solid var(--success);
+      color: var(--success);
+    }
+
+    .status-box.warning {
+      background: var(--warning-bg);
+      border: 1px solid var(--warning);
+      color: var(--warning);
+    }
+
+    .status-box.error {
+      background: var(--error-bg);
+      border: 1px solid var(--error);
+      color: var(--error);
+    }
+
+    .status-box .status-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .status-box .status-content h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .status-box .status-content p {
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    /* Success State */
+    .success-state {
+      text-align: center;
+      padding: 24px 0;
+    }
+
+    .success-state .check-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      background: var(--success-bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--success);
+      font-size: 32px;
+    }
+
+    .success-state h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .success-state p {
+      color: var(--text-secondary);
+    }
+
+    /* Action Card */
+    .action-card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin: 24px 0;
+      text-align: center;
+    }
+
+    .action-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .action-card p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+
+    /* Links Footer */
+    .links-footer {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--stroke);
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+
+    .links-footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .links-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Claim Instructions */
+    .claim-card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin: 12px 0;
+    }
+
+    .claim-card h5 {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .claim-card ol {
+      margin: 0;
+      padding-left: 20px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .claim-card ol li {
+      margin-bottom: 4px;
+    }
+
+    .claim-card code {
+      font-family: "Cascadia Code", "Consolas", monospace;
+      font-size: 12px;
+      background: var(--bg-control);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 24px 16px; }
+      .card { padding: 24px 20px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo"><h1>🎬 Eden Viewer</h1><p>Media Stack Setup</p></div>
-    <div class="progress" id="progress"></div>
+  <div class="setup-container">
+    <div class="setup-header">
+      <h1>Eden Viewer</h1>
+      <p>Media Stack Setup</p>
+    </div>
+
+    <div class="stepper" id="progress"></div>
+
     <div class="card">
       <!-- Step 1: Welcome -->
       <div class="step active" data-step="1">
-        <h2>Welcome!</h2>
-        <p>Let's configure your Eden Viewer media stack. This wizard will guide you through setting up Plex, Sonarr, and Radarr.</p>
-        <p style="margin-top:15px;opacity:0.8">Works with Synology DS923+ and Azure deployments.</p>
-        <div class="btn-group"><div></div><button class="btn btn-primary" onclick="nextStep()">Get Started →</button></div>
-      </div>
-      <!-- Step 2: Paths -->
-      <div class="step" data-step="2">
-        <h2>Storage Paths</h2>
-        <div class="form-group"><label>Media Data Path</label><input type="text" id="dataPath" value="/volume1/data" placeholder="/volume1/data"></div>
-        <div class="form-group"><label>App Data Path</label><input type="text" id="appdataPath" value="/volume1/docker/appdata" placeholder="/volume1/docker/appdata"></div>
-        <div class="form-group">
-          <label>Plex Claim Token (Optional)</label>
-          <input type="text" id="plexClaim" placeholder="claim-xxxxxxxxxxxx">
-          <p style="margin-top:8px;font-size:0.9rem;opacity:0.8">
-            Get your claim token from <a href="https://www.plex.tv/claim/" target="_blank" rel="noopener" style="color:#e94560">plex.tv/claim</a> (valid for 4 minutes)
-          </p>
+        <h2 class="step-title">Welcome</h2>
+        <p class="step-description">Let's set up your media server. This wizard will configure Plex, Sonarr, and Radarr for your environment.</p>
+        
+        <div class="status-box info">
+          <div class="status-icon">💡</div>
+          <div class="status-content">
+            <h4>Supported Platforms</h4>
+            <p>Synology DS923+, Azure Container Apps, or any Docker host.</p>
+          </div>
         </div>
-        <div class="btn-group"><button class="btn btn-secondary" onclick="prevStep()">← Back</button><button class="btn btn-primary" onclick="nextStep()">Next →</button></div>
+
+        <div class="btn-group">
+          <span></span>
+          <button class="btn btn-primary" onclick="nextStep()">Get Started</button>
+        </div>
       </div>
+
+      <!-- Step 2: Storage Paths -->
+      <div class="step" data-step="2">
+        <h2 class="step-title">Storage Paths</h2>
+        <p class="step-description">Configure where your media and application data will be stored.</p>
+
+        <div class="form-group">
+          <label>Media Data Path</label>
+          <input type="text" id="dataPath" value="/volume1/data" placeholder="/volume1/data">
+          <p class="hint">Root folder for movies and TV shows</p>
+        </div>
+
+        <div class="form-group">
+          <label>Application Data Path</label>
+          <input type="text" id="appdataPath" value="/volume1/docker/appdata" placeholder="/volume1/docker/appdata">
+          <p class="hint">Configuration and database storage</p>
+        </div>
+
+        <div class="form-group">
+          <label>Plex Claim Token <span class="optional">(optional)</span></label>
+          <input type="text" id="plexClaim" placeholder="claim-xxxxxxxxxxxx">
+          <p class="hint">Get your token from <a href="https://www.plex.tv/claim/" target="_blank">plex.tv/claim</a> — valid for 4 minutes</p>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+          <button class="btn btn-primary" onclick="nextStep()">Next</button>
+        </div>
+      </div>
+
       <!-- Step 3: Environment -->
       <div class="step" data-step="3">
-        <h2>Environment Settings</h2>
-        <div class="form-group"><label>PUID (User ID)</label><input type="text" id="puid" value="1000"></div>
-        <div class="form-group"><label>PGID (Group ID)</label><input type="text" id="pgid" value="1000"></div>
-        <div class="form-group"><label>Timezone</label><select id="tz"><option value="America/Los_Angeles">America/Los_Angeles</option><option value="America/New_York">America/New_York</option><option value="Europe/London">Europe/London</option><option value="UTC">UTC</option></select></div>
-        <div class="btn-group"><button class="btn btn-secondary" onclick="prevStep()">← Back</button><button class="btn btn-primary" onclick="nextStep()">Next →</button></div>
+        <h2 class="step-title">Environment</h2>
+        <p class="step-description">Set container permissions and timezone.</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>PUID (User ID)</label>
+            <input type="text" id="puid" value="1000">
+            <p class="hint">Run <code>id -u</code> to find yours</p>
+          </div>
+          <div class="form-group">
+            <label>PGID (Group ID)</label>
+            <input type="text" id="pgid" value="1000">
+            <p class="hint">Run <code>id -g</code> to find yours</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Timezone</label>
+          <select id="tz">
+            <option value="America/Los_Angeles">America/Los_Angeles (Pacific)</option>
+            <option value="America/Denver">America/Denver (Mountain)</option>
+            <option value="America/Chicago">America/Chicago (Central)</option>
+            <option value="America/New_York">America/New_York (Eastern)</option>
+            <option value="Europe/London">Europe/London</option>
+            <option value="Europe/Paris">Europe/Paris</option>
+            <option value="Asia/Tokyo">Asia/Tokyo</option>
+            <option value="UTC">UTC</option>
+          </select>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+          <button class="btn btn-primary" onclick="nextStep()">Next</button>
+        </div>
       </div>
+
       <!-- Step 4: Services -->
       <div class="step" data-step="4">
-        <h2>Select Services</h2>
-        <div class="checkbox-group"><input type="checkbox" id="svc-plex" checked><label for="svc-plex">Plex Media Server</label></div>
-        <div class="checkbox-group"><input type="checkbox" id="svc-sonarr" checked><label for="svc-sonarr">Sonarr (TV Shows)</label></div>
-        <div class="checkbox-group"><input type="checkbox" id="svc-radarr" checked><label for="svc-radarr">Radarr (Movies)</label></div>
-        
-        <div id="plexStatusSection" style="margin: 20px 0;">
-          <p id="plexStatusText">🔍 Checking Plex status...</p>
+        <h2 class="step-title">Services</h2>
+        <p class="step-description">Select which services to include in your stack.</p>
+
+        <div class="checkbox-list">
+          <label class="checkbox-item">
+            <input type="checkbox" id="svc-plex" checked>
+            <div class="label-text">
+              <strong>Plex Media Server</strong>
+              <span>Stream your media anywhere</span>
+            </div>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="svc-sonarr" checked>
+            <div class="label-text">
+              <strong>Sonarr</strong>
+              <span>TV show management & automation</span>
+            </div>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="svc-radarr" checked>
+            <div class="label-text">
+              <strong>Radarr</strong>
+              <span>Movie management & automation</span>
+            </div>
+          </label>
         </div>
-        
-        <button id="launchPlexBtnStep4" class="btn btn-primary btn-launch-plex" onclick="launchPlex(event)">
-          🎬 Launch Plex
-        </button>
-        
-        <div id="claimSection" style="display: none; margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 8px;">
-          <h4>⚠️ Server Not Claimed</h4>
-          <p>Get a claim code from <a href="https://www.plex.tv/claim/" target="_blank">plex.tv/claim</a> (expires in 4 min)</p>
-          <input type="text" id="newClaimCode" placeholder="claim-xxxxxxxxxxxx" style="width: 100%; padding: 8px; margin: 10px 0;">
-          <button class="btn btn-secondary" onclick="recheckPlex()">🔄 Check Again</button>
+
+        <div id="plexStatusSection" class="status-box info">
+          <div class="status-icon">🔍</div>
+          <div class="status-content">
+            <p id="plexStatusText">Checking Plex status...</p>
+          </div>
         </div>
-        
-        <div class="btn-group"><button class="btn btn-secondary" onclick="prevStep()">← Back</button><button class="btn btn-primary" onclick="saveConfig()">Complete Setup →</button></div>
+
+        <div id="claimSection" style="display: none;">
+          <div class="status-box warning">
+            <div class="status-icon">⚠️</div>
+            <div class="status-content">
+              <h4>Server Not Claimed</h4>
+              <p>Your Plex server needs to be linked to your account.</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="text" id="newClaimCode" placeholder="claim-xxxxxxxxxxxx">
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <a href="https://www.plex.tv/claim/" target="_blank" class="btn btn-secondary">Get Token</a>
+            <button class="btn btn-secondary" onclick="recheckPlex()">Check Again</button>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+          <button class="btn btn-primary" onclick="saveConfig()">Complete Setup</button>
+        </div>
       </div>
+
       <!-- Step 5: Complete -->
       <div class="step" data-step="5">
-        <div class="success">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          <h2>Setup Complete!</h2>
-          <p>Your Eden Viewer stack is configured and ready to go.</p>
-          
-          <div id="plexLaunchSection">
-            <div id="plexClaimStatus" style="margin-bottom: 15px;">
-              <p>🔍 Checking Plex server status...</p>
-            </div>
-            
-            <!-- Cloud/Remote deployment: Use app.plex.tv -->
-            <div id="cloudAccessSection" style="margin: 20px 0; padding: 20px; background: rgba(233,69,96,0.1); border-radius: 12px; border: 1px solid #e94560;">
-              <h3 style="margin-bottom: 15px;">🌐 Access Your Plex Server</h3>
-              <p style="margin-bottom: 15px;">For cloud deployments (Azure, remote servers), access Plex through the official Plex app:</p>
-              
-              <a href="https://app.plex.tv" target="_blank" class="btn btn-primary" style="display: inline-block; text-decoration: none; margin-bottom: 15px;">
-                🎬 Open app.plex.tv
-              </a>
-              
-              <p style="font-size: 0.9rem; opacity: 0.9;">
-                Sign in with your Plex account. Your server will appear in the sidebar once claimed.<br>
-                This bypasses the "local network" requirement that blocks direct access.
-              </p>
-            </div>
-            
-            <div id="plexNotClaimed" style="display: none; margin-top: 15px; padding: 15px; background: #fff3cd; border-radius: 8px; color: #333;">
-              <h4>⚠️ Server Not Yet Claimed</h4>
-              <p style="margin: 10px 0;">Your Plex server is running but needs to be linked to your Plex account.</p>
-              
-              <div style="background: #fff; padding: 15px; border-radius: 8px; margin: 15px 0;">
-                <strong>Option 1: Claim via Environment Variable</strong>
-                <ol style="margin: 10px 0 0 20px; text-align: left;">
-                  <li>Go to <a href="https://www.plex.tv/claim/" target="_blank" style="color:#e94560">plex.tv/claim</a></li>
-                  <li>Copy the token (expires in 4 minutes)</li>
-                  <li>Set <code>PLEX_CLAIM=claim-xxx</code> in your environment</li>
-                  <li>Restart the Plex container</li>
-                </ol>
-              </div>
-              
-              <div style="background: #fff; padding: 15px; border-radius: 8px;">
-                <strong>Option 2: Claim via SSH Tunnel (Advanced)</strong>
-                <ol style="margin: 10px 0 0 20px; text-align: left;">
-                  <li>SSH tunnel: <code>ssh -L 32400:localhost:32400 user@server</code></li>
-                  <li>Open <a href="http://localhost:32400/web" target="_blank" style="color:#e94560">localhost:32400/web</a></li>
-                  <li>Sign in with your Plex account</li>
-                </ol>
-              </div>
-              
-              <button class="btn btn-secondary" onclick="checkPlexStatus()" style="margin-top: 15px;">🔄 Refresh Status</button>
-            </div>
-            
-            <div id="plexClaimed" style="display: none; margin-top: 15px; padding: 15px; background: #d4edda; border-radius: 8px; color: #333;">
-              <h4>✅ Server Claimed!</h4>
-              <p>Your Plex server is linked to your account. Access it at <a href="https://app.plex.tv" target="_blank" style="color:#e94560">app.plex.tv</a></p>
-            </div>
-            
-            <p id="plexOfflineMsg" style="display: none; color: #f39c12; margin-top: 10px;">
-              ⚠️ Plex is not running yet. Start the Docker stack first, or 
-              <a href="https://app.plex.tv" target="_blank">manage Plex online</a>.
-            </p>
+        <div class="success-state">
+          <div class="check-icon">✓</div>
+          <h2>Setup Complete</h2>
+          <p>Your Eden Viewer media stack is configured and ready.</p>
+        </div>
+
+        <div id="plexClaimStatus" class="status-box info">
+          <div class="status-icon">🔍</div>
+          <div class="status-content">
+            <p>Checking Plex server status...</p>
           </div>
-          
-          <p style="margin-top: 20px; opacity:0.8; font-size:0.9rem;">
-            Direct service links (local/LAN only):<br>
-            <a href="http://localhost:32400/web" target="_blank" style="color:#e94560">Plex :32400</a> · 
-            <a href="http://localhost:8989" target="_blank" style="color:#e94560">Sonarr :8989</a> · 
-            <a href="http://localhost:7878" target="_blank" style="color:#e94560">Radarr :7878</a>
-          </p>
+        </div>
+
+        <div class="action-card" id="cloudAccessSection">
+          <h3>Access Your Plex Server</h3>
+          <p>For cloud deployments, access Plex through the official app. This bypasses the local network requirement.</p>
+          <a href="https://app.plex.tv" target="_blank" class="btn btn-primary">Open app.plex.tv</a>
+        </div>
+
+        <div id="plexClaimed" class="status-box success" style="display: none;">
+          <div class="status-icon">✓</div>
+          <div class="status-content">
+            <h4>Server Claimed</h4>
+            <p>Your Plex server is linked to your account and ready to use.</p>
+          </div>
+        </div>
+
+        <div id="plexNotClaimed" style="display: none;">
+          <div class="status-box warning">
+            <div class="status-icon">⚠️</div>
+            <div class="status-content">
+              <h4>Server Not Yet Claimed</h4>
+              <p>Your Plex server is running but needs to be linked to your account.</p>
+            </div>
+          </div>
+
+          <div class="claim-card">
+            <h5>Option 1: Environment Variable</h5>
+            <ol>
+              <li>Go to <a href="https://www.plex.tv/claim/" target="_blank">plex.tv/claim</a></li>
+              <li>Copy the token (expires in 4 min)</li>
+              <li>Set <code>PLEX_CLAIM=claim-xxx</code></li>
+              <li>Restart the Plex container</li>
+            </ol>
+          </div>
+
+          <div class="claim-card">
+            <h5>Option 2: SSH Tunnel</h5>
+            <ol>
+              <li>Run: <code>ssh -L 32400:localhost:32400 user@server</code></li>
+              <li>Open <a href="http://localhost:32400/web" target="_blank">localhost:32400/web</a></li>
+              <li>Sign in with your Plex account</li>
+            </ol>
+          </div>
+
+          <button class="btn btn-secondary" onclick="checkPlexStatus()" style="margin-top: 12px;">Refresh Status</button>
+        </div>
+
+        <div id="plexOfflineMsg" class="status-box error" style="display: none;">
+          <div class="status-icon">✕</div>
+          <div class="status-content">
+            <p>Plex is not running. Start the Docker stack first.</p>
+          </div>
+        </div>
+
+        <div class="links-footer">
+          <strong>Direct Links</strong> (local only)<br>
+          <a href="http://localhost:32400/web" target="_blank">Plex :32400</a> · 
+          <a href="http://localhost:8989" target="_blank">Sonarr :8989</a> · 
+          <a href="http://localhost:7878" target="_blank">Radarr :7878</a>
         </div>
       </div>
     </div>
   </div>
+
   <script>
-    let currentStep = 1; const totalSteps = 5;
+    let currentStep = 1;
+    const totalSteps = 5;
+
     function updateProgress() {
       const p = document.getElementById('progress');
-      p.innerHTML = Array.from({length: totalSteps}, (_, i) => `<div class="progress-dot ${i < currentStep ? 'active' : ''}"></div>`).join('');
+      let html = '';
+      for (let i = 1; i <= totalSteps; i++) {
+        const cls = i < currentStep ? 'complete' : (i === currentStep ? 'active' : '');
+        html += `<div class="stepper-dot ${cls}"></div>`;
+        if (i < totalSteps) {
+          html += `<div class="stepper-line ${i < currentStep ? 'complete' : ''}"></div>`;
+        }
+      }
+      p.innerHTML = html;
+      
       document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-      document.querySelector(`[data-step="${currentStep}"]`).classList.add('active');
+      const activeStep = document.querySelector(`[data-step="${currentStep}"]`);
+      if (activeStep) activeStep.classList.add('active');
     }
-    function nextStep() { if (currentStep < totalSteps) { currentStep++; updateProgress(); } }
-    function prevStep() { if (currentStep > 1) { currentStep--; updateProgress(); } }
+
+    function nextStep() {
+      if (currentStep < totalSteps) {
+        currentStep++;
+        updateProgress();
+        if (currentStep === 4 || currentStep === 5) checkPlexOnLoad();
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 1) {
+        currentStep--;
+        updateProgress();
+      }
+    }
+
     function collectConfig() {
       return {
         dataPath: document.getElementById('dataPath')?.value,
@@ -186,6 +753,7 @@
         }
       };
     }
+
     async function saveConfig() {
       try {
         await fetch('/api/config', {
@@ -194,153 +762,91 @@
           body: JSON.stringify(collectConfig())
         });
         nextStep();
-      } catch (e) { alert('Error saving config: ' + e.message); }
+      } catch (e) {
+        alert('Error saving config: ' + e.message);
+      }
     }
-    function setLaunchButtonsDisabled(disabled) {
-      document.querySelectorAll('.btn-launch-plex').forEach((btn) => {
-        btn.disabled = disabled;
-      });
-    }
-    let plexUrl = null;
+
     async function checkPlexOnLoad() {
       const statusText = document.getElementById('plexStatusText');
       const claimSection = document.getElementById('claimSection');
       const claimStatus = document.getElementById('plexClaimStatus');
       const notClaimedBox = document.getElementById('plexNotClaimed');
+      const claimedBox = document.getElementById('plexClaimed');
       const offlineMsg = document.getElementById('plexOfflineMsg');
+      const statusSection = document.getElementById('plexStatusSection');
 
       try {
         const res = await fetch('/api/plex-status');
         const data = await res.json();
 
         if (data.online && data.claimed) {
-          statusText.innerHTML = '✅ Plex is online and claimed!';
-          statusText.style.color = '#27ae60';
-          setLaunchButtonsDisabled(false);
-          plexUrl = data.url;
+          if (statusText) statusText.textContent = 'Plex is online and claimed';
+          if (statusSection) statusSection.className = 'status-box success';
+          if (statusSection) statusSection.querySelector('.status-icon').textContent = '✓';
           if (claimSection) claimSection.style.display = 'none';
         } else if (data.online && !data.claimed) {
-          statusText.innerHTML = '⚠️ Plex is online but NOT claimed';
-          statusText.style.color = '#f39c12';
-          setLaunchButtonsDisabled(true);
+          if (statusText) statusText.textContent = 'Plex is online but not claimed';
+          if (statusSection) statusSection.className = 'status-box warning';
+          if (statusSection) statusSection.querySelector('.status-icon').textContent = '⚠️';
           if (claimSection) claimSection.style.display = 'block';
         } else {
-          statusText.innerHTML = '❌ Plex is offline';
-          statusText.style.color = '#e74c3c';
-          setLaunchButtonsDisabled(true);
+          if (statusText) statusText.textContent = 'Plex is offline';
+          if (statusSection) statusSection.className = 'status-box error';
+          if (statusSection) statusSection.querySelector('.status-icon').textContent = '✕';
           if (claimSection) claimSection.style.display = 'none';
         }
 
         if (claimStatus) {
-          claimStatus.innerHTML = data.online
-          ? (data.claimed ? '<p>✅ Plex is online and claimed.</p>' : '<p>⚠️ Plex is online but not claimed.</p>')
-          : '<p>❌ Plex is offline.</p>';
+          const icon = claimStatus.querySelector('.status-icon');
+          const content = claimStatus.querySelector('.status-content p');
+          if (data.online && data.claimed) {
+            claimStatus.className = 'status-box success';
+            icon.textContent = '✓';
+            content.textContent = 'Plex is online and claimed.';
+          } else if (data.online) {
+            claimStatus.className = 'status-box warning';
+            icon.textContent = '⚠️';
+            content.textContent = 'Plex is online but not claimed.';
+          } else {
+            claimStatus.className = 'status-box error';
+            icon.textContent = '✕';
+            content.textContent = 'Plex is offline.';
+          }
         }
+        
         if (offlineMsg) offlineMsg.style.display = data.online ? 'none' : 'block';
         if (notClaimedBox) notClaimedBox.style.display = (data.online && !data.claimed) ? 'block' : 'none';
-        
-        // Show claimed success box
-        const claimedBox = document.getElementById('plexClaimed');
         if (claimedBox) claimedBox.style.display = (data.online && data.claimed) ? 'block' : 'none';
 
         return data;
       } catch (err) {
-        statusText.innerHTML = '❌ Could not connect to Plex';
-        statusText.style.color = '#e74c3c';
-        setLaunchButtonsDisabled(true);
+        if (statusText) statusText.textContent = 'Could not connect to Plex';
+        if (statusSection) statusSection.className = 'status-box error';
         if (claimStatus) {
-          claimStatus.innerHTML = '<p>❌ Could not connect to Plex.</p>';
+          claimStatus.className = 'status-box error';
+          claimStatus.querySelector('.status-content p').textContent = 'Could not connect to Plex.';
         }
         if (offlineMsg) offlineMsg.style.display = 'block';
         if (notClaimedBox) notClaimedBox.style.display = 'none';
         return null;
       }
     }
+
     function recheckPlex() {
-        document.getElementById('plexStatusText').innerHTML = '🔍 Checking...';
-        checkPlexOnLoad();
+      document.getElementById('plexStatusText').textContent = 'Checking...';
+      checkPlexOnLoad();
     }
-    async function launchPlex(event) {
-        const btn = event?.target || document.querySelector('[id="launchPlexBtn"]');
-        const originalText = btn ? btn.textContent : '';
-        if (btn) {
-          btn.disabled = true;
-          btn.textContent = '🔍 Checking...';
-        }
 
-        try {
-            const res = await fetch('/api/plex-status');
-            const data = await res.json();
-            
-            if (!data.online) {
-                alert('⚠️ Plex is not running.\n\nStart your Docker stack or check Azure Container Apps.\n\nYou can also visit https://app.plex.tv to manage your servers.');
-                if (btn) {
-                  btn.disabled = false;
-                  btn.textContent = originalText;
-                }
-                return;
-            }
-
-            if (data.online && !data.claimed) {
-                const proceed = confirm(
-                    '⚠️ Plex server is online but NOT CLAIMED!\n\n' +
-                    'You must claim it with your Plex account before use.\n\n' +
-                    '1. Go to https://www.plex.tv/claim/\n' +
-                    '2. Copy the claim token (expires in 4 min)\n' +
-                    '3. Redeploy with PLEX_CLAIM env var\n\n' +
-                    'Open Plex anyway to attempt manual claim?'
-                );
-                if (!proceed) {
-                  if (btn) {
-                    btn.disabled = false;
-                    btn.textContent = originalText;
-                  }
-                    return;
-                }
-            }
-
-            // Open Plex
-            const plexUrl = data.url || 'https://app.plex.tv';
-            window.open(plexUrl, '_blank');
-            
-        } catch (err) {
-            alert('❌ Error checking Plex: ' + err.message);
-        }
-        
-        if (btn) {
-          btn.disabled = false;
-          btn.textContent = originalText;
-        }
+    function checkPlexStatus() {
+      return checkPlexOnLoad();
     }
-      async function checkPlexStatus() {
-        return checkPlexOnLoad();
-      }
-      async function updateClaimCode() {
-        const code = (document.getElementById('claimCodeInput')?.value || document.getElementById('newClaimCode')?.value || '').trim();
-        if (!code) {
-          alert('Enter a Plex claim code first.');
-          return;
-        }
 
-        const plexClaim = document.getElementById('plexClaim');
-        if (plexClaim) plexClaim.value = code;
-
-        const config = collectConfig();
-        config.plexClaim = code;
-
-        try {
-          await fetch('/api/config', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(config)
-          });
-          alert('Saved claim code to config. Redeploy with PLEX_CLAIM to link Plex.');
-        } catch (e) {
-          alert('Failed to save claim code: ' + e.message);
-        }
-      }
     updateProgress();
-    fetch('/api/status').then(r => r.json()).then(d => { if (!d.firstRun) currentStep = 5; updateProgress(); });
+    fetch('/api/status')
+      .then(r => r.json())
+      .then(d => { if (!d.firstRun) { currentStep = 5; updateProgress(); } })
+      .catch(() => {});
     checkPlexStatus();
   </script>
 </body>
