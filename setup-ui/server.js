@@ -295,16 +295,17 @@ app.get('/api/plex-status', async (req, res) => {
 
       if (result.ok) {
         // Parse the claimed status from the XML
-        const claimedMatch = xmlData.match(/claimed="(\d+)"/);
+        const claimedMatch = body.match(/claimed="(\d+)"/);
         const claimed = claimedMatch ? claimedMatch[1] === '1' : false;
+        const machineId = body.match(/machineIdentifier="([^"]+)"/)?.[1] || null;
 
         console.log('  └─ ✅ Plex is running');
         return res.json({
           online: true,
-          url: `${successUrl.replace('/identity', '')}/web`,
-          source: candidate.name,
-          claimed: claimed,  // Add this field
-          machineIdentifier: xmlData.match(/machineIdentifier="([^"]+)"/)?.[1] || null
+          claimed: claimed,
+          machineIdentifier: machineId,
+          url: `https://${process.env.PLEX_DOMAIN || 'localhost:32400'}/web`,
+          source: candidate.name
         });
       }
 

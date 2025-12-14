@@ -69,6 +69,22 @@
         <div class="checkbox-group"><input type="checkbox" id="svc-plex" checked><label for="svc-plex">Plex Media Server</label></div>
         <div class="checkbox-group"><input type="checkbox" id="svc-sonarr" checked><label for="svc-sonarr">Sonarr (TV Shows)</label></div>
         <div class="checkbox-group"><input type="checkbox" id="svc-radarr" checked><label for="svc-radarr">Radarr (Movies)</label></div>
+        
+        <div id="plexStatusSection" style="margin: 20px 0;">
+          <p id="plexStatusText">🔍 Checking Plex status...</p>
+        </div>
+        
+        <button id="launchPlexBtn" class="btn btn-primary" disabled onclick="launchPlex()">
+          🎬 Launch Plex
+        </button>
+        
+        <div id="claimSection" style="display: none; margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 8px;">
+          <h4>⚠️ Server Not Claimed</h4>
+          <p>Get a claim code from <a href="https://www.plex.tv/claim/" target="_blank">plex.tv/claim</a> (expires in 4 min)</p>
+          <input type="text" id="newClaimCode" placeholder="claim-xxxxxxxxxxxx" style="width: 100%; padding: 8px; margin: 10px 0;">
+          <button class="btn btn-secondary" onclick="recheckPlex()">🔄 Check Again</button>
+        </div>
+        
         <div class="btn-group"><button class="btn btn-secondary" onclick="prevStep()">← Back</button><button class="btn btn-primary" onclick="saveConfig()">Complete Setup →</button></div>
       </div>
       <!-- Step 5: Complete -->
@@ -145,70 +161,49 @@
         nextStep();
       } catch (e) { alert('Error saving config: ' + e.message); }
     }
-    async function checkPlexStatus() {
-        const statusDiv = document.getElementById('plexClaimStatus');
+    let plexUrl = null;
+    async function checkPlexOnLoad() {
+        const statusText = document.getElementById('plexStatusText');
         const launchBtn = document.getElementById('launchPlexBtn');
-        const notClaimedDiv = document.getElementById('plexNotClaimed');
-        const offlineMsg = document.getElementById('plexOfflineMsg');
-        
-        statusDiv.innerHTML = '<p>🔍 Checking Plex server status...</p>';
-        launchBtn.disabled = true;
-        notClaimedDiv.style.display = 'none';
-        offlineMsg.style.display = 'none';
+        const claimSection = document.getElementById('claimSection');
         
         try {
             const res = await fetch('/api/plex-status');
             const data = await res.json();
             
             if (data.online && data.claimed) {
-                // Server is online AND claimed - ready to launch!
-                statusDiv.innerHTML = '<p style="color: #27ae60;">✅ Plex server is online and claimed!</p>';
+                statusText.innerHTML = '✅ Plex is online and claimed!';
+                statusText.style.color = '#27ae60';
                 launchBtn.disabled = false;
-                window.plexUrl = data.url;
+                plexUrl = data.url;
+                claimSection.style.display = 'none';
             } else if (data.online && !data.claimed) {
-                // Server is online but NOT claimed
-                statusDiv.innerHTML = '<p style="color: #f39c12;">⚠️ Plex server is online but not claimed</p>';
-                notClaimedDiv.style.display = 'block';
+                statusText.innerHTML = '⚠️ Plex is online but NOT claimed';
+                statusText.style.color = '#f39c12';
+                launchBtn.disabled = true;
+                claimSection.style.display = 'block';
             } else {
-                // Server is offline
-                statusDiv.innerHTML = '<p style="color: #e74c3c;">❌ Plex server is offline</p>';
-                offlineMsg.style.display = 'block';
+                statusText.innerHTML = '❌ Plex is offline';
+                statusText.style.color = '#e74c3c';
+                launchBtn.disabled = true;
             }
         } catch (err) {
-            statusDiv.innerHTML = '<p style="color: #e74c3c;">❌ Could not check Plex status</p>';
-            offlineMsg.style.display = 'block';
+            statusText.innerHTML = '❌ Could not connect to Plex';
+            statusText.style.color = '#e74c3c';
+            launchBtn.disabled = true;
         }
     }
-
-    async function updateClaimCode() {
-        const claimCode = document.getElementById('claimCodeInput').value.trim();
-        if (!claimCode || !claimCode.startsWith('claim-')) {
-            alert('Please enter a valid claim code (starts with "claim-")');
-            return;
-        }
-        
-        try {
-            const res = await fetch('/api/config', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ plexClaim: claimCode })
-            });
-            
-            if (res.ok) {
-                alert('Claim code updated! The server needs to restart to apply the new claim. Check status again in a moment.');
-                setTimeout(checkPlexStatus, 5000);
-            }
-        } catch (err) {
-            alert('Failed to update claim code: ' + err.message);
-        }
+    function recheckPlex() {
+        document.getElementById('plexStatusText').innerHTML = '🔍 Checking...';
+        checkPlexOnLoad();
     }
-
     function launchPlex() {
-        if (window.plexUrl) {
-            window.open(window.plexUrl, '_blank');
+        if (plexUrl) {
+            window.open(plexUrl, '_blank');
+        } else {
+            alert('Plex URL not available. Please check Plex status.');
         }
     }
-
     updateProgress();
     fetch('/api/status').then(r => r.json()).then(d => { if (!d.firstRun) currentStep = 5; updateProgress(); });
     checkPlexStatus();
