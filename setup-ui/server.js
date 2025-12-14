@@ -559,34 +559,62 @@ function startServer(port, retryWithRandom = true) {
 startServer(PORT);
 
 function printStartupComplete(protocol, port, addresses) {
+  const innerWidth = 62;
+  const printLine = (content = '') => {
+    console.log(`║${content.padEnd(innerWidth)}║`);
+  };
+  const printSeparator = () => {
+    console.log('╠══════════════════════════════════════════════════════════════╣');
+  };
+  const printWrapped = (prefix, value, indent = '      ') => {
+    const first = `${prefix}${value}`;
+    if (first.length <= innerWidth) {
+      printLine(first);
+      return;
+    }
+
+    // Put the prefix on one line and the value on the next line.
+    const prefixOnly = prefix.trimEnd();
+    if (prefixOnly.length <= innerWidth) {
+      printLine(prefixOnly);
+    }
+
+    const wrappedValue = String(value);
+    const available = innerWidth - indent.length;
+    for (let i = 0; i < wrappedValue.length; i += available) {
+      printLine(indent + wrappedValue.slice(i, i + available));
+    }
+  };
+
   console.log('╔══════════════════════════════════════════════════════════════╗');
-  console.log('║                     Server Ready                             ║');
-  console.log('╠══════════════════════════════════════════════════════════════╣');
-  console.log(`║  Protocol:  ${protocol.toUpperCase().padEnd(48)}║`);
-  console.log(`║  Port:      ${port.toString().padEnd(48)}║`);
-  console.log('╠══════════════════════════════════════════════════════════════╣');
-  console.log('║  Access URLs:                                                ║');
-  console.log(`║    Local:   ${protocol}://localhost:${port}/`.padEnd(63) + '║');
-  
+  printLine('                     Server Ready');
+  printSeparator();
+  printLine(`  Protocol:  ${protocol.toUpperCase()}`);
+  printLine(`  Port:      ${port}`);
+  printSeparator();
+  printLine('  Access URLs:');
+  printWrapped('    Local:                ', `${protocol}://localhost:${port}/`);
+
   addresses.forEach((addr) => {
     const url = `${protocol}://${addr.address}:${port}/`;
-    console.log(`║    ${addr.name}:`.padEnd(12) + url.padEnd(51) + '║');
+    // Keep alignment clean even for long interface names.
+    printWrapped(`    ${addr.name}: `, url);
   });
-  
-  console.log('╠══════════════════════════════════════════════════════════════╣');
-  console.log('║  API Endpoints:                                              ║');
-  console.log('║    GET  /api/health    - Health check                        ║');
-  console.log('║    GET  /api/status    - Configuration status                ║');
-  console.log('║    POST /api/configure - Save configuration                  ║');
-  console.log('╠══════════════════════════════════════════════════════════════╣');
-  
+
+  printSeparator();
+  printLine('  API Endpoints:');
+  printLine('    GET  /api/health      Health check');
+  printLine('    GET  /api/status      Configuration status');
+  printLine('    POST /api/configure   Save configuration');
+  printSeparator();
+
   if (protocol === 'http') {
-    console.log('║  Warning: TLS is disabled. Set SETUP_UI_CERT_FILE and        ║');
-    console.log('║           SETUP_UI_KEY_FILE to enable HTTPS.                ║');
+    printLine('  Warning: TLS is disabled.');
+    printLine('           Set SETUP_UI_CERT_FILE and SETUP_UI_KEY_FILE to enable HTTPS.');
   } else {
-    console.log('║  TLS is enabled. All connections are encrypted.             ║');
+    printLine('  TLS is enabled. All connections are encrypted.');
   }
-  
+
   console.log('╚══════════════════════════════════════════════════════════════╝');
   console.log('');
   console.log('Press Ctrl+C to stop the server');
