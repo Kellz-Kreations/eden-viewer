@@ -28,7 +28,8 @@ echo "1) Plex"
 echo "2) Sonarr"
 echo "3) Radarr"
 echo "4) All"
-read -p "Enter choice (1-4): " choice
+echo "5) Setup UI"
+read -p "Enter choice (1-5): " choice
 
 deploy_plex() {
     echo "🎬 Deploying Plex..."
@@ -106,6 +107,33 @@ deploy_radarr() {
     echo "✅ Radarr deployed"
 }
 
+deploy_setup_ui() {
+    echo "🧩 Deploying Setup UI..."
+
+    # Image can be overridden by SETUP_UI_IMAGE env var
+    SETUP_UI_IMAGE_DEFAULT="ghcr.io/kellz-kreations/eden-viewer-setup-ui:latest"
+    IMAGE_REF="${SETUP_UI_IMAGE:-$SETUP_UI_IMAGE_DEFAULT}"
+
+    echo "Using image: $IMAGE_REF"
+    echo "Tip: export SETUP_UI_IMAGE=yourregistry/eden-viewer-setup-ui:tag to override"
+
+    az containerapp create \
+        --name setup-ui \
+        --resource-group "$RESOURCE_GROUP" \
+        --environment "$ENV_NAME" \
+        --image "$IMAGE_REF" \
+        --target-port 8080 \
+        --ingress external \
+        --cpu 0.5 --memory 1Gi \
+        --min-replicas 1 --max-replicas 1 \
+        --env-vars \
+            SETUP_UI_PORT=8080 \
+            SETUP_UI_FIRST_RUN=true \
+            PLEX_DOMAIN=${PLEX_DOMAIN:-plex.calmsky-4c04ebcd.eastus.azurecontainerapps.io}
+
+    echo "✅ Setup UI deployed"
+}
+
 case $choice in
     1)
         deploy_plex
@@ -120,6 +148,9 @@ case $choice in
         deploy_plex
         deploy_sonarr
         deploy_radarr
+        ;;
+    5)
+        deploy_setup_ui
         ;;
     *)
         echo "Invalid choice"
