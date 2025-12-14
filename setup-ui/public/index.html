@@ -74,7 +74,7 @@
           <p id="plexStatusText">🔍 Checking Plex status...</p>
         </div>
         
-        <button id="launchPlexBtn" class="btn btn-primary" disabled onclick="launchPlex()">
+        <button id="launchPlexBtn" class="btn btn-primary" onclick="launchPlex()">
           🎬 Launch Plex
         </button>
         
@@ -99,7 +99,7 @@
               <p>🔍 Checking Plex server status...</p>
             </div>
             
-            <button id="launchPlexBtn" class="btn btn-primary" disabled onclick="launchPlex()">
+            <button id="launchPlexBtn" class="btn btn-primary" onclick="launchPlex()">
               🎬 Launch Plex
             </button>
             
@@ -197,11 +197,49 @@
         document.getElementById('plexStatusText').innerHTML = '🔍 Checking...';
         checkPlexOnLoad();
     }
-    function launchPlex() {
-        if (plexUrl) {
+    async function launchPlex() {
+        const btn = document.getElementById('launchPlexBtn');
+        btn.disabled = true;
+        btn.textContent = '🔍 Checking...';
+        
+        try {
+            const res = await fetch('/api/plex-status');
+            const data = await res.json();
+            
+            console.log('Plex status:', data); // Debug
+            
+            if (!data.online) {
+                btn.disabled = false;
+                btn.textContent = '🎬 Launch Plex';
+                alert('⚠️ Plex is not running.\n\nStart the Docker stack first, or visit https://app.plex.tv');
+                return;
+            }
+            
+            if (data.online && !data.claimed) {
+                btn.disabled = false;
+                btn.textContent = '🎬 Launch Plex';
+                const proceed = confirm(
+                    '⚠️ Plex server is online but NOT CLAIMED.\n\n' +
+                    'You need to claim it with your Plex account.\n\n' +
+                    'Get a claim code from: https://www.plex.tv/claim/\n\n' +
+                    'Open Plex anyway?'
+                );
+                if (!proceed) return;
+            }
+            
+            // Open Plex URL
+            const plexUrl = data.url || 'https://app.plex.tv';
+            console.log('Opening:', plexUrl);
             window.open(plexUrl, '_blank');
-        } else {
-            alert('Plex URL not available. Please check Plex status.');
+            
+            btn.disabled = false;
+            btn.textContent = '🎬 Launch Plex';
+            
+        } catch (err) {
+            console.error('Plex status error:', err);
+            btn.disabled = false;
+            btn.textContent = '🎬 Launch Plex';
+            alert('❌ Could not check Plex status: ' + err.message);
         }
     }
     updateProgress();
