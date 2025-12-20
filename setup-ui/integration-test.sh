@@ -26,6 +26,13 @@ cleanup() {
 
 trap cleanup EXIT
 
+# Verify server.js exists
+if [ ! -f "server.js" ]; then
+  echo "ERROR: server.js not found in current directory"
+  echo "Please run this script from the setup-ui directory"
+  exit 1
+fi
+
 # Create test environment
 echo "1/5 Setting up test environment..."
 mkdir -p "$TEST_DIR"
@@ -37,6 +44,15 @@ export SETUP_UI_FIRST_RUN=true
 echo "2/5 Starting Setup UI server on port $PORT..."
 node server.js > "$TEST_DIR/server.log" 2>&1 &
 SERVER_PID=$!
+
+# Verify server process is running
+sleep 2
+if ! kill -0 $SERVER_PID 2>/dev/null; then
+  echo "   ERROR: Server process died shortly after starting"
+  echo "   Server log:"
+  cat "$TEST_DIR/server.log"
+  exit 1
+fi
 
 # Wait for server to start
 echo "3/5 Waiting for server to be ready..."

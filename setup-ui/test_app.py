@@ -40,19 +40,21 @@ def test_sanitize_env_value():
 
 def test_sanitize_numeric():
     """Test numeric value sanitization"""
+    from werkzeug.exceptions import BadRequest
+    
     # Valid numeric values
     assert _sanitize_numeric("123") == "123"
     assert _sanitize_numeric("  456  ") == "456"
     assert _sanitize_numeric("1000") == "1000"
     
     # Invalid numeric values should abort with 400
-    with pytest.raises(Exception):  # Flask abort raises exception
+    with pytest.raises(BadRequest):
         _sanitize_numeric("abc")
     
-    with pytest.raises(Exception):
+    with pytest.raises(BadRequest):
         _sanitize_numeric("12.5")
     
-    with pytest.raises(Exception):
+    with pytest.raises(BadRequest):
         _sanitize_numeric("1a2")
 
 
