@@ -59,6 +59,83 @@ docker run --rm \
 | `npm start` | Runs the production server (`node server.js`). |
 | `npm run dev` | Alias for `npm start`. Useful for local iterative development. |
 | `npm run build` | Performs a syntax check on `server.js`. |
+| `npm test` | Runs the test suite using Jest. |
+| `npm run test:watch` | Runs tests in watch mode for development. |
+| `npm run test:coverage` | Runs tests with coverage report. |
+| `npm run test:integration` | Runs integration tests (starts server and verifies endpoints). |
+
+## Testing
+
+The Setup UI includes comprehensive test suites for both Node.js (server.js) and Python (app.py) implementations.
+
+### Node.js Tests (Jest)
+
+```bash
+cd setup-ui
+
+# Install dependencies
+npm install
+
+# Run all tests
+npm test
+
+# Run tests in watch mode (for development)
+npm run test:watch
+
+# Run tests with coverage report
+npm run test:coverage
+```
+
+### Python Tests (pytest)
+
+```bash
+cd setup-ui
+
+# Install dependencies
+pip install -r requirements.txt -r requirements-dev.txt
+
+# Run all tests
+python -m pytest test_app.py -v
+
+# Run with coverage
+python -m pytest test_app.py --cov=app --cov-report=html
+```
+
+### Test Coverage
+
+The test suites cover:
+
+**Node.js (server.js):**
+- API endpoints (`/api/health`, `/api/status`, `/api/config`)
+- Configuration management (read/write)
+- Utility functions (hostname sanitization, timeout handling)
+- Rate limiting configuration
+
+**Python (app.py):**
+- Environment value sanitization and validation
+- .env file parsing and generation
+- Flask route handlers
+- Security headers (CSP, X-Frame-Options, etc.)
+- CSRF protection
+
+### Integration Testing
+
+An integration test script is available to verify the server starts correctly and responds to requests:
+
+```bash
+cd setup-ui
+./integration-test.sh
+```
+
+This script:
+- Starts the Setup UI server on a test port
+- Verifies the server responds to health checks
+- Tests the status endpoint
+- Automatically cleans up after completion
+
+### Continuous Integration
+
+Tests run automatically on pull requests and pushes to main via GitHub Actions. See `.github/workflows/setup-ui-tests.yml` for the CI configuration.
 
 ## Certificate Renewal
 
