@@ -66,9 +66,9 @@ docker run --rm \
 
 ## Testing
 
-The Setup UI includes a comprehensive test suite using Jest and Supertest.
+The Setup UI includes comprehensive test suites for both Node.js (server.js) and Python (app.py) implementations.
 
-### Running Tests
+### Node.js Tests (Jest)
 
 ```bash
 cd setup-ui
@@ -86,13 +86,37 @@ npm run test:watch
 npm run test:coverage
 ```
 
+### Python Tests (pytest)
+
+```bash
+cd setup-ui
+
+# Install dependencies
+pip install -r requirements.txt -r requirements-dev.txt
+
+# Run all tests
+python -m pytest test_app.py -v
+
+# Run with coverage
+python -m pytest test_app.py --cov=app --cov-report=html
+```
+
 ### Test Coverage
 
-The test suite covers:
+The test suites cover:
+
+**Node.js (server.js):**
 - API endpoints (`/api/health`, `/api/status`, `/api/config`)
 - Configuration management (read/write)
 - Utility functions (hostname sanitization, timeout handling)
 - Rate limiting configuration
+
+**Python (app.py):**
+- Environment value sanitization and validation
+- .env file parsing and generation
+- Flask route handlers
+- Security headers (CSP, X-Frame-Options, etc.)
+- CSRF protection
 
 ### Integration Testing
 
