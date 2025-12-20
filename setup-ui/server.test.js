@@ -89,6 +89,8 @@ describe('Eden Viewer Setup UI - API Tests', () => {
       
       const testConfigPath = path.join(__dirname, '__tests__', 'nonexistent-config.json');
       
+      // NOTE: This is a test endpoint. In production, rate limiting is applied via
+      // the rate limiter middleware in server.js before any routes are registered.
       testApp.get('/api/config', (req, res) => {
         try {
           if (fs.existsSync(testConfigPath)) {
@@ -129,6 +131,8 @@ describe('Eden Viewer Setup UI - API Tests', () => {
       
       const testConfigPath = path.join(__dirname, '__tests__', 'save-config.json');
       
+      // NOTE: This is a test endpoint. In production, rate limiting is applied via
+      // the rate limiter middleware in server.js before any routes are registered.
       testApp.post('/api/config', (req, res) => {
         try {
           const configDir = path.dirname(testConfigPath);
