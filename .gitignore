@@ -1,6 +1,15 @@
 # Environment files (contain sensitive paths/IDs)
 .env
 
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Test coverage
+coverage/
+.nyc_output/
+
 # Synology/DSM artifacts
 @eaDir/
 .DS_Store

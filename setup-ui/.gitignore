@@ -1,1 +1,4 @@
 setup-ui/config/config.json
+coverage/
+__tests__/
+*.log

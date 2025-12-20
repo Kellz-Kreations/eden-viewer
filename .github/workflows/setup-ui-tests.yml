@@ -1,0 +1,58 @@
+name: Setup UI Tests
+
+on:
+  pull_request:
+    paths:
+      - 'setup-ui/**'
+      - '.github/workflows/setup-ui-tests.yml'
+  push:
+    branches: [ main ]
+    paths:
+      - 'setup-ui/**'
+      - '.github/workflows/setup-ui-tests.yml'
+
+concurrency:
+  group: setup-ui-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: setup-ui/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ./setup-ui
+        run: npm ci
+
+      - name: Run syntax check
+        working-directory: ./setup-ui
+        run: npm run build
+
+      - name: Run tests
+        working-directory: ./setup-ui
+        run: npm test
+
+      - name: Run tests with coverage
+        working-directory: ./setup-ui
+        run: npm run test:coverage
+
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v4
+        if: always()
+        with:
+          files: ./setup-ui/coverage/lcov.info
+          flags: setup-ui
+          name: setup-ui-coverage
+          fail_ci_if_error: false
+        continue-on-error: true

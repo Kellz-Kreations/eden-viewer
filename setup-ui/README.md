@@ -59,6 +59,43 @@ docker run --rm \
 | `npm start` | Runs the production server (`node server.js`). |
 | `npm run dev` | Alias for `npm start`. Useful for local iterative development. |
 | `npm run build` | Performs a syntax check on `server.js`. |
+| `npm test` | Runs the test suite using Jest. |
+| `npm run test:watch` | Runs tests in watch mode for development. |
+| `npm run test:coverage` | Runs tests with coverage report. |
+
+## Testing
+
+The Setup UI includes a comprehensive test suite using Jest and Supertest.
+
+### Running Tests
+
+```bash
+cd setup-ui
+
+# Install dependencies
+npm install
+
+# Run all tests
+npm test
+
+# Run tests in watch mode (for development)
+npm run test:watch
+
+# Run tests with coverage report
+npm run test:coverage
+```
+
+### Test Coverage
+
+The test suite covers:
+- API endpoints (`/api/health`, `/api/status`, `/api/config`)
+- Configuration management (read/write)
+- Utility functions (hostname sanitization, timeout handling)
+- Rate limiting configuration
+
+### Continuous Integration
+
+Tests run automatically on pull requests and pushes to main via GitHub Actions. See `.github/workflows/setup-ui-tests.yml` for the CI configuration.
 
 ## Certificate Renewal
 
