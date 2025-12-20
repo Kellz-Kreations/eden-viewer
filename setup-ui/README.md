@@ -62,6 +62,7 @@ docker run --rm \
 | `npm test` | Runs the test suite using Jest. |
 | `npm run test:watch` | Runs tests in watch mode for development. |
 | `npm run test:coverage` | Runs tests with coverage report. |
+| `npm run test:integration` | Runs integration tests (starts server and verifies endpoints). |
 
 ## Testing
 
@@ -92,6 +93,21 @@ The test suite covers:
 - Configuration management (read/write)
 - Utility functions (hostname sanitization, timeout handling)
 - Rate limiting configuration
+
+### Integration Testing
+
+An integration test script is available to verify the server starts correctly and responds to requests:
+
+```bash
+cd setup-ui
+./integration-test.sh
+```
+
+This script:
+- Starts the Setup UI server on a test port
+- Verifies the server responds to health checks
+- Tests the status endpoint
+- Automatically cleans up after completion
 
 ### Continuous Integration
 
