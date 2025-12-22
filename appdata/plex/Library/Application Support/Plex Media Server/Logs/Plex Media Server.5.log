@@ -1,0 +1,1404 @@
+Dec 19, 2025 14:28:56.335 [127057364339512] INFO - Plex Media Server v1.42.2.10156-f737b826c - Docker Docker Container (LinuxServer.io) x86_64 - build: linux-x86_64 debian - GMT -05:00
+Dec 19, 2025 14:28:56.336 [127057364339512] INFO - Linux version: 6.6.87.2-microsoft-standard-WSL2, language: en-US
+Dec 19, 2025 14:28:56.336 [127057364339512] INFO - Processor: 32-core Intel(R) Core(TM) i9-14900K
+Dec 19, 2025 14:28:56.336 [127057364339512] INFO - Compiler is - Clang 11.0.1 (https://plex.tv 9b997da8e5b47bdb4a9425b3a3b290be393b4b1f)
+Dec 19, 2025 14:28:56.336 [127057364339512] INFO - /usr/lib/plexmediaserver/Plex Media Server
+Dec 19, 2025 14:28:56.298 [127057366882960] DEBUG - BPQ: [Idle] -> [Starting]
+Dec 19, 2025 14:28:56.316 [127057366882960] DEBUG - FeatureManager: Using cached data for features list
+Dec 19, 2025 14:28:56.323 [127057366882960] DEBUG - MyPlex: mapping state set to 'Unknown'.
+Dec 19, 2025 14:28:56.325 [127057366882960] DEBUG - Relay: read 0 cached entries from hosts file
+Dec 19, 2025 14:28:56.332 [127057366882960] DEBUG - Opening 20 database sessions to library (com.plexapp.plugins.library), SQLite 3.39.4, threadsafe=1
+Dec 19, 2025 14:28:56.385 [127057366882960] INFO - SQLITE3:0x80000001, 283, recovered 298 frames from WAL file /config/Library/Application Support/Plex Media Server/Plug-in Support/Databases/com.plexapp.plugins.library.db-wal
+Dec 19, 2025 14:28:56.646 [127057366882960] DEBUG - MyPlex: no cached data to load for request for https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 14:28:56.659 [127057366882960] DEBUG - HttpServer: Listening on IPv6 as well as IPv4.
+Dec 19, 2025 14:28:56.659 [127057366882960] DEBUG - HttpServer: Listening on port 32400.
+Dec 19, 2025 14:28:56.660 [127057366882960] DEBUG - HttpServer: Listening on port 32401.
+Dec 19, 2025 14:28:56.660 [127057366882960] DEBUG - Running server...
+Dec 19, 2025 14:28:56.660 [127057366882960] INFO - Running migrations. (EPG 0)
+Dec 19, 2025 14:28:56.660 [127057346607928] DEBUG - HttpServer: Set up a thread pool with 2 threads.
+Dec 19, 2025 14:28:56.662 [127057366882960] DEBUG - Captured session 0.
+Dec 19, 2025 14:28:56.662 [127057366882960] DEBUG - Captured session 1.
+Dec 19, 2025 14:28:56.662 [127057366882960] DEBUG - Captured session 2.
+Dec 19, 2025 14:28:56.662 [127057366882960] DEBUG - Captured session 3.
+Dec 19, 2025 14:28:56.662 [127057366882960] DEBUG - Captured session 4.
+Dec 19, 2025 14:28:56.662 [127057366882960] DEBUG - Captured session 5.
+Dec 19, 2025 14:28:56.662 [127057366882960] DEBUG - Captured session 6.
+Dec 19, 2025 14:28:56.662 [127057366882960] DEBUG - Captured session 7.
+Dec 19, 2025 14:28:56.662 [127057366882960] DEBUG - Captured session 8.
+Dec 19, 2025 14:28:56.662 [127057366882960] DEBUG - Captured session 9.
+Dec 19, 2025 14:28:56.662 [127057366882960] DEBUG - Captured session 10.
+Dec 19, 2025 14:28:56.662 [127057366882960] DEBUG - Captured session 11.
+Dec 19, 2025 14:28:56.662 [127057366882960] DEBUG - Captured session 12.
+Dec 19, 2025 14:28:56.662 [127057366882960] DEBUG - Captured session 13.
+Dec 19, 2025 14:28:56.662 [127057366882960] DEBUG - Captured session 14.
+Dec 19, 2025 14:28:56.662 [127057366882960] DEBUG - Captured session 15.
+Dec 19, 2025 14:28:56.662 [127057366882960] DEBUG - Captured session 16.
+Dec 19, 2025 14:28:56.662 [127057366882960] DEBUG - Captured session 17.
+Dec 19, 2025 14:28:56.662 [127057366882960] DEBUG - Captured session 18.
+Dec 19, 2025 14:28:56.662 [127057366882960] DEBUG - Captured session 19.
+Dec 19, 2025 14:28:56.675 [127057366882960] DEBUG - ChangestampAllocator: initialized to 0
+Dec 19, 2025 14:28:56.676 [127057366882960] DEBUG - Opening 2 database sessions to library (com.plexapp.plugins.library.blobs), SQLite 3.39.4, threadsafe=1
+Dec 19, 2025 14:28:56.719 [127057366882960] INFO - Running migrations. (EPG 0)
+Dec 19, 2025 14:28:56.721 [127057366882960] DEBUG - Captured session 0.
+Dec 19, 2025 14:28:56.721 [127057366882960] DEBUG - Captured session 1.
+Dec 19, 2025 14:28:56.965 [127057359674168] DEBUG - Grabber: Cleaning up orphaned grabs.
+Dec 19, 2025 14:28:56.965 [127057359674168] DEBUG - Grabber: Cleaned up 0 decrepit directories in 0.0 sec.
+Dec 19, 2025 14:28:56.966 [127057366882960] DEBUG - Media Provider: Registering provider com.plexapp.plugins.library
+Dec 19, 2025 14:28:56.966 [127057366882960] DEBUG - Auth: Refreshing tokens inside the token-based authentication filter.
+Dec 19, 2025 14:28:56.966 [127057359674168] DEBUG - Auth: Refreshing tokens inside the token-based authentication filter.
+Dec 19, 2025 14:28:56.967 [127057366882960] DEBUG - Opening 1 database sessions to library (), SQLite 3.39.4, threadsafe=1
+Dec 19, 2025 14:28:56.968 [127057342503736] DEBUG - File "/usr/lib/plexmediaserver/Resources/Plug-ins-f737b826c" changed: -1 => 2025-11-24 04:32:52 (1763976772).
+Dec 19, 2025 14:28:56.969 [127057342503736] DEBUG - File "/config/Library/Application Support/Plex Media Server/Plug-ins" changed: -1 => 2025-12-13 04:44:05 (1765619045).
+Dec 19, 2025 14:28:56.969 [127057342503736] DEBUG - Scanning for plug-ins in "/usr/lib/plexmediaserver/Resources/Plug-ins-f737b826c"
+Dec 19, 2025 14:28:56.980 [127057342503736] DEBUG - Scanning for plug-ins in "/config/Library/Application Support/Plex Media Server/Plug-ins"
+Dec 19, 2025 14:28:56.982 [127057342503736] DEBUG - PluginRepository::setStartState: 1, startingSystem
+Dec 19, 2025 14:28:56.982 [127057342503736] DEBUG - Starting plug-in /usr/lib/plexmediaserver/Resources/Plug-ins-f737b826c/System.bundle.
+Dec 19, 2025 14:28:56.983 [127057342503736] DEBUG - [com.plexapp.system] Setting plug-in to always running (daemon mode).
+Dec 19, 2025 14:28:56.985 [127057342503736] DEBUG - Starting file watcher for com.plexapp.system
+Dec 19, 2025 14:28:56.985 [127057342503736] DEBUG - Plugin: setting environment variable: 'PYTHONHOME=/usr/lib/plexmediaserver/Resources/Python'
+Dec 19, 2025 14:28:56.985 [127057342503736] DEBUG - Plugin: setting environment variable: 'PYTHONPATH=/usr/lib/plexmediaserver/Resources/Python/python27.zip:/usr/lib/plexmediaserver/Resources/Python/lib/python2.7/site-packages'
+Dec 19, 2025 14:28:56.988 [127057342503736] DEBUG - Spawned plug-in com.plexapp.system with PID 203
+Dec 19, 2025 14:28:56.988 [127057342503736] DEBUG - [com.plexapp.system] Sending command: GET /:/prefixes
+Dec 19, 2025 14:28:57.144 [127057349827384] DEBUG - Request: didn't get any data from [::1]:56132: End of file
+Dec 19, 2025 14:28:57.582 [127057338071864] DEBUG - Request: [127.0.0.1:51124 (Loopback)] GET /:/plugins/com.plexapp.system/messaging/function/X0J1bmRsZVNlcnZpY2U6QWxsU2VydmljZXM_/Y2VyZWFsMQoxCmxpc3QKMApyMAo_/Y2VyZWFsMQoxCmRpY3QKMApyMAo_ (3 live) #3 GZIP Token ()
+Dec 19, 2025 14:28:57.583 [127057351936824] DEBUG - Completed: [127.0.0.1:51124] 503 GET /:/plugins/com.plexapp.system/messaging/function/X0J1bmRsZVNlcnZpY2U6QWxsU2VydmljZXM_/Y2VyZWFsMQoxCmxpc3QKMApyMAo_/Y2VyZWFsMQoxCmRpY3QKMApyMAo_ (4 live) #3 GZIP 0ms 436 bytes
+Dec 19, 2025 14:28:57.583 [127057338071864] DEBUG - Request: [127.0.0.1:51140 (Loopback)] GET / (3 live) #4 GZIP Token ()
+Dec 19, 2025 14:28:57.583 [127057349827384] DEBUG - Completed: [127.0.0.1:51140] 503 GET / (3 live) #4 GZIP 0ms 436 bytes
+Dec 19, 2025 14:28:57.870 [127057338071864] DEBUG - Request: [127.0.0.1:51156 (Loopback)] GET /servers (3 live) #5 GZIP Token ()
+Dec 19, 2025 14:28:57.871 [127057349827384] DEBUG - Completed: [127.0.0.1:51156] 503 GET /servers (3 live) #5 GZIP 0ms 436 bytes
+Dec 19, 2025 14:28:57.877 [127057342503736] DEBUG - Reading 486 bytes in the body, code is 200
+Dec 19, 2025 14:28:57.877 [127057342503736] DEBUG - [com.plexapp.system] Plug-in running on port 46729.
+Dec 19, 2025 14:28:57.877 [127057342503736] DEBUG -  * Plug-in handles prefix: /system
+Dec 19, 2025 14:28:57.877 [127057342503736] DEBUG -  * Plug-in handles prefix: /player
+Dec 19, 2025 14:28:57.877 [127057342503736] DEBUG - Read configuration for [com.plexapp.system], had 2 prefixes
+Dec 19, 2025 14:28:57.878 [127057342503736] DEBUG - Done with 1 synchronous plug-in starts, starting the rest in parallel.
+Dec 19, 2025 14:28:57.878 [127057342503736] DEBUG - PluginRepository::setStartState: 2, startingPlugins
+Dec 19, 2025 14:28:57.878 [127057342503736] DEBUG - Updating the list of agents known by the system.
+Dec 19, 2025 14:28:57.878 [127057342503736] DEBUG - [com.plexapp.system] Sending command over HTTP (GET): /system/agents
+Dec 19, 2025 14:28:57.878 [127057342503736] DEBUG - [HCl#1] HTTP requesting GET http://127.0.0.1:46729/system/agents
+Dec 19, 2025 14:28:57.879 [127057366882960] DEBUG - Image transcode cache directory: "/config/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder"
+Dec 19, 2025 14:28:57.882 [127057366882960] DEBUG - Transcoder: Cleaning old transcode directories.
+Dec 19, 2025 14:28:57.891 [127057366882960] DEBUG - MyPlex: stop public ip check and mapping - current mapped state: 'Unknown'.
+Dec 19, 2025 14:28:57.898 [127057366882960] DEBUG - NetworkInterface: Starting watch thread.
+Dec 19, 2025 14:28:57.898 [127057366882960] DEBUG - Network change.
+Dec 19, 2025 14:28:57.898 [127057366882960] DEBUG - NetworkInterface: Notified of network changed (force=0)
+Dec 19, 2025 14:28:57.898 [127057331563320] DEBUG - NetworkInterface: Watching for changes on the interfaces.
+Dec 19, 2025 14:28:57.898 [127057366882960] DEBUG - Detected primary interface: 172.18.0.3
+Dec 19, 2025 14:28:57.898 [127057366882960] DEBUG - Network interfaces:
+Dec 19, 2025 14:28:57.898 [127057366882960] DEBUG -  * 1 lo (127.0.0.1) (00-00-00-00-00-00) (loopback: 1)
+Dec 19, 2025 14:28:57.898 [127057366882960] DEBUG -  * 2 eth0 (172.18.0.3) (7E-A8-D9-11-EA-B3) (loopback: 0)
+Dec 19, 2025 14:28:57.898 [127057366882960] DEBUG -  * 1 lo (::1) (00-00-00-00-00-00) (loopback: 1)
+Dec 19, 2025 14:28:57.898 [127057366882960] DEBUG - Creating NetworkServices singleton.
+Dec 19, 2025 14:28:57.899 [127057366882960] DEBUG - NetworkServices: Initializing...
+Dec 19, 2025 14:28:57.899 [127057366882960] DEBUG - NetworkService: Creating new service.
+Dec 19, 2025 14:28:57.899 [127057366882960] DEBUG - NetworkService: Got notification of changed network (first change: 1)
+Dec 19, 2025 14:28:57.899 [127057366882960] DEBUG - NetworkService: Quick dispatch of network change.
+Dec 19, 2025 14:28:57.899 [127057366882960] DEBUG - NetworkService: Creating new service.
+Dec 19, 2025 14:28:57.899 [127057366882960] DEBUG - NetworkService: Got notification of changed network (first change: 1)
+Dec 19, 2025 14:28:57.899 [127057366882960] DEBUG - NetworkService: Quick dispatch of network change.
+Dec 19, 2025 14:28:57.899 [127057366882960] DEBUG - NetworkService: Creating new service.
+Dec 19, 2025 14:28:57.899 [127057366882960] DEBUG - NetworkService: Got notification of changed network (first change: 1)
+Dec 19, 2025 14:28:57.899 [127057366882960] DEBUG - NetworkService: Quick dispatch of network change.
+Dec 19, 2025 14:28:57.899 [127057366882960] DEBUG - NetworkService: Creating new service.
+Dec 19, 2025 14:28:57.899 [127057329453880] DEBUG - Network change for advertiser.
+Dec 19, 2025 14:28:57.899 [127057329453880] DEBUG - NetworkService: Setting up multicast listener on 0.0.0.0:32414
+Dec 19, 2025 14:28:57.899 [127057366882960] DEBUG - NetworkService: Got notification of changed network (first change: 1)
+Dec 19, 2025 14:28:57.899 [127057366882960] DEBUG - NetworkService: Quick dispatch of network change.
+Dec 19, 2025 14:28:57.899 [127057366882960] DEBUG - NetworkService: Creating new service.
+Dec 19, 2025 14:28:57.899 [127057366882960] DEBUG - NetworkService: Got notification of changed network (first change: 1)
+Dec 19, 2025 14:28:57.899 [127057366882960] DEBUG - NetworkService: Quick dispatch of network change.
+Dec 19, 2025 14:28:57.899 [127057366882960] DEBUG - NetworkService: Creating new service.
+Dec 19, 2025 14:28:57.899 [127057366882960] DEBUG - NetworkService: Got notification of changed network (first change: 1)
+Dec 19, 2025 14:28:57.899 [127057366882960] DEBUG - NetworkService: Quick dispatch of network change.
+Dec 19, 2025 14:28:57.899 [127057329453880] DEBUG - Network change for advertiser.
+Dec 19, 2025 14:28:57.899 [127057329453880] DEBUG - NetworkService: Setting up multicast listener on 0.0.0.0:32410
+Dec 19, 2025 14:28:57.899 [127057329453880] DEBUG - Network change for advertiser.
+Dec 19, 2025 14:28:57.899 [127057329453880] DEBUG - NetworkService: Setting up multicast listener on 0.0.0.0:32412
+Dec 19, 2025 14:28:57.899 [127057329453880] DEBUG - NetworkService: Network change for browser (polled=0), closing 0 browse sockets.
+Dec 19, 2025 14:28:57.899 [127057329453880] DEBUG - NetworkService: Setting up multicast listener on 0.0.0.0:32413
+Dec 19, 2025 14:28:57.899 [127057329453880] DEBUG - NetworkService: Browsing on interface 127.0.0.1 on broadcast address 127.255.255.255 (index: 0)
+Dec 19, 2025 14:28:57.899 [127057329453880] DEBUG - NetworkService: Browsing on interface 172.18.0.3 on broadcast address 172.18.255.255 (index: 1)
+Dec 19, 2025 14:28:57.899 [127057329453880] DEBUG - NetworkService: Network change for browser (polled=1), closing 0 browse sockets.
+Dec 19, 2025 14:28:57.899 [127057329453880] DEBUG - NetworkService: Browsing on interface 127.0.0.1 on broadcast address 127.255.255.255 (index: 0)
+Dec 19, 2025 14:28:57.899 [127057329453880] DEBUG - NetworkService: Browsing on interface 172.18.0.3 on broadcast address 172.18.255.255 (index: 1)
+Dec 19, 2025 14:28:57.899 [127057329453880] DEBUG - NetworkService: Network change for browser (polled=0), closing 0 browse sockets.
+Dec 19, 2025 14:28:57.899 [127057329453880] DEBUG - NetworkService: Setting up multicast listener on 0.0.0.0:1901
+Dec 19, 2025 14:28:57.899 [127057329453880] DEBUG - NetworkService: Browsing on interface 172.18.0.3 on broadcast address 239.255.255.250 (index: 0)
+Dec 19, 2025 14:28:57.900 [127057323125560] DEBUG - [ChildProcessMonitor] Plex Tuner Service starting.
+Dec 19, 2025 14:28:57.900 [127057323125560] DEBUG - [ChildProcessMonitor/JobRunner] Job running: "/usr/lib/plexmediaserver/Plex Tuner Service" /usr/lib/plexmediaserver/Resources/Tuner/Private /usr/lib/plexmediaserver/Resources/Tuner/Shared 1.42.2.10156-f737b826c 32600
+Dec 19, 2025 14:28:57.900 [127057325235000] DEBUG - [DatabaseFixups] Running fix-ups.
+Dec 19, 2025 14:28:57.900 [127057325235000] DEBUG - [DatabaseFixups/31DatabaseFixupsCleanupRetroGames] Executing fixup
+Dec 19, 2025 14:28:57.901 [127057321016120] DEBUG - [HCl#3] HTTP requesting GET https://plex.tv/api/v2/user/privacy?X-Plex-Token=
+Dec 19, 2025 14:28:57.901 [127057327344440] DEBUG - [HCl#2] HTTP requesting GET https://plex.tv/api/v2/release_channels?X-Plex-Token=
+Dec 19, 2025 14:28:57.901 [127057314671416] DEBUG - [HCl#4] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 14:28:57.901 [127057325235000] DEBUG - [DatabaseFixups/31DatabaseFixupsCleanupRetroGames] Fixup completed
+Dec 19, 2025 14:28:57.901 [127057325235000] DEBUG - [DatabaseFixups/39DatabaseFixupsEnsureLibrarySectionUuids] Executing fixup
+Dec 19, 2025 14:28:57.901 [127057323125560] DEBUG - [ChildProcessMonitor/JobRunner] Jobs: Starting child process with pid 269
+Dec 19, 2025 14:28:57.901 [127057366882960] DEBUG - Waiting for server condition to be signaled.
+Dec 19, 2025 14:28:57.901 [127057318906680] DEBUG - DVR: Starting up.
+Dec 19, 2025 14:28:57.902 [127057304030008] DEBUG - MyPlex: Sending unclaimed device connections
+Dec 19, 2025 14:28:57.902 [127057325235000] DEBUG - [DatabaseFixups/39DatabaseFixupsEnsureLibrarySectionUuids] Fixup completed
+Dec 19, 2025 14:28:57.902 [127057325235000] DEBUG - [DatabaseFixups/38DatabaseFixupsEnsureMetadataItemHashes] Executing fixup
+Dec 19, 2025 14:28:57.902 [127057304030008] DEBUG - [HCl#5] HTTP requesting POST https://plex.tv/devices/dd268c112884cf21776d2496179e93a2f35ab5d9/unclaimed?Connection[][uri]=http://172.18.0.3:32400
+Dec 19, 2025 14:28:57.902 [127057325235000] DEBUG - [DatabaseFixups/38DatabaseFixupsEnsureMetadataItemHashes] Fixup completed
+Dec 19, 2025 14:28:57.902 [127057325235000] DEBUG - [DatabaseFixups/39DatabaseFixupsSetDefaultAccountLanguage] Executing fixup
+Dec 19, 2025 14:28:57.903 [127057325235000] DEBUG - [DatabaseFixups/39DatabaseFixupsSetDefaultAccountLanguage] Fixup completed
+Dec 19, 2025 14:28:57.903 [127057325235000] DEBUG - [DatabaseFixups/52DatabaseFixupsCreateDefaultMediaProcessingTargetTags] Executing fixup
+Dec 19, 2025 14:28:57.904 [127057325235000] DEBUG - [DatabaseFixups/52DatabaseFixupsCreateDefaultMediaProcessingTargetTags] Fixup completed
+Dec 19, 2025 14:28:57.904 [127057325235000] DEBUG - [DatabaseFixups/43DatabaseFixupsUpdateAutomaticLibraryFolders] Executing fixup
+Dec 19, 2025 14:28:57.904 [127057325235000] DEBUG - [DatabaseFixups/43DatabaseFixupsUpdateAutomaticLibraryFolders] Fixup completed
+Dec 19, 2025 14:28:57.904 [127057325235000] DEBUG - [DatabaseFixups/29DatabaseFixupsSyncCollections] Executing fixup
+Dec 19, 2025 14:28:57.904 [127057325235000] DEBUG - [DatabaseFixups/29DatabaseFixupsSyncCollections] Fixup completed
+Dec 19, 2025 14:28:57.904 [127057325235000] DEBUG - [DatabaseFixups/31DatabaseFixupsCleanupActivities] Executing fixup
+Dec 19, 2025 14:28:57.905 [127057318906680] DEBUG - Activity: registered new activity c8a9eac8-aad4-40fb-9d12-3872cc623ebe - "Processing subscriptions"
+Dec 19, 2025 14:28:57.908 [127057325235000] DEBUG - [DatabaseFixups/31DatabaseFixupsCleanupActivities] Fixup completed
+Dec 19, 2025 14:28:57.908 [127057325235000] DEBUG - [DatabaseFixups/35DatabaseFixupsConsolidatePeopleTags] Executing fixup
+Dec 19, 2025 14:28:57.909 [127057325235000] DEBUG - [DatabaseFixups/35DatabaseFixupsConsolidatePeopleTags] Fixup completed
+Dec 19, 2025 14:28:57.909 [127057325235000] DEBUG - [DatabaseFixups/54DatabaseFixupsGarbageCollectTransientMetadataRelations] Executing fixup
+Dec 19, 2025 14:28:57.910 [127057325235000] DEBUG - [DatabaseFixups/54DatabaseFixupsGarbageCollectTransientMetadataRelations] Fixup completed
+Dec 19, 2025 14:28:57.910 [127057325235000] DEBUG - [DatabaseFixups/48DatabaseFixupsResetCorruptedMetadataItemClusters] Executing fixup
+Dec 19, 2025 14:28:57.911 [127057325235000] DEBUG - [DatabaseFixups/48DatabaseFixupsResetCorruptedMetadataItemClusters] Fixup completed
+Dec 19, 2025 14:28:57.911 [127057325235000] DEBUG - [DatabaseFixups] Running database fix-ups completed in 0.0 seconds.
+Dec 19, 2025 14:28:57.920 [127057335782200] DEBUG - [HttpClient/HCl#1] HTTP/1.1 (0.0s) 200 response from GET http://127.0.0.1:46729/system/agents
+Dec 19, 2025 14:28:57.920 [127057342503736] DEBUG - [com.plexapp.system] HTTP reply status 200, with 8986 bytes of content.
+Dec 19, 2025 14:28:57.925 [127057342503736] DEBUG - The system knows about 12 agents.
+Dec 19, 2025 14:28:57.925 [127057293249336] DEBUG - Starting plug-in /usr/lib/plexmediaserver/Resources/Plug-ins-f737b826c/MoviePosterDB.bundle.
+Dec 19, 2025 14:28:57.925 [127057291139896] DEBUG - Starting plug-in /usr/lib/plexmediaserver/Resources/Plug-ins-f737b826c/LastFM.bundle.
+Dec 19, 2025 14:28:57.925 [127057289030456] DEBUG - Starting plug-in /usr/lib/plexmediaserver/Resources/Plug-ins-f737b826c/LyricFind.bundle.
+Dec 19, 2025 14:28:57.925 [127057342503736] DEBUG - Waiting for 16 plug-ins to finish starting.
+Dec 19, 2025 14:28:57.926 [127057293249336] DEBUG - Perfect cache hit, we don't need to start [com.plexapp.agents.movieposterdb] yet.
+Dec 19, 2025 14:28:57.926 [127057293249336] DEBUG - Starting plug-in /usr/lib/plexmediaserver/Resources/Plug-ins-f737b826c/Media-Flags.bundle.
+Dec 19, 2025 14:28:57.927 [127057289030456] DEBUG - Perfect cache hit, we don't need to start [com.plexapp.agents.lyricfind] yet.
+Dec 19, 2025 14:28:57.927 [127057289030456] DEBUG - Starting plug-in /usr/lib/plexmediaserver/Resources/Plug-ins-f737b826c/LocalMedia.bundle.
+Dec 19, 2025 14:28:57.927 [127057293249336] DEBUG - Starting plug-in /usr/lib/plexmediaserver/Resources/Plug-ins-f737b826c/HTbackdrops.bundle.
+Dec 19, 2025 14:28:57.927 [127057291139896] DEBUG - Perfect cache hit, we don't need to start [com.plexapp.agents.lastfm] yet.
+Dec 19, 2025 14:28:57.927 [127057291139896] DEBUG - Starting plug-in /usr/lib/plexmediaserver/Resources/Plug-ins-f737b826c/PlexMovie.bundle.
+Dec 19, 2025 14:28:57.929 [127057289030456] DEBUG - Perfect cache hit, we don't need to start [com.plexapp.agents.localmedia] yet.
+Dec 19, 2025 14:28:57.929 [127057289030456] DEBUG - Starting plug-in /usr/lib/plexmediaserver/Resources/Plug-ins-f737b826c/Framework.bundle.
+Dec 19, 2025 14:28:57.929 [127057291139896] DEBUG - Perfect cache hit, we don't need to start [com.plexapp.agents.imdb] yet.
+Dec 19, 2025 14:28:57.929 [127057291139896] DEBUG - Starting plug-in /usr/lib/plexmediaserver/Resources/Plug-ins-f737b826c/Fanart-TV.bundle.
+Dec 19, 2025 14:28:57.929 [127057293249336] DEBUG - Perfect cache hit, we don't need to start [com.plexapp.agents.htbackdrops] yet.
+Dec 19, 2025 14:28:57.929 [127057293249336] DEBUG - Starting plug-in /usr/lib/plexmediaserver/Resources/Plug-ins-f737b826c/TheTVDB.bundle.
+Dec 19, 2025 14:28:57.931 [127057289030456] DEBUG - Starting plug-in /usr/lib/plexmediaserver/Resources/Plug-ins-f737b826c/PlexThemeMusic.bundle.
+Dec 19, 2025 14:28:57.931 [127057291139896] DEBUG - Perfect cache hit, we don't need to start [com.plexapp.agents.fanarttv] yet.
+Dec 19, 2025 14:28:57.931 [127057291139896] DEBUG - Starting plug-in /usr/lib/plexmediaserver/Resources/Plug-ins-f737b826c/PersonalMedia.bundle.
+Dec 19, 2025 14:28:57.931 [127057293249336] DEBUG - Perfect cache hit, we don't need to start [com.plexapp.agents.thetvdb] yet.
+Dec 19, 2025 14:28:57.931 [127057293249336] DEBUG - Starting plug-in /usr/lib/plexmediaserver/Resources/Plug-ins-f737b826c/WebClient.bundle.
+Dec 19, 2025 14:28:57.932 [127057289030456] DEBUG - Perfect cache hit, we don't need to start [com.plexapp.agents.plexthememusic] yet.
+Dec 19, 2025 14:28:57.932 [127057289030456] DEBUG - Starting plug-in /usr/lib/plexmediaserver/Resources/Plug-ins-f737b826c/TheMovieDB.bundle.
+Dec 19, 2025 14:28:57.932 [127057291139896] DEBUG - Perfect cache hit, we don't need to start [com.plexapp.agents.none] yet.
+Dec 19, 2025 14:28:57.933 [127057291139896] DEBUG - Starting plug-in /usr/lib/plexmediaserver/Resources/Plug-ins-f737b826c/Scanners.bundle.
+Dec 19, 2025 14:28:57.933 [127057293249336] DEBUG - Starting plug-in /usr/lib/plexmediaserver/Resources/Plug-ins-f737b826c/Musicbrainz.bundle.
+Dec 19, 2025 14:28:57.934 [127057289030456] DEBUG - Perfect cache hit, we don't need to start [com.plexapp.agents.themoviedb] yet.
+Dec 19, 2025 14:28:57.934 [127057293249336] DEBUG - Perfect cache hit, we don't need to start [org.musicbrainz.agents.music] yet.
+Dec 19, 2025 14:28:57.935 [127057342503736] DEBUG - Starting scheduled updates, every 3600 seconds
+Dec 19, 2025 14:28:57.935 [127057342503736] INFO - LibraryUpdateManager path watching is disabled
+Dec 19, 2025 14:28:57.935 [127057342503736] DEBUG - Done waiting for all plug-ins to start.
+Dec 19, 2025 14:28:57.936 [127057342503736] DEBUG - PluginRepository::setStartState: 3, complete
+Dec 19, 2025 14:28:57.936 [127057276373816] DEBUG - Downloading document http://127.0.0.1:32400/:/plugins/com.plexapp.agents.imdb/prefs
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale af
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale hu_HU
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale it
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale ar
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale hr_HR
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale et_EE
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale ro
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale pt_BR
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale ru
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale uk
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale sk
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale lt
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale fr
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale pt
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale no
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale nl
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale de
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale ja_JP
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale es
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale ko
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale nl_BE
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale fi
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale sv
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale pl
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale en
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale cs_CZ
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale da
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale zh_CN
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale he
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale hu
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale sl
+Dec 19, 2025 14:28:57.937 [127057276373816] DEBUG - Translator: Found locale sr
+Dec 19, 2025 14:28:57.943 [127057276373816] DEBUG - [Req#d] Starting file watcher for com.plexapp.agents.imdb
+Dec 19, 2025 14:28:57.943 [127057276373816] DEBUG - [Req#d] Plugin: setting environment variable: 'PYTHONHOME=/usr/lib/plexmediaserver/Resources/Python'
+Dec 19, 2025 14:28:57.943 [127057276373816] DEBUG - [Req#d] Plugin: setting environment variable: 'PYTHONPATH=/usr/lib/plexmediaserver/Resources/Python/python27.zip:/usr/lib/plexmediaserver/Resources/Python/lib/python2.7/site-packages'
+Dec 19, 2025 14:28:57.947 [127057276373816] DEBUG - [Req#d] Spawned plug-in com.plexapp.agents.imdb with PID 305
+Dec 19, 2025 14:28:57.947 [127057276373816] DEBUG - [Req#d] [com.plexapp.agents.imdb] Sending command: GET /:/prefixes
+Dec 19, 2025 14:28:58.225 [127057335782200] DEBUG - [HttpClient/HCl#3] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/user/privacy?X-Plex-Token=
+Dec 19, 2025 14:28:58.229 [127057335782200] DEBUG - [HttpClient/HCl#2] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/release_channels?X-Plex-Token=
+Dec 19, 2025 14:28:58.236 [127057335782200] DEBUG - [HttpClient/HCl#4] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 14:28:58.248 [127057314671416] DEBUG - [HCl#6] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 14:28:58.252 [127057335782200] DEBUG - [HttpClient/HCl#5] HTTP/1.1 (0.4s) 200 response from POST https://plex.tv/devices/dd268c112884cf21776d2496179e93a2f35ab5d9/unclaimed?Connection[][uri]=http://172.18.0.3:32400
+Dec 19, 2025 14:28:58.261 [127057306172216] DEBUG - [JobRunner] Job running: /usr/lib/plexmediaserver/CrashUploader "--directory=/config/Library/Application Support/Plex Media Server/Crash Reports/1.42.2.10156-f737b826c" --version=1.42.2.10156-f737b826c --platform=Linux --platformVersion=6.6.87.2-microsoft-standard-WSL2 --serverUuid=dd268c112884cf21776d2496179e93a2f35ab5d9 --userId=NOUSERID --sentryUrl=https://o17675.ingest.sentry.io/api/1233455/ --sentryKey=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx --vendor=Docker --model=x86_64 "--device=Docker Container (LinuxServer.io)"
+Dec 19, 2025 14:28:58.261 [127057306172216] DEBUG - [JobRunner] Jobs: Starting child process with pid 308
+Dec 19, 2025 14:28:58.293 [127057362139960] DEBUG - Jobs: '/usr/lib/plexmediaserver/CrashUploader' exit code for process 308 is 0 (success)
+Dec 19, 2025 14:28:58.341 [127057335782200] DEBUG - [HttpClient/HCl#6] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 14:28:58.341 [127057295461176] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 14:28:58.341 [127057314671416] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 14:28:58.351 [127057338071864] DEBUG - Request: [127.0.0.1:51168 (Loopback)] GET /system/messaging/clear_events/com.plexapp.agents.imdb (3 live) #9 GZIP Token ()
+Dec 19, 2025 14:28:58.351 [127057338071864] DEBUG - [Req#9] [com.plexapp.system] Sending command over HTTP (GET): /system/messaging/clear_events/com.plexapp.agents.imdb
+Dec 19, 2025 14:28:58.351 [127057338071864] DEBUG - [Req#9/HCl#7] HTTP requesting GET http://127.0.0.1:46729/system/messaging/clear_events/com.plexapp.agents.imdb
+Dec 19, 2025 14:28:58.359 [127057335782200] DEBUG - [HttpClient/HCl#7] HTTP/1.1 (0.0s) 200 response from GET http://127.0.0.1:46729/system/messaging/clear_events/com.plexapp.agents.imdb
+Dec 19, 2025 14:28:58.359 [127057338071864] DEBUG - [Req#9] [com.plexapp.system] HTTP reply status 200, with 0 bytes of content.
+Dec 19, 2025 14:28:58.359 [127057349827384] DEBUG - Completed: [127.0.0.1:51168] 200 GET /system/messaging/clear_events/com.plexapp.agents.imdb (3 live) #9 GZIP 8ms 280 bytes
+Dec 19, 2025 14:28:58.395 [127057338071864] DEBUG - Request: [127.0.0.1:51170 (Loopback)] GET /:/plugins/com.plexapp.system/resourceHashes (3 live) #e GZIP Token ()
+Dec 19, 2025 14:28:58.395 [127057338071864] DEBUG - [Req#e] [com.plexapp.system] Sending command over HTTP (GET): /:/plugins/com.plexapp.system/resourceHashes
+Dec 19, 2025 14:28:58.395 [127057338071864] DEBUG - [Req#e/HCl#8] HTTP requesting GET http://127.0.0.1:46729/:/plugins/com.plexapp.system/resourceHashes
+Dec 19, 2025 14:28:58.831 [127057335782200] DEBUG - [HttpClient/HCl#8] HTTP/1.1 (0.4s) 404 response from GET http://127.0.0.1:46729/:/plugins/com.plexapp.system/resourceHashes
+Dec 19, 2025 14:28:58.831 [127057338071864] DEBUG - [Req#e] [com.plexapp.system] HTTP reply status 404, with 0 bytes of content.
+Dec 19, 2025 14:28:58.831 [127057349827384] DEBUG - Completed: [127.0.0.1:51170] 404 GET /:/plugins/com.plexapp.system/resourceHashes (3 live) #e GZIP 435ms 261 bytes
+Dec 19, 2025 14:28:58.858 [127057338071864] DEBUG - Request: [127.0.0.1:51176 (Loopback)] GET /:/plugins/com.plexapp.system/messaging/function/X0J1bmRsZVNlcnZpY2U6QWxsU2VydmljZXM_/Y2VyZWFsMQoxCmxpc3QKMApyMAo_/Y2VyZWFsMQoxCmRpY3QKMApyMAo_ (3 live) #10 GZIP Token ()
+Dec 19, 2025 14:28:58.858 [127057338071864] DEBUG - [Req#10] [com.plexapp.system] Sending command over HTTP (GET): /:/plugins/com.plexapp.system/messaging/function/X0J1bmRsZVNlcnZpY2U6QWxsU2VydmljZXM_/Y2VyZWFsMQoxCmxpc3QKMApyMAo_/Y2VyZWFsMQoxCmRpY3QKMApyMAo_
+Dec 19, 2025 14:28:58.858 [127057338071864] DEBUG - [Req#10/HCl#9] HTTP requesting GET http://127.0.0.1:46729/:/plugins/com.plexapp.system/messaging/function/X0J1bmRsZVNlcnZpY2U6QWxsU2VydmljZXM_/Y2VyZWFsMQoxCmxpc3QKMApyMAo_/Y2VyZWFsMQoxCmRpY3QKMApyMAo_
+Dec 19, 2025 14:28:58.860 [127057308281656] DEBUG - Request: [127.0.0.1:51192 (Loopback)] GET / (4 live) #12 GZIP Token ()
+Dec 19, 2025 14:28:58.860 [127057351936824] DEBUG - Completed: [127.0.0.1:51192] 200 GET / (4 live) #12 GZIP 0ms 2601 bytes
+Dec 19, 2025 14:28:58.861 [127057335782200] DEBUG - [HttpClient/HCl#9] HTTP/1.1 (0.0s) 200 response from GET http://127.0.0.1:46729/:/plugins/com.plexapp.system/messaging/function/X0J1bmRsZVNlcnZpY2U6QWxsU2VydmljZXM_/Y2VyZWFsMQoxCmxpc3QKMApyMAo_/Y2VyZWFsMQoxCmRpY3QKMApyMAo_
+Dec 19, 2025 14:28:58.861 [127057338071864] DEBUG - [Req#10] [com.plexapp.system] HTTP reply status 200, with 516 bytes of content.
+Dec 19, 2025 14:28:58.861 [127057351936824] DEBUG - Completed: [127.0.0.1:51176] 200 GET /:/plugins/com.plexapp.system/messaging/function/X0J1bmRsZVNlcnZpY2U6QWxsU2VydmljZXM_/Y2VyZWFsMQoxCmxpc3QKMApyMAo_/Y2VyZWFsMQoxCmRpY3QKMApyMAo_ (3 live) #10 GZIP 3ms 746 bytes
+Dec 19, 2025 14:28:59.070 [127057308281656] DEBUG - Request: [127.0.0.1:51198 (Loopback)] GET /:/plugins/com.plexapp.system/messaging/function/X0FnZW50U2VydmljZTpVcGRhdGVJbmZv/Y2VyZWFsMQoxCmxpc3QKMApyMAo_/Y2VyZWFsMQo3CmRpY3QKbGlzdApkaWN0Cmxpc3QKbGlzdApsaXN0Cmxpc3QKMgpzMjMKY29tLnBsZXhhcHAuYWdlbnRzLmltZGJzMTAKaWRlbnRpZmllcnIxCnMxMAphZ2VudF9pbmZvMQpyMgoxMApyMwpzMTEKbWVkaWFfdHlwZXNyNApzMTIKYWNjZXB0c19mcm9tbnMxNApmYWxsYmFja19hZ2VudHI1CnMxNApjb250cmlidXRlc190b3I2CnM5Cmxhbmd1YWdlc2IxczIwCnBlcnNpc3Rfc3RvcmVkX2ZpbGVzaTAKczcKdmVyc2lvbmIxczE2CnByaW1hcnlfcHJvdmlkZXJiMXM1CnByZWZzczE5ClBsZXggTW92aWUgKExlZ2FjeSlzNApuYW1lMQpzNQpNb3ZpZTEKczI5CmNvbS5wbGV4YXBwLmFnZW50cy5sb2NhbG1lZGlhMQpzMjkKY29tLnBsZXhhcHAuYWdlbnRzLnRoZW1vdmllZGIzMwpzMgplbnMyCnN2czIKZnJzMgplc3MyCm5sczIKZGVzMgppdHMyCmRhczIKYXJzMgpjYXMyCnpoczIKY3NzMgpldHMyCmZpczIKZWxzMgpoZXMyCmhpczIKaHVzMgppZHMyCmphczIKa29zMgpsdnMyCm5vczIKZmFzMgpwbHMyCnB0czIKcm9zMgpydXMyCnNrczIKdGhzMgp0cnMyCnVrczIKdmlyMAo_ (3 live) #13 GZIP Token ()
+Dec 19, 2025 14:28:59.070 [127057308281656] DEBUG - [Req#13] [com.plexapp.system] Sending command over HTTP (GET): /:/plugins/com.plexapp.system/messaging/function/X0FnZW50U2VydmljZTpVcGRhdGVJbmZv/Y2VyZWFsMQoxCmxpc3QKMApyMAo_/Y2VyZWFsMQo3CmRpY3QKbGlzdApkaWN0Cmxpc3QKbGlzdApsaXN0Cmxpc3QKMgpzMjMKY29tLnBsZXhhcHAuYWdlbnRzLmltZGJzMTAKaWRlbnRpZmllcnIxCnMxMAphZ2VudF9pbmZvMQpyMgoxMApyMwpzMTEKbWVkaWFfdHlwZXNyNApzMTIKYWNjZXB0c19mcm9tbnMxNApmYWxsYmFja19hZ2VudHI1CnMxNApjb250cmlidXRlc190b3I2CnM5Cmxhbmd1YWdlc2IxczIwCnBlcnNpc3Rfc3RvcmVkX2ZpbGVzaTAKczcKdmVyc2lvbmIxczE2CnByaW1hcnlfcHJvdmlkZXJiMXM1CnByZWZzczE5ClBsZXggTW92aWUgKExlZ2FjeSlzNApuYW1lMQpzNQpNb3ZpZTEKczI5CmNvbS5wbGV4YXBwLmFnZW50cy5sb2NhbG1lZGlhMQpzMjkKY29tLnBsZXhhcHAuYWdlbnRzLnRoZW1vdmllZGIzMwpzMgplbnMyCnN2czIKZnJzMgplc3MyCm5sczIKZGVzMgppdHMyCmRhczIKYXJzMgpjYXMyCnpoczIKY3NzMgpldHMyCmZpczIKZWxzMgpoZXMyCmhpczIKaHVzMgppZHMyCmphczIKa29zMgpsdnMyCm5vczIKZmFzMgpwbHMyCnB0czIKcm9zMgpydXMyCnNrczIKdGhzMgp0cnMyCnVrczIKdmlyMAo_
+Dec 19, 2025 14:28:59.070 [127057308281656] DEBUG - [Req#13/HCl#a] HTTP requesting GET http://127.0.0.1:46729/:/plugins/com.plexapp.system/messaging/function/X0FnZW50U2VydmljZTpVcGRhdGVJbmZv/Y2VyZWFsMQoxCmxpc3QKMApyMAo_/Y2VyZWFsMQo3CmRpY3QKbGlzdApkaWN0Cmxpc3QKbGlzdApsaXN0Cmxpc3QKMgpzMjMKY29tLnBsZXhhcHAuYWdlbnRzLmltZGJzMTAKaWRlbnRpZmllcnIxCnMxMAphZ2VudF9pbmZvMQpyMgoxMApyMwpzMTEKbWVkaWFfdHlwZXNyNApzMTIKYWNjZXB0c19mcm9tbnMxNApmYWxsYmFja19hZ2VudHI1CnMxNApjb250cmlidXRlc190b3I2CnM5Cmxhbmd1YWdlc2IxczIwCnBlcnNpc3Rfc3RvcmVkX2ZpbGVzaTAKczcKdmVyc2lvbmIxczE2CnByaW1hcnlfcHJvdmlkZXJiMXM1CnByZWZzczE5ClBsZXggTW92aWUgKExlZ2FjeSlzNApuYW1lMQpzNQpNb3ZpZTEKczI5CmNvbS5wbGV4YXBwLmFnZW50cy5sb2NhbG1lZGlhMQpzMjkKY29tLnBsZXhhcHAuYWdlbnRzLnRoZW1vdmllZGIzMwpzMgplbnMyCnN2czIKZnJzMgplc3MyCm5sczIKZGVzMgppdHMyCmRhczIKYXJzMgpjYXMyCnpoczIKY3NzMgpldHMyCmZpczIKZWxzMgpoZXMyCmhpczIKaHVzMgppZHMyCmphczIKa29zMgpsdnMyCm5vczIKZmFzMgpwbHMyCnB0czIKcm9zMgpydXMyCnNrczIKdGhzMgp0cnMyCnVrczIKdmlyMAo_
+Dec 19, 2025 14:28:59.073 [127057335782200] DEBUG - [HttpClient/HCl#a] HTTP/1.1 (0.0s) 200 response from GET http://127.0.0.1:46729/:/plugins/com.plexapp.system/messaging/function/X0FnZW50U2VydmljZTpVcGRhdGVJbmZv/Y2VyZWFsMQoxCmxpc3QKMApyMAo_/Y2VyZWFsMQo3CmRpY3QKbGlzdApkaWN0Cmxpc3QKbGlzdApsaXN0Cmxpc3QKMgpzMjMKY29tLnBsZXhhcHAuYWdlbnRzLmltZGJzMTAKaWRlbnRpZmllcnIxCnMxMAphZ2VudF9pbmZvMQpyMgoxMApyMwpzMTEKbWVkaWFfdHlwZXNyNApzMTIKYWNjZXB0c19mcm9tbnMxNApmYWxsYmFja19hZ2VudHI1CnMxNApjb250cmlidXRlc190b3I2CnM5Cmxhbmd1YWdlc2IxczIwCnBlcnNpc3Rfc3RvcmVkX2ZpbGVzaTAKczcKdmVyc2lvbmIxczE2CnByaW1hcnlfcHJvdmlkZXJiMXM1CnByZWZzczE5ClBsZXggTW92aWUgKExlZ2FjeSlzNApuYW1lMQpzNQpNb3ZpZTEKczI5CmNvbS5wbGV4YXBwLmFnZW50cy5sb2NhbG1lZGlhMQpzMjkKY29tLnBsZXhhcHAuYWdlbnRzLnRoZW1vdmllZGIzMwpzMgplbnMyCnN2czIKZnJzMgplc3MyCm5sczIKZGVzMgppdHMyCmRhczIKYXJzMgpjYXMyCnpoczIKY3NzMgpldHMyCmZpczIKZWxzMgpoZXMyCmhpczIKaHVzMgppZHMyCmphczIKa29zMgpsdnMyCm5vczIKZmFzMgpwbHMyCnB0czIKcm9zMgpydXMyCnNrczIKdGhzMgp0cnMyCnVrczIKdmlyMAo_
+Dec 19, 2025 14:28:59.073 [127057308281656] DEBUG - [Req#13] [com.plexapp.system] HTTP reply status 200, with 16 bytes of content.
+Dec 19, 2025 14:28:59.074 [127057349827384] DEBUG - Completed: [127.0.0.1:51198] 200 GET /:/plugins/com.plexapp.system/messaging/function/X0FnZW50U2VydmljZTpVcGRhdGVJbmZv/Y2VyZWFsMQoxCmxpc3QKMApyMAo_/Y2VyZWFsMQo3CmRpY3QKbGlzdApkaWN0Cmxpc3QKbGlzdApsaXN0Cmxpc3QKMgpzMjMKY29tLnBsZXhhcHAuYWdlbnRzLmltZGJzMTAKaWRlbnRpZmllcnIxCnMxMAphZ2VudF9pbmZvMQpyMgoxMApyMwpzMTEKbWVkaWFfdHlwZXNyNApzMTIKYWNjZXB0c19mcm9tbnMxNApmYWxsYmFja19hZ2VudHI1CnMxNApjb250cmlidXRlc190b3I2CnM5Cmxhbmd1YWdlc2IxczIwCnBlcnNpc3Rfc3RvcmVkX2ZpbGVzaTAKczcKdmVyc2lvbmIxczE2CnByaW1hcnlfcHJvdmlkZXJiMXM1CnByZWZzczE5ClBsZXggTW92aWUgKExlZ2FjeSlzNApuYW1lMQpzNQpNb3ZpZTEKczI5CmNvbS5wbGV4YXBwLmFnZW50cy5sb2NhbG1lZGlhMQpzMjkKY29tLnBsZXhhcHAuYWdlbnRzLnRoZW1vdmllZGIzMwpzMgplbnMyCnN2czIKZnJzMgplc3MyCm5sczIKZGVzMgppdHMyCmRhczIKYXJzMgpjYXMyCnpoczIKY3NzMgpldHMyCmZpczIKZWxzMgpoZXMyCmhpczIKaHVzMgppZHMyCmphczIKa29zMgpsdnMyCm5vczIKZmFzMgpwbHMyCnB0czIKcm9zMgpydXMyCnNrczIKdGhzMgp0cnMyCnVrczIKdmlyMAo_ (3 live) #13 GZIP 3ms 415 bytes
+Dec 19, 2025 14:28:59.079 [127057276373816] DEBUG - [Req#d] Reading 148 bytes in the body, code is 200
+Dec 19, 2025 14:28:59.079 [127057276373816] DEBUG - [Req#d] [com.plexapp.agents.imdb] Plug-in running on port 45063.
+Dec 19, 2025 14:28:59.079 [127057276373816] DEBUG - [Req#d] Read configuration for [com.plexapp.agents.imdb], had 0 prefixes
+Dec 19, 2025 14:28:59.080 [127057276373816] DEBUG - [Req#d] [com.plexapp.agents.imdb] Sending command over HTTP (GET): /:/plugins/com.plexapp.agents.imdb/prefs
+Dec 19, 2025 14:28:59.080 [127057276373816] DEBUG - [Req#d/HCl#b] HTTP requesting GET http://127.0.0.1:45063/:/plugins/com.plexapp.agents.imdb/prefs
+Dec 19, 2025 14:28:59.157 [127057335782200] DEBUG - [HttpClient/HCl#b] HTTP/1.1 (0.1s) 200 response from GET http://127.0.0.1:45063/:/plugins/com.plexapp.agents.imdb/prefs
+Dec 19, 2025 14:28:59.158 [127057276373816] DEBUG - [Req#d] [com.plexapp.agents.imdb] HTTP reply status 200, with 2224 bytes of content.
+Dec 19, 2025 14:28:59.158 [127057276373816] DEBUG - Caching document http://127.0.0.1:32400/:/plugins/com.plexapp.agents.imdb/prefs as be401593b2b39b0cd6a68d673dba30161bddbeed
+Dec 19, 2025 14:28:59.158 [127057276373816] DEBUG - IVA: Downloading trailer lists.
+Dec 19, 2025 14:28:59.305 [127057276373816] DEBUG - IVA: Downloaded 52 trailers for source 1.
+Dec 19, 2025 14:28:59.353 [127057276373816] DEBUG - IVA: Downloaded 28 trailers for source 2.
+Dec 19, 2025 14:29:00.903 [127057284811576] DEBUG - [MediaProviderManager] Refreshing media providers
+Dec 19, 2025 14:29:01.063 [127057284811576] DEBUG - [MediaProviderManager] we had 0 cloud providers online, we now have 1
+Dec 19, 2025 14:29:01.063 [127057284811576] DEBUG - [MediaProviderManager] cloud provider (Metadata) is online and available
+Dec 19, 2025 14:29:01.065 [127057284811576] DEBUG - [MediaProviderManager/MetadataAgentManager] Found media provider for agent provider 'tv.plex.agents.movie' with source URI 'provider://tv.plex.provider.metadata'
+Dec 19, 2025 14:29:01.067 [127057284811576] DEBUG - [MediaProviderManager/MetadataAgentManager] Found media provider for agent provider 'tv.plex.agents.series' with source URI 'provider://tv.plex.provider.metadata'
+Dec 19, 2025 14:29:01.068 [127057284811576] DEBUG - [MediaProviderManager/MetadataAgentManager] Found media provider for agent provider 'tv.plex.agents.music' with source URI 'provider://tv.plex.provider.metadata'
+Dec 19, 2025 14:29:01.070 [127057284811576] DEBUG - [MediaProviderManager/MetadataAgentManager] Found media provider for agent provider 'org.musicbrainz.agents.music' with source URI 'provider://tv.plex.provider.metadata'
+Dec 19, 2025 14:29:01.070 [127057284811576] DEBUG - [MediaProviderManager] Media provider refresh complete
+Dec 19, 2025 14:29:02.900 [127057329453880] DEBUG - [NSB] NetworkServiceBrowser: SERVER arrived: 127.0.0.1 (9722d71cd01f)
+Dec 19, 2025 14:29:02.900 [127057329453880] DEBUG - [NSB] Notifying the system bundle an update to server /system/notify/serverUpdated?host=127.0.0.1
+Dec 19, 2025 14:29:02.900 [127057329453880] DEBUG - [NSB] [com.plexapp.system] Sending command over HTTP (GET): /system/notify/serverUpdated?host=127.0.0.1
+Dec 19, 2025 14:29:02.900 [127057329453880] DEBUG - [NSB/HCl#13] HTTP requesting GET http://127.0.0.1:46729/system/notify/serverUpdated?host=127.0.0.1
+Dec 19, 2025 14:29:02.910 [127057308281656] DEBUG - Request: [127.0.0.1:51200 (Loopback)] GET /servers (3 live) #16 GZIP Token ()
+Dec 19, 2025 14:29:02.911 [127057349827384] DEBUG - Completed: [127.0.0.1:51200] 200 GET /servers (3 live) #16 GZIP 0ms 492 bytes
+Dec 19, 2025 14:29:02.916 [127057335782200] DEBUG - [HttpClient/HCl#13] HTTP/1.1 (0.0s) 200 response from GET http://127.0.0.1:46729/system/notify/serverUpdated?host=127.0.0.1
+Dec 19, 2025 14:29:02.916 [127057329453880] DEBUG - [NSB] [com.plexapp.system] HTTP reply status 200, with 0 bytes of content.
+Dec 19, 2025 14:29:06.966 [127057310395192] DEBUG - DVR:Device: Discovering and refreshing all devices.
+Dec 19, 2025 14:29:06.966 [127057310395192] DEBUG - Grabber: HDHomerun discovered 0 compatible devices.
+Dec 19, 2025 14:29:06.966 [127057310395192] DEBUG - [HCl#14] HTTP requesting POST http://127.0.0.1:32600/devices/discover
+Dec 19, 2025 14:29:07.906 [127057316780856] DEBUG - Grabber: Cleaning up orphaned grabs.
+Dec 19, 2025 14:29:07.906 [127057316780856] DEBUG - Grabber: Cleaned up 0 decrepit directories in 0.0 sec.
+Dec 19, 2025 14:29:07.909 [127057316780856] DEBUG - Activity: registered new activity e6ee6949-5065-4661-a9a8-c2f4d7512f93 - "Processing subscriptions"
+Dec 19, 2025 14:29:07.909 [127057316780856] DEBUG - Subscription: Scheduling subscriptions.
+Dec 19, 2025 14:29:07.912 [127057316780856] DEBUG - Subscription: Initialized 0 schedulers.
+Dec 19, 2025 14:29:07.912 [127057316780856] DEBUG - Subscription: Starting with 0 grabs, scheduled 0 active ones preemptively.
+Dec 19, 2025 14:29:07.912 [127057316780856] DEBUG - Subscription: Scheduled all subscriptions in 2 ms.
+Dec 19, 2025 14:29:07.913 [127057316780856] DEBUG - Activity: Ended activity e6ee6949-5065-4661-a9a8-c2f4d7512f93.
+Dec 19, 2025 14:29:07.914 [127057316780856] DEBUG - Subscription: There are 0 active grabs at the end.
+Dec 19, 2025 14:29:07.915 [127057316780856] DEBUG - Activity: Ended activity c8a9eac8-aad4-40fb-9d12-3872cc623ebe.
+Dec 19, 2025 14:29:07.916 [127057316780856] DEBUG - Subscription: Refreshed all content in 9 ms.
+Dec 19, 2025 14:29:09.391 [127057335782200] DEBUG - [HttpClient/HCl#14] HTTP/1.1 (2.4s) 200 response from POST http://127.0.0.1:32600/devices/discover
+Dec 19, 2025 14:30:56.294 [127057359674168] DEBUG - BPQ: [Starting] -> [Processing]
+Dec 19, 2025 14:30:56.297 [127057359674168] DEBUG - BPQ: generating queue items from 0 generator(s)
+Dec 19, 2025 14:30:56.297 [127057359674168] DEBUG - BPQ: generated 0 item(s) for queue
+Dec 19, 2025 14:30:56.300 [127057359674168] DEBUG - BPQ: [Processing] -> [Idle]
+Dec 19, 2025 14:30:57.869 [127057308281656] DEBUG - Request: [127.0.0.1:35834 (Loopback)] GET /servers (2 live) #1b GZIP Token ()
+Dec 19, 2025 14:30:57.869 [127057351936824] DEBUG - Completed: [127.0.0.1:35834] 200 GET /servers (2 live) #1b GZIP 0ms 492 bytes
+Dec 19, 2025 14:30:57.877 [127057308281656] DEBUG - Request: [127.0.0.1:35840 (Loopback)] GET / (2 live) #1e GZIP Token ()
+Dec 19, 2025 14:30:57.877 [127057349827384] DEBUG - Completed: [127.0.0.1:35840] 200 GET / (2 live) #1e GZIP 0ms 2601 bytes
+Dec 19, 2025 14:30:57.892 [127057308281656] DEBUG - Request: [127.0.0.1:35850 (Loopback)] GET /library/sections (2 live) #20 GZIP Token ()
+Dec 19, 2025 14:30:57.893 [127057349827384] DEBUG - Completed: [127.0.0.1:35850] 200 GET /library/sections (2 live) #20 GZIP 0ms 403 bytes
+Dec 19, 2025 14:30:57.905 [127057308281656] DEBUG - Request: [127.0.0.1:35862 (Loopback)] GET /channels/all (2 live) #22 GZIP Token ()
+Dec 19, 2025 14:30:57.905 [127057349827384] DEBUG - Completed: [127.0.0.1:35862] 200 GET /channels/all (2 live) #22 GZIP 0ms 387 bytes
+Dec 19, 2025 14:30:57.916 [127057308281656] DEBUG - Request: [127.0.0.1:35866 (Loopback)] GET /library/sections (2 live) #24 GZIP Token ()
+Dec 19, 2025 14:30:57.917 [127057349827384] DEBUG - Completed: [127.0.0.1:35866] 200 GET /library/sections (2 live) #24 GZIP 0ms 403 bytes
+Dec 19, 2025 14:30:57.926 [127057308281656] DEBUG - Request: [127.0.0.1:35878 (Loopback)] GET /channels/all (2 live) #26 GZIP Token ()
+Dec 19, 2025 14:30:57.926 [127057349827384] DEBUG - Completed: [127.0.0.1:35878] 200 GET /channels/all (2 live) #26 GZIP 0ms 387 bytes
+Dec 19, 2025 14:33:58.328 [127057316780856] DEBUG - [HCl#15] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 14:33:58.640 [127057335782200] DEBUG - [HttpClient/HCl#15] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 14:33:58.647 [127057316780856] DEBUG - [HCl#16] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 14:33:58.745 [127057335782200] DEBUG - [HttpClient/HCl#16] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 14:33:58.745 [127057338071864] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 14:33:58.745 [127057316780856] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 14:38:58.732 [127057284811576] DEBUG - [HCl#17] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 14:38:59.035 [127057335782200] DEBUG - [HttpClient/HCl#17] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 14:38:59.059 [127057284811576] DEBUG - [HCl#18] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 14:38:59.146 [127057335782200] DEBUG - [HttpClient/HCl#18] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 14:38:59.146 [127057338071864] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 14:38:59.146 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 14:43:59.134 [127057284811576] DEBUG - [HCl#19] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 14:43:59.445 [127057335782200] DEBUG - [HttpClient/HCl#19] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 14:43:59.449 [127057284811576] DEBUG - [HCl#1a] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 14:43:59.535 [127057335782200] DEBUG - [HttpClient/HCl#1a] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 14:43:59.535 [127057338071864] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 14:43:59.535 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 14:48:59.522 [127057310395192] DEBUG - [HCl#1b] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 14:48:59.830 [127057335782200] DEBUG - [HttpClient/HCl#1b] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 14:48:59.839 [127057310395192] DEBUG - [HCl#1c] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 14:48:59.928 [127057335782200] DEBUG - [HttpClient/HCl#1c] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 14:48:59.928 [127057338071864] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 14:48:59.928 [127057310395192] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 14:53:59.917 [127057316780856] DEBUG - [HCl#1d] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 14:54:00.253 [127057335782200] DEBUG - [HttpClient/HCl#1d] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 14:54:00.263 [127057316780856] DEBUG - [HCl#1e] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 14:54:00.393 [127057335782200] DEBUG - [HttpClient/HCl#1e] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 14:54:00.393 [127057338071864] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 14:54:00.393 [127057316780856] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 14:59:00.383 [127057316780856] DEBUG - [HCl#1f] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 14:59:00.685 [127057335782200] DEBUG - [HttpClient/HCl#1f] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 14:59:00.699 [127057316780856] DEBUG - [HCl#20] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 14:59:00.786 [127057335782200] DEBUG - [HttpClient/HCl#20] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 14:59:00.787 [127057338071864] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 14:59:00.787 [127057316780856] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 14:59:07.002 [127057293249336] DEBUG - Putting plug-in com.plexapp.agents.imdb to sleep.
+Dec 19, 2025 14:59:07.002 [127057293249336] DEBUG - Stopping [com.plexapp.agents.imdb].
+Dec 19, 2025 14:59:07.002 [127057293249336] DEBUG - [com.plexapp.agents.imdb] Killing.
+Dec 19, 2025 14:59:07.004 [127057362139960] WARN - JobManager: Could not find job for handle 305
+Dec 19, 2025 14:59:17.003 [127057293249336] DEBUG - Stopping file watcher for com.plexapp.agents.imdb
+Dec 19, 2025 15:04:00.776 [127057310395192] DEBUG - [HCl#21] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:04:01.092 [127057335782200] DEBUG - [HttpClient/HCl#21] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:04:01.102 [127057310395192] DEBUG - [HCl#22] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:04:01.190 [127057335782200] DEBUG - [HttpClient/HCl#22] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 15:04:01.190 [127057338071864] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:04:01.190 [127057310395192] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 15:09:01.178 [127057284811576] DEBUG - [HCl#23] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:09:01.504 [127057335782200] DEBUG - [HttpClient/HCl#23] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:09:01.510 [127057284811576] DEBUG - [HCl#24] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:09:01.596 [127057335782200] DEBUG - [HttpClient/HCl#24] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 15:09:01.596 [127057338071864] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:09:01.597 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 15:14:01.585 [127057310395192] DEBUG - [HCl#25] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:14:01.909 [127057335782200] DEBUG - [HttpClient/HCl#25] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:14:01.919 [127057310395192] DEBUG - [HCl#26] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:14:02.009 [127057335782200] DEBUG - [HttpClient/HCl#26] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 15:14:02.009 [127057338071864] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:14:02.009 [127057310395192] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 15:19:01.997 [127057316780856] DEBUG - [HCl#27] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:19:02.323 [127057335782200] DEBUG - [HttpClient/HCl#27] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:19:02.332 [127057316780856] DEBUG - [HCl#28] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:19:02.428 [127057335782200] DEBUG - [HttpClient/HCl#28] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 15:19:02.428 [127057338071864] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:19:02.428 [127057316780856] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 15:24:02.416 [127057284811576] DEBUG - [HCl#29] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:24:02.733 [127057335782200] DEBUG - [HttpClient/HCl#29] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:24:02.737 [127057284811576] DEBUG - [HCl#2a] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:24:02.835 [127057335782200] DEBUG - [HttpClient/HCl#2a] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 15:24:02.835 [127057338071864] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:24:02.835 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 15:29:02.822 [127057284811576] DEBUG - [HCl#2b] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:29:03.142 [127057335782200] DEBUG - [HttpClient/HCl#2b] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:29:03.149 [127057284811576] DEBUG - [HCl#2c] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:29:03.237 [127057335782200] DEBUG - [HttpClient/HCl#2c] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 15:29:03.237 [127057338071864] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:29:03.237 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 15:34:03.224 [127057284811576] DEBUG - [HCl#2d] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:34:03.550 [127057335782200] DEBUG - [HttpClient/HCl#2d] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:34:03.555 [127057284811576] DEBUG - [HCl#2e] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:34:03.648 [127057335782200] DEBUG - [HttpClient/HCl#2e] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 15:34:03.648 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:34:03.648 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 15:39:03.634 [127057316780856] DEBUG - [HCl#2f] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:39:03.948 [127057335782200] DEBUG - [HttpClient/HCl#2f] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:39:03.955 [127057316780856] DEBUG - [HCl#30] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:39:04.056 [127057335782200] DEBUG - [HttpClient/HCl#30] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 15:39:04.056 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:39:04.056 [127057316780856] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 15:44:04.043 [127057284811576] DEBUG - [HCl#31] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:44:04.373 [127057335782200] DEBUG - [HttpClient/HCl#31] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:44:04.378 [127057284811576] DEBUG - [HCl#32] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:44:04.473 [127057335782200] DEBUG - [HttpClient/HCl#32] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 15:44:04.473 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:44:04.473 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 15:49:04.461 [127057338071864] DEBUG - [HCl#33] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:49:04.783 [127057335782200] DEBUG - [HttpClient/HCl#33] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:49:04.792 [127057338071864] DEBUG - [HCl#34] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:49:04.878 [127057335782200] DEBUG - [HttpClient/HCl#34] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 15:49:04.878 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:49:04.878 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 15:54:04.865 [127057338071864] DEBUG - [HCl#35] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:54:05.191 [127057335782200] DEBUG - [HttpClient/HCl#35] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:54:05.199 [127057338071864] DEBUG - [HCl#36] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:54:05.286 [127057335782200] DEBUG - [HttpClient/HCl#36] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 15:54:05.286 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:54:05.286 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 15:59:05.273 [127057284811576] DEBUG - [HCl#37] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:59:05.595 [127057335782200] DEBUG - [HttpClient/HCl#37] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 15:59:05.604 [127057284811576] DEBUG - [HCl#38] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:59:05.697 [127057335782200] DEBUG - [HttpClient/HCl#38] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 15:59:05.698 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 15:59:05.698 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 16:04:05.685 [127057284811576] DEBUG - [HCl#39] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:04:05.991 [127057335782200] DEBUG - [HttpClient/HCl#39] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:04:05.999 [127057284811576] DEBUG - [HCl#3a] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:04:06.108 [127057335782200] DEBUG - [HttpClient/HCl#3a] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 16:04:06.108 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:04:06.108 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 16:09:06.096 [127057327344440] DEBUG - [HCl#3b] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:09:06.404 [127057335782200] DEBUG - [HttpClient/HCl#3b] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:09:06.410 [127057327344440] DEBUG - [HCl#3c] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:09:06.498 [127057335782200] DEBUG - [HttpClient/HCl#3c] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 16:09:06.499 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:09:06.499 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 16:14:06.486 [127057284811576] DEBUG - [HCl#3d] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:14:06.820 [127057335782200] DEBUG - [HttpClient/HCl#3d] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:14:06.834 [127057284811576] DEBUG - [HCl#3e] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:14:06.926 [127057335782200] DEBUG - [HttpClient/HCl#3e] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 16:14:06.926 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:14:06.926 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 16:19:06.915 [127057338071864] DEBUG - [HCl#3f] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:19:07.230 [127057335782200] DEBUG - [HttpClient/HCl#3f] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:19:07.240 [127057338071864] DEBUG - [HCl#40] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:19:07.337 [127057335782200] DEBUG - [HttpClient/HCl#40] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 16:19:07.337 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:19:07.337 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 16:24:07.326 [127057284811576] DEBUG - [HCl#41] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:24:07.641 [127057335782200] DEBUG - [HttpClient/HCl#41] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:24:07.645 [127057284811576] DEBUG - [HCl#42] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:24:07.731 [127057335782200] DEBUG - [HttpClient/HCl#42] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 16:24:07.731 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:24:07.731 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 16:29:07.719 [127057338071864] DEBUG - [HCl#43] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:29:08.041 [127057335782200] DEBUG - [HttpClient/HCl#43] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:29:08.049 [127057338071864] DEBUG - [HCl#44] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:29:08.142 [127057335782200] DEBUG - [HttpClient/HCl#44] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 16:29:08.142 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:29:08.142 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 16:34:08.131 [127057327344440] DEBUG - [HCl#45] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:34:08.451 [127057335782200] DEBUG - [HttpClient/HCl#45] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:34:08.483 [127057327344440] DEBUG - [HCl#46] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:34:08.574 [127057335782200] DEBUG - [HttpClient/HCl#46] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 16:34:08.574 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:34:08.574 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 16:39:08.563 [127057327344440] DEBUG - [HCl#47] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:39:08.872 [127057335782200] DEBUG - [HttpClient/HCl#47] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:39:08.894 [127057327344440] DEBUG - [HCl#48] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:39:08.984 [127057335782200] DEBUG - [HttpClient/HCl#48] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 16:39:08.984 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:39:08.984 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 16:44:08.972 [127057284811576] DEBUG - [HCl#49] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:44:09.293 [127057335782200] DEBUG - [HttpClient/HCl#49] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:44:09.300 [127057284811576] DEBUG - [HCl#4a] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:44:09.390 [127057335782200] DEBUG - [HttpClient/HCl#4a] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 16:44:09.390 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:44:09.390 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 16:49:09.377 [127057284811576] DEBUG - [HCl#4b] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:49:09.690 [127057335782200] DEBUG - [HttpClient/HCl#4b] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:49:09.718 [127057284811576] DEBUG - [HCl#4c] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:49:09.799 [127057335782200] DEBUG - [HttpClient/HCl#4c] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 16:49:09.800 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:49:09.800 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 16:54:09.786 [127057327344440] DEBUG - [HCl#4d] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:54:10.099 [127057335782200] DEBUG - [HttpClient/HCl#4d] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:54:10.106 [127057327344440] DEBUG - [HCl#4e] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:54:10.194 [127057335782200] DEBUG - [HttpClient/HCl#4e] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 16:54:10.194 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:54:10.194 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 16:59:10.181 [127057327344440] DEBUG - [HCl#4f] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:59:10.482 [127057335782200] DEBUG - [HttpClient/HCl#4f] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 16:59:10.489 [127057327344440] DEBUG - [HCl#50] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:59:10.577 [127057335782200] DEBUG - [HttpClient/HCl#50] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 16:59:10.577 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 16:59:10.577 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 17:04:10.562 [127057327344440] DEBUG - [HCl#51] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:04:10.883 [127057335782200] DEBUG - [HttpClient/HCl#51] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:04:10.890 [127057327344440] DEBUG - [HCl#52] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:04:10.974 [127057335782200] DEBUG - [HttpClient/HCl#52] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 17:04:10.974 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:04:10.974 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 17:09:10.961 [127057338071864] DEBUG - [HCl#53] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:09:11.256 [127057335782200] DEBUG - [HttpClient/HCl#53] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:09:11.289 [127057338071864] DEBUG - [HCl#54] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:09:11.378 [127057335782200] DEBUG - [HttpClient/HCl#54] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 17:09:11.378 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:09:11.378 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 17:14:11.366 [127057284811576] DEBUG - [HCl#55] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:14:11.662 [127057335782200] DEBUG - [HttpClient/HCl#55] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:14:11.671 [127057284811576] DEBUG - [HCl#56] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:14:11.756 [127057335782200] DEBUG - [HttpClient/HCl#56] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 17:14:11.756 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:14:11.756 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 17:19:11.741 [127057327344440] DEBUG - [HCl#57] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:19:12.039 [127057335782200] DEBUG - [HttpClient/HCl#57] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:19:12.051 [127057327344440] DEBUG - [HCl#58] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:19:12.129 [127057335782200] DEBUG - [HttpClient/HCl#58] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 17:19:12.129 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:19:12.129 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 17:24:12.115 [127057338071864] DEBUG - [HCl#59] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:24:12.413 [127057335782200] DEBUG - [HttpClient/HCl#59] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:24:12.421 [127057338071864] DEBUG - [HCl#5a] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:24:12.508 [127057335782200] DEBUG - [HttpClient/HCl#5a] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 17:24:12.508 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:24:12.508 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 17:29:12.492 [127057338071864] DEBUG - [HCl#5b] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:29:12.805 [127057335782200] DEBUG - [HttpClient/HCl#5b] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:29:12.814 [127057338071864] DEBUG - [HCl#5c] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:29:12.899 [127057335782200] DEBUG - [HttpClient/HCl#5c] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 17:29:12.899 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:29:12.899 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 17:34:12.884 [127057327344440] DEBUG - [HCl#5d] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:34:13.176 [127057335782200] DEBUG - [HttpClient/HCl#5d] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:34:13.185 [127057327344440] DEBUG - [HCl#5e] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:34:13.265 [127057335782200] DEBUG - [HttpClient/HCl#5e] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 17:34:13.265 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:34:13.265 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 17:39:13.251 [127057338071864] DEBUG - [HCl#5f] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:39:13.542 [127057335782200] DEBUG - [HttpClient/HCl#5f] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:39:13.557 [127057338071864] DEBUG - [HCl#60] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:39:13.644 [127057335782200] DEBUG - [HttpClient/HCl#60] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 17:39:13.644 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:39:13.645 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 17:44:13.630 [127057284811576] DEBUG - [HCl#61] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:44:13.953 [127057335782200] DEBUG - [HttpClient/HCl#61] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:44:13.969 [127057284811576] DEBUG - [HCl#62] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:44:14.062 [127057335782200] DEBUG - [HttpClient/HCl#62] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 17:44:14.062 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:44:14.062 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 17:49:14.049 [127057284811576] DEBUG - [HCl#63] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:49:14.388 [127057335782200] DEBUG - [HttpClient/HCl#63] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:49:14.395 [127057284811576] DEBUG - [HCl#64] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:49:14.480 [127057335782200] DEBUG - [HttpClient/HCl#64] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 17:49:14.480 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:49:14.481 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 17:54:14.466 [127057284811576] DEBUG - [HCl#65] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:54:14.761 [127057335782200] DEBUG - [HttpClient/HCl#65] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:54:14.770 [127057284811576] DEBUG - [HCl#66] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:54:14.865 [127057335782200] DEBUG - [HttpClient/HCl#66] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 17:54:14.866 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:54:14.866 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 17:59:14.852 [127057284811576] DEBUG - [HCl#67] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:59:15.152 [127057335782200] DEBUG - [HttpClient/HCl#67] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 17:59:15.179 [127057284811576] DEBUG - [HCl#68] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:59:15.269 [127057335782200] DEBUG - [HttpClient/HCl#68] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 17:59:15.269 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 17:59:15.269 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 18:04:15.257 [127057338071864] DEBUG - [HCl#69] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:04:15.558 [127057335782200] DEBUG - [HttpClient/HCl#69] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:04:15.565 [127057338071864] DEBUG - [HCl#6a] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:04:15.701 [127057335782200] DEBUG - [HttpClient/HCl#6a] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 18:04:15.701 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:04:15.701 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 18:09:15.687 [127057284811576] DEBUG - [HCl#6b] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:09:15.981 [127057335782200] DEBUG - [HttpClient/HCl#6b] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:09:15.990 [127057284811576] DEBUG - [HCl#6c] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:09:16.079 [127057335782200] DEBUG - [HttpClient/HCl#6c] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 18:09:16.079 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:09:16.079 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 18:14:16.066 [127057284811576] DEBUG - [HCl#6d] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:14:16.373 [127057335782200] DEBUG - [HttpClient/HCl#6d] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:14:16.380 [127057284811576] DEBUG - [HCl#6e] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:14:16.464 [127057335782200] DEBUG - [HttpClient/HCl#6e] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 18:14:16.464 [127057325235000] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:14:16.464 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 18:19:16.450 [127057284811576] DEBUG - [HCl#6f] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:19:16.760 [127057335782200] DEBUG - [HttpClient/HCl#6f] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:19:16.776 [127057284811576] DEBUG - [HCl#70] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:19:16.866 [127057335782200] DEBUG - [HttpClient/HCl#70] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 18:19:16.866 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:19:16.866 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 18:24:16.854 [127057284811576] DEBUG - [HCl#71] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:24:17.160 [127057335782200] DEBUG - [HttpClient/HCl#71] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:24:17.167 [127057284811576] DEBUG - [HCl#72] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:24:17.255 [127057335782200] DEBUG - [HttpClient/HCl#72] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 18:24:17.255 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:24:17.255 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 18:29:17.242 [127057284811576] DEBUG - [HCl#73] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:29:17.563 [127057335782200] DEBUG - [HttpClient/HCl#73] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:29:17.583 [127057284811576] DEBUG - [HCl#74] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:29:17.676 [127057335782200] DEBUG - [HttpClient/HCl#74] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 18:29:17.676 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:29:17.676 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 18:34:17.662 [127057338071864] DEBUG - [HCl#75] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:34:17.975 [127057335782200] DEBUG - [HttpClient/HCl#75] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:34:17.984 [127057338071864] DEBUG - [HCl#76] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:34:18.067 [127057335782200] DEBUG - [HttpClient/HCl#76] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 18:34:18.067 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:34:18.068 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 18:39:18.054 [127057338071864] DEBUG - [HCl#77] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:39:18.377 [127057335782200] DEBUG - [HttpClient/HCl#77] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:39:18.405 [127057338071864] DEBUG - [HCl#78] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:39:18.497 [127057335782200] DEBUG - [HttpClient/HCl#78] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 18:39:18.497 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:39:18.497 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 18:44:18.484 [127057338071864] DEBUG - [HCl#79] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:44:18.820 [127057335782200] DEBUG - [HttpClient/HCl#79] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:44:18.831 [127057338071864] DEBUG - [HCl#7a] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:44:18.917 [127057335782200] DEBUG - [HttpClient/HCl#7a] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 18:44:18.917 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:44:18.917 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 18:49:18.903 [127057338071864] DEBUG - [HCl#7b] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:49:19.207 [127057335782200] DEBUG - [HttpClient/HCl#7b] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:49:19.221 [127057338071864] DEBUG - [HCl#7c] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:49:19.311 [127057335782200] DEBUG - [HttpClient/HCl#7c] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 18:49:19.311 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:49:19.311 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 18:54:19.296 [127057284811576] DEBUG - [HCl#7d] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:54:19.638 [127057335782200] DEBUG - [HttpClient/HCl#7d] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:54:19.652 [127057284811576] DEBUG - [HCl#7e] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:54:19.739 [127057335782200] DEBUG - [HttpClient/HCl#7e] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 18:54:19.739 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:54:19.739 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 18:59:19.723 [127057325235000] DEBUG - [HCl#7f] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:59:20.024 [127057335782200] DEBUG - [HttpClient/HCl#7f] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 18:59:20.036 [127057325235000] DEBUG - [HCl#80] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:59:20.128 [127057335782200] DEBUG - [HttpClient/HCl#80] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 18:59:20.128 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 18:59:20.128 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 19:04:20.114 [127057338071864] DEBUG - [HCl#81] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:04:20.406 [127057335782200] DEBUG - [HttpClient/HCl#81] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:04:20.425 [127057338071864] DEBUG - [HCl#82] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:04:20.508 [127057335782200] DEBUG - [HttpClient/HCl#82] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 19:04:20.508 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:04:20.508 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 19:09:20.493 [127057325235000] DEBUG - [HCl#83] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:09:20.783 [127057335782200] DEBUG - [HttpClient/HCl#83] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:09:20.787 [127057325235000] DEBUG - [HCl#84] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:09:20.874 [127057335782200] DEBUG - [HttpClient/HCl#84] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 19:09:20.875 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:09:20.875 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 19:14:20.859 [127057284811576] DEBUG - [HCl#85] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:14:21.168 [127057335782200] DEBUG - [HttpClient/HCl#85] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:14:21.178 [127057284811576] DEBUG - [HCl#86] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:14:21.274 [127057335782200] DEBUG - [HttpClient/HCl#86] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 19:14:21.274 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:14:21.274 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 19:19:21.257 [127057338071864] DEBUG - [HCl#87] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:19:21.563 [127057335782200] DEBUG - [HttpClient/HCl#87] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:19:21.588 [127057338071864] DEBUG - [HCl#88] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:19:21.680 [127057335782200] DEBUG - [HttpClient/HCl#88] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 19:19:21.681 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:19:21.681 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 19:24:21.664 [127057284811576] DEBUG - [HCl#89] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:24:21.981 [127057335782200] DEBUG - [HttpClient/HCl#89] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:24:22.003 [127057284811576] DEBUG - [HCl#8a] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:24:22.096 [127057335782200] DEBUG - [HttpClient/HCl#8a] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 19:24:22.096 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:24:22.096 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 19:29:22.082 [127057284811576] DEBUG - [HCl#8b] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:29:22.397 [127057335782200] DEBUG - [HttpClient/HCl#8b] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:29:22.401 [127057284811576] DEBUG - [HCl#8c] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:29:22.505 [127057335782200] DEBUG - [HttpClient/HCl#8c] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 19:29:22.505 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:29:22.505 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 19:34:22.490 [127057325235000] DEBUG - [HCl#8d] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:34:22.789 [127057335782200] DEBUG - [HttpClient/HCl#8d] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:34:22.797 [127057325235000] DEBUG - [HCl#8e] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:34:22.889 [127057335782200] DEBUG - [HttpClient/HCl#8e] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 19:34:22.889 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:34:22.889 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 19:39:22.874 [127057325235000] DEBUG - [HCl#8f] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:39:23.188 [127057335782200] DEBUG - [HttpClient/HCl#8f] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:39:23.200 [127057325235000] DEBUG - [HCl#90] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:39:23.306 [127057335782200] DEBUG - [HttpClient/HCl#90] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 19:39:23.306 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:39:23.306 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 19:44:23.292 [127057325235000] DEBUG - [HCl#91] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:44:23.599 [127057335782200] DEBUG - [HttpClient/HCl#91] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:44:23.613 [127057325235000] DEBUG - [HCl#92] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:44:23.721 [127057335782200] DEBUG - [HttpClient/HCl#92] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 19:44:23.722 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:44:23.722 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 19:49:23.707 [127057325235000] DEBUG - [HCl#93] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:49:24.010 [127057335782200] DEBUG - [HttpClient/HCl#93] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:49:24.023 [127057325235000] DEBUG - [HCl#94] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:49:24.114 [127057335782200] DEBUG - [HttpClient/HCl#94] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 19:49:24.114 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:49:24.114 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 19:54:24.100 [127057325235000] DEBUG - [HCl#95] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:54:24.400 [127057335782200] DEBUG - [HttpClient/HCl#95] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 19:54:24.408 [127057325235000] DEBUG - [HCl#96] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:54:24.496 [127057335782200] DEBUG - [HttpClient/HCl#96] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 19:54:24.496 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 19:54:24.496 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 23:23:22.862 [127057325235000] DEBUG - NetworkServiceBrowser: SERVER departed after not being seen for 12287.756914 seconds: 127.0.0.1 (9722d71cd01f)
+Dec 19, 2025 23:23:22.862 [127057325235000] DEBUG - Notifying the system bundle an update to server /system/notify/serverUpdated?host=127.0.0.1
+Dec 19, 2025 23:23:22.862 [127057325235000] DEBUG - [com.plexapp.system] Sending command over HTTP (GET): /system/notify/serverUpdated?host=127.0.0.1
+Dec 19, 2025 23:23:22.862 [127057325235000] DEBUG - [HCl#97] HTTP requesting GET http://127.0.0.1:46729/system/notify/serverUpdated?host=127.0.0.1
+Dec 19, 2025 23:23:23.322 [127057308281656] DEBUG - Request: [127.0.0.1:59204 (Loopback)] GET /servers (2 live) #28 GZIP Token ()
+Dec 19, 2025 23:23:23.322 [127057351936824] DEBUG - Completed: [127.0.0.1:59204] 200 GET /servers (2 live) #28 GZIP 0ms 492 bytes
+Dec 19, 2025 23:23:23.817 [127057308281656] DEBUG - Request: [127.0.0.1:59206 (Loopback)] GET /library/sections (2 live) #2a GZIP Token ()
+Dec 19, 2025 23:23:23.831 [127057349827384] DEBUG - Completed: [127.0.0.1:59206] 200 GET /library/sections (2 live) #2a GZIP 14ms 403 bytes
+Dec 19, 2025 23:23:24.153 [127057308281656] DEBUG - Request: [127.0.0.1:59208 (Loopback)] GET /channels/all (2 live) #2c GZIP Token ()
+Dec 19, 2025 23:23:24.154 [127057349827384] DEBUG - Completed: [127.0.0.1:59208] 200 GET /channels/all (2 live) #2c GZIP 0ms 387 bytes
+Dec 19, 2025 23:23:24.160 [127057335782200] DEBUG - [HttpClient/HCl#97] HTTP/1.1 (1.3s) 200 response from GET http://127.0.0.1:46729/system/notify/serverUpdated?host=127.0.0.1
+Dec 19, 2025 23:23:24.161 [127057325235000] DEBUG - [com.plexapp.system] HTTP reply status 200, with 0 bytes of content.
+Dec 19, 2025 23:23:25.862 [127057329453880] DEBUG - [NSB] NetworkServiceBrowser: SERVER arrived: 127.0.0.1 (9722d71cd01f)
+Dec 19, 2025 23:23:25.862 [127057329453880] DEBUG - [NSB] Notifying the system bundle an update to server /system/notify/serverUpdated?host=127.0.0.1
+Dec 19, 2025 23:23:25.862 [127057329453880] DEBUG - [NSB] [com.plexapp.system] Sending command over HTTP (GET): /system/notify/serverUpdated?host=127.0.0.1
+Dec 19, 2025 23:23:25.862 [127057329453880] DEBUG - [NSB/HCl#98] HTTP requesting GET http://127.0.0.1:46729/system/notify/serverUpdated?host=127.0.0.1
+Dec 19, 2025 23:23:25.972 [127057308281656] DEBUG - Request: [127.0.0.1:59218 (Loopback)] GET /servers (2 live) #2e GZIP Token ()
+Dec 19, 2025 23:23:25.973 [127057349827384] DEBUG - Completed: [127.0.0.1:59218] 200 GET /servers (2 live) #2e GZIP 0ms 492 bytes
+Dec 19, 2025 23:23:26.014 [127057308281656] DEBUG - Request: [127.0.0.1:59230 (Loopback)] GET /library/sections (2 live) #30 GZIP Token ()
+Dec 19, 2025 23:23:26.015 [127057349827384] DEBUG - Completed: [127.0.0.1:59230] 200 GET /library/sections (2 live) #30 GZIP 0ms 403 bytes
+Dec 19, 2025 23:23:26.034 [127057308281656] DEBUG - Request: [127.0.0.1:59236 (Loopback)] GET /channels/all (2 live) #32 GZIP Token ()
+Dec 19, 2025 23:23:26.034 [127057349827384] DEBUG - Completed: [127.0.0.1:59236] 200 GET /channels/all (2 live) #32 GZIP 0ms 387 bytes
+Dec 19, 2025 23:23:26.038 [127057335782200] DEBUG - [HttpClient/HCl#98] HTTP/1.1 (0.2s) 200 response from GET http://127.0.0.1:46729/system/notify/serverUpdated?host=127.0.0.1 (reused)
+Dec 19, 2025 23:23:26.038 [127057329453880] DEBUG - [NSB] [com.plexapp.system] HTTP reply status 200, with 0 bytes of content.
+Dec 19, 2025 23:24:10.240 [127057284811576] DEBUG - [HCl#99] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 23:24:10.535 [127057335782200] DEBUG - [HttpClient/HCl#99] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 23:24:10.548 [127057284811576] DEBUG - [HCl#9a] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 23:24:10.632 [127057335782200] DEBUG - [HttpClient/HCl#9a] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 23:24:10.632 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 23:24:10.633 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 23:29:10.622 [127057325235000] DEBUG - [HCl#9b] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 23:29:10.925 [127057335782200] DEBUG - [HttpClient/HCl#9b] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 23:29:10.932 [127057325235000] DEBUG - [HCl#9c] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 23:29:11.021 [127057335782200] DEBUG - [HttpClient/HCl#9c] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 23:29:11.021 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 23:29:11.021 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 23:34:11.008 [127057325235000] DEBUG - [HCl#9d] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 23:34:11.331 [127057335782200] DEBUG - [HttpClient/HCl#9d] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 23:34:11.339 [127057325235000] DEBUG - [HCl#9e] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 23:34:11.423 [127057335782200] DEBUG - [HttpClient/HCl#9e] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 23:34:11.423 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 23:34:11.423 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 23:39:11.411 [127057325235000] DEBUG - [HCl#9f] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 23:39:11.714 [127057335782200] DEBUG - [HttpClient/HCl#9f] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 23:39:11.723 [127057325235000] DEBUG - [HCl#a0] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 23:39:11.809 [127057335782200] DEBUG - [HttpClient/HCl#a0] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 23:39:11.809 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 23:39:11.809 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 23:44:11.788 [127057338071864] DEBUG - [HCl#a1] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 23:44:12.118 [127057335782200] DEBUG - [HttpClient/HCl#a1] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 23:44:12.126 [127057338071864] DEBUG - [HCl#a2] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 23:44:12.214 [127057335782200] DEBUG - [HttpClient/HCl#a2] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 23:44:12.214 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 23:44:12.214 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 23:49:12.188 [127057284811576] DEBUG - [HCl#a3] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 23:49:12.504 [127057335782200] DEBUG - [HttpClient/HCl#a3] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 23:49:12.511 [127057284811576] DEBUG - [HCl#a4] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 23:49:12.592 [127057335782200] DEBUG - [HttpClient/HCl#a4] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 23:49:12.592 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 23:49:12.592 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 23:54:12.566 [127057284811576] DEBUG - [HCl#a5] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 23:54:12.875 [127057335782200] DEBUG - [HttpClient/HCl#a5] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 23:54:12.886 [127057284811576] DEBUG - [HCl#a6] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 23:54:12.974 [127057335782200] DEBUG - [HttpClient/HCl#a6] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 23:54:12.975 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 23:54:12.975 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 19, 2025 23:59:12.951 [127057284811576] DEBUG - [HCl#a7] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 23:59:13.247 [127057335782200] DEBUG - [HttpClient/HCl#a7] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 19, 2025 23:59:13.251 [127057284811576] DEBUG - [HCl#a8] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 23:59:13.335 [127057335782200] DEBUG - [HttpClient/HCl#a8] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 19, 2025 23:59:13.335 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 19, 2025 23:59:13.335 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 00:04:13.314 [127057284811576] DEBUG - [HCl#a9] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:04:13.630 [127057335782200] DEBUG - [HttpClient/HCl#a9] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:04:13.639 [127057284811576] DEBUG - [HCl#aa] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:04:13.742 [127057335782200] DEBUG - [HttpClient/HCl#aa] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 00:04:13.742 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:04:13.743 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 00:09:13.723 [127057325235000] DEBUG - [HCl#ab] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:09:14.026 [127057335782200] DEBUG - [HttpClient/HCl#ab] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:09:14.030 [127057325235000] DEBUG - [HCl#ac] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:09:14.121 [127057335782200] DEBUG - [HttpClient/HCl#ac] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 00:09:14.121 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:09:14.121 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 00:14:14.101 [127057284811576] DEBUG - [HCl#ad] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:14:14.400 [127057335782200] DEBUG - [HttpClient/HCl#ad] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:14:14.407 [127057284811576] DEBUG - [HCl#ae] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:14:14.491 [127057335782200] DEBUG - [HttpClient/HCl#ae] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 00:14:14.491 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:14:14.491 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 00:19:14.474 [127057284811576] DEBUG - [HCl#af] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:19:14.789 [127057335782200] DEBUG - [HttpClient/HCl#af] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:19:14.805 [127057284811576] DEBUG - [HCl#b0] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:19:14.890 [127057335782200] DEBUG - [HttpClient/HCl#b0] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 00:19:14.890 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:19:14.890 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 00:24:14.873 [127057325235000] DEBUG - [HCl#b1] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:24:15.202 [127057335782200] DEBUG - [HttpClient/HCl#b1] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:24:15.209 [127057325235000] DEBUG - [HCl#b2] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:24:15.298 [127057335782200] DEBUG - [HttpClient/HCl#b2] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 00:24:15.298 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:24:15.298 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 00:29:15.281 [127057338071864] DEBUG - [HCl#b3] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:29:15.579 [127057335782200] DEBUG - [HttpClient/HCl#b3] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:29:15.591 [127057338071864] DEBUG - [HCl#b4] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:29:15.675 [127057335782200] DEBUG - [HttpClient/HCl#b4] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 00:29:15.676 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:29:15.676 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 00:34:15.660 [127057284811576] DEBUG - [HCl#b5] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:34:15.954 [127057335782200] DEBUG - [HttpClient/HCl#b5] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:34:15.966 [127057284811576] DEBUG - [HCl#b6] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:34:16.062 [127057335782200] DEBUG - [HttpClient/HCl#b6] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 00:34:16.062 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:34:16.062 [127057284811576] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 00:39:16.049 [127057338071864] DEBUG - [HCl#b7] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:39:16.342 [127057335782200] DEBUG - [HttpClient/HCl#b7] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:39:16.350 [127057338071864] DEBUG - [HCl#b8] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:39:16.433 [127057335782200] DEBUG - [HttpClient/HCl#b8] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 00:39:16.433 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:39:16.433 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 00:44:16.414 [127057325235000] DEBUG - [HCl#b9] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:44:16.716 [127057335782200] DEBUG - [HttpClient/HCl#b9] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:44:16.722 [127057325235000] DEBUG - [HCl#ba] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:44:16.810 [127057335782200] DEBUG - [HttpClient/HCl#ba] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 00:44:16.810 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:44:16.810 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 00:49:16.791 [127057338071864] DEBUG - [HCl#bb] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:49:17.098 [127057335782200] DEBUG - [HttpClient/HCl#bb] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:49:17.107 [127057338071864] DEBUG - [HCl#bc] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:49:17.292 [127057335782200] DEBUG - [HttpClient/HCl#bc] HTTP/1.1 (0.2s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 00:49:17.292 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:49:17.292 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 00:54:17.275 [127057338071864] DEBUG - [HCl#bd] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:54:17.589 [127057335782200] DEBUG - [HttpClient/HCl#bd] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:54:17.608 [127057338071864] DEBUG - [HCl#be] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:54:17.694 [127057335782200] DEBUG - [HttpClient/HCl#be] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 00:54:17.694 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:54:17.694 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 00:59:17.677 [127057338071864] DEBUG - [HCl#bf] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:59:17.967 [127057335782200] DEBUG - [HttpClient/HCl#bf] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 00:59:17.976 [127057338071864] DEBUG - [HCl#c0] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:59:18.064 [127057335782200] DEBUG - [HttpClient/HCl#c0] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 00:59:18.064 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 00:59:18.064 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 01:04:18.048 [127057338071864] DEBUG - [HCl#c1] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:04:18.339 [127057335782200] DEBUG - [HttpClient/HCl#c1] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:04:18.354 [127057338071864] DEBUG - [HCl#c2] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:04:18.466 [127057335782200] DEBUG - [HttpClient/HCl#c2] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 01:04:18.466 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:04:18.466 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 01:09:18.450 [127057321016120] DEBUG - [HCl#c3] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:09:18.773 [127057335782200] DEBUG - [HttpClient/HCl#c3] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:09:18.801 [127057321016120] DEBUG - [HCl#c4] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:09:18.890 [127057335782200] DEBUG - [HttpClient/HCl#c4] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 01:09:18.890 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:09:18.890 [127057321016120] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 01:14:18.874 [127057325235000] DEBUG - [HCl#c5] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:14:19.175 [127057335782200] DEBUG - [HttpClient/HCl#c5] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:14:19.205 [127057325235000] DEBUG - [HCl#c6] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:14:19.296 [127057335782200] DEBUG - [HttpClient/HCl#c6] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 01:14:19.296 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:14:19.296 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 01:19:19.276 [127057338071864] DEBUG - [HCl#c7] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:19:19.568 [127057335782200] DEBUG - [HttpClient/HCl#c7] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:19:19.580 [127057338071864] DEBUG - [HCl#c8] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:19:19.669 [127057335782200] DEBUG - [HttpClient/HCl#c8] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 01:19:19.669 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:19:19.669 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 01:24:19.649 [127057338071864] DEBUG - [HCl#c9] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:24:19.956 [127057335782200] DEBUG - [HttpClient/HCl#c9] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:24:19.970 [127057338071864] DEBUG - [HCl#ca] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:24:20.065 [127057335782200] DEBUG - [HttpClient/HCl#ca] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 01:24:20.065 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:24:20.065 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 01:29:20.046 [127057338071864] DEBUG - [HCl#cb] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:29:20.355 [127057335782200] DEBUG - [HttpClient/HCl#cb] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:29:20.382 [127057338071864] DEBUG - [HCl#cc] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:29:20.467 [127057335782200] DEBUG - [HttpClient/HCl#cc] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 01:29:20.467 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:29:20.467 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 01:34:20.448 [127057325235000] DEBUG - [HCl#cd] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:34:20.758 [127057335782200] DEBUG - [HttpClient/HCl#cd] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:34:20.769 [127057325235000] DEBUG - [HCl#ce] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:34:20.852 [127057335782200] DEBUG - [HttpClient/HCl#ce] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 01:34:20.852 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:34:20.852 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 01:39:20.833 [127057338071864] DEBUG - [HCl#cf] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:39:21.119 [127057335782200] DEBUG - [HttpClient/HCl#cf] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:39:21.129 [127057338071864] DEBUG - [HCl#d0] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:39:21.211 [127057335782200] DEBUG - [HttpClient/HCl#d0] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 01:39:21.211 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:39:21.211 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 01:44:21.190 [127057325235000] DEBUG - [HCl#d1] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:44:21.475 [127057335782200] DEBUG - [HttpClient/HCl#d1] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:44:21.482 [127057325235000] DEBUG - [HCl#d2] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:44:21.564 [127057335782200] DEBUG - [HttpClient/HCl#d2] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 01:44:21.564 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:44:21.564 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 01:49:21.544 [127057325235000] DEBUG - [HCl#d3] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:49:21.834 [127057335782200] DEBUG - [HttpClient/HCl#d3] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:49:21.841 [127057325235000] DEBUG - [HCl#d4] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:49:21.929 [127057335782200] DEBUG - [HttpClient/HCl#d4] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 01:49:21.929 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:49:21.929 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 01:54:21.911 [127057338071864] DEBUG - [HCl#d5] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:54:22.215 [127057335782200] DEBUG - [HttpClient/HCl#d5] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:54:22.224 [127057338071864] DEBUG - [HCl#d6] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:54:22.314 [127057335782200] DEBUG - [HttpClient/HCl#d6] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 01:54:22.315 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:54:22.315 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 01:59:22.298 [127057325235000] DEBUG - [HCl#d7] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:59:22.595 [127057335782200] DEBUG - [HttpClient/HCl#d7] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 01:59:22.601 [127057325235000] DEBUG - [HCl#d8] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:59:22.688 [127057335782200] DEBUG - [HttpClient/HCl#d8] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 01:59:22.688 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 01:59:22.689 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 02:03:42.178 [127057327344440] DEBUG - Butler: we're in the window, starting.
+Dec 20, 2025 02:03:42.178 [127057327344440] DEBUG - Butler: Waking up!
+Dec 20, 2025 02:03:42.178 [127057327344440] DEBUG - Butler: Scheduling randomized task 'RefreshEpgGuides' in 150 minutes.
+Dec 20, 2025 02:03:42.178 [127057327344440] DEBUG - Butler: Scheduling randomized task 'RefreshPeriodicMetadata' in 4 minutes.
+Dec 20, 2025 02:03:42.178 [127057327344440] DEBUG - Butler: Scheduling randomized task 'ButlerTaskGenerateCreditsMarkers' in 102 minutes.
+Dec 20, 2025 02:03:42.179 [127057321016120] DEBUG - Activity: registered new activity a7c1a0e5-baef-4ebd-a357-919b23ea37ab - "Butler tasks"
+Dec 20, 2025 02:03:42.181 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Activity: registered new activity e6759320-1233-4a03-bb34-493c63c2b380 - "Database"
+Dec 20, 2025 02:03:42.234 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Beginning database backup
+Dec 20, 2025 02:03:42.240 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Captured session 0.
+Dec 20, 2025 02:03:42.241 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Captured session 1.
+Dec 20, 2025 02:03:42.241 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Captured session 2.
+Dec 20, 2025 02:03:42.241 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Captured session 3.
+Dec 20, 2025 02:03:42.241 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Captured session 4.
+Dec 20, 2025 02:03:42.241 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Captured session 5.
+Dec 20, 2025 02:03:42.241 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Captured session 6.
+Dec 20, 2025 02:03:42.241 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Captured session 7.
+Dec 20, 2025 02:03:42.241 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Captured session 8.
+Dec 20, 2025 02:03:42.241 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Captured session 9.
+Dec 20, 2025 02:03:42.241 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Captured session 10.
+Dec 20, 2025 02:03:42.241 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Captured session 11.
+Dec 20, 2025 02:03:42.241 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Captured session 12.
+Dec 20, 2025 02:03:42.241 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Captured session 13.
+Dec 20, 2025 02:03:42.241 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Captured session 14.
+Dec 20, 2025 02:03:42.241 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Captured session 15.
+Dec 20, 2025 02:03:42.241 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Captured session 16.
+Dec 20, 2025 02:03:42.241 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Captured session 17.
+Dec 20, 2025 02:03:42.241 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Captured session 18.
+Dec 20, 2025 02:03:42.241 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Captured session 19.
+Dec 20, 2025 02:03:42.290 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Activity: updated activity e6759320-1233-4a03-bb34-493c63c2b380 - completed 82.0% - Database
+Dec 20, 2025 02:03:42.374 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Activity: updated activity e6759320-1233-4a03-bb34-493c63c2b380 - completed 100.0% - Database
+Dec 20, 2025 02:03:42.393 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Database backup completed: 0
+Dec 20, 2025 02:03:42.394 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.db] Activity: Ended activity e6759320-1233-4a03-bb34-493c63c2b380.
+Dec 20, 2025 02:03:42.400 [127057321016120] DEBUG - Butler: backed up your database
+Dec 20, 2025 02:03:42.403 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.blobs.db] Activity: registered new activity 59c86f32-0ac1-4cba-a67e-3a5ac790f035 - "Database"
+Dec 20, 2025 02:03:42.527 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.blobs.db] Beginning database backup
+Dec 20, 2025 02:03:42.530 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.blobs.db] Captured session 0.
+Dec 20, 2025 02:03:42.530 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.blobs.db] Captured session 1.
+Dec 20, 2025 02:03:42.561 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.blobs.db] Activity: updated activity 59c86f32-0ac1-4cba-a67e-3a5ac790f035 - completed 82.0% - Database
+Dec 20, 2025 02:03:42.614 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.blobs.db] Activity: updated activity 59c86f32-0ac1-4cba-a67e-3a5ac790f035 - completed 100.0% - Database
+Dec 20, 2025 02:03:42.616 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.blobs.db] Database backup completed: 0
+Dec 20, 2025 02:03:42.617 [127057321016120] DEBUG - [Database backup/com.plexapp.plugins.library.blobs.db] Activity: Ended activity 59c86f32-0ac1-4cba-a67e-3a5ac790f035.
+Dec 20, 2025 02:03:42.621 [127057321016120] DEBUG - Butler: backed up your database
+Dec 20, 2025 02:03:42.622 [127057321016120] ERROR - Butler: Uncaught exception starting generator UpgradeMediaAnalysis: Vectors of size 0 are not allowed.
+Dec 20, 2025 02:03:42.625 [127057321016120] DEBUG - Activity: registered new sub-activity 56263f6d-9450-4936-8efb-5cee3618b9e1 - "BackupDatabase" parent: a7c1a0e5-baef-4ebd-a357-919b23ea37ab overall progress: 0.0% (0/1)
+Dec 20, 2025 02:03:42.626 [127057321016120] DEBUG - Activity: ended sub-activity 56263f6d-9450-4936-8efb-5cee3618b9e1 parent: a7c1a0e5-baef-4ebd-a357-919b23ea37ab overall progress: 100.0% (1/1)
+Dec 20, 2025 02:03:42.626 [127057321016120] DEBUG - Activity: updated activity a7c1a0e5-baef-4ebd-a357-919b23ea37ab - completed 100.0% - Butler tasks
+Dec 20, 2025 02:03:42.630 [127057321016120] DEBUG - Activity: registered new sub-activity c66cd6ab-2212-482b-9529-1cf2a3da536e - "GarbageCollectLibraryMedia" parent: a7c1a0e5-baef-4ebd-a357-919b23ea37ab overall progress: 50.0% (1/2)
+Dec 20, 2025 02:03:42.630 [127057321016120] DEBUG - Activity: updated activity a7c1a0e5-baef-4ebd-a357-919b23ea37ab - completed 50.0% - Butler tasks
+Dec 20, 2025 02:03:42.632 [127057321016120] DEBUG - Activity: ended sub-activity c66cd6ab-2212-482b-9529-1cf2a3da536e parent: a7c1a0e5-baef-4ebd-a357-919b23ea37ab overall progress: 100.0% (2/2)
+Dec 20, 2025 02:03:42.632 [127057321016120] DEBUG - Activity: updated activity a7c1a0e5-baef-4ebd-a357-919b23ea37ab - completed 100.0% - Butler tasks
+Dec 20, 2025 02:03:42.633 [127057321016120] DEBUG - Activity: registered new sub-activity 708dd946-7db1-40ff-8b8a-08e1c50b9d13 - "RefreshLocalMedia" parent: a7c1a0e5-baef-4ebd-a357-919b23ea37ab overall progress: 66.7% (2/3)
+Dec 20, 2025 02:03:42.633 [127057321016120] DEBUG - Activity: updated activity a7c1a0e5-baef-4ebd-a357-919b23ea37ab - completed 66.7% - Butler tasks
+Dec 20, 2025 02:03:42.634 [127057321016120] DEBUG - Activity: ended sub-activity 708dd946-7db1-40ff-8b8a-08e1c50b9d13 parent: a7c1a0e5-baef-4ebd-a357-919b23ea37ab overall progress: 100.0% (3/3)
+Dec 20, 2025 02:03:42.634 [127057321016120] DEBUG - Activity: updated activity a7c1a0e5-baef-4ebd-a357-919b23ea37ab - completed 100.0% - Butler tasks
+Dec 20, 2025 02:03:42.634 [127057321016120] DEBUG - Butler: refreshed 0 items
+Dec 20, 2025 02:03:42.635 [127057321016120] DEBUG - Activity: registered new sub-activity 7a9c8e02-3222-4508-a941-ee5085c75b59 - "LoudnessAnalysis" parent: a7c1a0e5-baef-4ebd-a357-919b23ea37ab overall progress: 75.0% (3/4)
+Dec 20, 2025 02:03:42.635 [127057321016120] DEBUG - Activity: updated activity a7c1a0e5-baef-4ebd-a357-919b23ea37ab - completed 75.0% - Butler tasks
+Dec 20, 2025 02:03:42.635 [127057321016120] DEBUG - Activity: ended sub-activity 7a9c8e02-3222-4508-a941-ee5085c75b59 parent: a7c1a0e5-baef-4ebd-a357-919b23ea37ab overall progress: 100.0% (4/4)
+Dec 20, 2025 02:03:42.635 [127057321016120] DEBUG - Activity: updated activity a7c1a0e5-baef-4ebd-a357-919b23ea37ab - completed 100.0% - Butler tasks
+Dec 20, 2025 02:03:42.635 [127057321016120] DEBUG - The butler performed loudness analysis on 0 albums.
+Dec 20, 2025 02:03:42.636 [127057321016120] DEBUG - Activity: registered new sub-activity c6d3caca-8111-4370-910c-782c236e1e35 - "MusicAnalysis" parent: a7c1a0e5-baef-4ebd-a357-919b23ea37ab overall progress: 80.0% (4/5)
+Dec 20, 2025 02:03:42.637 [127057321016120] DEBUG - Activity: updated activity a7c1a0e5-baef-4ebd-a357-919b23ea37ab - completed 80.0% - Butler tasks
+Dec 20, 2025 02:03:42.641 [127057321016120] DEBUG - Activity: ended sub-activity c6d3caca-8111-4370-910c-782c236e1e35 parent: a7c1a0e5-baef-4ebd-a357-919b23ea37ab overall progress: 100.0% (5/5)
+Dec 20, 2025 02:03:42.641 [127057321016120] DEBUG - Activity: updated activity a7c1a0e5-baef-4ebd-a357-919b23ea37ab - completed 100.0% - Butler tasks
+Dec 20, 2025 02:03:42.641 [127057321016120] DEBUG - Butler: Performed sonic analysis on 0 batches of albums.
+Dec 20, 2025 02:03:42.642 [127057321016120] DEBUG - Activity: registered new sub-activity 5a566643-7f3a-4e24-aa24-b6b3d340727c - "ProcessAssets" parent: a7c1a0e5-baef-4ebd-a357-919b23ea37ab overall progress: 83.3% (5/6)
+Dec 20, 2025 02:03:42.642 [127057321016120] DEBUG - Activity: updated activity a7c1a0e5-baef-4ebd-a357-919b23ea37ab - completed 83.3% - Butler tasks
+Dec 20, 2025 02:03:42.643 [127057321016120] DEBUG - Activity: ended sub-activity 5a566643-7f3a-4e24-aa24-b6b3d340727c parent: a7c1a0e5-baef-4ebd-a357-919b23ea37ab overall progress: 100.0% (6/6)
+Dec 20, 2025 02:03:42.643 [127057321016120] DEBUG - Activity: updated activity a7c1a0e5-baef-4ebd-a357-919b23ea37ab - completed 100.0% - Butler tasks
+Dec 20, 2025 02:03:42.643 [127057321016120] DEBUG - The butler processed 0 assets.
+Dec 20, 2025 02:03:42.644 [127057321016120] DEBUG - Activity: registered new sub-activity 4ee69d11-ee51-40c2-98ae-a44898030bc0 - "GenerateChapterThumbs" parent: a7c1a0e5-baef-4ebd-a357-919b23ea37ab overall progress: 85.7% (6/7)
+Dec 20, 2025 02:03:42.644 [127057321016120] DEBUG - Activity: updated activity a7c1a0e5-baef-4ebd-a357-919b23ea37ab - completed 85.7% - Butler tasks
+Dec 20, 2025 02:03:42.645 [127057321016120] DEBUG - Activity: ended sub-activity 4ee69d11-ee51-40c2-98ae-a44898030bc0 parent: a7c1a0e5-baef-4ebd-a357-919b23ea37ab overall progress: 100.0% (7/7)
+Dec 20, 2025 02:03:42.645 [127057321016120] DEBUG - Activity: updated activity a7c1a0e5-baef-4ebd-a357-919b23ea37ab - completed 100.0% - Butler tasks
+Dec 20, 2025 02:03:42.645 [127057321016120] DEBUG - The butler generated chapter thumbnails for 0 files
+Dec 20, 2025 02:03:42.646 [127057321016120] DEBUG - Activity: registered new sub-activity 85e66747-3184-4479-b4fa-af4eca99fabc - "ButlerTaskGenerateIntroMarkers" parent: a7c1a0e5-baef-4ebd-a357-919b23ea37ab overall progress: 87.5% (7/8)
+Dec 20, 2025 02:03:42.646 [127057321016120] DEBUG - Activity: updated activity a7c1a0e5-baef-4ebd-a357-919b23ea37ab - completed 87.5% - Butler tasks
+Dec 20, 2025 02:03:42.647 [127057321016120] DEBUG - Activity: ended sub-activity 85e66747-3184-4479-b4fa-af4eca99fabc parent: a7c1a0e5-baef-4ebd-a357-919b23ea37ab overall progress: 100.0% (8/8)
+Dec 20, 2025 02:03:42.647 [127057321016120] DEBUG - Activity: updated activity a7c1a0e5-baef-4ebd-a357-919b23ea37ab - completed 100.0% - Butler tasks
+Dec 20, 2025 02:03:42.648 [127057321016120] DEBUG - Activity: registered new sub-activity 3355be76-2d59-4a57-8b9b-81404b0fab1e - "DeepMediaAnalysis" parent: a7c1a0e5-baef-4ebd-a357-919b23ea37ab overall progress: 88.9% (8/9)
+Dec 20, 2025 02:03:42.648 [127057321016120] DEBUG - Activity: updated activity a7c1a0e5-baef-4ebd-a357-919b23ea37ab - completed 88.9% - Butler tasks
+Dec 20, 2025 02:03:42.649 [127057321016120] DEBUG - Activity: ended sub-activity 3355be76-2d59-4a57-8b9b-81404b0fab1e parent: a7c1a0e5-baef-4ebd-a357-919b23ea37ab overall progress: 100.0% (9/9)
+Dec 20, 2025 02:03:42.649 [127057321016120] DEBUG - Activity: updated activity a7c1a0e5-baef-4ebd-a357-919b23ea37ab - completed 100.0% - Butler tasks
+Dec 20, 2025 02:03:42.649 [127057321016120] DEBUG - The butler performed deep analysis on 0 files
+Dec 20, 2025 02:04:22.673 [127057325235000] DEBUG - [HCl#d9] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 02:04:22.972 [127057335782200] DEBUG - [HttpClient/HCl#d9] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 02:04:22.987 [127057325235000] DEBUG - [HCl#da] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 02:04:23.071 [127057335782200] DEBUG - [HttpClient/HCl#da] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 02:04:23.071 [127057318906680] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 02:04:23.071 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 02:07:42.163 [127057327344440] DEBUG - Butler: Starting delayed task RefreshPeriodicMetadata.
+Dec 20, 2025 02:07:42.634 [127057321016120] DEBUG - Butler: Considering 0 artists for periodic refresh.
+Dec 20, 2025 02:07:42.634 [127057321016120] DEBUG - Butler: There are 0 old artists.
+Dec 20, 2025 02:07:42.635 [127057321016120] DEBUG - Butler: refreshing metadata for 0 seasons because they contain episodes released in the past week
+Dec 20, 2025 02:07:42.638 [127057321016120] DEBUG - Activity: registered new sub-activity de1fa3a4-0fd2-489a-a6e5-2363b9ad27b4 - "RefreshPeriodicMetadata" parent: a7c1a0e5-baef-4ebd-a357-919b23ea37ab overall progress: 90.0% (9/10)
+Dec 20, 2025 02:07:42.639 [127057321016120] DEBUG - Activity: updated activity a7c1a0e5-baef-4ebd-a357-919b23ea37ab - completed 90.0% - Butler tasks
+Dec 20, 2025 02:07:42.640 [127057321016120] DEBUG - Activity: ended sub-activity de1fa3a4-0fd2-489a-a6e5-2363b9ad27b4 parent: a7c1a0e5-baef-4ebd-a357-919b23ea37ab overall progress: 100.0% (10/10)
+Dec 20, 2025 02:07:42.640 [127057321016120] DEBUG - Activity: updated activity a7c1a0e5-baef-4ebd-a357-919b23ea37ab - completed 100.0% - Butler tasks
+Dec 20, 2025 02:07:42.640 [127057321016120] DEBUG - Butler: Periodic metadata refresh complete (movies: 0, seasons: 0, artists: 0, shows: 0)
+Dec 20, 2025 02:09:23.041 [127057325235000] DEBUG - [HCl#db] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 02:09:23.351 [127057335782200] DEBUG - [HttpClient/HCl#db] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 02:09:23.361 [127057325235000] DEBUG - [HCl#dc] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 02:09:23.444 [127057335782200] DEBUG - [HttpClient/HCl#dc] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 02:09:23.444 [127057318906680] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 02:09:23.444 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 02:14:23.389 [127057325235000] DEBUG - [HCl#dd] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 02:14:23.669 [127057335782200] DEBUG - [HttpClient/HCl#dd] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 02:14:23.679 [127057325235000] DEBUG - [HCl#de] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 02:14:23.765 [127057335782200] DEBUG - [HttpClient/HCl#de] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 02:14:23.765 [127057318906680] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 02:14:23.765 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 02:19:23.716 [127057325235000] DEBUG - [HCl#df] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 02:19:24.016 [127057335782200] DEBUG - [HttpClient/HCl#df] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 02:19:24.032 [127057325235000] DEBUG - [HCl#e0] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 02:19:24.115 [127057335782200] DEBUG - [HttpClient/HCl#e0] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 02:19:24.115 [127057318906680] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 02:19:24.115 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 02:24:24.066 [127057325235000] DEBUG - [HCl#e1] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 02:24:24.344 [127057335782200] DEBUG - [HttpClient/HCl#e1] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 02:24:24.363 [127057325235000] DEBUG - [HCl#e2] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 02:24:24.449 [127057335782200] DEBUG - [HttpClient/HCl#e2] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 02:24:24.449 [127057318906680] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 02:24:24.449 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 11:33:12.349 [127057327344440] DEBUG - NetworkServiceBrowser: SERVER departed after not being seen for 32780.608524 seconds: 127.0.0.1 (9722d71cd01f)
+Dec 20, 2025 11:33:12.349 [127057327344440] DEBUG - Notifying the system bundle an update to server /system/notify/serverUpdated?host=127.0.0.1
+Dec 20, 2025 11:33:12.349 [127057327344440] DEBUG - [com.plexapp.system] Sending command over HTTP (GET): /system/notify/serverUpdated?host=127.0.0.1
+Dec 20, 2025 11:33:12.349 [127057327344440] DEBUG - [HCl#e3] HTTP requesting GET http://127.0.0.1:46729/system/notify/serverUpdated?host=127.0.0.1
+Dec 20, 2025 11:33:12.367 [127057308281656] DEBUG - Request: [127.0.0.1:56206 (Loopback)] GET /servers (2 live) #34 GZIP Token ()
+Dec 20, 2025 11:33:12.368 [127057349827384] DEBUG - Completed: [127.0.0.1:56206] 200 GET /servers (2 live) #34 GZIP 0ms 492 bytes
+Dec 20, 2025 11:33:12.393 [127057308281656] DEBUG - Request: [127.0.0.1:56220 (Loopback)] GET /library/sections (2 live) #36 GZIP Token ()
+Dec 20, 2025 11:33:12.393 [127057349827384] DEBUG - Completed: [127.0.0.1:56220] 200 GET /library/sections (2 live) #36 GZIP 0ms 403 bytes
+Dec 20, 2025 11:33:12.404 [127057308281656] DEBUG - Request: [127.0.0.1:56222 (Loopback)] GET /channels/all (2 live) #38 GZIP Token ()
+Dec 20, 2025 11:33:12.404 [127057349827384] DEBUG - Completed: [127.0.0.1:56222] 200 GET /channels/all (2 live) #38 GZIP 0ms 387 bytes
+Dec 20, 2025 11:33:12.407 [127057335782200] DEBUG - [HttpClient/HCl#e3] HTTP/1.1 (0.1s) 200 response from GET http://127.0.0.1:46729/system/notify/serverUpdated?host=127.0.0.1
+Dec 20, 2025 11:33:12.407 [127057327344440] DEBUG - [com.plexapp.system] HTTP reply status 200, with 0 bytes of content.
+Dec 20, 2025 11:33:15.354 [127057329453880] DEBUG - [NSB] NetworkServiceBrowser: SERVER arrived: 127.0.0.1 (9722d71cd01f)
+Dec 20, 2025 11:33:15.354 [127057329453880] DEBUG - [NSB] Notifying the system bundle an update to server /system/notify/serverUpdated?host=127.0.0.1
+Dec 20, 2025 11:33:15.355 [127057329453880] DEBUG - [NSB] [com.plexapp.system] Sending command over HTTP (GET): /system/notify/serverUpdated?host=127.0.0.1
+Dec 20, 2025 11:33:15.355 [127057329453880] DEBUG - [NSB/HCl#e4] HTTP requesting GET http://127.0.0.1:46729/system/notify/serverUpdated?host=127.0.0.1
+Dec 20, 2025 11:33:15.403 [127057308281656] DEBUG - Request: [127.0.0.1:56230 (Loopback)] GET /servers (2 live) #3a GZIP Token ()
+Dec 20, 2025 11:33:15.403 [127057349827384] DEBUG - Completed: [127.0.0.1:56230] 200 GET /servers (2 live) #3a GZIP 0ms 492 bytes
+Dec 20, 2025 11:33:15.728 [127057308281656] DEBUG - Request: [127.0.0.1:56244 (Loopback)] GET /library/sections (2 live) #3c GZIP Token ()
+Dec 20, 2025 11:33:15.729 [127057351936824] DEBUG - Completed: [127.0.0.1:56244] 200 GET /library/sections (2 live) #3c GZIP 1ms 403 bytes
+Dec 20, 2025 11:33:15.776 [127057308281656] DEBUG - Request: [127.0.0.1:56258 (Loopback)] GET /channels/all (2 live) #3e GZIP Token ()
+Dec 20, 2025 11:33:15.777 [127057349827384] DEBUG - Completed: [127.0.0.1:56258] 200 GET /channels/all (2 live) #3e GZIP 0ms 387 bytes
+Dec 20, 2025 11:33:15.814 [127057335782200] DEBUG - [HttpClient/HCl#e4] HTTP/1.1 (0.5s) 200 response from GET http://127.0.0.1:46729/system/notify/serverUpdated?host=127.0.0.1 (reused)
+Dec 20, 2025 11:33:15.814 [127057329453880] DEBUG - [NSB] [com.plexapp.system] HTTP reply status 200, with 0 bytes of content.
+Dec 20, 2025 11:35:00.560 [127057338071864] DEBUG - Butler: we're outside the window, stopping.
+Dec 20, 2025 11:35:01.037 [127057321016120] DEBUG - Butler: Canceling delayed task 'ButlerTaskGenerateCreditsMarkers'.
+Dec 20, 2025 11:35:01.037 [127057321016120] DEBUG - Butler: Canceling delayed task 'RefreshEpgGuides'.
+Dec 20, 2025 11:35:01.037 [127057321016120] DEBUG - Butler: Done doing work.
+Dec 20, 2025 11:35:01.040 [127057321016120] DEBUG - Activity: Ended activity a7c1a0e5-baef-4ebd-a357-919b23ea37ab.
+Dec 20, 2025 11:35:43.012 [127057338071864] DEBUG - [HCl#e5] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 11:35:43.291 [127057335782200] DEBUG - [HttpClient/HCl#e5] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 11:35:43.300 [127057338071864] DEBUG - [HCl#e6] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 11:35:43.385 [127057335782200] DEBUG - [HttpClient/HCl#e6] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 11:35:43.385 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 11:35:43.386 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 11:40:43.337 [127057338071864] DEBUG - [HCl#e7] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 11:40:43.615 [127057335782200] DEBUG - [HttpClient/HCl#e7] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 11:40:43.623 [127057338071864] DEBUG - [HCl#e8] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 11:40:43.715 [127057335782200] DEBUG - [HttpClient/HCl#e8] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 11:40:43.715 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 11:40:43.715 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 11:45:43.670 [127057327344440] DEBUG - [HCl#e9] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 11:45:43.978 [127057335782200] DEBUG - [HttpClient/HCl#e9] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 11:45:43.984 [127057327344440] DEBUG - [HCl#ea] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 11:45:44.068 [127057335782200] DEBUG - [HttpClient/HCl#ea] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 11:45:44.069 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 11:45:44.069 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 11:50:44.023 [127057338071864] DEBUG - [HCl#eb] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 11:50:44.339 [127057335782200] DEBUG - [HttpClient/HCl#eb] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 11:50:44.351 [127057338071864] DEBUG - [HCl#ec] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 11:50:44.445 [127057335782200] DEBUG - [HttpClient/HCl#ec] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 11:50:44.445 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 11:50:44.446 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 11:55:44.416 [127057327344440] DEBUG - [HCl#ed] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 11:55:44.713 [127057335782200] DEBUG - [HttpClient/HCl#ed] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 11:55:44.732 [127057327344440] DEBUG - [HCl#ee] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 11:55:44.815 [127057335782200] DEBUG - [HttpClient/HCl#ee] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 11:55:44.816 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 11:55:44.816 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 12:00:44.777 [127057327344440] DEBUG - [HCl#ef] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:00:45.067 [127057335782200] DEBUG - [HttpClient/HCl#ef] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:00:45.086 [127057327344440] DEBUG - [HCl#f0] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:00:45.178 [127057335782200] DEBUG - [HttpClient/HCl#f0] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 12:00:45.178 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:00:45.179 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 12:05:45.136 [127057325235000] DEBUG - [HCl#f1] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:05:45.444 [127057335782200] DEBUG - [HttpClient/HCl#f1] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:05:45.450 [127057325235000] DEBUG - [HCl#f2] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:05:45.535 [127057335782200] DEBUG - [HttpClient/HCl#f2] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 12:05:45.535 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:05:45.535 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 12:10:45.478 [127057327344440] DEBUG - [HCl#f3] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:10:45.775 [127057335782200] DEBUG - [HttpClient/HCl#f3] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:10:45.782 [127057327344440] DEBUG - [HCl#f4] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:10:45.871 [127057335782200] DEBUG - [HttpClient/HCl#f4] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 12:10:45.871 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:10:45.871 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 12:15:45.826 [127057338071864] DEBUG - [HCl#f5] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:15:46.106 [127057335782200] DEBUG - [HttpClient/HCl#f5] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:15:46.127 [127057338071864] DEBUG - [HCl#f6] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:15:46.210 [127057335782200] DEBUG - [HttpClient/HCl#f6] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 12:15:46.210 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:15:46.210 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 12:20:46.172 [127057325235000] DEBUG - [HCl#f7] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:20:46.479 [127057335782200] DEBUG - [HttpClient/HCl#f7] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:20:46.490 [127057325235000] DEBUG - [HCl#f8] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:20:46.581 [127057335782200] DEBUG - [HttpClient/HCl#f8] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 12:20:46.582 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:20:46.582 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 12:25:46.535 [127057338071864] DEBUG - [HCl#f9] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:25:47.035 [127057335782200] DEBUG - [HttpClient/HCl#f9] HTTP/1.1 (0.5s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:25:47.043 [127057338071864] DEBUG - [HCl#fa] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:25:47.127 [127057335782200] DEBUG - [HttpClient/HCl#fa] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 12:25:47.127 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:25:47.127 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 12:30:47.086 [127057325235000] DEBUG - [HCl#fb] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:30:47.371 [127057335782200] DEBUG - [HttpClient/HCl#fb] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:30:47.377 [127057325235000] DEBUG - [HCl#fc] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:30:47.462 [127057335782200] DEBUG - [HttpClient/HCl#fc] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 12:30:47.462 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:30:47.463 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 12:35:47.400 [127057321016120] DEBUG - [HCl#fd] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:35:47.695 [127057335782200] DEBUG - [HttpClient/HCl#fd] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:35:47.702 [127057321016120] DEBUG - [HCl#fe] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:35:47.788 [127057335782200] DEBUG - [HttpClient/HCl#fe] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 12:35:47.788 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:35:47.788 [127057321016120] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 12:40:47.713 [127057338071864] DEBUG - [HCl#ff] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:40:48.009 [127057335782200] DEBUG - [HttpClient/HCl#ff] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:40:48.017 [127057338071864] DEBUG - [HCl#100] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:40:48.104 [127057335782200] DEBUG - [HttpClient/HCl#100] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 12:40:48.104 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:40:48.104 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 12:45:48.046 [127057338071864] DEBUG - [HCl#101] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:45:48.450 [127057335782200] DEBUG - [HttpClient/HCl#101] HTTP/1.1 (0.4s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:45:48.459 [127057338071864] DEBUG - [HCl#102] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:45:48.546 [127057335782200] DEBUG - [HttpClient/HCl#102] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 12:45:48.546 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:45:48.546 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 12:50:48.496 [127057338071864] DEBUG - [HCl#103] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:50:48.799 [127057335782200] DEBUG - [HttpClient/HCl#103] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:50:48.817 [127057338071864] DEBUG - [HCl#104] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:50:48.904 [127057335782200] DEBUG - [HttpClient/HCl#104] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 12:50:48.905 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:50:48.905 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 12:55:48.858 [127057338071864] DEBUG - [HCl#105] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:55:49.143 [127057335782200] DEBUG - [HttpClient/HCl#105] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 12:55:49.164 [127057338071864] DEBUG - [HCl#106] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:55:49.269 [127057335782200] DEBUG - [HttpClient/HCl#106] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 12:55:49.269 [127057327344440] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 12:55:49.269 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 13:00:49.220 [127057338071864] DEBUG - [HCl#107] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:00:50.588 [127057335782200] DEBUG - [HttpClient/HCl#107] HTTP/1.1 (1.4s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:00:50.594 [127057338071864] DEBUG - [HCl#108] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:00:51.524 [127057335782200] DEBUG - [HttpClient/HCl#108] HTTP/1.1 (0.9s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 13:00:51.524 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:00:51.524 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 13:05:51.474 [127057327344440] DEBUG - [HCl#109] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:05:51.758 [127057335782200] DEBUG - [HttpClient/HCl#109] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:05:51.789 [127057327344440] DEBUG - [HCl#10a] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:05:51.883 [127057335782200] DEBUG - [HttpClient/HCl#10a] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 13:05:51.884 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:05:51.884 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 13:10:51.829 [127057327344440] DEBUG - [HCl#10b] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:10:52.143 [127057335782200] DEBUG - [HttpClient/HCl#10b] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:10:52.169 [127057327344440] DEBUG - [HCl#10c] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:10:52.251 [127057335782200] DEBUG - [HttpClient/HCl#10c] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 13:10:52.251 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:10:52.251 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 13:15:52.215 [127057338071864] DEBUG - [HCl#10d] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:15:52.513 [127057335782200] DEBUG - [HttpClient/HCl#10d] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:15:52.535 [127057338071864] DEBUG - [HCl#10e] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:15:52.628 [127057335782200] DEBUG - [HttpClient/HCl#10e] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 13:15:52.628 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:15:52.628 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 13:20:52.577 [127057325235000] DEBUG - [HCl#10f] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:20:52.864 [127057335782200] DEBUG - [HttpClient/HCl#10f] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:20:52.878 [127057325235000] DEBUG - [HCl#110] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:20:52.958 [127057335782200] DEBUG - [HttpClient/HCl#110] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 13:20:52.959 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:20:52.959 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 13:25:52.912 [127057327344440] DEBUG - [HCl#111] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:25:53.217 [127057335782200] DEBUG - [HttpClient/HCl#111] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:25:53.228 [127057327344440] DEBUG - [HCl#112] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:25:53.316 [127057335782200] DEBUG - [HttpClient/HCl#112] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 13:25:53.316 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:25:53.316 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 13:30:53.268 [127057325235000] DEBUG - [HCl#113] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:30:53.572 [127057335782200] DEBUG - [HttpClient/HCl#113] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:30:53.583 [127057325235000] DEBUG - [HCl#114] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:30:53.674 [127057335782200] DEBUG - [HttpClient/HCl#114] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 13:30:53.674 [127057338071864] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:30:53.675 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 13:35:53.628 [127057327344440] DEBUG - [HCl#115] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:35:53.913 [127057335782200] DEBUG - [HttpClient/HCl#115] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:35:53.929 [127057327344440] DEBUG - [HCl#116] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:35:54.010 [127057335782200] DEBUG - [HttpClient/HCl#116] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 13:35:54.010 [127057338071864] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:35:54.010 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 13:40:53.963 [127057325235000] DEBUG - [HCl#117] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:40:54.262 [127057335782200] DEBUG - [HttpClient/HCl#117] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:40:54.268 [127057325235000] DEBUG - [HCl#118] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:40:54.357 [127057335782200] DEBUG - [HttpClient/HCl#118] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 13:40:54.357 [127057338071864] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:40:54.357 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 13:45:54.315 [127057327344440] DEBUG - [HCl#119] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:45:54.618 [127057335782200] DEBUG - [HttpClient/HCl#119] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:45:54.639 [127057327344440] DEBUG - [HCl#11a] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:45:54.715 [127057335782200] DEBUG - [HttpClient/HCl#11a] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 13:45:54.715 [127057338071864] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:45:54.715 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 13:50:54.671 [127057327344440] DEBUG - [HCl#11b] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:50:55.034 [127057335782200] DEBUG - [HttpClient/HCl#11b] HTTP/1.1 (0.4s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:50:55.051 [127057327344440] DEBUG - [HCl#11c] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:50:55.149 [127057335782200] DEBUG - [HttpClient/HCl#11c] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 13:50:55.149 [127057338071864] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:50:55.149 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 13:55:55.095 [127057325235000] DEBUG - [HCl#11d] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:55:55.398 [127057335782200] DEBUG - [HttpClient/HCl#11d] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 13:55:55.423 [127057325235000] DEBUG - [HCl#11e] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:55:55.524 [127057335782200] DEBUG - [HttpClient/HCl#11e] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 13:55:55.524 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 13:55:55.524 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 14:00:55.470 [127057325235000] DEBUG - [HCl#11f] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:00:55.789 [127057335782200] DEBUG - [HttpClient/HCl#11f] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:00:55.804 [127057325235000] DEBUG - [HCl#120] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:00:55.886 [127057335782200] DEBUG - [HttpClient/HCl#120] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 14:00:55.886 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:00:55.886 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 14:05:55.824 [127057325235000] DEBUG - [HCl#121] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:05:56.124 [127057335782200] DEBUG - [HttpClient/HCl#121] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:05:56.144 [127057325235000] DEBUG - [HCl#122] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:05:56.231 [127057335782200] DEBUG - [HttpClient/HCl#122] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 14:05:56.231 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:05:56.232 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 14:10:56.166 [127057327344440] DEBUG - [HCl#123] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:10:56.435 [127057335782200] DEBUG - [HttpClient/HCl#123] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:10:56.453 [127057327344440] DEBUG - [HCl#124] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:10:56.542 [127057335782200] DEBUG - [HttpClient/HCl#124] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 14:10:56.542 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:10:56.542 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 14:15:56.488 [127057325235000] DEBUG - [HCl#125] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:15:56.788 [127057335782200] DEBUG - [HttpClient/HCl#125] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:15:56.798 [127057325235000] DEBUG - [HCl#126] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:15:56.881 [127057335782200] DEBUG - [HttpClient/HCl#126] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 14:15:56.881 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:15:56.881 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 14:20:56.835 [127057338071864] DEBUG - [HCl#127] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:20:57.134 [127057335782200] DEBUG - [HttpClient/HCl#127] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:20:57.152 [127057338071864] DEBUG - [HCl#128] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:20:57.235 [127057335782200] DEBUG - [HttpClient/HCl#128] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 14:20:57.235 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:20:57.235 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 14:25:57.188 [127057327344440] DEBUG - [HCl#129] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:25:57.494 [127057335782200] DEBUG - [HttpClient/HCl#129] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:25:57.512 [127057327344440] DEBUG - [HCl#12a] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:25:57.596 [127057335782200] DEBUG - [HttpClient/HCl#12a] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 14:25:57.596 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:25:57.596 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 14:30:57.557 [127057327344440] DEBUG - [HCl#12b] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:30:57.848 [127057335782200] DEBUG - [HttpClient/HCl#12b] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:30:57.858 [127057327344440] DEBUG - [HCl#12c] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:30:57.943 [127057335782200] DEBUG - [HttpClient/HCl#12c] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 14:30:57.943 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:30:57.943 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 14:35:57.909 [127057327344440] DEBUG - [HCl#12d] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:35:58.208 [127057335782200] DEBUG - [HttpClient/HCl#12d] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:35:58.215 [127057327344440] DEBUG - [HCl#12e] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:35:58.306 [127057335782200] DEBUG - [HttpClient/HCl#12e] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 14:35:58.306 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:35:58.306 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 14:40:58.266 [127057338071864] DEBUG - [HCl#12f] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:40:58.561 [127057335782200] DEBUG - [HttpClient/HCl#12f] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:40:58.570 [127057338071864] DEBUG - [HCl#130] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:40:58.653 [127057335782200] DEBUG - [HttpClient/HCl#130] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 14:40:58.653 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:40:58.653 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 14:45:58.607 [127057338071864] DEBUG - [HCl#131] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:45:58.903 [127057335782200] DEBUG - [HttpClient/HCl#131] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:45:58.928 [127057338071864] DEBUG - [HCl#132] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:45:59.012 [127057335782200] DEBUG - [HttpClient/HCl#132] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 14:45:59.012 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:45:59.012 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 14:50:58.971 [127057338071864] DEBUG - [HCl#133] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:50:59.270 [127057335782200] DEBUG - [HttpClient/HCl#133] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:50:59.277 [127057338071864] DEBUG - [HCl#134] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:50:59.362 [127057335782200] DEBUG - [HttpClient/HCl#134] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 14:50:59.362 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:50:59.362 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 14:55:59.305 [127057325235000] DEBUG - [HCl#135] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:55:59.587 [127057335782200] DEBUG - [HttpClient/HCl#135] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 14:55:59.602 [127057325235000] DEBUG - [HCl#136] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:55:59.700 [127057335782200] DEBUG - [HttpClient/HCl#136] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 14:55:59.700 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 14:55:59.700 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 14:59:56.867 [127057321016120] DEBUG - BPQ: garbageCollect - version - not forced - -1
+Dec 20, 2025 14:59:56.867 [127057321016120] DEBUG - Versions: garbage collecting
+Dec 20, 2025 14:59:56.869 [127057321016120] DEBUG - Versions: garbage collected in 0.0 seconds
+Dec 20, 2025 14:59:56.869 [127057321016120] DEBUG - BPQ: garbageCollect - download - not forced - -1
+Dec 20, 2025 15:00:59.638 [127057327344440] DEBUG - [HCl#137] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 15:00:59.943 [127057335782200] DEBUG - [HttpClient/HCl#137] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 15:00:59.953 [127057327344440] DEBUG - [HCl#138] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 15:01:00.043 [127057335782200] DEBUG - [HttpClient/HCl#138] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 15:01:00.044 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 15:01:00.044 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 15:06:00.007 [127057338071864] DEBUG - [HCl#139] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 15:06:00.299 [127057335782200] DEBUG - [HttpClient/HCl#139] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 15:06:00.306 [127057338071864] DEBUG - [HCl#13a] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 15:06:00.394 [127057335782200] DEBUG - [HttpClient/HCl#13a] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 15:06:00.395 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 15:06:00.395 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 15:11:00.353 [127057327344440] DEBUG - [HCl#13b] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 15:11:00.652 [127057335782200] DEBUG - [HttpClient/HCl#13b] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 15:11:00.660 [127057327344440] DEBUG - [HCl#13c] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 15:11:00.749 [127057335782200] DEBUG - [HttpClient/HCl#13c] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 15:11:00.749 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 15:11:00.749 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 15:16:00.716 [127057327344440] DEBUG - [HCl#13d] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 15:16:01.005 [127057335782200] DEBUG - [HttpClient/HCl#13d] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 15:16:01.016 [127057327344440] DEBUG - [HCl#13e] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 15:16:01.102 [127057335782200] DEBUG - [HttpClient/HCl#13e] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 15:16:01.103 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 15:16:01.103 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 15:21:01.054 [127057325235000] DEBUG - [HCl#13f] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 15:21:01.370 [127057335782200] DEBUG - [HttpClient/HCl#13f] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 15:21:01.385 [127057325235000] DEBUG - [HCl#140] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 15:21:01.467 [127057335782200] DEBUG - [HttpClient/HCl#140] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 15:21:01.467 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 15:21:01.468 [127057325235000] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 15:26:01.424 [127057338071864] DEBUG - [HCl#141] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 15:26:01.741 [127057335782200] DEBUG - [HttpClient/HCl#141] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 15:26:01.754 [127057338071864] DEBUG - [HCl#142] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 15:26:01.838 [127057335782200] DEBUG - [HttpClient/HCl#142] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 15:26:01.838 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 15:26:01.838 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 15:31:01.796 [127057327344440] DEBUG - [HCl#143] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 15:31:02.090 [127057335782200] DEBUG - [HttpClient/HCl#143] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 15:31:02.098 [127057327344440] DEBUG - [HCl#144] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 15:31:02.180 [127057335782200] DEBUG - [HttpClient/HCl#144] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 15:31:02.180 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 15:31:02.180 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 15:36:02.137 [127057338071864] DEBUG - [HCl#145] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 15:36:02.434 [127057335782200] DEBUG - [HttpClient/HCl#145] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 15:36:02.439 [127057338071864] ERROR - SafelyWriteFile: failed to write over "/config/Library/Application Support/Plex Media Server/Cache/Flags.dat": fwrite: I/O error
+Dec 20, 2025 15:36:02.441 [127057338071864] DEBUG - [HCl#146] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 15:36:02.528 [127057335782200] DEBUG - [HttpClient/HCl#146] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 15:36:02.528 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 15:36:02.528 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 15:41:02.485 [127057327344440] DEBUG - [HCl#147] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 15:41:02.767 [127057335782200] DEBUG - [HttpClient/HCl#147] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 15:41:02.774 [127057327344440] DEBUG - [HCl#148] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 15:41:02.857 [127057335782200] DEBUG - [HttpClient/HCl#148] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 15:41:02.857 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 15:41:02.857 [127057327344440] WARN - FeatureManager: Couldn't get features. Trying again soon.
+Dec 20, 2025 15:46:02.819 [127057338071864] DEBUG - [HCl#149] HTTP requesting GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 15:46:03.109 [127057335782200] DEBUG - [HttpClient/HCl#149] HTTP/1.1 (0.3s) 200 response from GET https://plex.tv/api/v2/features?X-Plex-Token=
+Dec 20, 2025 15:46:03.123 [127057338071864] DEBUG - [HCl#14a] HTTP requesting GET https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 15:46:03.210 [127057335782200] DEBUG - [HttpClient/HCl#14a] HTTP/1.1 (0.1s) 401 response from GET https://plex.tv/api/v2/server/users/features (reused)
+Dec 20, 2025 15:46:03.210 [127057321016120] ERROR - MyPlex: Error 401 requesting JSON from: https://plex.tv/api/v2/server/users/features
+Dec 20, 2025 15:46:03.210 [127057338071864] WARN - FeatureManager: Couldn't get features. Trying again soon.
