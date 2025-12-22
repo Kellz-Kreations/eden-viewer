@@ -1,4 +1,0 @@
-Dec 20, 2025 16:34:43.241 [133060072717112] INFO - Crash Uploader - Platform: Linux ServerUUID: dd268c112884cf21776d2496179e93a2f35ab5d9 UserId: NOUSERID Version: 1.42.2.10156-f737b826c
-Dec 20, 2025 16:34:43.241 [133060072717112] INFO - Pre-processed minidump directory: /config/Library/Application Support/Plex Media Server/Crash Reports/1.42.2.10156-f737b826c
-Dec 20, 2025 16:34:43.241 [133060072717112] INFO - Post-processed minidump directory: /run/plex-temp
-Dec 20, 2025 16:34:43.251 [133060100638728] INFO - Crash Uploader - Processing Complete.
