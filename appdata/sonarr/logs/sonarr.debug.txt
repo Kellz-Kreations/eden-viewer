@@ -5712,3 +5712,4 @@ Service Unavailable
 2025-12-22 05:16:45.1|Info|DownloadDecisionMaker|No results found
 2025-12-22 05:16:45.1|Info|RssSyncService|RSS Sync Completed. Reports found: 0, Reports grabbed: 0
 2025-12-22 05:16:45.2|Debug|PendingReleaseService|Removing failed releases from pending
+2025-12-22 05:20:15.1|Debug|ImportListSyncService|No import lists with automatic add enabled
