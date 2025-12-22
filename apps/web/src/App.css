@@ -250,6 +250,20 @@
   color: #b91c1c;
 }
 
+.banner {
+  padding: 0.85rem 1.25rem;
+  border-radius: 16px;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  border: 1px solid transparent;
+}
+
+.banner--error {
+  color: #9b1c1c;
+  background: rgba(248, 113, 113, 0.15);
+  border-color: rgba(220, 38, 38, 0.35);
+}
+
 .ladder-diagram {
   display: flex;
   flex-direction: column;

@@ -38,7 +38,13 @@ services/api        # Express backend for Graph access
 
    When ready to use live data, set `GRAPH_MOCK_MODE=false` and provide Azure AD credentials (`AZURE_TENANT_ID`, `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`).
 
-3. **Run the backend API**
+3. **Enable Microsoft sign-in (optional)**
+
+   - Populate `apps/web/.env.local` with `VITE_AZURE_CLIENT_ID`, `VITE_AZURE_TENANT_ID`, and `VITE_REDIRECT_URI` that match your Azure AD application registration.
+   - Until those values are defined, the UI stays in **mock mode** (no Microsoft login flow) and the **Sign in with Microsoft** button will display guidance when clicked.
+   - After updating environment variables, restart both dev servers so Vite picks up the new configuration.
+
+4. **Run the backend API**
 
    ```bash
    cd services/api
@@ -50,7 +56,7 @@ services/api        # Express backend for Graph access
    - `GET /healthz` – health probe
    - `POST /api/call-records/:callId` – returns normalized SIP ladder data
 
-4. **Run the frontend app**
+5. **Run the frontend app**
 
    ```bash
    cd apps/web
@@ -58,6 +64,12 @@ services/api        # Express backend for Graph access
    ```
 
    Open `http://localhost:5173` to load the web app.
+
+## Troubleshooting Sign-in
+
+- If the **Sign in with Microsoft** button immediately shows a configuration warning, double-check the values in `apps/web/.env.local` and `services/api/.env.local`.
+- Ensure your Azure AD application includes the redirect URI used locally (default `http://localhost:5173`) and the delegated permission `CallRecords.Read.All`.
+- After granting admin consent for the permission, sign out and back in from the app to refresh tokens.
 
 ## Authentication Flow
 

@@ -1,7 +1,7 @@
 import { useMsal } from '@azure/msal-react';
 import { useCallback, useState } from 'react';
 
-import { GRAPH_SCOPES } from '../auth/msalInstance';
+import { GRAPH_SCOPES, authConfig } from '../auth/msalInstance';
 import { httpClient } from '../api/httpClient';
 import type { SipLadder } from '../types/ladder';
 
@@ -33,7 +33,7 @@ export const useSipLadder = () => {
 
     let authorization: string | undefined;
 
-    if (accounts.length > 0 && GRAPH_SCOPES.length > 0) {
+    if (authConfig.isConfigured && accounts.length > 0 && GRAPH_SCOPES.length > 0) {
       try {
         const tokenResponse = await instance.acquireTokenSilent({
           account: accounts[0],

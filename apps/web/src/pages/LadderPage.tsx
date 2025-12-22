@@ -1,16 +1,18 @@
 import { AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { SignInButton } from '../components/AuthButtons';
 import { CallLookupForm } from '../components/CallLookupForm';
 import { SipLadderDiagram } from '../components/SipLadderDiagram';
 import { useSipLadder } from '../hooks/useSipLadder';
+import { authConfig } from '../auth/msalInstance';
 
 export const LadderPage = () => {
   const { callId } = useParams<{ callId: string }>();
   const navigate = useNavigate();
   const { status, ladder, error, fetchLadder } = useSipLadder();
+  const [authError, setAuthError] = useState<string | null>(null);
 
   useEffect(() => {
     if (callId) {
@@ -20,9 +22,10 @@ export const LadderPage = () => {
 
   const handleLookup = async (id: string) => {
     navigate(`/ladder/${encodeURIComponent(id)}`);
+    setAuthError(null);
   };
 
-  const requireAuth = Boolean(import.meta.env.VITE_AZURE_CLIENT_ID);
+  const requireAuth = authConfig.isConfigured;
   const allowMockSample = !requireAuth;
 
   const ladderContent = (
@@ -66,6 +69,12 @@ export const LadderPage = () => {
         <p>Visualize SIP signaling hops captured by Microsoft Graph call records.</p>
       </header>
 
+      {authError ? (
+        <div className="banner banner--error" role="alert">
+          {authError}
+        </div>
+      ) : null}
+
       {requireAuth ? (
         <>
           <AuthenticatedTemplate>{ladderContent}</AuthenticatedTemplate>
@@ -73,7 +82,7 @@ export const LadderPage = () => {
             <section className="card card--centered">
               <h3>Authentication required</h3>
               <p>Please sign in with a Microsoft account that has access to Teams call diagnostics.</p>
-              <SignInButton />
+              <SignInButton onAuthError={setAuthError} />
             </section>
           </UnauthenticatedTemplate>
         </>
